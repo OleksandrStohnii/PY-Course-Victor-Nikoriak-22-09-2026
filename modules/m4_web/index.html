@@ -1,0 +1,3249 @@
+
+<!doctype html>
+<html lang="uk" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Курс Python українською — від основ до просунутих тем, у форматі книги">
+      
+      
+      
+        <link rel="canonical" href="https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m4_web/">
+      
+      
+        <link rel="prev" href="../m3/lesson_31/">
+      
+      
+        <link rel="next" href="../m4/lesson_32/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Огляд модуля - PY Course — Viktor Nikoriak</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#4-web-web-advanced" class="md-skip">
+          Перейти до змісту
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Хедер">
+    <a href="../.." title="PY Course — Viktor Nikoriak" class="md-header__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PY Course — Viktor Nikoriak
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Огляд модуля
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Пошук" placeholder="Пошук" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Шукати">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистити" aria-label="Очистити" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Пошук розпочато
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Вкладки" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Головна
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../00_getting_started/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Як користуватися
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Модулі курсу (в розробці)
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../00_python_mental_model/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Довідник
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Навігація" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="PY Course — Viktor Nikoriak" class="md-nav__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    PY Course — Viktor Nikoriak
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Головна
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../00_getting_started/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Як користуватися
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Модулі курсу (в розробці)
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Модулі курсу (в розробці)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../m1/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М1. Основи Python
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М1. Основи Python
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m1/lesson_01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Вступ: формат курсу, AI-політика
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m1/lesson_02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Перші кроки
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m1/lesson_03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Змінні та базові типи даних
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m1/lesson_04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Умови та цикли
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m1/lesson_05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Списки, кортежі, множини
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m1/lesson_06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Словники, for, comprehensions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m1/lesson_08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Функції
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m1/lesson_09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. П1. Big O + базові задачі
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m1/lesson_10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Декоратори
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m1/lesson_11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Ітератори й генератори
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m1/lesson_12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. П2. Пошук
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m1/lesson_13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Модулі та стандартна бібліотека
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m1/lesson_14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Винятки та обробка помилок
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m1/lesson_15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Файли I/O, JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m1/lesson_16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Git & GitHub: система
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m1/lesson_17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. П3. Хеш-структури
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m1/lesson_18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Узагальнення + фінальний проєкт
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М2. Python Advanced
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М2. Python Advanced
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m2_python_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m2/lesson_19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Функції як об'єкти першого класу
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m2/lesson_20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Класи, простір імен
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m2/lesson_21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    21. Наслідування, поліморфізм
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m2/lesson_22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    22. Інкапсуляція, область видимості
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m2/lesson_23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    23. П4. Рекурсія, divide & conquer, backtracking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m2/lesson_24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    24. @property, декоратори класів, dunder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m2/lesson_25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    25. Ітератори advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m2/lesson_26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    26. Тестування з pytest (+ валідація AI-коду)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m2/lesson_27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    27. П5. Динамічне програмування + greedy (вступ)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m2/lesson_28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    28. Потоки, multiprocessing, asyncio: вступ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m2/lesson_29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    29. П6. Stack, Queue, Heap, Trie + LRU → ООП-пакет
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М3. Бази даних
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М3. Бази даних
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m3_databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../m3/bonus_pandas/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. Pandas: аналіз даних, графіки і Dash
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m3/lesson_30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    30. Основи SQL (PostgreSQL)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m3/lesson_31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    31. Redis overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М4. Web (+ Web Advanced)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М4. Web (+ Web Advanced)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m4/lesson_32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    32. HTTP: requests, httpx, aiohttp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m4/lesson_33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    33. REST: принципи дизайну API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m4/lesson_34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    34. Django intro: MVT, ORM, admin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m4/lesson_35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    35. Django: forms, HTML practice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m4/lesson_36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    36. DRF overview + Django vs FastAPI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m4/lesson_37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    37. Typing + Pydantic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../m4/lesson_38/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    38. FastAPI basics + Postman + OpenAPI
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m4/lesson_39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    39. FastAPI + SQLAlchemy: повний CRUD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m4/lesson_40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    40. Middlewares і кешування (Redis на практиці)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m4/lesson_41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    41. Автентифікація та security basics (JWT, hashing, OWASP)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m4/lesson_42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    42. Тестування API (pytest + httpx)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../m4/lesson_43/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    43. AI-інструменти розробника + ризики й валідація
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m4/lesson_44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    44. Інтеграція LLM API (Gemini / Anthropic)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m4/lesson_45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    45. Архітектура застосунків і патерни
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m4/lesson_46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    46. WebSockets + практика: чат
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m4/lesson_47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    47. Security advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m4/lesson_48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    48. Telegram Bot API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М5. Production
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М5. Production
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m5_production/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../m5/bonus_linux/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. Linux для розробника
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m5/lesson_49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    49. Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m5/lesson_50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    50. Docker Compose + деплой
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m5/lesson_51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    51. CI/CD (GitHub Actions)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М6. Капстоун
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М6. Капстоун
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m6_capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m6/lesson_52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    52. Робота над фінальним проєктом
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m6/lesson_53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    53. Випускний: питч фінального проєкту
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../m6/bonus_cv/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. CV розробника
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bonus_ai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Self-paced. AI для розробників (бонус)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../00_python_mental_model/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Довідник
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Навігація" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Головна
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Модулі курсу (в розробці)
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    М4. Web (+ Web Advanced)
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="4-web-web-advanced">М4. Web (+ Web Advanced)<a class="headerlink" href="#4-web-web-advanced" title="Permanent link">&para;</a></h1>
+<p>Програми говорять мережею: спершу — як клієнт до чужих API, далі — власні сервери на Django і FastAPI.</p>
+<p>Уроки модуля:</p>
+<ul>
+<li><a href="../m4/lesson_32/">Урок 32. HTTP: requests, httpx, aiohttp</a> — шлях запиту: URL, IP і DNS, порти, TCP-рукостискання, TLS; HTTP як текст (запит сокетом), методи й статус-коди; <code>requests</code>: <code>params</code>, <code>json</code>, заголовки й токен, <code>raise_for_status</code>, тайм-аути й ієрархія винятків, повторні спроби з backoff і чому не для <code>POST</code>, <code>Session</code>; справжній API PyPI; <code>httpx</code> і <code>AsyncClient</code> + <code>gather</code>, <code>aiohttp</code>, потоки; архітектура: свій клієнт до API з доменними винятками, вибір бібліотеки. Практика — на навчальному API диспетчерської <code>smachno_api.py</code>.</li>
+<li><a href="../m4/lesson_33/">Урок 33. REST: принципи дизайну API</a> — метео-API викладача (телеграми SYNOP з ogimet.com, <code>pymetdecoder</code>): усі типи API на одних даних — HTTP+CSV, JSON-RPC, GraphQL, SOAP, gRPC, WebSocket, SSE, webhook з підписом HMAC — і як обрати; REST: ресурси й URL, методи й ідемпотентність, статус-коди й формат помилок, фільтри, <code>fields</code>, пагінація, <code>PATCH</code>, <code>202 Accepted</code>, OpenAPI; кейс v1 → v2; архітектура: репозиторій → FastAPI → клієнт-клас → Streamlit-карта погоди, Docker Compose.</li>
+<li><a href="../m4/lesson_34/">Урок 34. Django intro: MVT, ORM, admin</a> — перший крок застосунку нотаток, що виросте до <a href="https://github.com/NikoriakViktot/notes_chat_app">Notes Chat App</a> викладача (кроки 1–2 маршруту <a href="https://nikoriakviktot.github.io/notes_chat_app/tutorials/">Zero to Hero</a> Django-книги): <code>startproject</code> / <code>startapp</code>, <code>settings.py</code>, MVT і шлях запиту, view, <code>path</code> / <code>include</code>, модель <code>Note</code>, <code>makemigrations</code> / <code>sqlmigrate</code> / <code>migrate</code>, ORM (<code>create</code>, <code>filter</code>, lookups, <code>get</code>, лінивий QuerySet, <code>.query</code>, <code>update</code>, <code>delete</code>), шаблон, адмінка й суперкористувач; практика — <code>is_pinned</code>, <code>priority</code>, блокноти.</li>
+<li><a href="../m4/lesson_35/">Урок 35. Django: forms, HTML practice</a> — два рефакторинги проєкту уроку 34 на стартовому коді (кроки 2 і 4 Django-книги): голий HTML → Bootstrap CRUD (<code>ModelForm</code>, PRG, <code>messages</code>, <code>base.html</code>, CSRF) і Bootstrap → crispy dashboard (3-рівневі шаблони, <code>FormHelper</code> + <code>Layout</code>, context processor); «Знайди помилку» — <code>is_pinned</code> губиться при створенні.</li>
+<li><a href="../m4/lesson_36/">Урок 36. DRF overview + Django vs FastAPI</a> — рефакторинг 3 проєкту уроку 35: REST API поруч зі сторінками поверх тих самих services/selectors (код з Django-книги): <code>REST_FRAMEWORK</code>, вхідний і вихідний серіалізатори, <code>ViewSet</code> + <code>DefaultRouter</code>, <code>@action</code> <code>pin</code>, <code>IsAuthenticated</code> і чому <code>403</code>, IDOR → <code>404</code>, <code>PATCH</code> з <code>partial=True</code>, browsable API, OpenAPI (drf-spectacular + <code>extend_schema</code>), тести; той самий API на FastAPI і як обрати; «Знайди помилку» — <code>auto_now</code> не оновлюється з <code>update_fields</code>.</li>
+<li><a href="../m4/lesson_37/">Урок 37. Typing + Pydantic</a> — крок 1 новинного агрегатора (FastAPI-гілка): стартовий парсер <code>parse_rbc_news</code> з анотаціями типів (<code>list[RawNews]</code>, <code>TypedDict</code>, <code>X | None</code>, <code>Literal</code>), <code>mypy</code> і <code>--strict</code>, модель <code>NewsItem</code> на Pydantic (<code>Field</code>, <code>field_validator</code>, <code>model_validator(mode="before")</code>, <code>frozen</code>), перевірка знімка 168 справжніх новин rbc.ua, <code>validate_news</code> без мовчазних втрат, JSON Schema, <code>TypeAdapter</code>; «Знайди помилку» — URL, розібраний рядком.</li>
+<li><a href="../m4/lesson_38/">Урок 38. FastAPI basics + Postman + OpenAPI</a> — крок 2 агрегатора: FastAPI над <code>NewsItem</code> з прототипу <code>news_dashboard</code> — маршрути, <code>Query</code> і <code>Literal</code>, <code>422</code>, <code>response_model</code>; сховище через <code>Depends</code> і <code>lifespan</code>, підміна залежностей у тестах; <code>POST /api/scrape</code> (aiohttp, <code>gather</code>, знімок, захист від SSRF); <code>/docs</code> і <code>/openapi.json</code>; колекція Postman з перевірками і newman; виміри <code>fastapi_demo</code>: <code>async def</code> + <code>time.sleep</code> — 20 запитів за 40 с, <code>def</code> і <code>await</code> — за 2 с (і як тест навантаження вимірював сам себе). Довідник: <a href="../m4/fastapi/fastapi_documentation/">FastAPI — архітектура і async</a>.</li>
+<li><a href="../m4/lesson_39/">Урок 39. FastAPI + SQLAlchemy: повний CRUD</a> — крок 3 агрегатора: <code>NewsStore</code> → PostgreSQL/SQLite на шарі бази стартового <code>production_bot</code> — async-engine і сесія на запит (<code>get_db</code>), <code>NewsRow</code> (<code>Mapped</code>), <code>NewsRepository</code> з тим самим інтерфейсом, SQL, який генерує SQLAlchemy, <code>INSERT … ON CONFLICT DO NOTHING</code> покроково (і чому id «перескакують»); повний CRUD <code>201/404/409/204</code>, пошук; Alembic-міграції; з FastAPI 0.118 COMMIT у <code>yield</code>-залежності йде після відповіді → <code>scope="function"</code>; «Знайди помилку» — гонка «перевір, потім встав».</li>
+<li><a href="../m4/lesson_40/">Урок 40. Middlewares і кешування (Redis на практиці)</a> — крок 4 агрегатора: HTTP-middleware (<code>X-Request-ID</code>, <code>X-Process-Time</code>, порядок шарів покроково); кеш <code>GET /api/news</code> і <code>/stats</code> у Redis (cache-aside, версія кешу, інвалідація <strong>після COMMIT</strong>); rate limit зі стартового <code>ai_bot</code> — <code>429</code> і <code>Retry-After</code>, атомарні <code>INCR</code> + <code>EXPIRE NX</code> замість «ключ без TTL блокує назавжди», межа фіксованого вікна виміряна; фоновий збір <code>202</code> + статус у Redis з polling; «Знайди помилку» — сесія запиту у фоновій задачі: «збережено 168», а в базі 0.</li>
+<li><a href="../m4/lesson_41/">Урок 41. Автентифікація та security basics (JWT, hashing, OWASP)</a> — рефакторинг 4 застосунку нотаток на стартовому коді автентифікації: нотатки групи (<code>Q(user) | Q(group__in=…)</code>, читати — учасникам, змінювати — автору), перевірка автора в API → <code>403</code>; паролі — PBKDF2 з сіллю, скидання листом без розкриття акаунтів; JWT на <code>simplejwt</code> (header.payload.signature покроково, підправлений / чужий / прострочений токен → <code>401</code>, refresh з ротацією, порядок автентифікаторів DRF: <code>401</code> чи <code>403</code>), throttle <code>/api/token/</code>; <code>check --deploy</code>; OWASP Top 10 на нашому коді; «Знайди помилку» — <code>SECRET_KEY</code> у публічному репозиторії.</li>
+<li><a href="../m4/lesson_42/">Урок 42. Тестування API (pytest + httpx)</a> — рефакторинг 5 агрегатора новин: переробляємо лише тести уроку 40. Шари unit / integration з маркерами; збережені сторінки rbc.ua як фікстури й тест конвеєра «парсер → модель»; мок мережі й «patch where used» (покрокова діаграма); фейковий HTTP-сервер (<code>aiohttp</code> <code>TestServer</code>) і межа фейку (fakeredis не показує гонок); <code>httpx.AsyncClient</code> + <code>ASGITransport</code> для одночасних запитів; покриття гілок з <code>concurrency = greenlet</code>; прогін на мінімальних версіях залежностей. Тести ловлять 4 помилки: ISO-час, битий байт UTF-8, <code>fakerbc.ua</code>, beautifulsoup4 4.12. «Знайди помилку» — два зелені тести, які разом пропустили помилку контракту.</li>
+<li><a href="../m4/lesson_43/">Урок 43. AI-інструменти розробника + ризики й валідація</a> — рефакторинг 6 агрегатора новин і рецензія AI-проєкту. <code>news_hub</code> отримує <code>CLAUDE.md</code> (замість застарілого прикладу з довідника), <code>.claude/settings.json</code> (allow / ask / deny), hook <code>pytest -m unit</code> після кожної правки і skill <code>/add-news-source</code>. Експеримент: Claude Code двічі додає RSS «Української правди» — з голим запитом (101 зелений власний тест, але час у GMT, тиха відмова на битому XML і вигадана фікстура) і за специфікацією з тестів (2 файли, тести не змінено); рецензія знаходить ще 3 випадки поза специфікацією. <code>allow</code> з репозиторію не діє без довіри до папки. Кейс <code>depression_dashboard</code> (Flask + Streamlit + scikit-learn, згенерований AI): 17 тестів рецензії доводять 10 вад, зокрема алфавітний порядок «топ-ознак» через <code>jsonify</code>, вигадані назви кластерів, підробні похідні ознаки в <code>/api/predict</code>, витік даних, незахищений <code>/api/train</code>. Довідник <a href="../m4/ai/claude_code/">Claude Code</a> — звірений з документацією.</li>
+<li><a href="../m4/lesson_44/">Урок 44. Інтеграція LLM API (Gemini / Anthropic)</a> — рефакторинг 7 агрегатора новин: тема, тональність, підсумок і ключові слова від LLM замість правил <code>nlp.py</code> (у знімку всі 168 новин — категорія «Новини»). стартовий <code>ai_service.py</code> → <code>llm.py</code>: один інтерфейс <code>LLMClient</code> для Gemini (асинхронний <code>client.aio</code>, пул моделей: 404/429/5xx — наступна, 400/401/403 — стоп) і Anthropic, <code>FakeLLM</code> для тестів; відповідь — JSON за схемою й перевірка Pydantic з одним повтором; промпт-ін'єкція (дані в <code>&lt;news&gt;</code>, схема з переліками); circuit breaker на <code>INCR</code> + <code>EXPIRE NX</code> → <code>503</code> + <code>Retry-After</code> (справжній запуск з невалідним ключем); база → кеш за хешем тексту → модель, токени й вартість, пакетний аналіз у фоні. «Знайди помилку» — схема з <code>extra="forbid"</code>, яку Gemini відхиляє <code>400</code>, хоча всі тести з фейком зелені; контрактний тест без ключа.</li>
+<li><a href="../m4/lesson_45/">Урок 45. Архітектура застосунків і патерни</a> — рефакторинг 5 застосунку нотаток (крок 3 Django-книги) і каталог патернів обох проєктів. Правило «хто що бачить» жило у views і selectors кількома копіями, які розійшлися: список, поділений з двома, падав з <code>500</code> (<code>MultipleObjectsReturned</code> через M2M + OR), список групи був у переліку, але відкривався з <code>404</code>. Тепер <code>selectors.*_visible_to</code> / <code>*_owned_by</code> повертають QuerySet — одне правило для сторінок, CBV і API; тест на <code>ast</code> стежить, щоб у <code>views.py</code> і <code>api.py</code> не було ORM. Нотатки, записники й теги — class-based views зі стартового <code>notes_project_cbv</code> (<code>LoginRequiredMixin</code> → <code>OwnerRequiredMixin</code> по MRO, чому нічого з базою в <code>setup()</code>); відкритий редирект <code>?next=</code> закрито. PostgreSQL через <code>DATABASE_URL</code> (SQLite без змінної), 49 тестів на обох базах, кількість SQL-запитів як контракт (без <code>select_related</code> — 97 замість 8). Каталог: Service layer, CQRS-light, Repository, DI, Strategy (<code>LLMClient</code>), Decorator (<code>GuardedLLM</code>), Factory (<code>make_llm</code>), Template method, Unit of Work — на коді нотаток і <code>news_hub</code>; коли патерн зайвий; «куди класти код».</li>
+<li><a href="../m4/lesson_46/">Урок 46. WebSockets + практика: чат</a> — рефакторинг 6 застосунку нотаток (крок 7B Django-книги): груповий чат зі стартового коду — Django Channels, ASGI (<code>ProtocolTypeRouter</code>, daphne), consumer, channel layer (у пам'яті або Redis за <code>REDIS_URL</code>), JS-клієнт. Consumer — ще один транспорт над тими самими selectors і services: членство — <code>selectors.is_group_member</code>, запис — <code>services.post_chat_message</code> (межі тексту й права — на <strong>кожне</strong> повідомлення). Вилучили з групи або групу видалили → подія після COMMIT закриває відкрите з'єднання кодом <code>4403</code>; <code>AllowedHostsOriginValidator</code> — захист від Cross-Site WebSocket Hijacking; JS не перепідключається після відмови. Тести — <code>WebsocketCommunicator</code> + <code>TransactionTestCase</code>, 76 на SQLite + InMemory і PostgreSQL + Redis; ноутбук — чат з кількома «браузерами» без сервера.</li>
+<li><a href="../m4/lesson_47/">Урок 47. Security advanced</a> — рефакторинг 8 агрегатора <code>news_hub</code>: у проєкті уроку 44 будь-хто міг стерти базу (<code>DELETE /api/news</code>) і запустити платний аналіз. Адмін-JWT зі стартового <code>production_bot</code>: пароль — bcrypt-хеш у env (без <code>passlib</code>, який не працює з bcrypt 5), без секретів «change-me» (не налаштовано → 503, короткий секрет → не стартує), HS256 і обов'язкові <code>exp</code>/<code>sub</code>/<code>role</code>, ліміт спроб входу; тест обходить усі маршрути й порівнює незахищені з переліком <code>PUBLIC</code>. SSRF: RSS-джерела адміна завантажує <code>safe_fetch</code> — IP перевіряє resolver з'єднання (після DNS), кожне перенаправлення знову, порти, розмір, тип; старий захист allowlist-ом обходиться одним <code>302</code>. Підписані webhook: HMAC(час + сирі байти тіла), вікно 5 хв, <code>SET NX</code> проти повтору, <code>compare_digest</code>, секрет не в URL. 279 тестів на SQLite і PostgreSQL + Redis; ноутбук — підробка токенів, SSRF на локальних серверах, повтор webhook.</li>
+<li><a href="../m4/lesson_48/">Урок 48. Telegram Bot API</a> — рефакторинг 9 агрегатора <code>news_hub</code>: Telegram-бот на aiogram 3 зі стартових <code>ai_bot</code> і <code>echo_bot</code> — <code>/news</code>, <code>/digest</code> (аналіз LLM), <code>/subscribe &lt;слово&gt;</code> і сповіщення про нові новини після кожного збору, адмінська <code>/scrape</code> за <code>user_id</code>. Бот — ще один вхід у той самий застосунок: ті самі репозиторії, <code>analyze_news</code>, rate limit на Redis; сесія бази на кожен update (inner middleware), роутер — новий на кожен диспетчер. Відповіді в HTML: усе ззовні екранується (ім'я «Tom &amp; Jerry» у стартовому коді — бот мовчить), довгий текст ділиться між рядками, а не кожні 4000 символів. Сповіщення: лише нові новини (<code>RETURNING</code>), 403 → підписки видаляються, 429 → <code>retry_after</code>. Webhook у FastAPI з секретом у заголовку (<code>verify_secret_token</code> уроку 47), polling — <code>python -m news_hub.bot</code>. Тести й ноутбук — на двійнику Telegram Bot API, без токена й мережі.</li>
+</ul>
+<p>Решта уроків — 🚧 у розробці.</p>
+<p><strong>Django-книга викладача.</strong> Уроки М4 про Django ведуть по маршруту Zero to Hero <a href="https://nikoriakviktot.github.io/notes_chat_app/">Django-книги</a>: урок 34 — кроки 1–2, 34 — кроки 2 і 4, 35 — API до нотаток, 38 і 44 — крок 3, 40 — крок 5, 41 — крок 6, 45 — крок 7, 48–49 — кроки 8–9. Стартовий код — готові проєкти, кожен урок — рефакторинг проєкту попереднього (що змінилося, діфи, архітектура до/після); сторінки курсу — стислий урок із практикою, книга — поглиблення (посилання «Поглиблено» в кожному розділі).</p>
+<p>17 уроків (лекції #31–47 у навігаційній таблиці v5.0): HTTP/REST → Django intro → DRF/FastAPI → повний CRUD → middlewares/кешування → auth/security basics → тестування API (лекції #31–41, «Web»), потім AI-інструменти розробника, інтеграція LLM API, архітектура застосунків, WebSockets, security advanced, Telegram Bot API (лекції #42–47, «Web Advanced»).</p>
+<p>«Web Advanced» — це продовження М4, не окремий модуль: обидва блоки йдуть під одним наскрізним номером уроку, а модулі М5/М6 зберігають свої номери одразу після «Web Advanced» без зсуву.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Футер" >
+        
+          
+          <a href="../m3/lesson_31/" class="md-footer__link md-footer__link--prev" aria-label="Назад: 31. Redis overview">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Назад
+              </span>
+              <div class="md-ellipsis">
+                31. Redis overview
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../m4/lesson_32/" class="md-footer__link md-footer__link--next" aria-label="Вперед: 32. HTTP: requests, httpx, aiohttp">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Вперед
+              </span>
+              <div class="md-ellipsis">
+                32. HTTP: requests, httpx, aiohttp
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.footer", "toc.follow", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0456\u0439\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u0421\u043a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438 \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0429\u0435 1 \u0437\u0431\u0456\u0433 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.more.other": "\u0429\u0435 # \u0437\u0431\u0456\u0433\u0456\u0432 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.none": "\u0417\u0431\u0456\u0433\u0456\u0432 \u043d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0437\u0431\u0456\u0433", "search.result.other": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e # \u0437\u0431\u0456\u0433\u0456\u0432", "search.result.placeholder": "\u0420\u043e\u0437\u043f\u043e\u0447\u043d\u0456\u0442\u044c \u043f\u0438\u0441\u0430\u0442\u0438 \u0434\u043b\u044f \u043f\u043e\u0448\u0443\u043a\u0443", "search.result.term.missing": "\u041d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e \u0437\u0430\u043f\u0438\u0442\u0443", "select.version": "\u041e\u0431\u0440\u0430\u0442\u0438 \u0432\u0435\u0440\u0441\u0456\u044e"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/sidebars.js"></script>
+      
+    
+  </body>
+</html>

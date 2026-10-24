@@ -1,0 +1,4359 @@
+
+<!doctype html>
+<html lang="uk" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Курс Python українською — від основ до просунутих тем, у форматі книги">
+      
+      
+      
+        <link rel="canonical" href="https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m3/bonus_pandas/">
+      
+      
+        <link rel="prev" href="../../m3_databases/">
+      
+      
+        <link rel="next" href="../pandas/data_analytics/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Урок - PY Course — Viktor Nikoriak</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#pandas-dash" class="md-skip">
+          Перейти до змісту
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Хедер">
+    <a href="../../.." title="PY Course — Viktor Nikoriak" class="md-header__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PY Course — Viktor Nikoriak
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Урок
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Пошук" placeholder="Пошук" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Шукати">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистити" aria-label="Очистити" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Пошук розпочато
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Вкладки" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Головна
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../00_getting_started/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Як користуватися
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Модулі курсу (в розробці)
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../00_python_mental_model/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Довідник
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Навігація" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="PY Course — Viktor Nikoriak" class="md-nav__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    PY Course — Viktor Nikoriak
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Головна
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../00_getting_started/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Як користуватися
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Модулі курсу (в розробці)
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Модулі курсу (в розробці)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../m1/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М1. Основи Python
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М1. Основи Python
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Вступ: формат курсу, AI-політика
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Перші кроки
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Змінні та базові типи даних
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Умови та цикли
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Списки, кортежі, множини
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Словники, for, comprehensions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Функції
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. П1. Big O + базові задачі
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Декоратори
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Ітератори й генератори
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. П2. Пошук
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Модулі та стандартна бібліотека
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Винятки та обробка помилок
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Файли I/O, JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Git & GitHub: система
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. П3. Хеш-структури
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Узагальнення + фінальний проєкт
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М2. Python Advanced
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М2. Python Advanced
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2_python_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Функції як об'єкти першого класу
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Класи, простір імен
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    21. Наслідування, поліморфізм
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    22. Інкапсуляція, область видимості
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    23. П4. Рекурсія, divide & conquer, backtracking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    24. @property, декоратори класів, dunder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    25. Ітератори advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    26. Тестування з pytest (+ валідація AI-коду)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    27. П5. Динамічне програмування + greedy (вступ)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    28. Потоки, multiprocessing, asyncio: вступ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    29. П6. Stack, Queue, Heap, Trie + LRU → ООП-пакет
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М3. Бази даних
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М3. Бази даних
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3_databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_2" id="__nav_3_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. Pandas: аналіз даних, графіки і Dash
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Бонус. Pandas: аналіз даних, графіки і Dash
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Урок
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Урок
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пригадай
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Дані уроку
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Конвеєр аналітика
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pandas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ноутбук 1. pandas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ноутбук 1. pandas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#national-average-2017" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        «National Average» після 2017 року
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#matplotlib" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ноутбук 2. matplotlib
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seaborn-plotly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ноутбук 3. seaborn і Plotly
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ноутбук 4. Додаткові датасети
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dash-застосунок
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Практика
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Практика">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Розібраний приклад: індекс замість двох осей
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зміни приклад
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Спробуй самостійно
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#find-bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Знайди помилку
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Підсумок
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Підсумок">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Самоперевірка
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що далі
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Документація і джерела
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pandas/data_analytics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Довідник: аналіз даних
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pandas/dash_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Довідник: архітектура Dash
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    30. Основи SQL (PostgreSQL)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    31. Redis overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М4. Web (+ Web Advanced)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М4. Web (+ Web Advanced)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4_web/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    32. HTTP: requests, httpx, aiohttp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    33. REST: принципи дизайну API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    34. Django intro: MVT, ORM, admin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    35. Django: forms, HTML practice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    36. DRF overview + Django vs FastAPI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    37. Typing + Pydantic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m4/lesson_38/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    38. FastAPI basics + Postman + OpenAPI
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    39. FastAPI + SQLAlchemy: повний CRUD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    40. Middlewares і кешування (Redis на практиці)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    41. Автентифікація та security basics (JWT, hashing, OWASP)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    42. Тестування API (pytest + httpx)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m4/lesson_43/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    43. AI-інструменти розробника + ризики й валідація
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    44. Інтеграція LLM API (Gemini / Anthropic)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    45. Архітектура застосунків і патерни
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    46. WebSockets + практика: чат
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    47. Security advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    48. Telegram Bot API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М5. Production
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М5. Production
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5_production/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m5/bonus_linux/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. Linux для розробника
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    49. Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    50. Docker Compose + деплой
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    51. CI/CD (GitHub Actions)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М6. Капстоун
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М6. Капстоун
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6_capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6/lesson_52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    52. Робота над фінальним проєктом
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6/lesson_53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    53. Випускний: питч фінального проєкту
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m6/bonus_cv/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. CV розробника
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bonus_ai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Self-paced. AI для розробників (бонус)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../00_python_mental_model/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Довідник
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пригадай
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Дані уроку
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Конвеєр аналітика
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pandas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ноутбук 1. pandas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ноутбук 1. pandas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#national-average-2017" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        «National Average» після 2017 року
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#matplotlib" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ноутбук 2. matplotlib
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seaborn-plotly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ноутбук 3. seaborn і Plotly
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ноутбук 4. Додаткові датасети
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dash-застосунок
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Практика
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Практика">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Розібраний приклад: індекс замість двох осей
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зміни приклад
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Спробуй самостійно
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#find-bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Знайди помилку
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Підсумок
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Підсумок">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Самоперевірка
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що далі
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Документація і джерела
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Навігація" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Головна
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Модулі курсу (в розробці)
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../m3_databases/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    М3. Бази даних
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Бонус. Pandas: аналіз даних, графіки і Dash
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="pandas-dash">Бонус. Pandas: аналіз даних, графіки і Dash<a class="headerlink" href="#pandas-dash" title="Permanent link">&para;</a></h1>
+<p>Python сьогодні — насамперед <strong>data science</strong>: більшість вакансій і задач, де його обирають, — це аналіз даних, графіки, дашборди й машинне навчання. Тому модуль 3 відкривається бонусним уроком (поза нумерацією 1–52): до того як класти дані в базу (уроки 30–31), навчимося їх <strong>розуміти</strong>.</p>
+<p>Урок — на справжніх даних про Україну: ціни на продукти WFP за 2014–2026 роки (112 тис. записів по 27 ринках — обласних центрах і Києву), курс гривні, зовнішній борг, показники Світового банку, зарплати Держстату, щоденна робота портів і ціни у 71 країні. Стартовий код: три ноутбуки й Dash-застосунок; до них — четвертий ноутбук на додаткових датасетах.</p>
+<table>
+<thead>
+<tr>
+<th>Крок</th>
+<th>Матеріал</th>
+<th>Що вчимо</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_3/bonus/pandas_data_analysis/note_bonus_pandas_foundation.ipynb"><code>note_bonus_pandas_foundation.ipynb</code></a> <a href="https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_3/bonus/pandas_data_analysis/note_bonus_pandas_foundation.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></td>
+<td>DataFrame, типи й пам'ять, <code>read_csv</code>, <code>loc</code>/<code>query</code>, <code>groupby</code>, дати й <code>resample</code>, <code>merge</code>/<code>concat</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td><a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_3/bonus/pandas_data_analysis/note_bonus_matplotlib.ipynb"><code>note_bonus_matplotlib.ipynb</code></a> <a href="https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_3/bonus/pandas_data_analysis/note_bonus_matplotlib.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></td>
+<td>Figure і Axes, line / bar / histogram, subplots, стилі</td>
+</tr>
+<tr>
+<td>3</td>
+<td><a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_3/bonus/pandas_data_analysis/note_bonus_seaborn_plotly.ipynb"><code>note_bonus_seaborn_plotly.ipynb</code></a> <a href="https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_3/bonus/pandas_data_analysis/note_bonus_seaborn_plotly.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></td>
+<td>boxplot, heatmap кореляцій, pairplot «курс ↔ ціни», злам 2022 року, інтерактивний Plotly</td>
+</tr>
+<tr>
+<td>4</td>
+<td><a class="md-button md-button--primary" href="https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_3/bonus/pandas_data_analysis/note_bonus_extra_datasets_student.ipynb">Відкрити вправи в Colab</a> <a class="solutions-link" href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_3/bonus/pandas_data_analysis/note_bonus_extra_datasets.ipynb">Переглянути розв’язки</a></td>
+<td>«брудний» CSV Держстату, зарплата проти хліба, <code>pivot</code>, порти й <code>resample</code>, ціни у світі</td>
+</tr>
+<tr>
+<td>5</td>
+<td><a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_3/bonus/pandas_data_analysis/dash_API"><code>dash_API/</code></a></td>
+<td>дашборд на Dash: 7 вкладок, фільтри, карта ринків, кореляції</td>
+</tr>
+</tbody>
+</table>
+<p>Теорія — у двох довідниках: <a href="../pandas/data_analytics/"><strong>аналіз даних: патерни й мислення</strong></a> (рівні аналітики, «дані = інформація + шум», вісім патернів — агрегація, фільтрація, групування, порівняння, час, простір, зв'язки, розподіл — повний цикл, типові помилки, метрики) і <a href="../pandas/dash_architecture/"><strong>архітектура Dash</strong></a>. На цій сторінці — маршрут уроку й ключові результати на справжніх даних.</p>
+<p><strong>Що потрібно з попередніх уроків:</strong> списки й словники (М1), функції та <code>lambda</code> (уроки 8, 19), класи й методи (19–23), файли й CSV (14), модулі й pip (12).</p>
+<p><strong>Після уроку ти зможеш:</strong></p>
+<ul>
+<li>завантажити CSV у pandas, оглянути (<code>info</code>, <code>describe</code>) і відфільтрувати дані;</li>
+<li>групувати й агрегувати (<code>groupby</code> → Split-Apply-Combine), працювати з датами (<code>resample</code>);</li>
+<li>об'єднувати джерела (<code>merge</code>, <code>concat</code>) і перетворювати форму таблиці (<code>melt</code>, <code>pivot</code>);</li>
+<li>очистити «брудний» файл: кодування, роздільники, пропуски;</li>
+<li>побудувати графік у matplotlib, seaborn і Plotly й обрати, яку бібліотеку для чого;</li>
+<li>запустити й прочитати Dash-застосунок: layout, callbacks, шар даних.</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Звідки дані</p>
+<p>Файли в <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_3/bonus/pandas_data_analysis/data"><code>data/</code></a> завантажив викладач (вересень 2026): <strong>HDX</strong> (Humanitarian Data Exchange) — ціни й ринки WFP, курси FAO, показники Світового банку, активність портів; <strong>data.gov.ua</strong> — зарплати Держстату. Ліцензії й описи — у <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_3/bonus/pandas_data_analysis/data/README.md"><code>data/README.md</code></a>. У Colab перша клітинка кожного ноутбука завантажує папку уроку разом із даними.</p>
+</div>
+<h2 id="_1">Пригадай<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Як прочитати CSV модулем <code>csv</code> і що він повертає для кожного рядка (урок 15)?</li>
+<li>Як порахувати середнє значень словника «місто → ціна» без pandas?</li>
+<li>Що робить <code>sorted(items, key=lambda x: x[1], reverse=True)</code> (урок 19)?</li>
+</ol>
+<details class="success">
+<summary>Відповіді</summary>
+<ol>
+<li><code>csv.reader</code> → список рядків-рядків; <code>csv.DictReader</code> → словник на рядок. Усі значення — рядки, числа доводиться перетворювати самому.</li>
+<li><code>sum(prices.values()) / len(prices)</code>. На 112 тис. записах і десятках полів таких циклів стає багато — pandas робить це однією операцією над стовпцем.</li>
+<li>Сортує пари за другим елементом, від більшого до меншого — у pandas це <code>sort_values(ascending=False)</code>.</li>
+</ol>
+</details>
+<h2 id="data">Дані уроку<a class="headerlink" href="#data" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">DATA_DIR</span> <span class="o">=</span> <span class="s2">"data"</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">files</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="s2">"wfp_food_prices_ukr.csv"</span><span class="p">:</span> <span class="s2">"ціни WFP, Україна"</span><span class="p">,</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="s2">"wfp_markets_ukr.csv"</span><span class="p">:</span> <span class="s2">"ринки WFP з координатами"</span><span class="p">,</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="s2">"exchange-rates_ukr.csv"</span><span class="p">:</span> <span class="s2">"курс UAH/USD (FAO)"</span><span class="p">,</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="s2">"external-debt_ukr.csv"</span><span class="p">:</span> <span class="s2">"зовнішній борг (Світовий банк)"</span><span class="p">,</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="s2">"poverty_ukr.csv"</span><span class="p">:</span> <span class="s2">"бідність і соціальні показники (Світовий банк)"</span><span class="p">,</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="s2">"global-market-monitor.csv"</span><span class="p">:</span> <span class="s2">"Global Market Monitor (WFP)"</span><span class="p">,</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="s2">"climate-change_ukr.csv"</span><span class="p">:</span> <span class="s2">"показники Світового банку"</span><span class="p">,</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="s2">"ukraine-daily-port-activity-data-and-shipment-estimates.csv"</span><span class="p">:</span> <span class="s2">"активність портів"</span><span class="p">,</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    <span class="s2">"wfp_food_prices_global_2026.csv"</span><span class="p">:</span> <span class="s2">"ціни WFP, 71 країна, 2026"</span><span class="p">,</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="p">}</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">what</span> <span class="ow">in</span> <span class="n">files</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    <span class="n">size_mb</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATA_DIR</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span> <span class="o">/</span> <span class="mf">1e6</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>    <span class="n">rows</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATA_DIR</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">what</span><span class="si">:</span><span class="s2">48</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">rows</span><span class="si">:</span><span class="s2">&gt;8,</span><span class="si">}</span><span class="s2"> рядків  </span><span class="si">{</span><span class="n">size_mb</span><span class="si">:</span><span class="s2">5.1f</span><span class="si">}</span><span class="s2"> МБ"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ціни WFP, Україна                                 112,259 рядків   14.1 МБ
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>ринки WFP з координатами                              268 рядків    0.0 МБ
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>курс UAH/USD (FAO)                                    431 рядків    0.1 МБ
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>зовнішній борг (Світовий банк)                      1,650 рядків    0.2 МБ
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>бідність і соціальні показники (Світовий банк)        382 рядків    0.0 МБ
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>Global Market Monitor (WFP)                        11,957 рядків    3.0 МБ
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>показники Світового банку                           1,405 рядків    0.1 МБ
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>активність портів                                  42,288 рядків    4.8 МБ
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>ціни WFP, 71 країна, 2026                         245,288 рядків   32.0 МБ
+</code></pre></div>
+<p>Плюс таблиця зарплат Держстату (<code>101-…-pr.csv</code> і <code>.xlsx</code>) — з нею працюємо в ноутбуці 4, бо вона «брудна».</p>
+<h2 id="_2">Конвеєр аналітика<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>Кожен ноутбук — крок одного процесу: від сирого файлу до рішення. Детально, з прикладами кожного кроку — у довіднику <a href="../pandas/data_analytics/">«Аналіз даних»</a> (розділи «Повний цикл аналізу даних» і «Як мислить аналітик»).</p>
+<pre class="mermaid"><code>flowchart TD
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    Q["питання&lt;br&gt;як війна змінила ціни?"] --&gt; L["завантажити&lt;br&gt;read_csv, типи"]
+    L --&gt; C["очистити&lt;br&gt;пропуски, кодування, одиниці"]
+    C --&gt; T["перетворити&lt;br&gt;filter, groupby, merge, resample"]
+    T --&gt; V["візуалізувати&lt;br&gt;matplotlib, seaborn, Plotly"]
+    V --&gt; D["дашборд&lt;br&gt;Dash: фільтри й вкладки"]
+    D --&gt; R["рішення&lt;br&gt;висновок з обмеженнями"]
+    R -.-&gt; Q
+
+    class Q decision
+    class L,T step
+    class C warning
+    class V,D step
+    class R success</code></pre>
+<p>Найдовший крок у реальному житті — <strong>очищення</strong>. У цьому уроці воно трапилось не у вправі, а в самих даних — див. наступний розділ.</p>
+<h2 id="pandas">Ноутбук 1. pandas<a class="headerlink" href="#pandas" title="Permanent link">&para;</a></h2>
+<p>Ноутбук починається з моделі: <strong>DataFrame</strong> — таблиця, де кожен стовпець — <code>Series</code> одного типу, а рядки вирівняні за індексом. Далі — пам'ять і типи (<code>category</code>, PyArrow), читання CSV, огляд, фільтрація, групування, дати, об'єднання. Головна операція аналітика — <strong>Split-Apply-Combine</strong>: розбити дані на групи, застосувати функцію до кожної, зібрати результат.</p>
+<p>Ось вона в роботі — середня ціна цукру по чотирьох обласних центрах на дві дати:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">food</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATA_DIR</span><span class="p">,</span> <span class="s2">"wfp_food_prices_ukr.csv"</span><span class="p">),</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">"date"</span><span class="p">])</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">sample</span> <span class="o">=</span> <span class="n">food</span><span class="o">.</span><span class="n">query</span><span class="p">(</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="s2">"commodity == 'Sugar' and unit == 'KG' and currency == 'UAH' "</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="s2">"and market in ['Kharkiv', 'Kyiv city', 'Lviv', 'Odesa'] "</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="s2">"and date in @dates"</span><span class="p">,</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="n">local_dict</span><span class="o">=</span><span class="p">{</span><span class="s2">"dates"</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">([</span><span class="s2">"2026-07-15"</span><span class="p">,</span> <span class="s2">"2026-08-15"</span><span class="p">])},</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="p">)[[</span><span class="s2">"date"</span><span class="p">,</span> <span class="s2">"market"</span><span class="p">,</span> <span class="s2">"price"</span><span class="p">]]</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s2">"date"</span><span class="p">,</span> <span class="s2">"market"</span><span class="p">])</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"date"</span><span class="p">)[</span><span class="s2">"price"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>      date    market  price
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>2026-07-15   Kharkiv  29.08
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>2026-07-15 Kyiv city  31.38
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>2026-07-15      Lviv  30.30
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>2026-07-15     Odesa  30.09
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>2026-08-15   Kharkiv  29.44
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>2026-08-15 Kyiv city  32.81
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>2026-08-15      Lviv  31.37
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>2026-08-15     Odesa  30.72
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>date
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>2026-07-15    30.21
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>2026-08-15    31.08
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>Name: price, dtype: float64
+</code></pre></div>
+<pre class="mermaid"><code>flowchart TD
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    subgraph SPLIT ["1. split: groupby('date') — дві групи"]
+        direction LR
+        G1["2026-07-15&lt;br&gt;29.08 · 31.38 · 30.30 · 30.09"]
+        G2["2026-08-15&lt;br&gt;29.44 · 32.81 · 31.37 · 30.72"]
+    end
+    subgraph APPLY ["2. apply: mean() у кожній групі"]
+        direction LR
+        A1["120.85 / 4&lt;br&gt;= 30.21"]
+        A2["124.34 / 4&lt;br&gt;= 31.08"]
+    end
+    subgraph COMBINE ["3. combine: одна Series з індексом date"]
+        direction LR
+        C1["2026-07-15 → 30.21&lt;br&gt;2026-08-15 → 31.08"]
+    end
+    SPLIT --&gt; APPLY --&gt; COMBINE
+
+    class G1,G2 step
+    class A1,A2 warning
+    class C1 success</code></pre>
+<p><code>groupby</code> — ліниве: поки не викликано агрегацію (<code>mean</code>, <code>sum</code>, <code>agg</code>), він лише запам'ятовує, як розбити дані. Докладно — у ноутбуці (розділ 7) і в довіднику, <a href="../pandas/data_analytics/#33-grouping">патерн «Групування»</a>.</p>
+<h3 id="national-average-2017">«National Average» після 2017 року<a class="headerlink" href="#national-average-2017" title="Permanent link">&para;</a></h3>
+<p>«Ціну по Україні» WFP публікує як ринок <strong>National Average</strong> — це рядки без області, <code>admin1.isna()</code>. Подивимось, які роки вони покривають:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">national</span> <span class="o">=</span> <span class="n">food</span><span class="p">[</span><span class="n">food</span><span class="p">[</span><span class="s2">"admin1"</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()]</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">regional</span> <span class="o">=</span> <span class="n">food</span><span class="p">[</span><span class="n">food</span><span class="p">[</span><span class="s2">"admin1"</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()]</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"National Average:"</span><span class="p">,</span> <span class="n">national</span><span class="p">[</span><span class="s2">"date"</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">(),</span> <span class="s2">"—"</span><span class="p">,</span> <span class="n">national</span><span class="p">[</span><span class="s2">"date"</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">(),</span> <span class="sa">f</span><span class="s2">"(</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">national</span><span class="p">)</span><span class="si">}</span><span class="s2"> рядків)"</span><span class="p">)</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"регіональні ринки:"</span><span class="p">,</span> <span class="n">regional</span><span class="p">[</span><span class="s2">"date"</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">(),</span> <span class="s2">"—"</span><span class="p">,</span> <span class="n">regional</span><span class="p">[</span><span class="s2">"date"</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">(),</span> <span class="sa">f</span><span class="s2">"(</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">regional</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> рядків)"</span><span class="p">)</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Bread (wheat) на рівні країни:"</span><span class="p">,</span> <span class="p">(</span><span class="n">national</span><span class="p">[</span><span class="s2">"commodity"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Bread (wheat)"</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>National Average: 2014-03-15 — 2017-12-15 (986 рядків)
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>регіональні ринки: 2014-03-15 — 2026-08-15 (111,273 рядків)
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>Bread (wheat) на рівні країни: 0
+</code></pre></div>
+<p>З 2018 року WFP публікує ціни <strong>лише по регіональних ринках</strong>. Графік по рядках National Average обривався б на 2017 році — і «зламу 2022» просто не було б видно.</p>
+<p>Тому в ноутбуках 1–3 одразу після завантаження національне середнє дораховується як <strong>просте середнє по всіх ринках</strong> — тим самим Split-Apply-Combine:</p>
+<div class="highlight"><span class="filename">клітинка «🆕 National Average» у ноутбуках 1–3</span><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">add_national_average</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="n">official_dates</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">"admin1"</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">(),</span> <span class="s2">"date"</span><span class="p">])</span>       <span class="c1"># де WFP сам дав National Average</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="n">regional</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">"admin1"</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">df</span><span class="p">[</span><span class="s2">"date"</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">official_dates</span><span class="p">)]</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="n">computed</span> <span class="o">=</span> <span class="p">(</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>        <span class="n">regional</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>        <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">"date"</span><span class="p">,</span> <span class="s2">"category"</span><span class="p">,</span> <span class="s2">"commodity"</span><span class="p">,</span> <span class="s2">"unit"</span><span class="p">,</span> <span class="s2">"currency"</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="s2">"price"</span><span class="p">]</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>        <span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>        <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">market</span><span class="o">=</span><span class="s2">"National Average (розрахунок)"</span><span class="p">)</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>    <span class="p">)</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="n">computed</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">add_national_average</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    <span class="n">official_dates</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">"admin1"</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">(),</span> <span class="s2">"date"</span><span class="p">])</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="n">regional</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">"admin1"</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">df</span><span class="p">[</span><span class="s2">"date"</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">official_dates</span><span class="p">)]</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="n">computed</span> <span class="o">=</span> <span class="p">(</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>        <span class="n">regional</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>        <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">"date"</span><span class="p">,</span> <span class="s2">"category"</span><span class="p">,</span> <span class="s2">"commodity"</span><span class="p">,</span> <span class="s2">"unit"</span><span class="p">,</span> <span class="s2">"currency"</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="s2">"price"</span><span class="p">]</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>        <span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>        <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">market</span><span class="o">=</span><span class="s2">"National Average (розрахунок)"</span><span class="p">)</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>    <span class="p">)</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="n">computed</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="n">food</span> <span class="o">=</span> <span class="n">add_national_average</span><span class="p">(</span><span class="n">food</span><span class="p">)</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="n">national</span> <span class="o">=</span> <span class="n">food</span><span class="p">[</span><span class="n">food</span><span class="p">[</span><span class="s2">"admin1"</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()]</span>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"National Average:"</span><span class="p">,</span> <span class="n">national</span><span class="p">[</span><span class="s2">"date"</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">(),</span> <span class="s2">"—"</span><span class="p">,</span> <span class="n">national</span><span class="p">[</span><span class="s2">"date"</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">())</span>
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="nb">print</span><span class="p">(</span><span class="n">national</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"market"</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>National Average: 2014-03-15 — 2026-08-15
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>{'National Average': 986, 'National Average (розрахунок)': 3787}
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Обмеження розрахунку</p>
+<p><strong>Одиниці.</strong> Офіційний «National Average» житнього хліба (2014–2017) — ціна <strong>буханки</strong> (<code>Loaf</code>), регіональні ринки з 2018 — ціна <strong>кілограма</strong> (<code>KG</code>). Графіки хліба в ноутбуках, що беруть <code>commodity.str.contains('Bread')</code>, після 2017 року порівнюють різні одиниці й різні сорти — перш ніж робити висновок, фільтруй за <code>unit</code>. Так само молоко й сметана трапляються і в <code>L</code>, і в <code>KG</code>.</p>
+<p><strong>Вага ринків.</strong> Просте середнє по ринках — не те саме, що офіційний індекс: Київ і Чернівці важать однаково, а склад ринків змінюється — для цукру це 27 ринків у 2014, 25 у 2015–2022 і 23 з 2023 року (ряди окупованих і прифронтових областей обриваються). Для навчального аналізу динаміки цього досить; для висновків «на рівні країни» — зважуй ринки або бери дані Держстату. Це і є «Pattern → Модель → Обмеження» з <a href="../pandas/data_analytics/#24-pattern">довідника</a>.</p>
+</div>
+<h2 id="matplotlib">Ноутбук 2. matplotlib<a class="headerlink" href="#matplotlib" title="Permanent link">&para;</a></h2>
+<p>Matplotlib — «низькорівневий рушій»: <strong>Figure</strong> (полотно) містить одну чи кілька <strong>Axes</strong> (систем координат), і все малюється методами <code>ax.plot</code>, <code>ax.bar</code>, <code>ax.hist</code>. Ноутбук проходить line, bar, histogram, subplots і стилі на тих самих цінах.</p>
+<p>Приклад з уроку: як змінились ціни трьох базових продуктів відносно 2014 року. Ціни мають різні одиниці (кг, л), тож порівнюємо <strong>індекси</strong> (2014 = 100) — одна вісь, одна шкала. Товари обрано з <strong>незмінною одиницею</strong> за всі роки (про хліб — нижче):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">basket</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"Potatoes"</span><span class="p">:</span> <span class="s2">"Картопля"</span><span class="p">,</span> <span class="s2">"Oil (sunflower)"</span><span class="p">:</span> <span class="s2">"Олія соняшникова"</span><span class="p">,</span> <span class="s2">"Meat (pork)"</span><span class="p">:</span> <span class="s2">"Свинина"</span><span class="p">}</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">yearly</span> <span class="o">=</span> <span class="p">(</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    <span class="n">food</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">"admin1.isna() and currency == 'UAH' and commodity in @basket"</span><span class="p">)</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">рік</span><span class="o">=</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">d</span><span class="p">[</span><span class="s2">"date"</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">місяць</span><span class="o">=</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">d</span><span class="p">[</span><span class="s2">"date"</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">month</span><span class="p">)</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">"commodity"</span><span class="p">,</span> <span class="s2">"рік"</span><span class="p">])</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>    <span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">ціна</span><span class="o">=</span><span class="p">(</span><span class="s2">"price"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">),</span> <span class="n">місяців</span><span class="o">=</span><span class="p">(</span><span class="s2">"місяць"</span><span class="p">,</span> <span class="s2">"nunique"</span><span class="p">))</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>    <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">"місяців &gt;= 6"</span><span class="p">)</span>                                    <span class="c1"># 2018: лише грудень — пропускаємо</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>    <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="p">)</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="n">yearly</span><span class="p">[</span><span class="s2">"індекс"</span><span class="p">]</span> <span class="o">=</span> <span class="n">yearly</span><span class="p">[</span><span class="s2">"ціна"</span><span class="p">]</span> <span class="o">/</span> <span class="n">yearly</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"commodity"</span><span class="p">)[</span><span class="s2">"ціна"</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s2">"first"</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="nb">print</span><span class="p">(</span><span class="n">yearly</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">"рік"</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">"commodity"</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">"індекс"</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>commodity  Meat (pork)  Oil (sunflower)  Potatoes
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>рік
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>2014             100.0            100.0     100.0
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>2015             125.0            179.0     101.0
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>2016             123.0            203.0     113.0
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>2017             162.0            213.0     146.0
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>2019             213.0            225.0     269.0
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>2020             212.0            231.0     246.0
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>2021             215.0            380.0     216.0
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>2022             264.0            435.0     228.0
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>2023             339.0            419.0     240.0
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>2024             323.0            397.0     494.0
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>2025             408.0            523.0     513.0
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>2026             412.0            608.0     380.0
+</code></pre></div>
+<div class="highlight"><span class="filename">графік (у ноутбуці — plt.show(), тут — збережено в PNG)</span><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="n">colors</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"Potatoes"</span><span class="p">:</span> <span class="s2">"#2a78d6"</span><span class="p">,</span> <span class="s2">"Oil (sunflower)"</span><span class="p">:</span> <span class="s2">"#eb6834"</span><span class="p">,</span> <span class="s2">"Meat (pork)"</span><span class="p">:</span> <span class="s2">"#1baf7a"</span><span class="p">}</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">))</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="k">for</span> <span class="n">commodity</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">yearly</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"commodity"</span><span class="p">):</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">group</span><span class="p">[</span><span class="s2">"рік"</span><span class="p">],</span> <span class="n">group</span><span class="p">[</span><span class="s2">"індекс"</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">commodity</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">"o"</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>            <span class="n">label</span><span class="o">=</span><span class="n">basket</span><span class="p">[</span><span class="n">commodity</span><span class="p">])</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>    <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">basket</span><span class="p">[</span><span class="n">commodity</span><span class="p">],</span> <span class="p">(</span><span class="n">group</span><span class="p">[</span><span class="s2">"рік"</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">group</span><span class="p">[</span><span class="s2">"індекс"</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>                <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s2">"offset points"</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"#52514e"</span><span class="p">)</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"#9e9e9e"</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Ціни базових продуктів в Україні, 2014 = 100 (середнє за рік, WFP)"</span><span class="p">)</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"індекс, 2014 = 100"</span><span class="p">)</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">"y"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</code></pre></div>
+<p><img alt="Індекс цін на картоплю, олію соняшникову і свинину в Україні 2014–2026, 2014 = 100" src="../img/bonus_pandas_price_index.png" /></p>
+<p>За 2014–2026 олія подорожчала у 6 разів, свинина — у 4, картопля — у 3,8 (у 2025 — у 5,1: 2026 рік ще неповний, а картопля дешевшає влітку). Прискорення видно після 2021–2022, але різна швидкість — це вже питання для діагностичної аналітики («чому?»), не для графіка. Пропуск 2018 — не збій графіка: того року в даних лише грудень, і фільтр <code>місяців &gt;= 6</code> його прибрав.</p>
+<h2 id="seaborn-plotly">Ноутбук 3. seaborn і Plotly<a class="headerlink" href="#seaborn-plotly" title="Permanent link">&para;</a></h2>
+<p>Три рівні візуалізації: <strong>matplotlib</strong> — повний контроль, <strong>seaborn</strong> — статистика й стиль одним викликом (boxplot, heatmap, pairplot), <strong>Plotly</strong> — інтерактивність (hover, zoom, RangeSlider). Центральна частина ноутбука — pairplot «ціни ↔ курс UAH/USD» до і після 2022 року. Ось кореляція, яку він показує, на свіжих даних:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">rates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATA_DIR</span><span class="p">,</span> <span class="s2">"exchange-rates_ukr.csv"</span><span class="p">),</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="s2">"StartDate"</span><span class="p">,</span> <span class="s2">"Value"</span><span class="p">],</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">"StartDate"</span><span class="p">])</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="n">rates</span> <span class="o">=</span> <span class="n">rates</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">"StartDate"</span><span class="p">:</span> <span class="s2">"date"</span><span class="p">,</span> <span class="s2">"Value"</span><span class="p">:</span> <span class="s2">"uah_per_usd"</span><span class="p">})</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="n">rates</span><span class="p">[</span><span class="s2">"month"</span><span class="p">]</span> <span class="o">=</span> <span class="n">rates</span><span class="p">[</span><span class="s2">"date"</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">to_period</span><span class="p">(</span><span class="s2">"M"</span><span class="p">)</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="n">monthly</span> <span class="o">=</span> <span class="p">(</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>    <span class="n">food</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">"admin1.isna() and currency == 'UAH' and commodity in ['Meat (pork)', 'Oil (sunflower)']"</span><span class="p">)</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">month</span><span class="o">=</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">d</span><span class="p">[</span><span class="s2">"date"</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">to_period</span><span class="p">(</span><span class="s2">"M"</span><span class="p">))</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>    <span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">"month"</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">"commodity"</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">"price"</span><span class="p">)</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>    <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>    <span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">rates</span><span class="p">[[</span><span class="s2">"month"</span><span class="p">,</span> <span class="s2">"uah_per_usd"</span><span class="p">]],</span> <span class="n">on</span><span class="o">=</span><span class="s2">"month"</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">"inner"</span><span class="p">)</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="p">)</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="n">monthly</span><span class="p">[</span><span class="s2">"епоха"</span><span class="p">]</span> <span class="o">=</span> <span class="n">monthly</span><span class="p">[</span><span class="s2">"month"</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">y</span><span class="p">:</span> <span class="s2">"до 2022"</span> <span class="k">if</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="mi">2022</span> <span class="k">else</span> <span class="s2">"з 2022"</span><span class="p">)</span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="n">corr</span> <span class="o">=</span> <span class="p">{</span><span class="n">epoch</span><span class="p">:</span> <span class="n">part</span><span class="p">[[</span><span class="s2">"Meat (pork)"</span><span class="p">,</span> <span class="s2">"Oil (sunflower)"</span><span class="p">]]</span><span class="o">.</span><span class="n">corrwith</span><span class="p">(</span><span class="n">part</span><span class="p">[</span><span class="s2">"uah_per_usd"</span><span class="p">])</span>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>        <span class="k">for</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">monthly</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"епоха"</span><span class="p">)}</span>
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a><span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">corr</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a><span class="nb">print</span><span class="p">(</span><span class="n">monthly</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"епоха"</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span> <span class="s2">"місяців"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>         Meat (pork)  Oil (sunflower)
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>до 2022         0.66             0.68
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>з 2022          0.78             0.43
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>{'до 2022': 94, 'з 2022': 57} місяців
+</code></pre></div>
+<p>Після 2022 року ціна свинини ходить за курсом тісніше (0,66 → 0,78), а олії — слабше (0,68 → 0,43): на олію сильніше вплинули власні фактори ринку. Кореляція — не причинність: і ціни, і курс ростуть з часом, тож частина зв'язку — спільний тренд (див. довідник, <a href="../pandas/data_analytics/#37-relationship-analysis">«Relationship Analysis»</a>).</p>
+<h2 id="extra">Ноутбук 4. Додаткові датасети<a class="headerlink" href="#extra" title="Permanent link">&para;</a></h2>
+<p>Чотири нових джерела — кожне зі своєю «хворобою» і своїм прийомом pandas:</p>
+<table>
+<thead>
+<tr>
+<th>Датасет</th>
+<th>Проблема</th>
+<th>Прийом</th>
+<th>Результат на справжніх даних</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>зарплати Держстату, 2000–2018</td>
+<td>cp1251, <code>;</code> навколо рядка, тисячі через пробіл, <code>…</code> і <code>х</code></td>
+<td><code>encoding</code>, <code>str.split</code>, <code>melt</code>, <code>to_numeric(errors="coerce")</code></td>
+<td>Київ 2018 — 13 542 грн, у 1,94 раза більше за Тернопільську</td>
+</tr>
+<tr>
+<td>зарплата проти хліба</td>
+<td>два джерела, різна частота</td>
+<td><code>groupby</code> за роком + <code>merge</code></td>
+<td>2014 — 619 буханок на зарплату, 2015 — 458, 2017 — 595</td>
+</tr>
+<tr>
+<td>показники Світового банку</td>
+<td>«довгий» формат (показник, рік, значення)</td>
+<td><code>pivot</code></td>
+<td>населення: пік 52,35 млн у 1993, 37,86 млн у 2024</td>
+</tr>
+<tr>
+<td>порти, щоденно 2019–2026</td>
+<td>42 тис. рядків по 16 портах</td>
+<td><code>resample("YE")</code>, <code>resample("ME")</code></td>
+<td>експорт 2022 — на 63% менше за 2021</td>
+</tr>
+<tr>
+<td>ціни WFP у 71 країні, 32 МБ</td>
+<td>великий файл</td>
+<td><code>usecols</code>, фільтр, <code>median</code>, рейтинг</td>
+<td>цукор: Україна — 4-те місце з 40 за дешевизною ($0,66/кг)</td>
+</tr>
+</tbody>
+</table>
+<p>Дані портів за місяцями — тим самим <code>resample</code>:</p>
+<p><img alt="Експорт через порти України, млн т на місяць, 2019–2026, з позначкою 24.02.2022" src="../img/bonus_pandas_ports_export.png" /></p>
+<p>Остання точка — березень 2026 року неповний: дані закінчуються 27.03.</p>
+<h2 id="architecture">Dash-застосунок<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
+<p><strong>Dash</strong> — фреймворк для аналітичних вебзастосунків на Python: інтерфейс описується Python-об'єктами (<code>html.Div</code>, <code>dcc.Graph</code>, <code>dcc.Dropdown</code>), а реакція на дії користувача — <strong>callbacks</strong>: функції, які Dash викликає, коли змінюється вхід. Під капотом — Flask (сервер) і React (браузер). Теорія — у довіднику <a href="../pandas/dash_architecture/">«Архітектура Dash»</a>.</p>
+<p>Запуск:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>cd module_3/bonus/pandas_data_analysis
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>pip install -r requirements.txt
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>cd dash_API
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>python app.py            # → http://localhost:8055
+</code></pre></div>
+<p>Структура <code>dash_API/</code>:</p>
+<pre class="mermaid"><code>flowchart TD
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    APP["app.py&lt;br&gt;Dash(), layout, запуск"] --&gt; LAY["layouts/&lt;br&gt;main_layout, sidebar, tabs"]
+    APP --&gt; CB["callbacks/tabs_callbacks.py&lt;br&gt;2 callbacks"]
+    CB --&gt; REG["data_utils/registry.py&lt;br&gt;get_dataset: кеш lru_cache"]
+    LAY --&gt; REG
+    REG --&gt; LOAD["data_utils/loader.py&lt;br&gt;read_csv, перевірка колонок"]
+    CB --&gt; PRE["data_utils/preprocessing.py&lt;br&gt;фільтри, групування, кореляція"]
+    LOAD --&gt; DATA[("data/*.csv")]
+    CFG["config.py&lt;br&gt;шляхи, порт, стиль"] -.-&gt; APP
+    CFG -.-&gt; LOAD
+
+    class APP decision
+    class LAY,LOAD,PRE step
+    class CB warning
+    class REG success
+    class DATA step
+    class CFG step</code></pre>
+<ul>
+<li><strong>Дані завантажуються один раз</strong> — <code>get_dataset</code> кешує DataFrame (<code>functools.lru_cache</code>), callbacks лише фільтрують і групують (anti-pattern «читати CSV у callback» розібрано в довіднику, розділ «Data Flow у Dash»).</li>
+<li><strong>Два callbacks на весь застосунок:</strong> <code>update_unit_options</code> (товар → доступні одиниці) і <code>render_tab</code> (активна вкладка + усі фільтри → вміст вкладки).</li>
+</ul>
+<pre class="mermaid"><code>sequenceDiagram
+    participant U as користувач
+    participant B as браузер (React)
+    participant S as сервер Dash (Flask)
+    participant R as render_tab
+    participant P as preprocessing
+    U-&gt;&gt;B: вкладка «Ціни на товари», товар Sugar
+    B-&gt;&gt;S: POST /_dash-update-component (tabs, фільтри)
+    S-&gt;&gt;R: render_tab("food", "Sugar", "KG", …)
+    R-&gt;&gt;P: get_food_timeseries(df, …)
+    P--&gt;&gt;R: DataFrame по місяцях
+    R--&gt;&gt;S: html.Div з dcc.Graph
+    S--&gt;&gt;B: JSON компонентів
+    B--&gt;&gt;U: графік</code></pre>
+<p>Вкладка «Ціни на товари» — медіана й середнє по всіх ринках, 2014–2026:</p>
+<p><img alt="Dash, вкладка «Ціни на товари»: динаміка ціни цукру 2014–2026 і медіанна ціна по областях" src="../img/bonus_pandas_dash_food.png" /></p>
+<p>Вкладка «Ціни та курс валюти» — ціна товару поруч із курсом UAH/USD і коефіцієнт кореляції:</p>
+<p><img alt="Dash, вкладка «Ціни та курс валюти»: цукор проти курсу UAH/USD, r = 0,863" src="../img/bonus_pandas_dash_correlation.png" /></p>
+<h2 id="practice">Практика<a class="headerlink" href="#practice" title="Permanent link">&para;</a></h2>
+<h3 id="_3">Розібраний приклад: індекс замість двох осей<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>На вкладці «Ціни та курс валюти» дашборд малює ціну й курс на <strong>двох вертикальних осях</strong>. Такий графік легко «підкрутити»: зсунь масштаб однієї осі — і лінії зійдуться чи розійдуться, хоча дані ті самі. Чесніша альтернатива — звести обидва ряди до спільної бази, як у ноутбуці 2: індекс, 2014 = 100.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">sugar</span> <span class="o">=</span> <span class="p">(</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>    <span class="n">food</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">"commodity == 'Sugar' and unit == 'KG' and currency == 'UAH' and admin1.isna()"</span><span class="p">)</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">month</span><span class="o">=</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">d</span><span class="p">[</span><span class="s2">"date"</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">to_period</span><span class="p">(</span><span class="s2">"M"</span><span class="p">))</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"month"</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="s2">"price"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>    <span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">rates</span><span class="p">[[</span><span class="s2">"month"</span><span class="p">,</span> <span class="s2">"uah_per_usd"</span><span class="p">]],</span> <span class="n">on</span><span class="o">=</span><span class="s2">"month"</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">"inner"</span><span class="p">)</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="p">)</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="n">base</span> <span class="o">=</span> <span class="n">sugar</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="n">sugar</span><span class="p">[</span><span class="s2">"ціна, індекс"</span><span class="p">]</span> <span class="o">=</span> <span class="n">sugar</span><span class="p">[</span><span class="s2">"price"</span><span class="p">]</span> <span class="o">/</span> <span class="n">base</span><span class="p">[</span><span class="s2">"price"</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="n">sugar</span><span class="p">[</span><span class="s2">"курс, індекс"</span><span class="p">]</span> <span class="o">=</span> <span class="n">sugar</span><span class="p">[</span><span class="s2">"uah_per_usd"</span><span class="p">]</span> <span class="o">/</span> <span class="n">base</span><span class="p">[</span><span class="s2">"uah_per_usd"</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"база:"</span><span class="p">,</span> <span class="n">base</span><span class="p">[</span><span class="s2">"month"</span><span class="p">],</span> <span class="sa">f</span><span class="s2">"| ціна </span><span class="si">{</span><span class="n">base</span><span class="p">[</span><span class="s1">'price'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> грн/кг | курс </span><span class="si">{</span><span class="n">base</span><span class="p">[</span><span class="s1">'uah_per_usd'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="nb">print</span><span class="p">(</span><span class="n">sugar</span><span class="o">.</span><span class="n">iloc</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]][[</span><span class="s2">"month"</span><span class="p">,</span> <span class="s2">"ціна, індекс"</span><span class="p">,</span> <span class="s2">"курс, індекс"</span><span class="p">]]</span><span class="o">.</span><span class="n">round</span><span class="p">({</span><span class="s2">"ціна, індекс"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"курс, індекс"</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>база: 2014-03 | ціна 8.90 грн/кг | курс 9.92
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>  month  ціна, індекс  курс, індекс
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>2014-03         100.0         100.0
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>2026-01         325.0         430.0
+</code></pre></div>
+<p>Тепер обидва ряди — на одній шкалі «у скільки разів від старту», і висновок не залежить від того, як налаштовано осі.</p>
+<h3 id="_4">Зміни приклад<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ol>
+<li>У <code>yearly</code> (ноутбук 2) заміни кошик на <code>Milk</code>, <code>Eggs</code>, <code>Sugar</code>. Пам'ятай про одиниці: <code>Eggs</code> продаються десятками — перевір <code>unit</code> перед усередненням.</li>
+<li>Поріг <code>місяців &gt;= 6</code> прибирає 2018 рік (лише грудень). Що покаже графік, якщо поріг прибрати? Чому це неправда?</li>
+</ol>
+<h3 id="_5">Спробуй самостійно<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>Порахуй, як змінилась <strong>ціна хліба в областях</strong> між 2021 і 2025 роками: середня ціна <code>Bread (first grade flour)</code> за рік у кожній області (<code>admin1</code>), зміна у відсотках, топ-5 областей за зростанням. Одна область — один рядок; відсортуй через <code>sort_values</code>. Підказка: <code>pivot_table(index="admin1", columns="рік", values="price")</code>.</p>
+<p><strong>Критерії перевірки:</strong> у таблиці лише області, для яких є обидва роки; відсотки — одним знаком після коми; поясни, чому прифронтові області можуть «випадати» з порівняння.</p>
+<h3 id="find-bug">Знайди помилку<a class="headerlink" href="#find-bug" title="Permanent link">&para;</a></h3>
+<p>Цей фрагмент на даних до 2018 року працював. На свіжому файлі WFP:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="n">key_foods</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Bread (wheat)"</span><span class="p">,</span> <span class="s2">"Potatoes"</span><span class="p">,</span> <span class="s2">"Oil (sunflower)"</span><span class="p">,</span> <span class="s2">"Milk"</span><span class="p">]</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="n">raw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATA_DIR</span><span class="p">,</span> <span class="s2">"wfp_food_prices_ukr.csv"</span><span class="p">),</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">"date"</span><span class="p">])</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="n">df_pairplot</span> <span class="o">=</span> <span class="p">(</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>    <span class="n">raw</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">"commodity in @key_foods and admin1.isna() and currency == 'UAH'"</span><span class="p">)</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>    <span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">"date"</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">"commodity"</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">"price"</span><span class="p">)</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="p">)</span>
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">df_pairplot</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">df_pairplot</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">(),</span> <span class="n">df_pairplot</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">())</span>
+<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>    <span class="n">df_pairplot</span><span class="p">[</span><span class="n">key_foods</span><span class="p">]</span>
+<a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a><span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+<a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"KeyError:"</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>['Milk', 'Oil (sunflower)', 'Potatoes'] 2014-03-15 2017-12-15
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>KeyError: "['Bread (wheat)'] not in index"
+</code></pre></div>
+<p>Код синтаксично правильний і роками працював. Що змінилося — і чому це найнебезпечніший вид помилки в аналітиці?</p>
+<details class="success">
+<summary>Відповідь</summary>
+<p>Змінились <strong>дані</strong>, а не код: у свіжому файлі WFP «National Average» (<code>admin1</code> порожній) є лише за 2014–2017, а <code>Bread (wheat)</code> на рівні країни немає взагалі. <code>query</code> повертає менше, ніж очікує автор, <code>pivot_table</code> мовчки будує таблицю без стовпця, і помилка вибухає далеко від причини — на <code>df_pairplot[key_foods]</code>.</p>
+<p>Гірше, коли вибуху немає: графіки з <code>admin1.isna()</code> для інших товарів <strong>мовчки</strong> обриваються на 2017 році. Код «працює», висновок «ціни після 2022» — зроблено на даних без 2022 року.</p>
+<p>Захист: перевіряй дані перед аналізом — діапазон дат, наявність потрібних категорій, кількість рядків після кожного фільтра (<code>assert len(df) &gt; 0</code>, <code>df["date"].max()</code>). У ноутбуках курсу — клітинка «🆕 National Average» і <code>print</code> діапазону одразу після завантаження.</p>
+</details>
+<h2 id="_6">Підсумок<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Поняття</th>
+<th>Що запам'ятати</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DataFrame / Series</td>
+<td>таблиця зі стовпцями одного типу, вирівняна за індексом</td>
+</tr>
+<tr>
+<td><code>read_csv</code></td>
+<td><code>usecols</code>, <code>parse_dates</code>, <code>encoding</code>, <code>sep</code> — читай лише потрібне й одразу з правильними типами</td>
+</tr>
+<tr>
+<td>Огляд</td>
+<td><code>head</code>, <code>info</code>, <code>describe</code>, <code>isna().sum()</code> — спершу зрозумій, потім рахуй</td>
+</tr>
+<tr>
+<td>Фільтрація</td>
+<td><code>loc[маска]</code>, <code>query("…")</code>; <code>@змінна</code> у <code>query</code></td>
+</tr>
+<tr>
+<td>Split-Apply-Combine</td>
+<td><code>groupby(...)</code> → <code>mean</code>/<code>agg</code> → нова таблиця; <code>transform</code> — результат тієї ж довжини</td>
+</tr>
+<tr>
+<td>Дати</td>
+<td><code>.dt.year</code>, <code>to_period("M")</code>, <code>resample("ME")</code> на <code>DatetimeIndex</code></td>
+</tr>
+<tr>
+<td>Об'єднання</td>
+<td><code>merge</code> — як SQL JOIN за ключем; <code>concat</code> — «поставити одна під одною»</td>
+</tr>
+<tr>
+<td>Форма таблиці</td>
+<td><code>melt</code> — широка → довга; <code>pivot</code> / <code>pivot_table</code> — довга → широка</td>
+</tr>
+<tr>
+<td>Очищення</td>
+<td>кодування, роздільники, <code>to_numeric(errors="coerce")</code>, пропуски — <code>NaN</code></td>
+</tr>
+<tr>
+<td>Візуалізація</td>
+<td>matplotlib — контроль, seaborn — статистика, Plotly — інтерактив; одна вісь, різні одиниці — індекс</td>
+</tr>
+<tr>
+<td>Dash</td>
+<td>layout з Python-об'єктів + callbacks; дані — один раз при старті</td>
+</tr>
+<tr>
+<td>Дані змінюються</td>
+<td>перевіряй діапазон і наявність категорій після кожного фільтра</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_7">Самоперевірка<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Чим <code>groupby(...).mean()</code> відрізняється від <code>groupby(...).transform("mean")</code>?</li>
+<li>Навіщо <code>usecols</code> і <code>parse_dates</code> у <code>read_csv</code>?</li>
+<li>Коли <code>merge(how="inner")</code> втрачає рядки і як це помітити?</li>
+<li>Чому для цін з різними одиницями — індекс, а не дві осі?</li>
+<li>Чому в Dash дані завантажують при старті, а не в callback?</li>
+<li>Код працював роками і раптом дав «порожні» графіки. Де шукати причину?</li>
+</ol>
+<details class="success">
+<summary>Відповіді</summary>
+<ol>
+<li><code>mean()</code> повертає одне значення на групу (коротша таблиця); <code>transform("mean")</code> — значення групи для <strong>кожного</strong> рядка (та сама довжина) — зручно для частки від групи чи індексу.</li>
+<li>Менше пам'яті й часу (лише потрібні стовпці) і одразу правильний тип дат — без окремого <code>pd.to_datetime</code>.</li>
+<li>Коли ключ є лише в одній таблиці: рядки без пари зникають. Порівнюй <code>len</code> до і після, або <code>merge(..., indicator=True)</code> і дивись на <code>left_only</code>/<code>right_only</code>.</li>
+<li>Дві осі мають два незалежні масштаби — їх можна налаштувати так, щоб лінії «збігались» або «розходились». Індекс дає одну шкалу «у скільки разів від бази».</li>
+<li>Callback викликається на кожну дію користувача; читати CSV щоразу — повільно й марно. Дані читаються один раз і кешуються, callback лише фільтрує.</li>
+<li>У даних: нова версія файлу, змінені категорії, обірваний ряд. Перевір діапазон дат і кількість рядків після кожного фільтра.</li>
+</ol>
+</details>
+<h3 id="_8">Що далі<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Уроки 30–31 — бази даних (PostgreSQL, Redis): куди класти дані, коли CSV стає замало. <code>pd.read_sql</code> поєднує обидва світи.</li>
+<li>Довідники: <a href="../pandas/data_analytics/">аналіз даних — патерни й мислення</a>, <a href="../pandas/dash_architecture/">архітектура Dash</a>.</li>
+</ul>
+<h2 id="_9">Документація і джерела<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Код: <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_3/bonus/pandas_data_analysis"><code>module_3/bonus/pandas_data_analysis</code></a> — ноутбуки 1–3 і <code>dash_API</code> — стартовий код; ноутбук 4 — новий.</li>
+<li>pandas: <a href="https://pandas.pydata.org/docs/user_guide/10min.html">10 minutes to pandas</a>, <a href="https://pandas.pydata.org/docs/user_guide/groupby.html">Group by: split-apply-combine</a>, <a href="https://pandas.pydata.org/docs/user_guide/reshaping.html">Reshaping and pivot tables</a>, <a href="https://pandas.pydata.org/docs/user_guide/timeseries.html">Time series</a>, <a href="https://pandas.pydata.org/docs/user_guide/merging.html">Merge, join, concatenate</a></li>
+<li><a href="https://matplotlib.org/stable/users/index.html">Matplotlib</a>, <a href="https://seaborn.pydata.org/tutorial.html">seaborn</a>, <a href="https://plotly.com/python/plotly-express/">Plotly Express</a>, <a href="https://dash.plotly.com/">Dash</a></li>
+<li>Дані: <a href="https://data.humdata.org/dataset/wfp-food-prices-for-ukraine">HDX — Ukraine Food Prices (WFP)</a>, <a href="https://data.humdata.org/group/ukr">HDX — Ukraine</a>, <a href="https://data.gov.ua/">data.gov.ua — середньомісячна заробітна плата за регіонами</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Футер" >
+        
+          
+          <a href="../../m3_databases/" class="md-footer__link md-footer__link--prev" aria-label="Назад: Огляд модуля">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Назад
+              </span>
+              <div class="md-ellipsis">
+                Огляд модуля
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../pandas/data_analytics/" class="md-footer__link md-footer__link--next" aria-label="Вперед: Довідник: аналіз даних">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Вперед
+              </span>
+              <div class="md-ellipsis">
+                Довідник: аналіз даних
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.footer", "toc.follow", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0456\u0439\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u0421\u043a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438 \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0429\u0435 1 \u0437\u0431\u0456\u0433 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.more.other": "\u0429\u0435 # \u0437\u0431\u0456\u0433\u0456\u0432 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.none": "\u0417\u0431\u0456\u0433\u0456\u0432 \u043d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0437\u0431\u0456\u0433", "search.result.other": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e # \u0437\u0431\u0456\u0433\u0456\u0432", "search.result.placeholder": "\u0420\u043e\u0437\u043f\u043e\u0447\u043d\u0456\u0442\u044c \u043f\u0438\u0441\u0430\u0442\u0438 \u0434\u043b\u044f \u043f\u043e\u0448\u0443\u043a\u0443", "search.result.term.missing": "\u041d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e \u0437\u0430\u043f\u0438\u0442\u0443", "select.version": "\u041e\u0431\u0440\u0430\u0442\u0438 \u0432\u0435\u0440\u0441\u0456\u044e"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/sidebars.js"></script>
+      
+    
+  </body>
+</html>

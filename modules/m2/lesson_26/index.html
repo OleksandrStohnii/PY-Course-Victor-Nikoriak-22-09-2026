@@ -1,0 +1,4697 @@
+
+<!doctype html>
+<html lang="uk" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Курс Python українською — від основ до просунутих тем, у форматі книги">
+      
+      
+      
+        <link rel="canonical" href="https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m2/lesson_26/">
+      
+      
+        <link rel="prev" href="../lesson_25/">
+      
+      
+        <link rel="next" href="../lesson_27/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>26. Тестування з pytest (+ валідація AI-коду) - PY Course — Viktor Nikoriak</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#26-pytest-ai-" class="md-skip">
+          Перейти до змісту
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Хедер">
+    <a href="../../.." title="PY Course — Viktor Nikoriak" class="md-header__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PY Course — Viktor Nikoriak
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              26. Тестування з pytest (+ валідація AI-коду)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Пошук" placeholder="Пошук" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Шукати">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистити" aria-label="Очистити" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Пошук розпочато
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Вкладки" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Головна
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../00_getting_started/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Як користуватися
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Модулі курсу (в розробці)
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../00_python_mental_model/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Довідник
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Навігація" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="PY Course — Viktor Nikoriak" class="md-nav__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    PY Course — Viktor Nikoriak
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Головна
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../00_getting_started/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Як користуватися
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Модулі курсу (в розробці)
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Модулі курсу (в розробці)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../m1/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М1. Основи Python
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М1. Основи Python
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Вступ: формат курсу, AI-політика
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Перші кроки
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Змінні та базові типи даних
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Умови та цикли
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Списки, кортежі, множини
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Словники, for, comprehensions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Функції
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. П1. Big O + базові задачі
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Декоратори
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Ітератори й генератори
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. П2. Пошук
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Модулі та стандартна бібліотека
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Винятки та обробка помилок
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Файли I/O, JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Git & GitHub: система
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. П3. Хеш-структури
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Узагальнення + фінальний проєкт
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М2. Python Advanced
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М2. Python Advanced
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2_python_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Функції як об'єкти першого класу
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Класи, простір імен
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    21. Наслідування, поліморфізм
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    22. Інкапсуляція, область видимості
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    23. П4. Рекурсія, divide & conquer, backtracking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    24. @property, декоратори класів, dunder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    25. Ітератори advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    26. Тестування з pytest (+ валідація AI-коду)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    26. Тестування з pytest (+ валідація AI-коду)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пригадай
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Навіщо тести: впевненість, а не доведення
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Перший тест
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Перший тест">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Читаємо падіння
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Межі, винятки, дробові числа
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parametrize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        parametrize: один тест — таблиця випадків
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fixtures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixtures: дані для тестів
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fixtures: дані для тестів">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Фабрика: лише важливі поля
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yield-tmp_path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Прибирання після тесту: yield і tmp_path
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unittest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        unittest: тести в стилі класів
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mock-patch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mock і patch: підміна зовнішнього світу
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mock і patch: підміна зовнішнього світу">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#patch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        patch: коли залежність імпортовано всередині модуля
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coverage: що тести не зачепили
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ai-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Валідація AI-коду
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Валідація AI-коду">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Тести від AI теж перевіряють
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Архітектура: тестованість — властивість дизайну
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Архітектура: тестованість — властивість дизайну">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Піраміда тестів
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Залежності — параметром
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що тестувати й як
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Практика
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Практика">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#delivery_tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Розібраний приклад: проєкт delivery_tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зміни приклад: нічний тариф
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Спробуй самостійно: тести для уроку 25
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Знайди помилку
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Підсумок
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Підсумок">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Самоперевірка
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що далі
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Документація і джерела
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    27. П5. Динамічне програмування + greedy (вступ)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    28. Потоки, multiprocessing, asyncio: вступ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    29. П6. Stack, Queue, Heap, Trie + LRU → ООП-пакет
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М3. Бази даних
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М3. Бази даних
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3_databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m3/bonus_pandas/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. Pandas: аналіз даних, графіки і Dash
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3/lesson_30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    30. Основи SQL (PostgreSQL)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3/lesson_31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    31. Redis overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М4. Web (+ Web Advanced)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М4. Web (+ Web Advanced)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4_web/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    32. HTTP: requests, httpx, aiohttp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    33. REST: принципи дизайну API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    34. Django intro: MVT, ORM, admin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    35. Django: forms, HTML practice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    36. DRF overview + Django vs FastAPI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    37. Typing + Pydantic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m4/lesson_38/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    38. FastAPI basics + Postman + OpenAPI
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    39. FastAPI + SQLAlchemy: повний CRUD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    40. Middlewares і кешування (Redis на практиці)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    41. Автентифікація та security basics (JWT, hashing, OWASP)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    42. Тестування API (pytest + httpx)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m4/lesson_43/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    43. AI-інструменти розробника + ризики й валідація
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    44. Інтеграція LLM API (Gemini / Anthropic)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    45. Архітектура застосунків і патерни
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    46. WebSockets + практика: чат
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    47. Security advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    48. Telegram Bot API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М5. Production
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М5. Production
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5_production/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m5/bonus_linux/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. Linux для розробника
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    49. Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    50. Docker Compose + деплой
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    51. CI/CD (GitHub Actions)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М6. Капстоун
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М6. Капстоун
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6_capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6/lesson_52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    52. Робота над фінальним проєктом
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6/lesson_53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    53. Випускний: питч фінального проєкту
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m6/bonus_cv/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. CV розробника
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bonus_ai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Self-paced. AI для розробників (бонус)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../00_python_mental_model/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Довідник
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пригадай
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Навіщо тести: впевненість, а не доведення
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Перший тест
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Перший тест">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Читаємо падіння
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Межі, винятки, дробові числа
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parametrize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        parametrize: один тест — таблиця випадків
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fixtures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixtures: дані для тестів
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fixtures: дані для тестів">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Фабрика: лише важливі поля
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yield-tmp_path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Прибирання після тесту: yield і tmp_path
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unittest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        unittest: тести в стилі класів
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mock-patch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mock і patch: підміна зовнішнього світу
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mock і patch: підміна зовнішнього світу">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#patch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        patch: коли залежність імпортовано всередині модуля
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coverage: що тести не зачепили
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ai-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Валідація AI-коду
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Валідація AI-коду">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Тести від AI теж перевіряють
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Архітектура: тестованість — властивість дизайну
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Архітектура: тестованість — властивість дизайну">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Піраміда тестів
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Залежності — параметром
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що тестувати й як
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Практика
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Практика">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#delivery_tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Розібраний приклад: проєкт delivery_tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зміни приклад: нічний тариф
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Спробуй самостійно: тести для уроку 25
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Знайди помилку
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Підсумок
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Підсумок">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Самоперевірка
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що далі
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Документація і джерела
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Навігація" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Головна
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Модулі курсу (в розробці)
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../m2_python_advanced/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    М2. Python Advanced
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="26-pytest-ai-">Урок 26. Тестування з pytest (+ валідація AI-коду)<a class="headerlink" href="#26-pytest-ai-" title="Permanent link">&para;</a></h1>
+<p>У п'ятницю ввечері розробник «трохи підчистив» функцію тарифу таксі в сервісі «Смачно + Таксі». Код став коротшим, застосунок запустився, поїздка на 10 км коштувала ті самі 160 грн — він перевірив і пішов додому. Лише в понеділок бухгалтерія помітила, що всі короткі поїздки за вихідні коштували 46–76 грн замість мінімальних 80. Під час чистки зник <code>max(tariff.min_fare, …)</code>.</p>
+<p>Розробник не був недбалим: він перевірив, як умів, — <strong>руками й один випадок</strong>. Ручна перевірка не повторюється після кожної зміни, і вона завжди перевіряє те, що ми й так думали, що працює.</p>
+<p><strong>Тест</strong> — це перевірка, записана кодом: її можна запускати тисячу разів, після кожної зміни, за секунду. Сьогодні вчимося писати такі перевірки з <strong>pytest</strong> — найпоширенішим інструментом тестування в Python — і застосовувати їх до коду, який написали не ми, зокрема до коду від AI-асистентів.</p>
+<p><strong>Що потрібно з попередніх уроків:</strong> винятки (урок 14), модулі й пакети (урок 13), тести й <code>check.py</code> з командного проєкту (урок 16), <code>@dataclass</code> і <code>Money</code> (урок 24), конвеєр подій (урок 25).</p>
+<p><strong>Після уроку ти зможеш:</strong></p>
+<ul>
+<li>пояснювати, що тести дають і чого не дають; формулювати тест за схемою Arrange — Act — Assert;</li>
+<li>писати й запускати тести pytest, читати звіт про падіння;</li>
+<li>перевіряти межі, винятки (<code>pytest.raises</code>) і дробові числа (<code>pytest.approx</code>);</li>
+<li>описувати багато випадків одним тестом через <code>@pytest.mark.parametrize</code>;</li>
+<li>готувати дані через fixtures, <code>conftest.py</code>, фабрики й <code>tmp_path</code>;</li>
+<li>читати тести в стилі <code>unittest</code>;</li>
+<li>підміняти зовнішні залежності через <code>Mock</code> і <code>patch</code> і знати правило «patch where used»;</li>
+<li>вимірювати покриття й розуміти, чому 100% — не мета;</li>
+<li>перевіряти AI-згенерований код тестами на інваріанти.</li>
+</ul>
+<p><strong>Задача розділу.</strong> Набір тестів для тарифів, конвеєра подій і SMS-сповіщень сервісу — у проєкті <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_2/lessons/lesson_26_pytest_testing/delivery_tests"><code>delivery_tests/</code></a>. Повний розбір — у розділі <a href="#practice">«Практика»</a>.</p>
+<p><strong>Ноутбук заняття:</strong> <a class="md-button md-button--primary" href="https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_26_pytest_testing/note_lesson_26_pytest_student.ipynb">Відкрити вправи в Colab</a> <a class="solutions-link" href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_26_pytest_testing/note_lesson_26_pytest.ipynb">Переглянути розв’язки</a></p>
+<div class="admonition note">
+<p class="admonition-title">Встановлення</p>
+<p>pytest — стороння бібліотека: <code>pip install pytest pytest-cov</code> в активованому середовищі (урок 2). У Colab pytest уже є.</p>
+</div>
+<h2 id="_1">Пригадай<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Що робить <code>assert умова, "повідомлення"</code>, якщо умова хибна?</li>
+<li>Як у командному проєкті уроку 16 кожен учасник перевіряв свою функцію, не чекаючи на інших?</li>
+<li>Чому стадії конвеєра з уроку 25 легко перевіряти окремо?</li>
+</ol>
+<details class="success">
+<summary>Відповіді</summary>
+<ol>
+<li>Кидає <code>AssertionError</code> з повідомленням; якщо умова правдива — нічого не робить.</li>
+<li>Тести його задачі підставляли готові заглушки замість функцій інших учасників (<code>helpers.replaced</code>).</li>
+<li>Кожна стадія приймає будь-яке ітерабельне: для перевірки досить списку з кількох рядків.</li>
+</ol>
+</details>
+<h2 id="_2">Навіщо тести: впевненість, а не доведення<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>Тести <strong>не доводять</strong>, що в програмі немає помилок: випадків нескінченно багато, а тестів — скінченна кількість. Вони дають інше — <strong>впевненість змінювати код</strong>. Без тестів кожна правка лякає: «а раптом щось зламалось там, куди я не дивився?». Через цей страх код не чистять, і він поступово гниє.</p>
+<p>Три корисні образи:</p>
+<ul>
+<li><strong>сигналізація</strong> — не будує стін і не ловить усіх, але голосно кричить, коли порушено важливе;</li>
+<li><strong>експеримент</strong> — підготували умови, виконали дію, звірили результат з гіпотезою;</li>
+<li><strong>жива документація</strong> — тест показує, як функцію викликати і що вона обіцяє, і на відміну від коментаря не застаріває: застарілий тест падає.</li>
+</ul>
+<p>Помилку, що повернулася після виправлення, називають <strong>регресією</strong>. Найцінніший тест — той, що з'явився разом із виправленням бага: він не дасть цьому багу повернутися.</p>
+<h2 id="_3">Перший тест<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>Функція тарифу — така, якою вона була до п'ятниці:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">class</span><span class="w"> </span><span class="nc">Tariff</span><span class="p">:</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">base</span><span class="p">:</span> <span class="nb">int</span>       <span class="c1"># подача, грн</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">per_km</span><span class="p">:</span> <span class="nb">int</span>     <span class="c1"># грн за кілометр</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">min_fare</span><span class="p">:</span> <span class="nb">int</span>   <span class="c1"># мінімальна вартість поїздки, грн</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="k">def</span><span class="w"> </span><span class="nf">fare</span><span class="p">(</span><span class="n">km</span><span class="p">,</span> <span class="n">tariff</span><span class="p">):</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="sd">"""Вартість поїздки на km кілометрів, не менша за мінімальну."""</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="k">if</span> <span class="n">km</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"відстань не може бути від'ємною: </span><span class="si">{</span><span class="n">km</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">tariff</span><span class="o">.</span><span class="n">min_fare</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">tariff</span><span class="o">.</span><span class="n">base</span> <span class="o">+</span> <span class="n">tariff</span><span class="o">.</span><span class="n">per_km</span> <span class="o">*</span> <span class="n">km</span><span class="p">))</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="n">day</span> <span class="o">=</span> <span class="n">Tariff</span><span class="p">(</span><span class="n">base</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">per_km</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">min_fare</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="nb">print</span><span class="p">(</span><span class="n">fare</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">day</span><span class="p">),</span> <span class="n">fare</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">day</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>160 80
+</code></pre></div>
+<p>Тест для pytest — звичайна функція з назвою <code>test_…</code> у файлі <code>test_….py</code>, усередині — звичайний <code>assert</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_long_trip_is_base_plus_distance</span><span class="p">():</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="c1"># Arrange — підготувати дані</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">tariff</span> <span class="o">=</span> <span class="n">Tariff</span><span class="p">(</span><span class="n">base</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">per_km</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">min_fare</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="c1"># Act — виконати дію</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="n">price</span> <span class="o">=</span> <span class="n">fare</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">tariff</span><span class="p">)</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="c1"># Assert — перевірити результат</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="k">assert</span> <span class="n">price</span> <span class="o">==</span> <span class="mi">160</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_short_trip_costs_min_fare</span><span class="p">():</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="k">assert</span> <span class="n">fare</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">Tariff</span><span class="p">(</span><span class="n">base</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">per_km</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">min_fare</span><span class="o">=</span><span class="mi">80</span><span class="p">))</span> <span class="o">==</span> <span class="mi">80</span>
+</code></pre></div>
+<p>Запуск з папки проєкту:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>python<span class="w"> </span>-m<span class="w"> </span>pytest
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>collected 32 items
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>tests/test_events.py ........                                            [ 25%]
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>tests/test_notify.py ...                                                 [ 34%]
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>tests/test_pricing.py .................                                  [ 87%]
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>tests/test_services.py .                                                 [ 90%]
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>tests/test_unittest_style.py ...                                         [100%]
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>============================== 32 passed in 0.07s ==============================
+</code></pre></div>
+<p>Кожна крапка — пройдений тест. pytest сам знаходить тести:</p>
+<ul>
+<li>файли <code>test_*.py</code> або <code>*_test.py</code> (у нашому проєкті — в папці <code>tests/</code>, це задано в <code>pytest.ini</code>);</li>
+<li>функції <code>test_*</code> і методи <code>test_*</code> у класах <code>Test*</code>;</li>
+<li>жодної реєстрації, жодного <code>main()</code>.</li>
+</ul>
+<p>Три частини тесту — <strong>Arrange, Act, Assert</strong> (AAA) — варто тримати навіть там, де коментарів немає: один тест — одна дія й перевірка її результату. Тест, який робить п'ять дій і перевіряє все одразу, при падінні не скаже, що саме зламалось.</p>
+<h3 id="_4">Читаємо падіння<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>Повернімо п'ятничну «чистку»: <code>return round(tariff.base + tariff.per_km * km)</code> без <code>max</code>. Запуск тестів тарифу:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests/test_pricing.py
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>tests/test_pricing.py .FFF..F..........                                  [100%]
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>=================================== FAILURES ===================================
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>________________________ test_short_trip_costs_min_fare ________________________
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>day_tariff = Tariff(base=40, per_km=12, min_fare=80)
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    def test_short_trip_costs_min_fare(day_tariff):
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>&gt;       assert fare(0.5, day_tariff) == 80
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>E       assert 46 == 80
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>E        +  where 46 = fare(0.5, Tariff(base=40, per_km=12, min_fare=80))
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>tests/test_pricing.py:16: AssertionError
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>...
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>=========================== short test summary info ============================
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>FAILED tests/test_pricing.py::test_short_trip_costs_min_fare - assert 46 == 80
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>FAILED tests/test_pricing.py::test_fare_table[zero] - assert 40 == 80
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>FAILED tests/test_pricing.py::test_fare_table[below-min] - assert 76 == 80
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>FAILED tests/test_pricing.py::test_fare_table[fraction] - assert 67 == 80
+<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a>4 failed, 13 passed in 0.03s
+</code></pre></div>
+<p>Як читати звіт:</p>
+<ul>
+<li><code>F</code> — провалений тест, <code>.</code> — пройдений; рядок <code>&gt;</code> — де саме впало;</li>
+<li><code>E assert 46 == 80</code> — pytest <strong>розібрав</strong> звичайний <code>assert</code> і показав обидва значення, а рядок <code>where</code> — звідки взялося 46. У <code>unittest</code> для цього потрібні спеціальні методи; pytest робить це сам;</li>
+<li>останній блок — короткий список: який тест і чому.</li>
+</ul>
+<p>А тепер головне: тест <code>test_long_trip_is_base_plus_distance</code> (поїздка на 10 км) <strong>пройшов</strong> на зламаному коді — саме цей випадок розробник і перевірив руками. Баг зловили тести <strong>на межах</strong>: 0 км, 3 км, 0.5 км. Час виконання в останньому рядку в тебе буде іншим.</p>
+<h2 id="_5">Межі, винятки, дробові числа<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>Помилки живуть на <strong>межах</strong>: нуль, порожній список, рівно мінімум, на одиницю більше. Для тарифу межа — точка, де <code>base + per_km × km</code> зрівнюється з мінімумом (40 + 12 × 3⅓ = 80):</p>
+<table>
+<thead>
+<tr>
+<th>Випадок</th>
+<th>Чому важливий</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 км</td>
+<td>найменше можливе значення</td>
+</tr>
+<tr>
+<td>3 км → 76 &lt; 80</td>
+<td>трохи нижче межі — має спрацювати мінімум</td>
+</tr>
+<tr>
+<td>3.5 км → 82</td>
+<td>трохи вище межі — мінімум уже не діє</td>
+</tr>
+<tr>
+<td>−1 км</td>
+<td>неможливе значення — має бути виняток</td>
+</tr>
+</tbody>
+</table>
+<p>Виняток перевіряють контекстним менеджером <code>pytest.raises</code>; <code>match</code> — регулярний вираз, який шукається в тексті помилки:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_negative_distance_is_rejected</span><span class="p">():</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="n">match</span><span class="o">=</span><span class="s2">"від'ємною"</span><span class="p">):</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>        <span class="n">fare</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">Tariff</span><span class="p">(</span><span class="n">base</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">per_km</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">min_fare</span><span class="o">=</span><span class="mi">80</span><span class="p">))</span>
+</code></pre></div>
+<p>Якщо <code>fare(-1, …)</code> не кине <code>ValueError</code>, тест упаде з <code>Failed: DID NOT RAISE</code>. Усередині <code>with</code> має бути лише рядок, який <strong>повинен</strong> кинути виняток, — інакше тест пройде, навіть якщо виняток кинув зовсім інший рядок.</p>
+<p>Дробові числа не можна порівнювати через <code>==</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">checks</span> <span class="o">=</span> <span class="p">[</span><span class="mi">340</span><span class="p">,</span> <span class="mi">305</span><span class="p">,</span> <span class="mi">410</span><span class="p">]</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nb">print</span><span class="p">(</span><span class="mf">0.1</span> <span class="o">+</span> <span class="mf">0.2</span> <span class="o">==</span> <span class="mf">0.3</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="n">checks</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">checks</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>False 351.6666666666667
+</code></pre></div>
+<p><code>pytest.approx</code> порівнює з допуском:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_average_check_is_approximately_right</span><span class="p">():</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>    <span class="n">checks</span> <span class="o">=</span> <span class="p">[</span><span class="mi">340</span><span class="p">,</span> <span class="mi">305</span><span class="p">,</span> <span class="mi">410</span><span class="p">]</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    <span class="k">assert</span> <span class="nb">sum</span><span class="p">(</span><span class="n">checks</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">checks</span><span class="p">)</span> <span class="o">==</span> <span class="n">pytest</span><span class="o">.</span><span class="n">approx</span><span class="p">(</span><span class="mf">351.67</span><span class="p">,</span> <span class="nb">abs</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="parametrize"><code>parametrize</code>: один тест — таблиця випадків<a class="headerlink" href="#parametrize" title="Permanent link">&para;</a></h2>
+<p>П'ять майже однакових тестів для п'яти відстаней — копіпаста. <code>@pytest.mark.parametrize</code> описує випадки таблицею, а pytest запускає тест для кожного рядка окремо:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    <span class="s2">"km, expected"</span><span class="p">,</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    <span class="p">[</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">80</span><span class="p">),</span>       <span class="c1"># нуль кілометрів — усе одно мінімум</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>        <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">80</span><span class="p">),</span>       <span class="c1"># 40 + 36 = 76 &lt; 80</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>        <span class="p">(</span><span class="mf">3.5</span><span class="p">,</span> <span class="mi">82</span><span class="p">),</span>     <span class="c1"># 40 + 42 = 82 — вже більше за мінімум</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>        <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">160</span><span class="p">),</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>        <span class="p">(</span><span class="mf">2.25</span><span class="p">,</span> <span class="mi">80</span><span class="p">),</span>    <span class="c1"># 40 + 27 = 67</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>    <span class="p">],</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>    <span class="n">ids</span><span class="o">=</span><span class="p">[</span><span class="s2">"zero"</span><span class="p">,</span> <span class="s2">"below-min"</span><span class="p">,</span> <span class="s2">"just-above-min"</span><span class="p">,</span> <span class="s2">"long"</span><span class="p">,</span> <span class="s2">"fraction"</span><span class="p">],</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="p">)</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_fare_table</span><span class="p">(</span><span class="n">km</span><span class="p">,</span> <span class="n">expected</span><span class="p">,</span> <span class="n">day_tariff</span><span class="p">):</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>    <span class="k">assert</span> <span class="n">fare</span><span class="p">(</span><span class="n">km</span><span class="p">,</span> <span class="n">day_tariff</span><span class="p">)</span> <span class="o">==</span> <span class="n">expected</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>-v<span class="w"> </span>tests/test_pricing.py<span class="w"> </span>-k<span class="w"> </span>fare_table
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>tests/test_pricing.py::test_fare_table[zero] PASSED                      [ 20%]
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>tests/test_pricing.py::test_fare_table[below-min] PASSED                 [ 40%]
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>tests/test_pricing.py::test_fare_table[just-above-min] PASSED            [ 60%]
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>tests/test_pricing.py::test_fare_table[long] PASSED                      [ 80%]
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>tests/test_pricing.py::test_fare_table[fraction] PASSED                  [100%]
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>======================= 5 passed, 12 deselected in 0.02s =======================
+</code></pre></div>
+<p>Кожен рядок — окремий тест зі своїм іменем з <code>ids</code>; падіння одного не зупиняє решту. <code>-v</code> показує імена, <code>-k fare_table</code> запускає лише тести, в імені яких є цей фрагмент. Новий випадок — новий рядок таблиці.</p>
+<h2 id="fixtures">Fixtures: дані для тестів<a class="headerlink" href="#fixtures" title="Permanent link">&para;</a></h2>
+<p>Тест вище приймає параметр <code>day_tariff</code>, якого ніхто не передає. Це <strong>fixture</strong> — функція, яку pytest викликає перед тестом і передає результат за <strong>іменем параметра</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">day_tariff</span><span class="p">():</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>    <span class="k">return</span> <span class="n">Tariff</span><span class="p">(</span><span class="n">base</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">per_km</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">min_fare</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li>кожен тест отримує <strong>свіжий</strong> результат fixture — тести не впливають один на одного;</li>
+<li>fixtures, потрібні в кількох файлах, кладуть у <code>tests/conftest.py</code> — pytest знаходить цей файл сам, імпортувати його не треба;</li>
+<li>fixture може приймати інші fixtures, як тест.</li>
+</ul>
+<h3 id="_6">Фабрика: лише важливі поля<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>Тестам конвеєра потрібні події, але кожному тесту важливі різні поля. Fixture-<strong>фабрика</strong> повертає функцію з розумними значеннями за замовчуванням:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">make_event</span><span class="p">():</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">    </span><span class="sd">"""Фабрика: створює подію, у якій треба вказати лише важливі для тесту поля."""</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">factory</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">"picked"</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="s2">"18:00"</span><span class="p">,</span> <span class="n">courier</span><span class="o">=</span><span class="s2">"D-1"</span><span class="p">):</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">time</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">courier</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">order</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">kind</span><span class="si">}</span><span class="s2">"</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>    <span class="k">return</span> <span class="n">factory</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_durations_pairs_picked_and_delivered</span><span class="p">(</span><span class="n">make_event</span><span class="p">):</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>    <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>        <span class="n">make_event</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">"picked"</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="s2">"18:00"</span><span class="p">),</span>
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>        <span class="n">make_event</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">"picked"</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="s2">"18:05"</span><span class="p">,</span> <span class="n">courier</span><span class="o">=</span><span class="s2">"D-2"</span><span class="p">),</span>
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>        <span class="n">make_event</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">"delivered"</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="s2">"18:20"</span><span class="p">),</span>
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a>        <span class="n">make_event</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">"delivered"</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="s2">"18:30"</span><span class="p">),</span>   <span class="c1"># без picked — пропускаємо</span>
+<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a>    <span class="p">]</span>
+<a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a>    <span class="k">assert</span> <span class="nb">list</span><span class="p">(</span><span class="n">durations</span><span class="p">(</span><span class="n">parse</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="p">[])))</span> <span class="o">==</span> <span class="p">[(</span><span class="s2">"D-1"</span><span class="p">,</span> <span class="mi">20</span><span class="p">)]</span>
+</code></pre></div>
+<p>Читач тесту бачить <strong>лише те, що важливо</strong> для перевірки: номери замовлень, типи подій і час. Коли формат подій зміниться, правити доведеться одну фабрику, а не сорок тестів.</p>
+<h3 id="yield-tmp_path">Прибирання після тесту: <code>yield</code> і <code>tmp_path</code><a class="headerlink" href="#yield-tmp_path" title="Permanent link">&para;</a></h3>
+<p>Fixture з <code>yield</code> ділиться на дві частини: до <code>yield</code> — підготовка, після — прибирання. Прибирання виконується, <strong>навіть якщо тест упав</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">shift_log</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">):</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>    <span class="n">path</span> <span class="o">=</span> <span class="n">tmp_path</span> <span class="o">/</span> <span class="s2">"shift.log"</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>    <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">відкрив журнал"</span><span class="p">)</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>    <span class="k">yield</span> <span class="n">file</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>    <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"закрив журнал"</span><span class="p">)</span>
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_write_event</span><span class="p">(</span><span class="n">shift_log</span><span class="p">):</span>
+<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a>    <span class="n">shift_log</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"18:03 D-1 101 picked</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"пишу подію"</span><span class="p">)</span>
+<a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a>    <span class="k">assert</span> <span class="ow">not</span> <span class="n">shift_log</span><span class="o">.</span><span class="n">closed</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>-q<span class="w"> </span>-s<span class="w"> </span>test_yield.py
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>відкрив журнал
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>пишу подію
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>.закрив журнал
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>1 passed in 0.01s
+</code></pre></div>
+<p><code>-s</code> вимикає перехоплення <code>print</code>. <code>tmp_path</code> — вбудована fixture pytest: окрема тимчасова папка для кожного тесту (об'єкт <code>pathlib.Path</code>). Тести не пишуть у справжні файли проєкту й не заважають одне одному.</p>
+<p>Fixtures мають <strong>scope</strong> — як часто їх створювати: <code>function</code> (за замовчуванням — для кожного тесту), <code>module</code>, <code>session</code>. Ширший scope пришвидшує дорогу підготовку (з'єднання з базою), але спільний <strong>змінюваний</strong> об'єкт робить тести залежними від порядку запуску. Для даних — майже завжди <code>function</code>.</p>
+<h2 id="unittest"><code>unittest</code>: тести в стилі класів<a class="headerlink" href="#unittest" title="Permanent link">&para;</a></h2>
+<p>У стандартній бібліотеці є модуль <code>unittest</code> — тести як методи класу-нащадка <code>TestCase</code>, перевірки — методами <code>assert…</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">unittest</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="k">class</span><span class="w"> </span><span class="nc">FareTest</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">tariff</span> <span class="o">=</span> <span class="n">Tariff</span><span class="p">(</span><span class="n">base</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">per_km</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">min_fare</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">test_long_trip</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">fare</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tariff</span><span class="p">),</span> <span class="mi">160</span><span class="p">)</span>
+<a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>
+<a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">test_negative_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a>        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+<a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a>            <span class="n">fare</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tariff</span><span class="p">)</span>
+</code></pre></div>
+<p><code>setUp</code> виконується перед кожним тестом — як fixture. Цей стиль зустрінеш у старих проєктах і в Django (урок 34): <code>django.test.TestCase</code> — нащадок <code>unittest.TestCase</code>. pytest запускає й такі тести, тож обирати не доводиться. Для нового коду pytest зручніший: звичайний <code>assert</code>, fixtures за іменем, <code>parametrize</code>.</p>
+<h2 id="mock-patch">Mock і patch: підміна зовнішнього світу<a class="headerlink" href="#mock-patch" title="Permanent link">&para;</a></h2>
+<p>Коли кур'єр забирає замовлення, клієнт отримує SMS. Справжній шлюз ходить у мережу й бере гроші за кожне повідомлення. Тест, що надсилає справжні SMS, повільний, платний і падає, коли немає інтернету, — хоча наш код правильний. Такі залежності — <strong>межі системи</strong> — у тестах підміняють.</p>
+<p>Найпростіше підміняти, коли залежність приходить <strong>параметром</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">notify_client</span><span class="p">(</span><span class="n">order_id</span><span class="p">,</span> <span class="n">phone</span><span class="p">,</span> <span class="n">minutes</span><span class="p">,</span> <span class="n">gateway</span><span class="p">):</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">    </span><span class="sd">"""Надсилає клієнту час доставки. Повертає True, якщо SMS пішло."""</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>    <span class="n">text</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"Замовлення №</span><span class="si">{</span><span class="n">order_id</span><span class="si">}</span><span class="s2"> буде за </span><span class="si">{</span><span class="n">minutes</span><span class="si">}</span><span class="s2"> хв"</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>        <span class="n">gateway</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">phone</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>    <span class="k">except</span> <span class="ne">ConnectionError</span><span class="p">:</span>
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>        <span class="k">return</span> <span class="kc">False</span>
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>    <span class="k">return</span> <span class="kc">True</span>
+</code></pre></div>
+<p><code>unittest.mock.Mock</code> — об'єкт, у якого є <strong>будь-який</strong> метод. Він приймає будь-які аргументи й запам'ятовує кожен виклик:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">unittest.mock</span><span class="w"> </span><span class="kn">import</span> <span class="n">Mock</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="n">gateway</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">notify_client</span><span class="p">(</span><span class="mi">101</span><span class="p">,</span> <span class="s2">"+380501234567"</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="n">gateway</span><span class="p">))</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">gateway</span><span class="o">.</span><span class="n">send</span><span class="o">.</span><span class="n">call_count</span><span class="p">,</span> <span class="n">gateway</span><span class="o">.</span><span class="n">send</span><span class="o">.</span><span class="n">call_args</span><span class="p">)</span>
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a><span class="n">gateway</span><span class="o">.</span><span class="n">send</span><span class="o">.</span><span class="n">side_effect</span> <span class="o">=</span> <span class="ne">ConnectionError</span><span class="p">(</span><span class="s2">"шлюз не відповідає"</span><span class="p">)</span>
+<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">notify_client</span><span class="p">(</span><span class="mi">102</span><span class="p">,</span> <span class="s2">"+380501234567"</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">gateway</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>True
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>1 call('+380501234567', 'Замовлення №101 буде за 25 хв')
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>False
+</code></pre></div>
+<ul>
+<li><code>call_count</code>, <code>call_args</code> — що з mock-ом робили; у тестах зручніше <code>gateway.send.assert_called_once_with(…)</code>;</li>
+<li><code>return_value</code> — що повертає виклик;</li>
+<li><code>side_effect</code> — виняток (чи функція), що спрацює під час виклику. Так перевіряють сценарій «шлюз упав»: замовлення не має губитися через недоставлене SMS.</li>
+</ul>
+<p>Тест з файлу <code>tests/test_notify.py</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_sms_text_and_phone</span><span class="p">():</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>    <span class="n">gateway</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>    <span class="k">assert</span> <span class="n">notify_client</span><span class="p">(</span><span class="mi">101</span><span class="p">,</span> <span class="s2">"+380501234567"</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="n">gateway</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">True</span>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>    <span class="n">gateway</span><span class="o">.</span><span class="n">send</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span><span class="s2">"+380501234567"</span><span class="p">,</span> <span class="s2">"Замовлення №101 буде за 25 хв"</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="patch"><code>patch</code>: коли залежність імпортовано всередині модуля<a class="headerlink" href="#patch" title="Permanent link">&para;</a></h3>
+<p>Не весь код приймає залежності параметром. Модуль <code>delivery/services.py</code> імпортує функцію напряму:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1"># delivery/services.py</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">delivery.sms</span><span class="w"> </span><span class="kn">import</span> <span class="n">send_sms</span>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">confirm_order</span><span class="p">(</span><span class="n">order_id</span><span class="p">,</span> <span class="n">phone</span><span class="p">):</span>
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>    <span class="n">send_sms</span><span class="p">(</span><span class="n">phone</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"Замовлення №</span><span class="si">{</span><span class="n">order_id</span><span class="si">}</span><span class="s2"> прийнято"</span><span class="p">)</span>
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>    <span class="k">return</span> <span class="s2">"confirmed"</span>
+</code></pre></div>
+<p><code>unittest.mock.patch</code> тимчасово замінює ім'я в модулі на mock. Головне правило — <strong>patch where used</strong>: підміняти ім'я там, де його <strong>використовують</strong>, а не там, де його визначили.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">unittest.mock</span><span class="w"> </span><span class="kn">import</span> <span class="n">patch</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_confirm_order_sends_sms</span><span class="p">():</span>
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>    <span class="k">with</span> <span class="n">patch</span><span class="p">(</span><span class="s2">"delivery.services.send_sms"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fake_send</span><span class="p">:</span>
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>        <span class="k">assert</span> <span class="n">confirm_order</span><span class="p">(</span><span class="mi">101</span><span class="p">,</span> <span class="s2">"+380501234567"</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"confirmed"</span>
+<a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>    <span class="n">fake_send</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span><span class="s2">"+380501234567"</span><span class="p">,</span> <span class="s2">"Замовлення №101 прийнято"</span><span class="p">)</span>
+</code></pre></div>
+<p>Чому не <code>patch("delivery.sms.send_sms")</code>? Рядок <code>from delivery.sms import send_sms</code> вже <strong>скопіював посилання</strong> на функцію в простір імен <code>delivery.services</code> (урок 13). Підміна в <code>delivery.sms</code> цього посилання не змінює — і тест викликає справжню функцію:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>&gt;       raise ConnectionError("справжня мережа недоступна в навчальному проєкті")
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>E       ConnectionError: справжня мережа недоступна в навчальному проєкті
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>delivery/sms.py:5: ConnectionError
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>1 failed in 0.04s
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Коли mock шкодить</p>
+<p>Мокати варто <strong>межі системи</strong>: мережу, платежі, SMS, пошту, час, випадковість. Якщо мокати власні функції, тест перевіряє не поведінку, а те, <strong>як</strong> код написано: будь-який рефакторинг ламає тести, хоча програма працює. А тест, у якому замокано все, проходить, навіть коли реальні частини одна з одною не стикуються.</p>
+</div>
+<p>Замість <code>Mock</code> можна написати <strong>fake</strong> — маленький клас, що поводиться як справжній шлюз, але пише повідомлення в список (є в <code>tests/test_notify.py</code>). Fake читається простіше, коли залежність має стан.</p>
+<h2 id="coverage">Coverage: що тести не зачепили<a class="headerlink" href="#coverage" title="Permanent link">&para;</a></h2>
+<p><code>pytest-cov</code> показує, які рядки коду виконувалися під час тестів:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>--cov<span class="o">=</span>delivery<span class="w"> </span>--cov-report<span class="o">=</span>term-missing
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>Name                   Stmts   Miss  Cover   Missing
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>----------------------------------------------------
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>delivery/__init__.py       0      0   100%
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>delivery/events.py        32      0   100%
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>delivery/notify.py        10      1    90%   8
+<a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>delivery/pricing.py       14      0   100%
+<a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>delivery/services.py       4      0   100%
+<a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>delivery/sms.py            2      1    50%   5
+<a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a>----------------------------------------------------
+<a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a>TOTAL                     62      2    97%
+</code></pre></div>
+<p>Непокриті рядки — <code>notify.py:8</code> і <code>sms.py:5</code> — це саме справжні виклики мережі, які ми свідомо підмінили. Так coverage корисний: він показує <strong>незачеплені місця</strong>, і кожне треба пояснити.</p>
+<p>А от 100% нічого не гарантує. Рядок вважається покритим, якщо він <strong>виконався</strong>, навіть коли жоден <code>assert</code> не перевірив результат. Тест <code>fare(0.5, day)</code> без <code>assert</code> дав би ті самі 100% для <code>pricing.py</code> — і пропустив би п'ятничний баг. Якість тестів — у перевірках, а не у відсотку.</p>
+<h2 id="ai-">Валідація AI-коду<a class="headerlink" href="#ai-" title="Permanent link">&para;</a></h2>
+<p>AI-асистенти пишуть код швидко й упевнено — і так само впевнено помиляються: на межах, на порожніх даних, в округленні. Код від AI — як код від нового колеги: <strong>приймаємо лише після перевірки</strong>. Попросимо «функцію, що ділить рахунок компанії порівну між людьми»:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">split_bill</span><span class="p">(</span><span class="n">total</span><span class="p">,</span> <span class="n">people</span><span class="p">):</span>
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="w">    </span><span class="sd">"""Згенеровано AI: «розділи рахунок порівну між людьми»."""</span>
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>    <span class="n">share</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">total</span> <span class="o">/</span> <span class="n">people</span><span class="p">)</span>
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>    <span class="k">return</span> <span class="p">[</span><span class="n">share</span><span class="p">]</span> <span class="o">*</span> <span class="n">people</span>
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>
+<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>
+<a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">split_bill</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">split_bill</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="nb">sum</span><span class="p">(</span><span class="n">split_bill</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>[100, 100, 100] [33, 33, 33] 99
+</code></pre></div>
+<p>На «зручному» прикладі все гаразд, а на 100 грн на трьох загубилася гривня. Щоб не шукати такі випадки навмання, спершу записуємо <strong>специфікацію</strong> — властивості, що мусять виконуватися для <strong>будь-яких</strong> входів:</p>
+<ol>
+<li>частин стільки, скільки людей;</li>
+<li>сума частин дорівнює рахунку — жодна гривня не губиться й не з'являється;</li>
+<li>частини відрізняються щонайбільше на 1 грн;</li>
+<li>нуль людей — <code>ValueError</code>, а не падіння з <code>ZeroDivisionError</code>.</li>
+</ol>
+<p>Перевіряємо ці властивості на сотнях комбінацій:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">check_split</span><span class="p">(</span><span class="n">split</span><span class="p">):</span>
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>    <span class="n">problems</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>    <span class="k">for</span> <span class="n">total</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">301</span><span class="p">,</span> <span class="mi">7</span><span class="p">):</span>
+<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>        <span class="k">for</span> <span class="n">people</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">):</span>
+<a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>            <span class="n">shares</span> <span class="o">=</span> <span class="n">split</span><span class="p">(</span><span class="n">total</span><span class="p">,</span> <span class="n">people</span><span class="p">)</span>
+<a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">shares</span><span class="p">)</span> <span class="o">!=</span> <span class="n">people</span><span class="p">:</span>
+<a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a>                <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">total</span><span class="si">}</span><span class="s2"> на </span><span class="si">{</span><span class="n">people</span><span class="si">}</span><span class="s2">: частин </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">shares</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a>            <span class="k">elif</span> <span class="nb">sum</span><span class="p">(</span><span class="n">shares</span><span class="p">)</span> <span class="o">!=</span> <span class="n">total</span><span class="p">:</span>
+<a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a>                <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">total</span><span class="si">}</span><span class="s2"> на </span><span class="si">{</span><span class="n">people</span><span class="si">}</span><span class="s2">: сума </span><span class="si">{</span><span class="nb">sum</span><span class="p">(</span><span class="n">shares</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-31-10" name="__codelineno-31-10" href="#__codelineno-31-10"></a>            <span class="k">elif</span> <span class="nb">max</span><span class="p">(</span><span class="n">shares</span><span class="p">)</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="n">shares</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<a id="__codelineno-31-11" name="__codelineno-31-11" href="#__codelineno-31-11"></a>                <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">total</span><span class="si">}</span><span class="s2"> на </span><span class="si">{</span><span class="n">people</span><span class="si">}</span><span class="s2">: різниця </span><span class="si">{</span><span class="nb">max</span><span class="p">(</span><span class="n">shares</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">min</span><span class="p">(</span><span class="n">shares</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-31-12" name="__codelineno-31-12" href="#__codelineno-31-12"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-31-13" name="__codelineno-31-13" href="#__codelineno-31-13"></a>        <span class="n">split</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-31-14" name="__codelineno-31-14" href="#__codelineno-31-14"></a>        <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"0 людей: помилки немає"</span><span class="p">)</span>
+<a id="__codelineno-31-15" name="__codelineno-31-15" href="#__codelineno-31-15"></a>    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+<a id="__codelineno-31-16" name="__codelineno-31-16" href="#__codelineno-31-16"></a>        <span class="k">pass</span>
+<a id="__codelineno-31-17" name="__codelineno-31-17" href="#__codelineno-31-17"></a>    <span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
+<a id="__codelineno-31-18" name="__codelineno-31-18" href="#__codelineno-31-18"></a>        <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"0 людей: ZeroDivisionError замість ValueError"</span><span class="p">)</span>
+<a id="__codelineno-31-19" name="__codelineno-31-19" href="#__codelineno-31-19"></a>    <span class="k">return</span> <span class="n">problems</span>
+<a id="__codelineno-31-20" name="__codelineno-31-20" href="#__codelineno-31-20"></a>
+<a id="__codelineno-31-21" name="__codelineno-31-21" href="#__codelineno-31-21"></a>
+<a id="__codelineno-31-22" name="__codelineno-31-22" href="#__codelineno-31-22"></a><span class="n">problems</span> <span class="o">=</span> <span class="n">check_split</span><span class="p">(</span><span class="n">split_bill</span><span class="p">)</span>
+<a id="__codelineno-31-23" name="__codelineno-31-23" href="#__codelineno-31-23"></a><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">problems</span><span class="p">))</span>
+<a id="__codelineno-31-24" name="__codelineno-31-24" href="#__codelineno-31-24"></a><span class="nb">print</span><span class="p">(</span><span class="n">problems</span><span class="p">[:</span><span class="mi">3</span><span class="p">])</span>
+<a id="__codelineno-31-25" name="__codelineno-31-25" href="#__codelineno-31-25"></a><span class="nb">print</span><span class="p">(</span><span class="n">problems</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>151
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>['7 на 2: сума 8', '7 на 3: сума 6', '7 на 4: сума 8']
+<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>0 людей: ZeroDivisionError замість ValueError
+</code></pre></div>
+<p>151 порушення на 301 комбінації рахунку й кількості людей. Правильна версія розподіляє остачу по одній гривні:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">split_bill</span><span class="p">(</span><span class="n">total</span><span class="p">,</span> <span class="n">people</span><span class="p">):</span>
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>    <span class="k">if</span> <span class="n">people</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"людей має бути щонайменше 1, а маємо </span><span class="si">{</span><span class="n">people</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a>    <span class="n">share</span><span class="p">,</span> <span class="n">rest</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">total</span><span class="p">,</span> <span class="n">people</span><span class="p">)</span>
+<a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a>    <span class="k">return</span> <span class="p">[</span><span class="n">share</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">rest</span> <span class="o">+</span> <span class="p">[</span><span class="n">share</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">people</span> <span class="o">-</span> <span class="n">rest</span><span class="p">)</span>
+<a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a>
+<a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a>
+<a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">split_bill</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">check_split</span><span class="p">(</span><span class="n">split_bill</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>[34, 33, 33] []
+</code></pre></div>
+<p>Такі тести називають <strong>тестами властивостей</strong> (property-based): замість «на вході 100 і 3 — на виході [34, 33, 33]» вони перевіряють правила, що не залежать від конкретних чисел. Бібліотека <a href="https://hypothesis.readthedocs.io/">Hypothesis</a> генерує входи сама й шукає найменший приклад, що ламає властивість.</p>
+<h3 id="ai">Тести від AI теж перевіряють<a class="headerlink" href="#ai" title="Permanent link">&para;</a></h3>
+<p>Попроси AI «напиши тести для <code>fare</code>» — і часто отримаєш таке:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_fare_formula</span><span class="p">(</span><span class="n">day_tariff</span><span class="p">):</span>
+<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>    <span class="n">km</span> <span class="o">=</span> <span class="mi">3</span>
+<a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>    <span class="k">assert</span> <span class="n">fare</span><span class="p">(</span><span class="n">km</span><span class="p">,</span> <span class="n">day_tariff</span><span class="p">)</span> <span class="o">==</span> <span class="nb">max</span><span class="p">(</span><span class="n">day_tariff</span><span class="o">.</span><span class="n">min_fare</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">day_tariff</span><span class="o">.</span><span class="n">base</span> <span class="o">+</span> <span class="n">day_tariff</span><span class="o">.</span><span class="n">per_km</span> <span class="o">*</span> <span class="n">km</span><span class="p">))</span>
+</code></pre></div>
+<p>Тест <strong>повторює формулу реалізації</strong>. Якщо формула неправильна, очікуване значення неправильне так само, і тест проходить. Очікувані значення мають братися з <strong>вимог</strong>, а не з коду: «поїздка на 3 км коштує 80 грн, бо це мінімум».</p>
+<div class="admonition tip">
+<p class="admonition-title">Чекліст для AI-коду</p>
+<ol>
+<li>Спершу специфікація: що функція обіцяє, які входи допустимі, що робити з недопустимими.</li>
+<li>Тести на межі: 0, 1, порожній вхід, від'ємне, дуже велике, рівно на межі.</li>
+<li>Інваріанти, що мають виконуватися для будь-яких входів (сума, кількість, порядок).</li>
+<li>Перевір, що тест <strong>падає</strong> на неправильному коді: зламай рядок і запусти. Тест, який проходить на зламаному коді, — не тест.</li>
+<li>Очікувані значення — з вимог, не з реалізації.</li>
+<li>Код, який ти не можеш пояснити, не йде в <code>main</code>, хоч би хто його написав.</li>
+</ol>
+</div>
+<h2 id="architecture">Архітектура: тестованість — властивість дизайну<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
+<h3 id="_7">Піраміда тестів<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>flowchart TD
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    E2E["E2E: браузер, увесь сервіс&lt;br&gt;мало й повільні"]
+    INT["інтеграційні&lt;br&gt;конвеєр, API, база"]
+    UNIT["unit: fare, parse, split_bill&lt;br&gt;багато й швидкі"]
+    E2E --&gt; INT --&gt; UNIT
+
+    class E2E warning
+    class INT step
+    class UNIT success</code></pre>
+<ul>
+<li><strong>Unit-тести</strong> — основа: сотні штук, мілісекунди, точно вказують на місце помилки.</li>
+<li><strong>Інтеграційні</strong> перевіряють, що частини стикуються: <code>test_whole_pipeline</code> проганяє журнал через усі стадії конвеєра одразу.</li>
+<li><strong>E2E</strong> (end-to-end) проходять шлях користувача в справжньому браузері: найвища впевненість, але повільні й крихкі — лише для критичних сценаріїв.</li>
+</ul>
+<p>Тестування Django-застосунків — моделей, форм, view, прав доступу — буде в уроках 34–35 разом із самим Django; тести HTTP API — в уроці 42; автоматичний запуск тестів на кожен push через GitHub Actions — в уроці 51.</p>
+<h3 id="_8">Залежності — параметром<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>Функцію, яка сама ходить у мережу, у базу й у годинник, тестувати важко: кожен тест тягне за собою весь світ. Функцію, яка отримує залежності <strong>параметрами</strong>, — легко: у тесті передаємо fake чи mock.</p>
+<pre class="mermaid"><code>flowchart LR
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    N["notify_client&lt;br&gt;логіка сервісу"] --&gt; G{"gateway&lt;br&gt;має метод send"}
+    G -- "у продакшені" --&gt; REAL["SmsGateway&lt;br&gt;мережа, гроші"]
+    G -- "у тесті" --&gt; FAKE["Mock або FakeGateway&lt;br&gt;список повідомлень"]
+
+    class N step
+    class G decision
+    class REAL warning
+    class FAKE success</code></pre>
+<p>Це <strong>впровадження залежностей</strong> (dependency injection): функція не вирішує сама, куди слати SMS, — їй це передають. Та сама ідея, що в конвеєрі з уроку 25: стадія не відкриває файл, а приймає ітерабельне. Код, який легко тестувати, майже завжди має й кращу архітектуру: чіткі межі, малі частини, явні залежності.</p>
+<h3 id="_9">Що тестувати й як<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Що</th>
+<th>Рівень</th>
+<th>Як</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>чисті функції: <code>fare</code>, <code>apply_promo</code>, <code>split_bill</code></td>
+<td>unit</td>
+<td><code>parametrize</code> по межах, <code>pytest.raises</code></td>
+</tr>
+<tr>
+<td>стадії конвеєра</td>
+<td>unit</td>
+<td>списки з кількох рядків, фабрика подій</td>
+</tr>
+<tr>
+<td>конвеєр цілком</td>
+<td>інтеграційний</td>
+<td>журнал через усі стадії, <code>tmp_path</code> для файлу</td>
+</tr>
+<tr>
+<td>SMS, платежі, мережа</td>
+<td>межа системи</td>
+<td><code>Mock</code> / fake через параметр, або <code>patch</code> там, де використовується</td>
+</tr>
+<tr>
+<td>AI-код і чужий код</td>
+<td>unit + властивості</td>
+<td>специфікація → інваріанти → перевірка, що тест падає на зламаному коді</td>
+</tr>
+</tbody>
+</table>
+<h2 id="practice">Практика<a class="headerlink" href="#practice" title="Permanent link">&para;</a></h2>
+<h3 id="delivery_tests">Розібраний приклад: проєкт <code>delivery_tests</code><a class="headerlink" href="#delivery_tests" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>delivery_tests/
+<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>├── pytest.ini              ← testpaths = tests, pythonpath = .
+<a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>├── delivery/
+<a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a>│   ├── pricing.py          ← Tariff, fare, apply_promo
+<a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a>│   ├── events.py           ← конвеєр подій з уроку 25 + read_log
+<a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a>│   ├── notify.py           ← notify_client(…, gateway)
+<a id="__codelineno-36-7" name="__codelineno-36-7" href="#__codelineno-36-7"></a>│   ├── sms.py, services.py ← приклад для patch
+<a id="__codelineno-36-8" name="__codelineno-36-8" href="#__codelineno-36-8"></a>└── tests/
+<a id="__codelineno-36-9" name="__codelineno-36-9" href="#__codelineno-36-9"></a>    ├── conftest.py         ← day_tariff, log_lines, make_event
+<a id="__codelineno-36-10" name="__codelineno-36-10" href="#__codelineno-36-10"></a>    ├── test_pricing.py     ← AAA, parametrize, raises, approx
+<a id="__codelineno-36-11" name="__codelineno-36-11" href="#__codelineno-36-11"></a>    ├── test_events.py      ← стадії окремо + увесь конвеєр + tmp_path
+<a id="__codelineno-36-12" name="__codelineno-36-12" href="#__codelineno-36-12"></a>    ├── test_notify.py      ← Mock, side_effect, fake
+<a id="__codelineno-36-13" name="__codelineno-36-13" href="#__codelineno-36-13"></a>    ├── test_services.py    ← patch where used
+<a id="__codelineno-36-14" name="__codelineno-36-14" href="#__codelineno-36-14"></a>    └── test_unittest_style.py
+</code></pre></div>
+<p>Запуск: <code>cd delivery_tests</code>, потім <code>python -m pytest -v</code>. Зверни увагу на кілька тестів з <code>test_events.py</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_parse_is_lazy</span><span class="p">():</span>
+<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>    <span class="n">rejected</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a>    <span class="n">stream</span> <span class="o">=</span> <span class="n">parse</span><span class="p">([</span><span class="s2">"зовсім не подія"</span><span class="p">],</span> <span class="n">rejected</span><span class="p">)</span>
+<a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a>    <span class="k">assert</span> <span class="n">rejected</span> <span class="o">==</span> <span class="p">[]</span>          <span class="c1"># генератор ще нічого не читав</span>
+<a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a>    <span class="k">assert</span> <span class="nb">list</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span> <span class="o">==</span> <span class="p">[]</span>
+<a id="__codelineno-37-6" name="__codelineno-37-6" href="#__codelineno-37-6"></a>    <span class="k">assert</span> <span class="n">rejected</span> <span class="o">==</span> <span class="p">[</span><span class="s2">"зовсім не подія"</span><span class="p">]</span>
+<a id="__codelineno-37-7" name="__codelineno-37-7" href="#__codelineno-37-7"></a>
+<a id="__codelineno-37-8" name="__codelineno-37-8" href="#__codelineno-37-8"></a>
+<a id="__codelineno-37-9" name="__codelineno-37-9" href="#__codelineno-37-9"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_whole_pipeline</span><span class="p">(</span><span class="n">log_lines</span><span class="p">):</span>
+<a id="__codelineno-37-10" name="__codelineno-37-10" href="#__codelineno-37-10"></a>    <span class="n">rejected</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-37-11" name="__codelineno-37-11" href="#__codelineno-37-11"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">report</span><span class="p">(</span><span class="n">durations</span><span class="p">(</span><span class="n">in_shift</span><span class="p">(</span><span class="n">parse</span><span class="p">(</span><span class="n">log_lines</span><span class="p">,</span> <span class="n">rejected</span><span class="p">),</span> <span class="n">minutes</span><span class="p">(</span><span class="s2">"18:00"</span><span class="p">))))</span>
+<a id="__codelineno-37-12" name="__codelineno-37-12" href="#__codelineno-37-12"></a>    <span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="p">{</span><span class="s2">"D-1"</span><span class="p">:</span> <span class="mf">18.0</span><span class="p">,</span> <span class="s2">"D-2"</span><span class="p">:</span> <span class="mf">24.0</span><span class="p">}</span>
+<a id="__codelineno-37-13" name="__codelineno-37-13" href="#__codelineno-37-13"></a>    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">rejected</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+<a id="__codelineno-37-14" name="__codelineno-37-14" href="#__codelineno-37-14"></a>
+<a id="__codelineno-37-15" name="__codelineno-37-15" href="#__codelineno-37-15"></a>
+<a id="__codelineno-37-16" name="__codelineno-37-16" href="#__codelineno-37-16"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_read_log_from_file</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">,</span> <span class="n">log_lines</span><span class="p">):</span>
+<a id="__codelineno-37-17" name="__codelineno-37-17" href="#__codelineno-37-17"></a>    <span class="n">path</span> <span class="o">=</span> <span class="n">tmp_path</span> <span class="o">/</span> <span class="s2">"shift.log"</span>
+<a id="__codelineno-37-18" name="__codelineno-37-18" href="#__codelineno-37-18"></a>    <span class="n">path</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">log_lines</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"</span><span class="se">\n\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span>
+<a id="__codelineno-37-19" name="__codelineno-37-19" href="#__codelineno-37-19"></a>    <span class="k">assert</span> <span class="nb">list</span><span class="p">(</span><span class="n">read_log</span><span class="p">(</span><span class="n">path</span><span class="p">))</span> <span class="o">==</span> <span class="n">log_lines</span>
+</code></pre></div>
+<ul>
+<li><code>test_parse_is_lazy</code> фіксує <strong>поведінку</strong>, яку легко зламати непомітно: генератор не читає дані, доки їх не попросять (урок 11). Якщо хтось перепише <code>parse</code> на список, тест це покаже.</li>
+<li><code>test_whole_pipeline</code> — інтеграційний: усі стадії разом на даних з fixture <code>log_lines</code>.</li>
+<li><code>test_read_log_from_file</code> — файл у тимчасовій папці; порожні рядки наприкінці мають відкидатися.</li>
+</ul>
+<p>Окремо в папці уроку лежить <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_2/lessons/lesson_26_pytest_testing/basics"><code>basics/</code></a> — п'ять файлів-практикумів від простого до складного: перший тест, <code>unittest.TestCase</code>, довідник assert-методів, fixtures, <code>parametrize</code>. Кожен файл — тести з докладними коментарями; запуск: <code>python -m pytest -v</code> у цій папці (105 тестів).</p>
+<h3 id="_10">Зміни приклад: нічний тариф<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p>Нічний тариф: подача 60 грн, 15 грн/км, мінімум 120 грн. Додай у <code>test_pricing.py</code> параметризований тест <code>test_night_fare_table</code> з випадками на обох боках межі мінімуму. Спершу порахуй межу: при скількох кілометрах <code>60 + 15 × km</code> дорівнює 120?</p>
+<details class="tip">
+<summary>Підказка</summary>
+<p>Межа — 4 км. Випадки: <code>(0, 120)</code>, <code>(4, 120)</code>, <code>(4.5, 128)</code>, <code>(10, 210)</code>. Тариф зручно зробити ще однією fixture <code>night_tariff</code> у <code>conftest.py</code>.</p>
+</details>
+<h3 id="25">Спробуй самостійно: тести для уроку 25<a class="headerlink" href="#25" title="Permanent link">&para;</a></h3>
+<p>Напиши тести для <code>batched(iterable, n)</code> і <code>moving_average(values, k)</code> з уроку 25:</p>
+<ul>
+<li><code>parametrize</code> для звичайних випадків і меж: порожній вхід, <code>n</code> більше за довжину, <code>k</code> дорівнює довжині;</li>
+<li>нескінченний потік для <code>batched</code>: <code>next(batched(count(), 2))</code>;</li>
+<li><strong>перевір свої тести</strong>: зламай реалізацію (наприклад, забудь останню неповну пачку) — хоча б один тест мусить упасти.</li>
+</ul>
+<h3 id="_11">Знайди помилку<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="c1"># 1</span>
+<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_short_trip</span><span class="p">(</span><span class="n">day_tariff</span><span class="p">):</span>
+<a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a>    <span class="n">fare</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">day_tariff</span><span class="p">)</span> <span class="o">==</span> <span class="mi">80</span>
+<a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a>
+<a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a><span class="c1"># 2</span>
+<a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_negative_distance</span><span class="p">(</span><span class="n">day_tariff</span><span class="p">):</span>
+<a id="__codelineno-38-7" name="__codelineno-38-7" href="#__codelineno-38-7"></a>    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+<a id="__codelineno-38-8" name="__codelineno-38-8" href="#__codelineno-38-8"></a>        <span class="n">tariff</span> <span class="o">=</span> <span class="n">Tariff</span><span class="p">(</span><span class="n">base</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">per_km</span><span class="o">=-</span><span class="mi">12</span><span class="p">,</span> <span class="n">min_fare</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+<a id="__codelineno-38-9" name="__codelineno-38-9" href="#__codelineno-38-9"></a>        <span class="n">fare</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">tariff</span><span class="p">)</span>
+<a id="__codelineno-38-10" name="__codelineno-38-10" href="#__codelineno-38-10"></a>
+<a id="__codelineno-38-11" name="__codelineno-38-11" href="#__codelineno-38-11"></a><span class="c1"># 3</span>
+<a id="__codelineno-38-12" name="__codelineno-38-12" href="#__codelineno-38-12"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_confirm_order</span><span class="p">():</span>
+<a id="__codelineno-38-13" name="__codelineno-38-13" href="#__codelineno-38-13"></a>    <span class="k">with</span> <span class="n">patch</span><span class="p">(</span><span class="s2">"delivery.sms.send_sms"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fake_send</span><span class="p">:</span>
+<a id="__codelineno-38-14" name="__codelineno-38-14" href="#__codelineno-38-14"></a>        <span class="n">confirm_order</span><span class="p">(</span><span class="mi">101</span><span class="p">,</span> <span class="s2">"+380501234567"</span><span class="p">)</span>
+<a id="__codelineno-38-15" name="__codelineno-38-15" href="#__codelineno-38-15"></a>    <span class="n">fake_send</span><span class="o">.</span><span class="n">assert_called_once</span><span class="p">()</span>
+<a id="__codelineno-38-16" name="__codelineno-38-16" href="#__codelineno-38-16"></a>
+<a id="__codelineno-38-17" name="__codelineno-38-17" href="#__codelineno-38-17"></a><span class="c1"># 4</span>
+<a id="__codelineno-38-18" name="__codelineno-38-18" href="#__codelineno-38-18"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">"module"</span><span class="p">)</span>
+<a id="__codelineno-38-19" name="__codelineno-38-19" href="#__codelineno-38-19"></a><span class="k">def</span><span class="w"> </span><span class="nf">rejected</span><span class="p">():</span>
+<a id="__codelineno-38-20" name="__codelineno-38-20" href="#__codelineno-38-20"></a>    <span class="k">return</span> <span class="p">[]</span>
+<a id="__codelineno-38-21" name="__codelineno-38-21" href="#__codelineno-38-21"></a>
+<a id="__codelineno-38-22" name="__codelineno-38-22" href="#__codelineno-38-22"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_parse_one</span><span class="p">(</span><span class="n">rejected</span><span class="p">):</span>
+<a id="__codelineno-38-23" name="__codelineno-38-23" href="#__codelineno-38-23"></a>    <span class="nb">list</span><span class="p">(</span><span class="n">parse</span><span class="p">([</span><span class="s2">"bad"</span><span class="p">],</span> <span class="n">rejected</span><span class="p">))</span>
+<a id="__codelineno-38-24" name="__codelineno-38-24" href="#__codelineno-38-24"></a>    <span class="k">assert</span> <span class="n">rejected</span> <span class="o">==</span> <span class="p">[</span><span class="s2">"bad"</span><span class="p">]</span>
+<a id="__codelineno-38-25" name="__codelineno-38-25" href="#__codelineno-38-25"></a>
+<a id="__codelineno-38-26" name="__codelineno-38-26" href="#__codelineno-38-26"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_parse_two</span><span class="p">(</span><span class="n">rejected</span><span class="p">):</span>
+<a id="__codelineno-38-27" name="__codelineno-38-27" href="#__codelineno-38-27"></a>    <span class="nb">list</span><span class="p">(</span><span class="n">parse</span><span class="p">([</span><span class="s2">"bad too"</span><span class="p">],</span> <span class="n">rejected</span><span class="p">))</span>
+<a id="__codelineno-38-28" name="__codelineno-38-28" href="#__codelineno-38-28"></a>    <span class="k">assert</span> <span class="n">rejected</span> <span class="o">==</span> <span class="p">[</span><span class="s2">"bad too"</span><span class="p">]</span>
+</code></pre></div>
+<details class="success">
+<summary>Відповіді</summary>
+<ol>
+<li>Немає <code>assert</code>: порівняння обчислюється й викидається, тест проходить завжди. Він дає покриття, але нічого не перевіряє.</li>
+<li>У <code>with</code> два рядки. Якщо колись створення <code>Tariff</code> почне кидати <code>ValueError</code> через від'ємну ціну кілометра, тест пройде, хоча <code>fare</code> вже нічого не перевіряє. У <code>with</code> — лише один рядок, що має кинути виняток.</li>
+<li>Patch не там, де ім'я використовується: <code>confirm_order</code> викличе справжню <code>send_sms</code> і тест упаде з <code>ConnectionError</code>. Правильно — <code>patch("delivery.services.send_sms")</code>.</li>
+<li><code>scope="module"</code> — один список на всі тести модуля. Другий тест бачить <code>["bad", "bad too"]</code> і падає, а якщо запустити його окремо — проходить. Тести залежать від порядку. Для змінюваних даних — scope за замовчуванням (<code>function</code>).</li>
+</ol>
+</details>
+<h2 id="_12">Підсумок<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Поняття</th>
+<th>Що запам'ятати</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Тест</td>
+<td>перевірка кодом: впевненість змінювати, а не доведення безпомилковості</td>
+</tr>
+<tr>
+<td>AAA</td>
+<td>Arrange — Act — Assert; один тест — одна дія</td>
+</tr>
+<tr>
+<td>pytest</td>
+<td>файли <code>test_*.py</code>, функції <code>test_*</code>, звичайний <code>assert</code> з розбором значень</td>
+</tr>
+<tr>
+<td>Межі</td>
+<td>0, порожнє, рівно на межі, ±1; баги живуть там</td>
+</tr>
+<tr>
+<td><code>pytest.raises</code>, <code>approx</code></td>
+<td>виняток — лише для одного рядка; дробові — з допуском</td>
+</tr>
+<tr>
+<td><code>parametrize</code></td>
+<td>таблиця випадків, кожен — окремий тест з <code>ids</code></td>
+</tr>
+<tr>
+<td>Fixture</td>
+<td>дані за іменем параметра; <code>conftest.py</code>; фабрики; <code>yield</code> для прибирання; <code>tmp_path</code></td>
+</tr>
+<tr>
+<td><code>unittest</code></td>
+<td><code>TestCase</code>, <code>setUp</code>, <code>assertEqual</code>; pytest запускає і його</td>
+</tr>
+<tr>
+<td>Mock</td>
+<td>підміна меж системи; <code>return_value</code>, <code>side_effect</code>, <code>assert_called_once_with</code></td>
+</tr>
+<tr>
+<td><code>patch</code></td>
+<td>підміняти там, де ім'я <strong>використовується</strong></td>
+</tr>
+<tr>
+<td>Coverage</td>
+<td>показує незачеплене; 100% без <code>assert</code> нічого не варті</td>
+</tr>
+<tr>
+<td>AI-код</td>
+<td>специфікація → межі й інваріанти → тест мусить падати на зламаному коді</td>
+</tr>
+<tr>
+<td>Архітектура</td>
+<td>піраміда: багато unit, менше інтеграційних, мало E2E; залежності — параметром</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_13">Самоперевірка<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Чому тести не доводять відсутності помилок, але все одно потрібні?</li>
+<li>Чому п'ятничний баг не зловив тест на 10 км, а зловили тести на 0, 0.5 і 3 км?</li>
+<li>Що показує pytest у рядку <code>where</code> при падінні <code>assert</code>?</li>
+<li>Що не так із <code>pytest.raises</code> навколо кількох рядків?</li>
+<li>Як pytest дізнається, яку fixture передати в тест?</li>
+<li>Навіщо fixture-фабрика, якщо можна створити подію рядком прямо в тесті?</li>
+<li>Чому <code>patch("delivery.sms.send_sms")</code> не підміняє функцію в <code>delivery.services</code>?</li>
+<li>Чому 100% покриття не гарантує якісних тестів?</li>
+<li>Чим небезпечний тест, що повторює формулу реалізації?</li>
+<li>Навіщо перевіряти, що тест падає на зламаному коді?</li>
+</ol>
+<details class="success">
+<summary>Відповіді</summary>
+<ol>
+<li>Випадків нескінченно багато, тестів — скінченно. Але тести повторюються після кожної зміни, ловлять регресії й дають впевненість змінювати код.</li>
+<li>На 10 км мінімум не діє, тож прибраний <code>max</code> нічого не змінив. Баг проявляється лише нижче межі мінімуму.</li>
+<li>Звідки взялося значення: виклик функції з аргументами, що дав цей результат.</li>
+<li>Тест пройде, навіть якщо виняток кинув не той рядок, який ми перевіряємо.</li>
+<li>За іменем параметра тестової функції.</li>
+<li>Тест показує лише важливі поля, а зміна формату подій правиться в одному місці.</li>
+<li><code>from … import</code> скопіював посилання в <code>delivery.services</code>; підміна в <code>delivery.sms</code> цього посилання не змінює.</li>
+<li>Покриття рахує виконані рядки, а не перевірені результати.</li>
+<li>Помилка у формулі потрапляє і в очікуване значення — тест проходить на неправильному коді.</li>
+<li>Тест, що проходить на будь-якому коді, нічого не перевіряє.</li>
+</ol>
+</details>
+<h3 id="_14">Що далі<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Ноутбук заняття: <a class="md-button md-button--primary" href="https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_26_pytest_testing/note_lesson_26_pytest_student.ipynb">Відкрити вправи в Colab</a> <a class="solutions-link" href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_26_pytest_testing/note_lesson_26_pytest.ipynb">Переглянути розв’язки</a> — тести пишуться у файли й запускаються pytest прямо з ноутбука: промокод, баг на межі, конвеєр подій, mock SMS-шлюзу, перевірка AI-коду.</li>
+<li>Практикум викладача: <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_2/lessons/lesson_26_pytest_testing/basics"><code>basics/</code></a> — 5 файлів з тестами від першого <code>assert</code> до <code>parametrize</code>.</li>
+<li>Наступне заняття — урок 27, практикум П5: динамічне програмування. Тести з сьогоднішнього уроку допоможуть переконатися, що швидке рішення дає ту саму відповідь, що й повільне.</li>
+<li>Далі в курсі: тестування Django (уроки 34–35), тести HTTP API з <code>httpx</code> (урок 42), запуск тестів у CI через GitHub Actions (урок 51).</li>
+</ul>
+<h2 id="_15">Документація і джерела<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
+<ul>
+<li>pytest: <a href="https://docs.pytest.org/en/stable/getting-started.html">Get Started</a>, <a href="https://docs.pytest.org/en/stable/how-to/fixtures.html">How to use fixtures</a>, <a href="https://docs.pytest.org/en/stable/how-to/parametrize.html">How to parametrize</a>, <a href="https://docs.pytest.org/en/stable/how-to/tmp_path.html"><code>tmp_path</code></a>, <a href="https://docs.pytest.org/en/stable/how-to/assert.html"><code>pytest.raises</code> і <code>approx</code></a></li>
+<li><a href="https://pytest-cov.readthedocs.io/">pytest-cov</a></li>
+<li>Стандартна бібліотека: <a href="https://docs.python.org/3/library/unittest.html"><code>unittest</code></a>, <a href="https://docs.python.org/3/library/unittest.mock.html"><code>unittest.mock</code></a>, <a href="https://docs.python.org/3/library/unittest.mock.html#where-to-patch">Where to patch</a></li>
+<li>Harvard CS50P: <a href="https://cs50.harvard.edu/python/notes/5/">Lecture 5 — Unit Tests</a> — <code>assert</code>, pytest, тестування меж</li>
+<li>Для охочих: Martin Fowler, <a href="https://martinfowler.com/bliki/TestPyramid.html">Test Pyramid</a>; <a href="https://hypothesis.readthedocs.io/">Hypothesis</a> — тести властивостей.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Футер" >
+        
+          
+          <a href="../lesson_25/" class="md-footer__link md-footer__link--prev" aria-label="Назад: 25. Ітератори advanced">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Назад
+              </span>
+              <div class="md-ellipsis">
+                25. Ітератори advanced
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../lesson_27/" class="md-footer__link md-footer__link--next" aria-label="Вперед: 27. П5. Динамічне програмування + greedy (вступ)">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Вперед
+              </span>
+              <div class="md-ellipsis">
+                27. П5. Динамічне програмування + greedy (вступ)
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.footer", "toc.follow", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0456\u0439\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u0421\u043a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438 \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0429\u0435 1 \u0437\u0431\u0456\u0433 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.more.other": "\u0429\u0435 # \u0437\u0431\u0456\u0433\u0456\u0432 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.none": "\u0417\u0431\u0456\u0433\u0456\u0432 \u043d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0437\u0431\u0456\u0433", "search.result.other": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e # \u0437\u0431\u0456\u0433\u0456\u0432", "search.result.placeholder": "\u0420\u043e\u0437\u043f\u043e\u0447\u043d\u0456\u0442\u044c \u043f\u0438\u0441\u0430\u0442\u0438 \u0434\u043b\u044f \u043f\u043e\u0448\u0443\u043a\u0443", "search.result.term.missing": "\u041d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e \u0437\u0430\u043f\u0438\u0442\u0443", "select.version": "\u041e\u0431\u0440\u0430\u0442\u0438 \u0432\u0435\u0440\u0441\u0456\u044e"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/sidebars.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,4429 @@
+
+<!doctype html>
+<html lang="uk" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Курс Python українською — від основ до просунутих тем, у форматі книги">
+      
+      
+      
+        <link rel="canonical" href="https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m1/lesson_17/">
+      
+      
+        <link rel="prev" href="../lesson_16/">
+      
+      
+        <link rel="next" href="../lesson_18/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>17. П3. Хеш-структури - PY Course — Viktor Nikoriak</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#17-3-" class="md-skip">
+          Перейти до змісту
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Хедер">
+    <a href="../../.." title="PY Course — Viktor Nikoriak" class="md-header__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PY Course — Viktor Nikoriak
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              17. П3. Хеш-структури
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Пошук" placeholder="Пошук" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Шукати">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистити" aria-label="Очистити" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Пошук розпочато
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Вкладки" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Головна
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../00_getting_started/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Як користуватися
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Модулі курсу (в розробці)
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../00_python_mental_model/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Довідник
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Навігація" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="PY Course — Viktor Nikoriak" class="md-nav__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    PY Course — Viktor Nikoriak
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Головна
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../00_getting_started/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Як користуватися
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Модулі курсу (в розробці)
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Модулі курсу (в розробці)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М1. Основи Python
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М1. Основи Python
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Вступ: формат курсу, AI-політика
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Перші кроки
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Змінні та базові типи даних
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Умови та цикли
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Списки, кортежі, множини
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Словники, for, comprehensions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Функції
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. П1. Big O + базові задачі
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Декоратори
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Ітератори й генератори
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. П2. Пошук
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Модулі та стандартна бібліотека
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Винятки та обробка помилок
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Файли I/O, JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Git & GitHub: система
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. П3. Хеш-структури
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. П3. Хеш-структури
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пригадай
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Три практикуми — три питання
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Журнал зміни
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ваучер: пара з потрібною сумою
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ваучер: пара з потрібною сумою">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Два вказівники більше не працюють
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пам'ятати побачене
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Дослід подвоєння
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Поїздка за номером: словник-індекс
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Як словник знаходить ключ за один крок
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що може бути ключем
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Частоти: найпопулярніший маршрут
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пастка: словник змінюється під час обходу
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Як обрати структуру
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Практика
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Практика">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Розібраний приклад: звіт диспетчера за зміну
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зміни приклад: перший разовий клієнт
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Спробуй самостійно: анаграми
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Хеш зсередини, пам'ять і бази даних
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Лабораторія: таксі
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Підсумок
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Підсумок">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Самоперевірка
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що далі
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Документація і джерела
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Узагальнення + фінальний проєкт
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М2. Python Advanced
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М2. Python Advanced
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2_python_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Функції як об'єкти першого класу
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Класи, простір імен
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    21. Наслідування, поліморфізм
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    22. Інкапсуляція, область видимості
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    23. П4. Рекурсія, divide & conquer, backtracking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    24. @property, декоратори класів, dunder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    25. Ітератори advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    26. Тестування з pytest (+ валідація AI-коду)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    27. П5. Динамічне програмування + greedy (вступ)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    28. Потоки, multiprocessing, asyncio: вступ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    29. П6. Stack, Queue, Heap, Trie + LRU → ООП-пакет
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М3. Бази даних
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М3. Бази даних
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3_databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m3/bonus_pandas/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. Pandas: аналіз даних, графіки і Dash
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3/lesson_30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    30. Основи SQL (PostgreSQL)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3/lesson_31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    31. Redis overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М4. Web (+ Web Advanced)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М4. Web (+ Web Advanced)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4_web/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    32. HTTP: requests, httpx, aiohttp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    33. REST: принципи дизайну API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    34. Django intro: MVT, ORM, admin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    35. Django: forms, HTML practice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    36. DRF overview + Django vs FastAPI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    37. Typing + Pydantic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m4/lesson_38/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    38. FastAPI basics + Postman + OpenAPI
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    39. FastAPI + SQLAlchemy: повний CRUD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    40. Middlewares і кешування (Redis на практиці)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    41. Автентифікація та security basics (JWT, hashing, OWASP)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    42. Тестування API (pytest + httpx)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m4/lesson_43/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    43. AI-інструменти розробника + ризики й валідація
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    44. Інтеграція LLM API (Gemini / Anthropic)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    45. Архітектура застосунків і патерни
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    46. WebSockets + практика: чат
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    47. Security advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    48. Telegram Bot API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М5. Production
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М5. Production
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5_production/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m5/bonus_linux/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. Linux для розробника
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    49. Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    50. Docker Compose + деплой
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    51. CI/CD (GitHub Actions)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М6. Капстоун
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М6. Капстоун
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6_capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6/lesson_52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    52. Робота над фінальним проєктом
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6/lesson_53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    53. Випускний: питч фінального проєкту
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m6/bonus_cv/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. CV розробника
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bonus_ai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Self-paced. AI для розробників (бонус)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../00_python_mental_model/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Довідник
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пригадай
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Три практикуми — три питання
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Журнал зміни
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ваучер: пара з потрібною сумою
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ваучер: пара з потрібною сумою">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Два вказівники більше не працюють
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пам'ятати побачене
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Дослід подвоєння
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Поїздка за номером: словник-індекс
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Як словник знаходить ключ за один крок
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що може бути ключем
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Частоти: найпопулярніший маршрут
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пастка: словник змінюється під час обходу
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Як обрати структуру
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Практика
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Практика">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Розібраний приклад: звіт диспетчера за зміну
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зміни приклад: перший разовий клієнт
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Спробуй самостійно: анаграми
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Хеш зсередини, пам'ять і бази даних
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Лабораторія: таксі
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Підсумок
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Підсумок">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Самоперевірка
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що далі
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Документація і джерела
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Навігація" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Головна
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Модулі курсу (в розробці)
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    М1. Основи Python
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="17-3-">Урок 17. Практикум П3. Хеш-структури<a class="headerlink" href="#17-3-" title="Permanent link">&para;</a></h1>
+<p>У практикумі П1 диспетчерська таксі навчилася <strong>рахувати ціну</strong> рішення, у П2 — <strong>обирати стратегію</strong> за властивостями даних: відсортовані дані дають бінарний пошук і два вказівники. Але сьогоднішня зміна почалася з поганої новини: журнал поїздок приходить <strong>у порядку дзвінків</strong>. Нічого не відсортовано, і сортувати на кожне питання — дорого.</p>
+<p>Питання ті самі: які дві поїздки покриває ваучер? Де поїздка №845? Який маршрут найпопулярніший? Хто їздить постійно? Чекати, поки дані стануть зручними, не будемо. Змінимо <strong>представлення</strong>: один раз перекладемо дані у словник чи множину, і далі кожна відповідь займатиме один крок.</p>
+<p><strong>Що потрібно з попередніх уроків:</strong> словники, <code>dict.get</code> і підрахунок частот (урок 6), <code>NamedTuple</code> (урок 5), кортежі (урок 5), Big O і лічильники кроків (урок 9), два вказівники й бінарний пошук (урок 12), <code>Counter</code> (урок 13).</p>
+<p><strong>Після уроку ти зможеш:</strong></p>
+<ul>
+<li>розв'язувати задачу про пару з потрібною сумою на невідсортованих даних за один прохід (Two Sum);</li>
+<li>будувати словник-індекс і пояснювати, коли він окупається;</li>
+<li>пояснювати на спрощеній моделі, чому пошук у <code>dict</code> і <code>set</code> займає в середньому один крок;</li>
+<li>розрізняти hashable і unhashable значення, використовувати кортежі як ключі;</li>
+<li>рахувати частоти й групувати дані за канонічним ключем.</li>
+</ul>
+<p><strong>Задача розділу.</strong> Звіт диспетчера за зміну: пара поїздок для ваучера, найпопулярніший маршрут, постійні клієнти — кожне за один прохід по журналу. Повний код — у розділі <a href="#practice">«Практика»</a>.</p>
+<p><strong>Ноутбук заняття:</strong> <a class="md-button md-button--primary" href="https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_17_practicum_hashing/note_lesson_17_hashing_student.ipynb">Відкрити вправи в Colab</a> <a class="solutions-link" href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_17_practicum_hashing/note_lesson_17_hashing.ipynb">Переглянути розв’язки</a></p>
+<h2 id="_1">Пригадай<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>Дай відповідь подумки, нічого не запускаючи:</p>
+<ol>
+<li>У практикумі П2 два вказівники знайшли пару для ваучера на 500 грн у <code>[120, 150, 180, 230, 270, 320, 410]</code>. На яку властивість списку вони спиралися?</li>
+<li>В уроці 9 <code>if driver in tuesday:</code> для списку повільне, а для <code>set(tuesday)</code> — швидке. Яка складність кожного варіанта?</li>
+<li>Що робить рядок <code>counts[name] = counts.get(name, 0) + 1</code>?</li>
+</ol>
+<details class="success">
+<summary>Відповіді</summary>
+<ol>
+<li>На відсортованість: «сума замала → зсуваємо лівий, і вона зросте». Без порядку цей висновок хибний.</li>
+<li><code>in</code> для списку — <code>O(n)</code>: переглядає елементи по черзі. Для множини — <code>O(1)</code> в середньому.</li>
+<li>Збільшує лічильник для <code>name</code> на одиницю. Якщо ключа ще немає, <code>get</code> поверне <code>0</code>, тож перша зустріч дасть <code>1</code>.</li>
+</ol>
+</details>
+<h2 id="_2">Три практикуми — три питання<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    P1["П1: скільки коштує рішення?&lt;br&gt;Big O, лічильник кроків"] --&gt; P2["П2: що відомо про дані?&lt;br&gt;відсортовані → bisect, два вказівники"]
+    P2 --&gt; Q{"потрібної властивості&lt;br&gt;немає?"}
+    Q -- "так" --&gt; P3["П3: змінити представлення&lt;br&gt;dict, set, Counter"]
+
+    class P1,P2 step
+    class Q decision
+    class P3 success</code></pre>
+<p>П3 відповідає на питання, яке П2 лишило відкритим: що робити, коли дані <strong>не</strong> мають зручної властивості.</p>
+<h2 id="_3">Журнал зміни<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>Кожна поїздка — <code>NamedTuple</code>: номер, клієнт, звідки, куди, вартість. Записи йдуть у порядку дзвінків:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">NamedTuple</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">class</span><span class="w"> </span><span class="nc">Trip</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">client</span><span class="p">:</span> <span class="nb">str</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">start</span><span class="p">:</span> <span class="nb">str</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">end</span><span class="p">:</span> <span class="nb">str</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n">fare</span><span class="p">:</span> <span class="nb">int</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="n">trips</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="n">Trip</span><span class="p">(</span><span class="mi">1120</span><span class="p">,</span> <span class="s2">"Марта"</span><span class="p">,</span> <span class="s2">"Поділ"</span><span class="p">,</span> <span class="s2">"Оболонь"</span><span class="p">,</span> <span class="mi">230</span><span class="p">),</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="n">Trip</span><span class="p">(</span><span class="mi">425</span><span class="p">,</span> <span class="s2">"Олег"</span><span class="p">,</span> <span class="s2">"Вокзал"</span><span class="p">,</span> <span class="s2">"Поділ"</span><span class="p">,</span> <span class="mi">150</span><span class="p">),</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    <span class="n">Trip</span><span class="p">(</span><span class="mi">930</span><span class="p">,</span> <span class="s2">"Марта"</span><span class="p">,</span> <span class="s2">"Оболонь"</span><span class="p">,</span> <span class="s2">"Поділ"</span><span class="p">,</span> <span class="mi">270</span><span class="p">),</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    <span class="n">Trip</span><span class="p">(</span><span class="mi">612</span><span class="p">,</span> <span class="s2">"Ірина"</span><span class="p">,</span> <span class="s2">"Печерськ"</span><span class="p">,</span> <span class="s2">"Вокзал"</span><span class="p">,</span> <span class="mi">180</span><span class="p">),</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    <span class="n">Trip</span><span class="p">(</span><span class="mi">845</span><span class="p">,</span> <span class="s2">"Тарас"</span><span class="p">,</span> <span class="s2">"Поділ"</span><span class="p">,</span> <span class="s2">"Оболонь"</span><span class="p">,</span> <span class="mi">320</span><span class="p">),</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    <span class="n">Trip</span><span class="p">(</span><span class="mi">1035</span><span class="p">,</span> <span class="s2">"Олег"</span><span class="p">,</span> <span class="s2">"Поділ"</span><span class="p">,</span> <span class="s2">"Вокзал"</span><span class="p">,</span> <span class="mi">120</span><span class="p">),</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>    <span class="n">Trip</span><span class="p">(</span><span class="mi">700</span><span class="p">,</span> <span class="s2">"Олена"</span><span class="p">,</span> <span class="s2">"Оболонь"</span><span class="p">,</span> <span class="s2">"Поділ"</span><span class="p">,</span> <span class="mi">410</span><span class="p">),</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>    <span class="n">Trip</span><span class="p">(</span><span class="mi">510</span><span class="p">,</span> <span class="s2">"Богдан"</span><span class="p">,</span> <span class="s2">"Вокзал"</span><span class="p">,</span> <span class="s2">"Печерськ"</span><span class="p">,</span> <span class="mi">150</span><span class="p">),</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="p">]</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="n">fares</span> <span class="o">=</span> <span class="p">[</span><span class="n">trip</span><span class="o">.</span><span class="n">fare</span> <span class="k">for</span> <span class="n">trip</span> <span class="ow">in</span> <span class="n">trips</span><span class="p">]</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="nb">print</span><span class="p">(</span><span class="n">fares</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[230, 150, 270, 180, 320, 120, 410, 150]
+</code></pre></div>
+<h2 id="_4">Ваучер: пара з потрібною сумою<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>Пасажирові видали ваучер на <strong>рівно 500 грн</strong> на дві поїздки цієї зміни. Які дві поїздки він покриває?</p>
+<h3 id="_5">Два вказівники більше не працюють<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p><strong>Прогноз:</strong> що поверне <code>pair_with_sum</code> з практикуму П2, якщо дати їй невідсортований список?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">pair_with_sum</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">steps</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="k">while</span> <span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">:</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>        <span class="n">steps</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>        <span class="n">total</span> <span class="o">=</span> <span class="n">items</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">+</span> <span class="n">items</span><span class="p">[</span><span class="n">right</span><span class="p">]</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        <span class="k">if</span> <span class="n">total</span> <span class="o">==</span> <span class="n">target</span><span class="p">:</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>            <span class="k">return</span> <span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="n">left</span><span class="p">],</span> <span class="n">items</span><span class="p">[</span><span class="n">right</span><span class="p">]),</span> <span class="n">steps</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>        <span class="k">if</span> <span class="n">total</span> <span class="o">&lt;</span> <span class="n">target</span><span class="p">:</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>            <span class="n">left</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>        <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>            <span class="n">right</span> <span class="o">-=</span> <span class="mi">1</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="n">steps</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="nb">print</span><span class="p">(</span><span class="n">pair_with_sum</span><span class="p">(</span><span class="n">fares</span><span class="p">,</span> <span class="mi">500</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>(None, 7)
+</code></pre></div>
+<p>«Пари немає», хоча <code>230 + 270 = 500</code>. Функція не впала і не попередила — просто мовчки дала неправильну відповідь. Два вказівники зсували лівий, бо «сума замала — праворуч більші числа». Але праворуч стоять і менші: порядку немає.</p>
+<p>Можна відсортувати (<code>O(n log n)</code>), але тоді загубляться позиції поїздок у журналі. Можна перебрати всі пари:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">pair_with_sum_brute</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="n">steps</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)):</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)):</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>            <span class="n">steps</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>            <span class="k">if</span> <span class="n">items</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">items</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">target</span><span class="p">:</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>                <span class="k">return</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">steps</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="n">steps</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="nb">print</span><span class="p">(</span><span class="n">pair_with_sum_brute</span><span class="p">(</span><span class="n">fares</span><span class="p">,</span> <span class="mi">500</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>((0, 2), 2)
+</code></pre></div>
+<p>Тут пощастило: пара знайшлася вже на другому кроці. Але коли пари немає, перебір перевіряє всі <code>n · (n − 1) / 2</code> пар, це <code>O(n²)</code>.</p>
+<h3 id="_6">Пам'ятати побачене<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>Ідея: проходимо журнал <strong>один раз</strong> і для кожної суми питаємо: «чи бачили ми вже <strong>доповнення</strong> до 500?» Для 230 доповнення — 270. Щоб відповідь на «чи бачили» займала один крок, побачені суми зберігаємо у <strong>словнику</strong> «сума → позиція в журналі»:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">pair_with_sum_hash</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="n">seen</span> <span class="o">=</span> <span class="p">{}</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="n">steps</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>        <span class="n">steps</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>        <span class="n">need</span> <span class="o">=</span> <span class="n">target</span> <span class="o">-</span> <span class="n">value</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>        <span class="k">if</span> <span class="n">need</span> <span class="ow">in</span> <span class="n">seen</span><span class="p">:</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>            <span class="k">return</span> <span class="p">(</span><span class="n">seen</span><span class="p">[</span><span class="n">need</span><span class="p">],</span> <span class="n">i</span><span class="p">),</span> <span class="n">steps</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>        <span class="n">seen</span><span class="p">[</span><span class="n">value</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="n">steps</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="nb">print</span><span class="p">(</span><span class="n">pair_with_sum_hash</span><span class="p">(</span><span class="n">fares</span><span class="p">,</span> <span class="mi">500</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>((0, 2), 3)
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Крок</th>
+<th><code>i</code></th>
+<th><code>value</code></th>
+<th><code>need</code></th>
+<th><code>need in seen</code>?</th>
+<th><code>seen</code> після кроку</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>230</td>
+<td>270</td>
+<td>ні</td>
+<td><code>{230: 0}</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>150</td>
+<td>350</td>
+<td>ні</td>
+<td><code>{230: 0, 150: 1}</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>2</td>
+<td>270</td>
+<td>230</td>
+<td><strong>так</strong>, позиція 0</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>Покроково — словник <code>seen</code> росте, доки доповнення не знайдеться:</p>
+<pre class="mermaid"><code>flowchart TD
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    subgraph K1["крок 1 · value 230"]
+        direction LR
+        Q1{"270 in seen?&lt;br&gt;ні"} --&gt; S1["seen = {230: 0}"]
+    end
+    subgraph K2["крок 2 · value 150"]
+        direction LR
+        Q2{"350 in seen?&lt;br&gt;ні"} --&gt; S2["seen = {230: 0, 150: 1}"]
+    end
+    subgraph K3["крок 3 · value 270"]
+        direction LR
+        Q3{"230 in seen?&lt;br&gt;так, позиція 0"} --&gt; R3["(0, 2)"]
+    end
+    K1 --&gt; K2 --&gt; K3
+
+    class Q1,Q2 decision
+    class S1,S2 step
+    class Q3 warning
+    class R3 success</code></pre>
+<p>Відповідь — позиції <code>(0, 2)</code>: поїздки №1120 і №930 Марти. Один прохід, <code>O(n)</code>, а позиції в журналі збереглися.</p>
+<div class="admonition note">
+<p class="admonition-title">Two Sum</p>
+<p>Це відома задача з співбесід — <strong>Two Sum</strong>: знайти два елементи з заданою сумою. Рішення зі словником — класичне: <code>O(n)</code> часу за рахунок <code>O(n)</code> додаткової пам'яті.</p>
+</div>
+<h3 id="_7">Дослід подвоєння<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>Порівняємо кроки, коли пари немає (найгірший випадок):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">2000</span><span class="p">,</span> <span class="mi">4000</span><span class="p">]:</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    <span class="n">values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    <span class="n">_</span><span class="p">,</span> <span class="n">brute</span> <span class="o">=</span> <span class="n">pair_with_sum_brute</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="mi">10</span><span class="o">**</span><span class="mi">9</span><span class="p">)</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    <span class="n">_</span><span class="p">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">pair_with_sum_hash</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="mi">10</span><span class="o">**</span><span class="mi">9</span><span class="p">)</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">brute</span><span class="p">,</span> <span class="n">fast</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>1000 499500 1000
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>2000 1999000 2000
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>4000 7998000 4000
+</code></pre></div>
+<p>Подвоїли журнал — перебір виконує <strong>вчетверо</strong> більше кроків (<code>O(n²)</code>), словник — удвічі (<code>O(n)</code>). На 4000 поїздок це 8 мільйонів проти 4 тисяч.</p>
+<h2 id="-">Поїздка за номером: словник-індекс<a class="headerlink" href="#-" title="Permanent link">&para;</a></h2>
+<p>Пасажир дзвонить: «Я забув сумку в поїздці №845». Номери в журналі йдуть як завгодно, тож лишається лінійний пошук, як у П2:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">find_trip</span><span class="p">(</span><span class="n">trips</span><span class="p">,</span> <span class="n">trip_id</span><span class="p">):</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>    <span class="n">steps</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    <span class="k">for</span> <span class="n">trip</span> <span class="ow">in</span> <span class="n">trips</span><span class="p">:</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>        <span class="n">steps</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>        <span class="k">if</span> <span class="n">trip</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">trip_id</span><span class="p">:</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>            <span class="k">return</span> <span class="n">trip</span><span class="p">,</span> <span class="n">steps</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>    <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="n">steps</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="nb">print</span><span class="p">(</span><span class="n">find_trip</span><span class="p">(</span><span class="n">trips</span><span class="p">,</span> <span class="mi">845</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>(Trip(id=845, client='Тарас', start='Поділ', end='Оболонь', fare=320), 5)
+</code></pre></div>
+<p>Для одного дзвінка — нормально. Але за зміну таких дзвінків сотні, і кожен знову переглядає журнал. Краще <strong>один раз</strong> побудувати словник «номер → поїздка»:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">by_id</span> <span class="o">=</span> <span class="p">{</span><span class="n">trip</span><span class="o">.</span><span class="n">id</span><span class="p">:</span> <span class="n">trip</span> <span class="k">for</span> <span class="n">trip</span> <span class="ow">in</span> <span class="n">trips</span><span class="p">}</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">by_id</span><span class="p">[</span><span class="mi">845</span><span class="p">]</span><span class="o">.</span><span class="n">client</span><span class="p">)</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">by_id</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">999</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>Тарас
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>None
+</code></pre></div>
+<p>Побудова — один прохід, <code>O(n)</code>. Далі кожен запит <code>by_id[845]</code> — один крок. Перевіримо на великому журналі: 1000 поїздок у випадковому порядку, 100 дзвінків.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="n">ids</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">))</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="n">random</span><span class="o">.</span><span class="n">Random</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="n">big_journal</span> <span class="o">=</span> <span class="p">[</span><span class="n">Trip</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="s2">"клієнт"</span><span class="p">,</span> <span class="s2">"А"</span><span class="p">,</span> <span class="s2">"Б"</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ids</span><span class="p">]</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="n">calls</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="n">linear_steps</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">find_trip</span><span class="p">(</span><span class="n">big_journal</span><span class="p">,</span> <span class="n">trip_id</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">trip_id</span> <span class="ow">in</span> <span class="n">calls</span><span class="p">)</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="n">index</span> <span class="o">=</span> <span class="p">{</span><span class="n">trip</span><span class="o">.</span><span class="n">id</span><span class="p">:</span> <span class="n">trip</span> <span class="k">for</span> <span class="n">trip</span> <span class="ow">in</span> <span class="n">big_journal</span><span class="p">}</span>
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="n">index_steps</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">big_journal</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">calls</span><span class="p">)</span>
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>
+<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="nb">print</span><span class="p">(</span><span class="n">linear_steps</span><span class="p">,</span> <span class="n">index_steps</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>53493 1100
+</code></pre></div>
+<p>100 лінійних пошуків — понад 53 000 кроків, у середньому пів журналу на дзвінок. Індекс — 1000 кроків на побудову і по одному на кожен дзвінок.</p>
+<div class="admonition warning">
+<p class="admonition-title">Індекс окупається не завжди</p>
+<p>Для <strong>одного</strong> запиту побудова словника (n кроків) дорожча за один лінійний пошук (у середньому n / 2). Індекс виграє, коли запитів багато. Та сама логіка, що в уроці 12: відсортувати один раз, щоб потім багато разів шукати бінарно.</p>
+</div>
+<h2 id="_8">Як словник знаходить ключ за один крок<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<p>Спрощена модель — без подробиць CPython, але з головною ідеєю. Словник тримає масив <strong>кошиків</strong> (buckets). Для ключа Python обчислює число — <strong>хеш</strong> — і за ним одразу визначає номер кошика. Для малих цілих чисел хеш дорівнює самому числу:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nb">print</span><span class="p">(</span><span class="nb">hash</span><span class="p">(</span><span class="mi">845</span><span class="p">),</span> <span class="nb">hash</span><span class="p">(</span><span class="mi">1120</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>845 1120
+</code></pre></div>
+<p>Візьмемо таблицю з 8 кошиків і розкладемо номери поїздок: кошик = <code>hash(номер) % 8</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">buckets</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">)]</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="k">for</span> <span class="n">trip_id</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1120</span><span class="p">,</span> <span class="mi">425</span><span class="p">,</span> <span class="mi">930</span><span class="p">,</span> <span class="mi">612</span><span class="p">,</span> <span class="mi">845</span><span class="p">]:</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>    <span class="n">buckets</span><span class="p">[</span><span class="nb">hash</span><span class="p">(</span><span class="n">trip_id</span><span class="p">)</span> <span class="o">%</span> <span class="mi">8</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">trip_id</span><span class="p">)</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="k">for</span> <span class="n">number</span><span class="p">,</span> <span class="n">bucket</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">buckets</span><span class="p">):</span>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">number</span><span class="p">,</span> <span class="n">bucket</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>0 [1120]
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>1 [425]
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>2 [930]
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>3 []
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>4 [612]
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>5 [845]
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>6 []
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>7 []
+</code></pre></div>
+<p>Щоб знайти 845, не треба переглядати таблицю: <code>845 % 8 = 5</code> — одразу в кошик 5 і порівняти один ключ. Кількість поїздок у таблиці на це не впливає.</p>
+<p>Шлях ключа до кошика, включно з колізією, яку розберемо далі:</p>
+<pre class="mermaid"><code>flowchart LR
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    K["ключ 845"] --&gt; H["hash(845)&lt;br&gt;845"] --&gt; B["845 % 8&lt;br&gt;кошик 5"] --&gt; C["порівняти 1 ключ&lt;br&gt;знайдено"]
+    K2["ключ 1128"] --&gt; H2["hash(1128)&lt;br&gt;1128"] --&gt; B2["1128 % 8&lt;br&gt;кошик 0"] --&gt; C2["кошик 0: [1120, 1128]&lt;br&gt;2 порівняння"]
+
+    class K,K2 step
+    class H,H2,B decision
+    class B2 warning
+    class C success
+    class C2 warning</code></pre>
+<p>А якщо два ключі потрапили в один кошик? Це <strong>колізія</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">find_in_table</span><span class="p">(</span><span class="n">buckets</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>    <span class="n">bucket</span> <span class="o">=</span> <span class="n">buckets</span><span class="p">[</span><span class="nb">hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">buckets</span><span class="p">)]</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>    <span class="n">comparisons</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">bucket</span><span class="p">:</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>        <span class="n">comparisons</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>        <span class="k">if</span> <span class="n">item</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>            <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="n">comparisons</span>
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>    <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="n">comparisons</span>
+<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>
+<a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>
+<a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a><span class="n">buckets</span><span class="p">[</span><span class="nb">hash</span><span class="p">(</span><span class="mi">1128</span><span class="p">)</span> <span class="o">%</span> <span class="mi">8</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1128</span><span class="p">)</span>
+<a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a><span class="nb">print</span><span class="p">(</span><span class="n">buckets</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a><span class="nb">print</span><span class="p">(</span><span class="n">find_in_table</span><span class="p">(</span><span class="n">buckets</span><span class="p">,</span> <span class="mi">1128</span><span class="p">))</span>
+<a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a><span class="nb">print</span><span class="p">(</span><span class="n">find_in_table</span><span class="p">(</span><span class="n">buckets</span><span class="p">,</span> <span class="mi">845</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>[1120, 1128]
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>(True, 2)
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>(True, 1)
+</code></pre></div>
+<p><code>1128 % 8 = 0</code> — той самий кошик, що в 1120. Шукаючи 1128, порівнюємо двічі. Справжній <code>dict</code> тримає кошиків більше, ніж ключів, і збільшує таблицю, коли вона заповнюється. Тому колізій мало, і пошук <strong>в середньому</strong> займає сталу кількість кроків: <code>O(1)</code>. У найгіршому випадку, коли все потрапило в один кошик, — <code>O(n)</code>, але на практиці це майже не трапляється.</p>
+<div class="admonition note">
+<p class="admonition-title">Хеш рядка змінюється між запусками</p>
+<p><code>hash("Поділ")</code> щоразу, коли запускаєш Python, дає <strong>інше</strong> число: так Python захищається від спеціально підібраних колізій (<a href="https://docs.python.org/3/using/cmdline.html#envvar-PYTHONHASHSEED">PYTHONHASHSEED</a>). У межах одного запуску хеш сталий, і словник працює правильно. Тому в прикладах вище — лише цілі числа.</p>
+</div>
+<h2 id="_9">Що може бути ключем<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<p>Хеш ключа має бути сталим, доки ключ лежить у словнику. Інакше словник шукатиме його не в тому кошику. Тому ключами можуть бути лише <strong>hashable</strong> значення — ті, що не змінюються: <code>int</code>, <code>float</code>, <code>str</code>, <code>tuple</code> з незмінних елементів.</p>
+<p>Маршрут — пара «звідки, куди» — зручно зберігати кортежем:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="n">route_counts</span> <span class="o">=</span> <span class="p">{(</span><span class="s2">"Поділ"</span><span class="p">,</span> <span class="s2">"Оболонь"</span><span class="p">):</span> <span class="mi">2</span><span class="p">}</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">route_counts</span><span class="p">[(</span><span class="s2">"Поділ"</span><span class="p">,</span> <span class="s2">"Оболонь"</span><span class="p">)])</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>2
+</code></pre></div>
+<p>Список ключем бути не може — його можна змінити після того, як поклали у словник:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="n">route_counts</span><span class="p">[[</span><span class="s2">"Поділ"</span><span class="p">,</span> <span class="s2">"Оболонь"</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">2</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>TypeError: unhashable type: 'list'
+</code></pre></div>
+<p>Кортеж, у якому є список, — теж:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="nb">hash</span><span class="p">((</span><span class="s2">"Поділ"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"Оболонь"</span><span class="p">,</span> <span class="s2">"Поділ"</span><span class="p">]))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>TypeError: unhashable type: 'list'
+</code></pre></div>
+<p>Ті самі правила діють для елементів <code>set</code>: множина — це словник без значень.</p>
+<h2 id="_10">Частоти: найпопулярніший маршрут<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<p>Рахуємо, скільки разів трапляється кожен маршрут. Той самий прийом, що в уроці 6, тільки ключ — кортеж:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">route_counts_naive</span><span class="p">(</span><span class="n">trips</span><span class="p">):</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>    <span class="n">counts</span> <span class="o">=</span> <span class="p">{}</span>
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>    <span class="k">for</span> <span class="n">trip</span> <span class="ow">in</span> <span class="n">trips</span><span class="p">:</span>
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>        <span class="n">route</span> <span class="o">=</span> <span class="p">(</span><span class="n">trip</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">trip</span><span class="o">.</span><span class="n">end</span><span class="p">)</span>
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>        <span class="n">counts</span><span class="p">[</span><span class="n">route</span><span class="p">]</span> <span class="o">=</span> <span class="n">counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">route</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+<a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>    <span class="k">return</span> <span class="n">counts</span>
+<a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>
+<a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>
+<a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a><span class="nb">print</span><span class="p">(</span><span class="n">route_counts_naive</span><span class="p">(</span><span class="n">trips</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>{('Поділ', 'Оболонь'): 2, ('Вокзал', 'Поділ'): 1, ('Оболонь', 'Поділ'): 2, ('Печерськ', 'Вокзал'): 1, ('Поділ', 'Вокзал'): 1, ('Вокзал', 'Печерськ'): 1}
+</code></pre></div>
+<p>Але «Поділ → Оболонь» і «Оболонь → Поділ» — для диспетчера один і той самий маршрут, і його треба рахувати разом. Потрібен <strong>канонічний ключ</strong>: одне представлення для всіх варіантів, які ми вважаємо однаковими. Для пари міст — відсортований кортеж:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">route_key</span><span class="p">(</span><span class="n">trip</span><span class="p">):</span>
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>    <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">sorted</span><span class="p">((</span><span class="n">trip</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">trip</span><span class="o">.</span><span class="n">end</span><span class="p">)))</span>
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>
+<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">route_key</span><span class="p">(</span><span class="n">trips</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">route_key</span><span class="p">(</span><span class="n">trips</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>('Оболонь', 'Поділ') ('Оболонь', 'Поділ')
+</code></pre></div>
+<p>Тепер рахуємо через <code>Counter</code> з уроку 13:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>
+<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="n">routes</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">route_key</span><span class="p">(</span><span class="n">trip</span><span class="p">)</span> <span class="k">for</span> <span class="n">trip</span> <span class="ow">in</span> <span class="n">trips</span><span class="p">)</span>
+<a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">routes</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>[(('Оболонь', 'Поділ'), 4), (('Вокзал', 'Поділ'), 2)]
+</code></pre></div>
+<p>«Оболонь — Поділ» — 4 поїздки з восьми. Один прохід журналом, <code>O(n)</code>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Канонічний ключ</p>
+<p>Коли різні записи мають вважатися однаковими, зведи кожен до одного вигляду і використай його як ключ словника: відсортований кортеж для маршруту, <code>name.lower()</code> для імен без урахування регістру, відсортовані літери для анаграм. Прийом повернеться в самостійній задачі.</p>
+</div>
+<h2 id="_11">Пастка: словник змінюється під час обходу<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<p>Диспетчер хоче прибрати з лічильника клієнтів з однією поїздкою:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="n">clients</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">trip</span><span class="o">.</span><span class="n">client</span> <span class="k">for</span> <span class="n">trip</span> <span class="ow">in</span> <span class="n">trips</span><span class="p">)</span>
+<a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>
+<a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a><span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">clients</span><span class="p">:</span>
+<a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a>    <span class="k">if</span> <span class="n">clients</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+<a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a>        <span class="k">del</span> <span class="n">clients</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>RuntimeError: dictionary changed size during iteration
+</code></pre></div>
+<p>Видаляти ключі зі словника, по якому зараз іде цикл, не можна. Два правильні способи: обходити <strong>копію</strong> ключів — <code>for name in list(clients):</code> — або будувати <strong>новий</strong> словник:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="n">clients</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">trip</span><span class="o">.</span><span class="n">client</span> <span class="k">for</span> <span class="n">trip</span> <span class="ow">in</span> <span class="n">trips</span><span class="p">)</span>
+<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a><span class="n">regular</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">count</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">clients</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">}</span>
+<a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">regular</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>{'Марта': 2, 'Олег': 2}
+</code></pre></div>
+<h2 id="_12">Як обрати структуру<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Питання до даних</th>
+<th>Представлення</th>
+<th>Складність запиту</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>«чи є такий?», дані без порядку, запит один</td>
+<td>список, <code>in</code></td>
+<td><code>O(n)</code></td>
+</tr>
+<tr>
+<td>«чи є такий?», запитів багато</td>
+<td><code>set</code></td>
+<td><code>O(1)</code> в середньому</td>
+</tr>
+<tr>
+<td>«знайти запис за ключем»</td>
+<td><code>dict</code> ключ → запис</td>
+<td><code>O(1)</code> в середньому</td>
+</tr>
+<tr>
+<td>«скільки разів?»</td>
+<td><code>Counter</code> / <code>dict</code> ключ → лічильник</td>
+<td><code>O(1)</code> на оновлення</td>
+</tr>
+<tr>
+<td>«найближчий більший», діапазони, префікси</td>
+<td>відсортований список + <code>bisect</code></td>
+<td><code>O(log n)</code></td>
+</tr>
+</tbody>
+</table>
+<p>Хеш-структури не дають порядку «від меншого до більшого» — для діапазонів і префіксів (автодоповнення з П2) лишається відсортований список. Пам'ять теж не безкоштовна: словник на n записів займає більше місця, ніж список з тих самих записів.</p>
+<h2 id="practice">Практика<a class="headerlink" href="#practice" title="Permanent link">&para;</a></h2>
+<h3 id="_13">Розібраний приклад: звіт диспетчера за зміну<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<p>Три відповіді — кожна за один прохід журналом:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-38-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-38-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-38-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-38-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-38-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-38-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-38-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-38-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-38-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-38-10">10</a></span>
+<span class="normal"><a href="#__codelineno-38-11">11</a></span>
+<span class="normal"><a href="#__codelineno-38-12">12</a></span>
+<span class="normal"><a href="#__codelineno-38-13">13</a></span>
+<span class="normal"><a href="#__codelineno-38-14">14</a></span>
+<span class="normal"><a href="#__codelineno-38-15">15</a></span>
+<span class="normal"><a href="#__codelineno-38-16">16</a></span>
+<span class="normal"><a href="#__codelineno-38-17">17</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">shift_report</span><span class="p">(</span><span class="n">trips</span><span class="p">,</span> <span class="n">voucher</span><span class="p">):</span>
+<a id="__codelineno-38-2" name="__codelineno-38-2"></a><span class="hll">    <span class="n">pair</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pair_with_sum_hash</span><span class="p">([</span><span class="n">trip</span><span class="o">.</span><span class="n">fare</span> <span class="k">for</span> <span class="n">trip</span> <span class="ow">in</span> <span class="n">trips</span><span class="p">],</span> <span class="n">voucher</span><span class="p">)</span>
+</span><a id="__codelineno-38-3" name="__codelineno-38-3"></a>    <span class="n">voucher_trips</span> <span class="o">=</span> <span class="p">[</span><span class="n">trips</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">pair</span><span class="p">]</span> <span class="k">if</span> <span class="n">pair</span> <span class="k">else</span> <span class="kc">None</span>
+<a id="__codelineno-38-4" name="__codelineno-38-4"></a><span class="hll">    <span class="n">routes</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">route_key</span><span class="p">(</span><span class="n">trip</span><span class="p">)</span> <span class="k">for</span> <span class="n">trip</span> <span class="ow">in</span> <span class="n">trips</span><span class="p">)</span>
+</span><a id="__codelineno-38-5" name="__codelineno-38-5"></a><span class="hll">    <span class="n">top_route</span><span class="p">,</span> <span class="n">top_count</span> <span class="o">=</span> <span class="n">routes</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span><a id="__codelineno-38-6" name="__codelineno-38-6"></a><span class="hll">    <span class="n">clients</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">trip</span><span class="o">.</span><span class="n">client</span> <span class="k">for</span> <span class="n">trip</span> <span class="ow">in</span> <span class="n">trips</span><span class="p">)</span>
+</span><a id="__codelineno-38-7" name="__codelineno-38-7"></a>    <span class="k">return</span> <span class="p">{</span>
+<a id="__codelineno-38-8" name="__codelineno-38-8"></a>        <span class="s2">"voucher_trips"</span><span class="p">:</span> <span class="n">voucher_trips</span><span class="p">,</span>
+<a id="__codelineno-38-9" name="__codelineno-38-9"></a>        <span class="s2">"top_route"</span><span class="p">:</span> <span class="s2">" — "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">top_route</span><span class="p">),</span>
+<a id="__codelineno-38-10" name="__codelineno-38-10"></a>        <span class="s2">"top_route_trips"</span><span class="p">:</span> <span class="n">top_count</span><span class="p">,</span>
+<a id="__codelineno-38-11" name="__codelineno-38-11"></a><span class="hll">        <span class="s2">"regular_clients"</span><span class="p">:</span> <span class="p">[</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">clients</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">],</span>
+</span><a id="__codelineno-38-12" name="__codelineno-38-12"></a>    <span class="p">}</span>
+<a id="__codelineno-38-13" name="__codelineno-38-13"></a>
+<a id="__codelineno-38-14" name="__codelineno-38-14"></a>
+<a id="__codelineno-38-15" name="__codelineno-38-15"></a><span class="hll"><span class="n">report</span> <span class="o">=</span> <span class="n">shift_report</span><span class="p">(</span><span class="n">trips</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+</span><a id="__codelineno-38-16" name="__codelineno-38-16"></a><span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">report</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<a id="__codelineno-38-17" name="__codelineno-38-17"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>voucher_trips [1120, 930]
+<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>top_route Оболонь — Поділ
+<a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a>top_route_trips 4
+<a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a>regular_clients ['Марта', 'Олег']
+</code></pre></div>
+<p>Що відбувається в ключових рядках:</p>
+<ul>
+<li><strong>рядок 2</strong> — Two Sum на словнику: пара позицій у журналі, а не значень, тож у рядку 3 одразу маємо номери поїздок;</li>
+<li><strong>рядки 4–5</strong> — канонічний ключ маршруту і <code>Counter</code>: напрямок не важливий;</li>
+<li><strong>рядок 6</strong> — ще один <code>Counter</code>, тепер за клієнтами;</li>
+<li><strong>рядок 11</strong> — новий список з потрібних клієнтів, без змін словника під час обходу;</li>
+<li><strong>рядок 15</strong> — увесь звіт — три проходи журналом, <code>O(n)</code>. Перебір пар для ваучера сам по собі дав би <code>O(n²)</code>.</li>
+</ul>
+<h3 id="_14">Зміни приклад: перший разовий клієнт<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<p>Відділ маркетингу хоче подзвонити <strong>першому</strong> за журналом клієнтові, який цієї зміни їздив рівно один раз. Напиши <code>first_unique(names)</code>, яка повертає таке ім'я або <code>None</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>first_unique([trip.client for trip in trips])  →  'Ірина'
+<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>first_unique(["Марта", "Марта"])               →  None
+<a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a>first_unique([])                               →  None
+</code></pre></div>
+<p><strong>Критерії перевірки:</strong></p>
+<ul>
+<li>два проходи: спершу <code>Counter</code> по всіх іменах, потім пошук першого з лічильником 1;</li>
+<li>жодного <code>names.count(name)</code> у циклі — це приховане <code>O(n²)</code>, як <code>in</code> для списку в уроці 9;</li>
+<li>Марта й Олег — не разові: вони трапляються двічі, хоч і не поспіль.</li>
+</ul>
+<details class="tip">
+<summary>Підказка</summary>
+<p>Порядок дає другий прохід по <strong>списку</strong> <code>names</code>, а не по словнику: ідемо по іменах у порядку журналу і повертаємо перше, для якого <code>counts[name] == 1</code>.</p>
+</details>
+<h3 id="_15">Спробуй самостійно: анаграми<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<p>Класична задача з співбесід на той самий прийом — канонічний ключ. <strong>Анаграми</strong> — слова з тих самих літер у різному порядку: «літо» і «тіло», «клоун» і «уклон». Промокоди таксі генеруються випадково, і служба підтримки просить знайти ті, що є анаграмами один одного: їх легко сплутати.</p>
+<p>Напиши дві функції:</p>
+<ul>
+<li><code>is_anagram(a, b)</code> — чи є два слова анаграмами. Порівнюй <code>Counter(a) == Counter(b)</code>, без урахування регістру;</li>
+<li><code>group_anagrams(words)</code> — групи анаграм у порядку першої появи. Ключ групи — відсортовані літери слова: <code>"".join(sorted(word.lower()))</code>.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>is_anagram("Літо", "тіло")    →  True
+<a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>is_anagram("літо", "літа")    →  False
+<a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a>group_anagrams(["літо", "клоун", "тіло", "таксі", "уклон", "кит"])
+<a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a>    →  [['літо', 'тіло'], ['клоун', 'уклон'], ['таксі'], ['кит']]
+</code></pre></div>
+<p><strong>Правила:</strong></p>
+<ul>
+<li><code>group_anagrams</code> проходить список <strong>один раз</strong>: словник «ключ → список слів»;</li>
+<li>порівнювати кожне слово з кожним не можна — це <code>O(n²)</code>;</li>
+<li>слова зберігаються в групі у тому вигляді, в якому прийшли (без <code>lower()</code>).</li>
+</ul>
+<h3 id="_16">Хеш зсередини, пам'ять і бази даних<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<p>Розділи 8–10 ноутбука заняття йдуть глибше:</p>
+<ul>
+<li><strong>хеш зсередини</strong> — <code>hash()</code> для чисел, рядків і кортежів; чому hash рядка змінюється після перезапуску Python; чому <code>{1: 'a', 1.0: 'b'}</code> містить один ключ; як <code>set</code> розширюється, коли заповнюється на 2/3;</li>
+<li><strong>скільки це важить</strong> — <code>sys.getsizeof</code>: <code>set</code> зі 100 000 чисел займає приблизно в 5 разів більше, ніж <code>list</code>; число — об'єкт на 28 байт, кирилиця — 2 байти на символ. Вправа 6 — <code>deep_size</code>, де множина <code>id()</code> не дає порахувати об'єкт двічі;</li>
+<li><strong>затравка: реляційна база даних</strong> — ті самі поїздки в DuckDB: <code>PRIMARY KEY</code> як ключ словника, <code>GROUP BY</code> як <code>Counter</code>, <code>JOIN</code> як словник-індекс. <code>EXPLAIN</code> показує <code>HASH_GROUP_BY</code> і <code>HASH_JOIN</code> — бази даних побудовані на тих самих хеш-таблицях.</li>
+</ul>
+<h3 id="_17">Лабораторія: таксі<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<p>Для показу на занятті є інтерактивний застосунок <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_1/lessons/lesson_17_practicum_hashing/taxi_lab"><code>taxi_lab</code></a> на Streamlit, чотири вкладки:</p>
+<ul>
+<li><strong>хеш-таблиця зсередини</strong> — наповнюєш таблицю справжніми зонами Нью-Йорка й бачиш комірки, колізії, розширення; кошики-списки або відкрита адресація, як у <code>dict</code>; погані хеш-функції перетворюють пошук на <code>O(n)</code>;</li>
+<li><strong>list · tuple · set · dict</strong> — властивості, що можна хешувати, гонка <code>x in …</code> до мільйона елементів і ціна побудови множини;</li>
+<li><strong>пам'ять</strong> — <code>getsizeof</code>, <code>tracemalloc</code>, глибокий розмір, «сходинки» росту контейнерів;</li>
+<li><strong>NYC Taxi + DuckDB</strong> — 3 мільйони справжніх поїздок жовтого таксі Нью-Йорка: ті самі питання в Python (<code>Counter</code>, <code>dict</code>) і в SQL, <code>EXPLAIN</code>, повтори ключів, що ламають <code>JOIN</code>, вага одного рядка і карта посадок.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>pip<span class="w"> </span>install<span class="w"> </span>streamlit<span class="w"> </span>plotly<span class="w"> </span>duckdb<span class="w"> </span>pandas<span class="w"> </span>geopandas
+<a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a><span class="nb">cd</span><span class="w"> </span>module_1/lessons/lesson_17_practicum_hashing/taxi_lab
+<a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>streamlit<span class="w"> </span>run<span class="w"> </span>app.py
+</code></pre></div>
+<p>Дані NYC (~45 МБ) застосунок завантажить з офіційного сайту NYC TLC за кнопкою; без інтернету вкладка працює на згенерованих поїздках.</p>
+<h2 id="_18">Підсумок<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Поняття</th>
+<th>Що запам'ятати</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Змінити представлення</td>
+<td>немає зручної властивості даних — переклади їх у <code>dict</code> / <code>set</code> один раз</td>
+</tr>
+<tr>
+<td>Two Sum</td>
+<td>словник «значення → позиція», питаємо про доповнення: <code>O(n)</code></td>
+</tr>
+<tr>
+<td>Словник-індекс</td>
+<td>побудова <code>O(n)</code>, далі кожен запит <code>O(1)</code>; окупається, коли запитів багато</td>
+</tr>
+<tr>
+<td>Хеш</td>
+<td>число з ключа → номер кошика; в середньому <code>O(1)</code>, колізії рідкісні</td>
+</tr>
+<tr>
+<td>Hashable</td>
+<td>ключі й елементи <code>set</code> — лише незмінні: <code>str</code>, <code>int</code>, <code>tuple</code></td>
+</tr>
+<tr>
+<td>Канонічний ключ</td>
+<td>одне представлення для «однакових» записів: відсортований кортеж, відсортовані літери</td>
+</tr>
+<tr>
+<td>Пастка</td>
+<td>не змінювати <code>dict</code> під час обходу — обходь копію або будуй новий</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_19">Самоперевірка<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Чому <code>pair_with_sum</code> з П2 мовчки дає неправильну відповідь на невідсортованих даних, а не падає?</li>
+<li>Що зберігає <code>seen</code> у <code>pair_with_sum_hash</code> і чому саме словник, а не список?</li>
+<li>Коли словник-індекс <code>{id: trip}</code> не окупається?</li>
+<li>Поясни на моделі з кошиками, чому пошук у <code>dict</code> не залежить від кількості ключів.</li>
+<li>Чому список не може бути ключем словника, а кортеж — може?</li>
+<li>Навіщо канонічний ключ у підрахунку маршрутів? Що вийде без нього?</li>
+<li><code>names.count(name)</code> усередині циклу по <code>names</code> — яка складність і чому?</li>
+</ol>
+<details class="success">
+<summary>Відповіді</summary>
+<ol>
+<li>Алгоритм не перевіряє, чи список відсортований, — він покладається на це. На невідсортованих даних кожен крок робить хибний висновок «праворуч більші», і пошук закінчується, не розглянувши потрібну пару.</li>
+<li>Побачені суми та їхні позиції в журналі. Питання «чи бачили доповнення?» у словнику — один крок, у списку — прохід по ньому, тобто разом <code>O(n²)</code>.</li>
+<li>Коли запит один або їх мало: побудова коштує n кроків, а один лінійний пошук — у середньому n / 2.</li>
+<li>За хешем ключа одразу обчислюється номер кошика, а в кошику — один чи кілька ключів. Скільки ключів у всій таблиці, на це не впливає.</li>
+<li>Список можна змінити, і тоді його хеш став би іншим, а словник шукав би ключ не в тому кошику. Кортеж з незмінних елементів змінити не можна.</li>
+<li>Щоб «Поділ → Оболонь» і «Оболонь → Поділ» рахувались як один маршрут. Без нього лічильник розіб'ється на два ключі по 2, і лідера не буде видно.</li>
+<li><code>O(n²)</code>: <code>count</code> сам проходить весь список, і так для кожного імені. <code>Counter</code> рахує все за один прохід.</li>
+</ol>
+</details>
+<h3 id="_20">Що далі<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Ноутбук заняття: <a class="md-button md-button--primary" href="https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_17_practicum_hashing/note_lesson_17_hashing_student.ipynb">Відкрити вправи в Colab</a> <a class="solutions-link" href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_17_practicum_hashing/note_lesson_17_hashing.ipynb">Переглянути розв’язки</a> — та сама зміна диспетчера: прогнози, лічильники кроків, вправи з перевірками, хеш зсередини, пам'ять і DuckDB.</li>
+<li>Лабораторія для заняття: <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_1/lessons/lesson_17_practicum_hashing/taxi_lab"><code>taxi_lab</code></a> — хеш-таблиця зсередини, пам'ять і 3 мільйони поїздок NYC у DuckDB.</li>
+<li>Наступне заняття: <a href="../lesson_18/">Урок 18. Огляд модуля 1</a> — усе разом: типи, колекції, функції, винятки, файли, Git і три практикуми.</li>
+<li>У модулі 2 повернемося до hashable з іншого боку: як зробити ключем словника <strong>власний</strong> клас (<code>__hash__</code> і <code>__eq__</code>).</li>
+</ul>
+<h2 id="_21">Документація і джерела<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Типи <a href="https://docs.python.org/3/library/stdtypes.html#mapping-types-dict"><code>dict</code></a> і <a href="https://docs.python.org/3/library/stdtypes.html#set-types-set-frozenset"><code>set</code></a>; вбудована функція <a href="https://docs.python.org/3/library/functions.html#hash"><code>hash()</code></a></li>
+<li>Глосарій: <a href="https://docs.python.org/3/glossary.html#term-hashable">hashable</a>; <a href="https://docs.python.org/3/library/collections.html#collections.Counter"><code>collections.Counter</code></a></li>
+<li><a href="https://wiki.python.org/moin/TimeComplexity">Складність операцій <code>list</code>, <code>dict</code>, <code>set</code></a></li>
+<li>Пам'ять: <a href="https://docs.python.org/3/library/sys.html#sys.getsizeof"><code>sys.getsizeof</code></a>, <a href="https://docs.python.org/3/library/tracemalloc.html"><code>tracemalloc</code></a></li>
+<li><a href="https://duckdb.org/docs/">DuckDB</a>: <a href="https://duckdb.org/docs/api/python/overview">Python API</a>, <a href="https://duckdb.org/docs/guides/meta/explain"><code>EXPLAIN</code></a>; дані <a href="https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page">NYC TLC Trip Record Data</a></li>
+<li>Для охочих:<ul>
+<li>Harvard CS50x, <a href="https://cs50.harvard.edu/x/weeks/5/">тиждень 5 «Data Structures»</a> — хеш-таблиці, хеш-функції й колізії;</li>
+<li>MIT 6.006, <a href="https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/resources/lecture-4-hashing/">лекція 4 «Hashing»</a> — для тих, хто хоче глибше.</li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Футер" >
+        
+          
+          <a href="../lesson_16/" class="md-footer__link md-footer__link--prev" aria-label="Назад: 16. Git &amp; GitHub: система">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Назад
+              </span>
+              <div class="md-ellipsis">
+                16. Git & GitHub: система
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../lesson_18/" class="md-footer__link md-footer__link--next" aria-label="Вперед: 18. Узагальнення + фінальний проєкт">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Вперед
+              </span>
+              <div class="md-ellipsis">
+                18. Узагальнення + фінальний проєкт
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.footer", "toc.follow", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0456\u0439\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u0421\u043a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438 \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0429\u0435 1 \u0437\u0431\u0456\u0433 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.more.other": "\u0429\u0435 # \u0437\u0431\u0456\u0433\u0456\u0432 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.none": "\u0417\u0431\u0456\u0433\u0456\u0432 \u043d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0437\u0431\u0456\u0433", "search.result.other": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e # \u0437\u0431\u0456\u0433\u0456\u0432", "search.result.placeholder": "\u0420\u043e\u0437\u043f\u043e\u0447\u043d\u0456\u0442\u044c \u043f\u0438\u0441\u0430\u0442\u0438 \u0434\u043b\u044f \u043f\u043e\u0448\u0443\u043a\u0443", "search.result.term.missing": "\u041d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e \u0437\u0430\u043f\u0438\u0442\u0443", "select.version": "\u041e\u0431\u0440\u0430\u0442\u0438 \u0432\u0435\u0440\u0441\u0456\u044e"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/sidebars.js"></script>
+      
+    
+  </body>
+</html>

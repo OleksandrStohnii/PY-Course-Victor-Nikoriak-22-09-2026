@@ -1,0 +1,2107 @@
+
+<!doctype html>
+<html lang="uk" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Курс Python українською — від основ до просунутих тем, у форматі книги">
+      
+      
+      
+        <link rel="canonical" href="https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/00_getting_started/pycharm/">
+      
+      
+        <link rel="prev" href="../jupyter/">
+      
+      
+        <link rel="next" href="../vscode/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>PyCharm - PY Course — Viktor Nikoriak</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#pycharm" class="md-skip">
+          Перейти до змісту
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Хедер">
+    <a href="../.." title="PY Course — Viktor Nikoriak" class="md-header__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PY Course — Viktor Nikoriak
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              PyCharm
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Пошук" placeholder="Пошук" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Шукати">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистити" aria-label="Очистити" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Пошук розпочато
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Вкладки" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Головна
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Як користуватися
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../modules/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Модулі курсу (в розробці)
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../00_python_mental_model/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Довідник
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Навігація" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="PY Course — Viktor Nikoriak" class="md-nav__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    PY Course — Viktor Nikoriak
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Головна
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Як користуватися
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Як користуватися
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../git_setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Встановлення Git
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../environment_setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Налаштування середовища
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../colab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ноутбуки в Google Colab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jupyter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jupyter локально
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PyCharm
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PyCharm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Яку версію брати
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Встановлення
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Перший проєкт із віртуальним середовищем
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Інтерпретатор: який Python виконує код
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Інтерпретатор: який Python виконує код">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Швидко: перемикач у рядку стану
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        У налаштуваннях
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#venv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Додати venv
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Запуск коду
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Запуск коду">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rundebug-configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Конфігурації запуску (Run/Debug Configurations)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Конфігурації запуску (Run/Debug Configurations)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#before-launch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Before launch: що зробити перед запуском
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Дебагер крок за кроком
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Вбудований термінал
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Встановлення пакетів
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-pycharm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Git у PyCharm
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#jupyter-pycharm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ноутбуки Jupyter у PyCharm
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Корисні налаштування
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Гарячі клавіші, які варто вивчити першими
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Плагіни
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Джерела
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vscode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VS Code
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homework_workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Здача домашніх робіт
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Часті проблеми
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_10" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../github/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GitHub
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_10" id="__nav_2_10_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    GitHub
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../github/ssh_keys/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSH-ключі
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../github/fork_and_clone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fork і Clone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../github/pull_request/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pull Request
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../github/create_repository/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Як створити свій репозиторій
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../modules/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Модулі курсу (в розробці)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../00_python_mental_model/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Довідник
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Яку версію брати
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Встановлення
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Перший проєкт із віртуальним середовищем
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Інтерпретатор: який Python виконує код
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Інтерпретатор: який Python виконує код">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Швидко: перемикач у рядку стану
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        У налаштуваннях
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#venv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Додати venv
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Запуск коду
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Запуск коду">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rundebug-configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Конфігурації запуску (Run/Debug Configurations)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Конфігурації запуску (Run/Debug Configurations)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#before-launch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Before launch: що зробити перед запуском
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Дебагер крок за кроком
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Вбудований термінал
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Встановлення пакетів
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-pycharm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Git у PyCharm
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#jupyter-pycharm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ноутбуки Jupyter у PyCharm
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Корисні налаштування
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Гарячі клавіші, які варто вивчити першими
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Плагіни
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Джерела
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Навігація" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Головна
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Як користуватися
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="pycharm">PyCharm: повний гайд для курсу<a class="headerlink" href="#pycharm" title="Permanent link">&para;</a></h1>
+<p><strong>PyCharm</strong> — середовище розробки (IDE) для Python від компанії JetBrains. В одному вікні — редактор з підказками й перевіркою коду, запуск програм, дебагер, термінал, керування пакетами, Git і ноутбуки Jupyter. IDE — це інструмент, а не мова: той самий код працює і в PyCharm, і у VS Code, і в терміналі.</p>
+<h2 id="_1">Яку версію брати<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>З версії <strong>2025.1</strong> PyCharm Community і PyCharm Professional об'єднано в <strong>один продукт — PyCharm</strong>:</p>
+<ul>
+<li><strong>основні можливості безкоштовні</strong>: редактор, запуск, дебагер, venv, пакети, Git, <strong>ноутбуки Jupyter</strong>. Для всього курсу цього досить;</li>
+<li><strong>Pro-підписка</strong> додає веб-фреймворки (Django, Flask, FastAPI), роботу з базами даних, віддалені інтерпретатори (SSH, Docker, WSL), розширені можливості ноутбуків;</li>
+<li>після встановлення діє <strong>безкоштовний місячний пробний період Pro</strong>; після нього PyCharm лишається працювати в безкоштовному режимі;</li>
+<li>окремої Community Edition більше немає: 2025.2 — останній окремий реліз, далі — лише об'єднаний PyCharm.</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Pro безкоштовно для студентів</p>
+<p>JetBrains дає безкоштовні освітні ліцензії студентам і викладачам акредитованих навчальних програм тривалістю понад рік: підтвердження через університетську пошту, картку ISIC або GitHub Student Developer Pack. Подати заявку — на сторінці <a href="https://www.jetbrains.com/academy/student-pack/">Free JetBrains Student Pack</a>. Для нашого курсу Pro не обов'язковий: до модуля 4 (веб) вистачає безкоштовних можливостей.</p>
+</div>
+<h2 id="_2">Встановлення<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p><strong>Спосіб 1 — JetBrains Toolbox App</strong> (рекомендований JetBrains). Це невелика програма, яка встановлює й оновлює IDE JetBrains:</p>
+<ul>
+<li>Windows — завантаж <code>.exe</code> зі сторінки <a href="https://www.jetbrains.com/toolbox-app/">Toolbox App</a> і пройди майстер встановлення;</li>
+<li>macOS — завантаж <code>.dmg</code> (окремо для Intel і Apple Silicon) і перетягни Toolbox у <strong>Applications</strong>;</li>
+<li>Linux — завантаж архів <code>.tar.gz</code> і розпакуй.</li>
+</ul>
+<p>У Toolbox знайди <strong>PyCharm</strong> → <strong>Install</strong>.</p>
+<p><strong>Спосіб 2 — окремий інсталятор</strong> зі сторінки <a href="https://www.jetbrains.com/pycharm/download/">завантаження PyCharm</a>.</p>
+<p>Сам Python PyCharm не встановлює за тебе автоматично — встанови Python 3.10+ заздалегідь (див. урок 2 і <a href="../environment_setup/">Налаштування середовища</a>).</p>
+<h2 id="_3">Перший проєкт із віртуальним середовищем<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Запусти PyCharm → <strong>New Project</strong>.</li>
+<li>Вкажи <strong>Location</strong> — папку проєкту (наприклад, <code>lesson_03</code>).</li>
+<li>У блоці інтерпретатора вибери створення нового <strong>virtualenv (venv)</strong> і базовий Python 3.10+. PyCharm створить папку <code>.venv</code> усередині проєкту.</li>
+<li><strong>Create</strong>.</li>
+</ol>
+<p>Щоб працювати з <strong>клонованим репозиторієм курсу</strong>: <strong>Open</strong> → вибери папку <code>PY-Course-Victor-Nikoriak-22-09-2026</code> → далі налаштуй інтерпретатор (наступний розділ).</p>
+<h2 id="python">Інтерпретатор: який Python виконує код<a class="headerlink" href="#python" title="Permanent link">&para;</a></h2>
+<p>Інтерпретатор проєкту — це Python, яким PyCharm запускає код, перевіряє імпорти й у який ставить пакети. Для роботи потрібен хоча б один інтерпретатор: системний Python або <strong>віртуальне середовище</strong> (venv) — базовий інтерпретатор плюс свої встановлені пакети. PyCharm уміє створювати середовища Virtualenv, pipenv, Poetry, uv, Hatch і conda; для курсу беремо звичайний <strong>Virtualenv (venv)</strong>.</p>
+<p>Перед налаштуванням Python має бути встановлений: PyCharm лише вказує шлях до нього.</p>
+<h3 id="_4">Швидко: перемикач у рядку стану<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>Поточний інтерпретатор видно в <strong>правому нижньому куті</strong> вікна (рядок стану), наприклад <code>Python 3.12 (lesson_03)</code>. Клік по ньому відкриває меню <strong>Python Interpreter</strong>:</p>
+<ul>
+<li>список доступних інтерпретаторів — клік перемикає проєкт на вибраний;</li>
+<li><strong>Add New Interpreter</strong> — створити новий (наприклад, venv);</li>
+<li><strong>Interpreter Settings…</strong> — відкрити налаштування інтерпретатора;</li>
+<li><strong>Manage Packages…</strong> — перейти до пакетів поточного інтерпретатора.</li>
+</ul>
+<h3 id="_5">У налаштуваннях<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>ОС</th>
+<th>Шлях</th>
+<th>Клавіші</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows / Linux</td>
+<td><strong>File → Settings → Python → Interpreter</strong></td>
+<td><strong>Ctrl+Alt+S</strong>, далі <strong>Python → Interpreter</strong></td>
+</tr>
+<tr>
+<td>macOS</td>
+<td><strong>PyCharm → Settings → Python → Interpreter</strong></td>
+<td><strong>⌘,</strong> (Command-кома)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Випадний список угорі — вибрати інтерпретатор; якщо потрібного немає — <strong>Show All</strong> (там же можна перейменувати чи видалити інтерпретатор кнопкою <strong>Remove Interpreter</strong>).</li>
+<li>Нижче — таблиця пакетів вибраного інтерпретатора: встановлена версія, остання доступна, стрілка біля пакета, для якого є оновлення.</li>
+</ul>
+<h3 id="venv">Додати venv<a class="headerlink" href="#venv" title="Permanent link">&para;</a></h3>
+<p><strong>Add Interpreter</strong> (поруч зі списком у налаштуваннях) або <strong>Add New Interpreter</strong> у перемикачі → <strong>Add Local Interpreter</strong>:</p>
+<ul>
+<li><strong>новий venv</strong>: тип <strong>Virtualenv</strong> → нове середовище, базовий Python 3.10+. Галочку «Inherit packages from base interpreter» <strong>не</strong> став — тоді venv чистий, як і має бути;</li>
+<li><strong>наявний venv</strong> (наприклад, створений у терміналі командою <code>python -m venv .venv</code>): вибери наявне середовище й вкажи шлях до Python:<ul>
+<li>Windows: <code>.venv\Scripts\python.exe</code></li>
+<li>macOS / Linux: <code>.venv/bin/python</code></li>
+</ul>
+</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Інтерпретатор за замовчуванням для нових проєктів</p>
+<p><strong>File → New Projects Setup → Settings for New Projects → Python Interpreter</strong> — PyCharm автоматично призначатиме його проєктам, які ще не мають своїх налаштувань (папки <code>.idea</code>).</p>
+</div>
+<p>Віддалені інтерпретатори (SSH, Docker, Docker Compose, WSL) — функція <strong>Pro</strong>; для курсу вони не потрібні.</p>
+<h2 id="_6">Запуск коду<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Дія</th>
+<th>Windows / Linux</th>
+<th>macOS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>запустити поточний файл (з контекстного меню чи клавішами)</td>
+<td>правий клік у редакторі → <strong>Run '&lt;файл&gt;'</strong>, або <strong>Ctrl+Shift+F10</strong></td>
+<td><strong>⌃⇧R</strong> (Control+Shift+R)</td>
+</tr>
+<tr>
+<td>запустити конфігурацію, вибрану у віджеті Run угорі</td>
+<td>кнопка ▶ або <strong>Shift+F10</strong></td>
+<td>▶ або <strong>⌃R</strong> (Control+R)</td>
+</tr>
+<tr>
+<td>вибрати, яку конфігурацію запустити</td>
+<td><strong>Alt+Shift+F10</strong></td>
+<td><strong>⌃⌥R</strong> (Control+Option+R)</td>
+</tr>
+<tr>
+<td>запустити з дебагером</td>
+<td>кнопка з жуком або <strong>Shift+F9</strong></td>
+<td>кнопка з жуком</td>
+</tr>
+<tr>
+<td>відкрити вікно Run / Debug</td>
+<td><strong>Alt+4</strong> / <strong>Alt+5</strong></td>
+<td><strong>⌘4</strong> / <strong>⌘5</strong></td>
+</tr>
+<tr>
+<td>інтерактивний Python</td>
+<td><strong>Tools → Python Console</strong> або кнопка <strong>Python Console</strong> внизу</td>
+<td>те саме</td>
+</tr>
+</tbody>
+</table>
+<p>Результат з'являється у вікні <strong>Run</strong> внизу. Помилки (traceback) там клікабельні: клік по <code>File "...", line 12</code> переносить у потрібний рядок.</p>
+<h3 id="rundebug-configurations">Конфігурації запуску (Run/Debug Configurations)<a class="headerlink" href="#rundebug-configurations" title="Permanent link">&para;</a></h3>
+<p><strong>Конфігурація</strong> — іменований набір налаштувань: <strong>що</strong> запускати, <strong>яким</strong> інтерпретатором, з <strong>якими</strong> параметрами й змінними оточення. Список конфігурацій — у <strong>віджеті Run</strong> угорі поруч із кнопкою ▶.</p>
+<ul>
+<li><strong>Тимчасова</strong> конфігурація створюється сама щоразу, коли запускаєш файл через <strong>Run '&lt;файл&gt;'</strong>. Її іконка напівпрозора; PyCharm тримає до 5 тимчасових конфігурацій і видаляє старіші.</li>
+<li><strong>Постійна</strong> — збережена: у віджеті Run вибери тимчасову → <strong>Save Configuration</strong>, або створи нову з шаблону. Постійні лишаються в проєкті, доки їх не видалиш. Червоний хрестик на іконці — помилка в налаштуваннях.</li>
+</ul>
+<p>Створити чи змінити: <strong>Run → Edit Configurations…</strong> (або віджет Run → <strong>Edit Configurations</strong>) → <strong>+</strong> → шаблон <strong>Python</strong>. Основні поля:</p>
+<table>
+<thead>
+<tr>
+<th>Поле</th>
+<th>Що задає</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Name</strong></td>
+<td>назва в списку конфігурацій</td>
+</tr>
+<tr>
+<td><strong>Python Interpreter</strong></td>
+<td>яким Python запускати (можна не той, що в проєкті)</td>
+</tr>
+<tr>
+<td><strong>Script path / Module name</strong></td>
+<td>файл <code>.py</code> або ім'я модуля (як <code>python -m модуль</code>)</td>
+</tr>
+<tr>
+<td><strong>Parameters</strong></td>
+<td>аргументи командного рядка через пробіл; аргумент із пробілами — у лапках</td>
+</tr>
+<tr>
+<td><strong>Working directory</strong></td>
+<td>робоча папка програми — від неї рахуються відносні шляхи до файлів (урок 15). Для запуску з контекстного меню — папка, де лежить скрипт; вона може не збігатися з папкою проєкту</td>
+</tr>
+<tr>
+<td><strong>Environment variables</strong></td>
+<td>змінні оточення; за замовчуванням там <code>PYTHONUNBUFFERED=1</code> (вивід одразу з'являється у вікні Run)</td>
+</tr>
+<tr>
+<td><strong>Paths to ".env" files</strong></td>
+<td>файли <code>.env</code> зі змінними оточення (ключі API не пишемо в код — їх кладуть у <code>.env</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>Приховані параметри відкриває посилання <strong>Modify options</strong>. Кнопка <strong>OK</strong> зберігає конфігурацію, <strong>Run</strong> — зберігає й одразу запускає.</p>
+<div class="admonition tip">
+<p class="admonition-title">Чому «файл не знайдено», хоча він поруч</p>
+<p>Якщо програма читає <code>data.csv</code>, а PyCharm каже <code>FileNotFoundError</code>, найчастіше винна <strong>Working directory</strong>: відносний шлях рахується від неї, а не від місця, де лежить скрипт. Перевір це поле в конфігурації.</p>
+</div>
+<h4 id="before-launch">Before launch: що зробити перед запуском<a class="headerlink" href="#before-launch" title="Permanent link">&para;</a></h4>
+<p>У конфігурації є блок <strong>Before launch</strong> — список задач, які PyCharm виконає <strong>перед</strong> запуском, по черзі згори донизу. Додати задачу — кнопка <strong>+</strong> (<strong>Alt+Insert</strong> / <strong>⌘N</strong>), прибрати — <strong>−</strong> (<strong>Alt+Delete</strong> / <strong>⌘⌫</strong>), змінити порядок — стрілками.</p>
+<table>
+<thead>
+<tr>
+<th>Задача</th>
+<th>Навіщо</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Run Another Configuration</strong></td>
+<td>спершу виконати іншу конфігурацію й дочекатися її кінця. Наприклад, скрипт, що готує дані, перед основною програмою</td>
+</tr>
+<tr>
+<td><strong>Run External tool</strong></td>
+<td>запустити зовнішню програму (скажімо, форматувальник чи скрипт оболонки)</td>
+</tr>
+<tr>
+<td><strong>Launch Web Browser</strong></td>
+<td>відкрити браузер за адресою — знадобиться для веб-застосунків у модулі 4</td>
+</tr>
+</tbody>
+</table>
+<p>Решта задач у списку (Grunt, gulp, npm, TypeScript, File Watchers, Data Source) — для веб- і фронтенд-розробки; у курсі Python вони не потрібні.</p>
+<p>Галочки під списком:</p>
+<ul>
+<li><strong>Show this page</strong> — показувати вікно налаштувань конфігурації перед кожним запуском (зручно, коли щоразу змінюєш параметри);</li>
+<li><strong>Activate tool window</strong> (увімкнено за замовчуванням) — відкривати вікно Run чи Debug під час запуску; якщо вимкнути, відкрити вручну можна <strong>Alt+4</strong> / <strong>Alt+5</strong> (macOS <strong>⌘4</strong> / <strong>⌘5</strong>);</li>
+<li><strong>Focus tool window</strong> — одразу переводити курсор у вікно Run/Debug (корисно, коли програма чекає на <code>input()</code>).</li>
+</ul>
+<p>Щоб поділитися конфігурацією з командою, увімкни в ній <strong>Store as project file</strong> — налаштування збережуться у файл у папці <code>.idea</code> проєкту, і його можна закомітити.</p>
+<h2 id="_7">Дебагер крок за кроком<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>Дебагер (debugger) дозволяє <strong>зупинити програму</strong> на потрібному рядку й подивитися значення всіх змінних. Це найкращий спосіб зрозуміти, чому код робить не те, що ти очікуєш.</p>
+<ol>
+<li><strong>Точка зупинки (breakpoint)</strong>: клікни на сірому полі зліва від номера рядка — з'явиться червона крапка. Або курсор у рядок і <strong>Ctrl+F8</strong> (macOS <strong>⌘F8</strong>).</li>
+<li>Запусти з дебагером: <strong>Shift+F9</strong> або правий клік → <strong>Debug '&lt;файл&gt;'</strong>.</li>
+<li>Програма зупиниться <strong>перед</strong> виконанням рядка з крапкою. Внизу відкриється вікно <strong>Debug</strong>: зліва — стек викликів (які функції зараз виконуються), справа — <strong>Variables</strong>, усі змінні та їхні значення.</li>
+<li>Далі керуй виконанням:</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Клавіша</th>
+<th>Команда</th>
+<th>Що робить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>F8</strong></td>
+<td>Step Over</td>
+<td>виконати поточний рядок і перейти до наступного, <strong>не заходячи</strong> всередину функцій</td>
+</tr>
+<tr>
+<td><strong>F7</strong></td>
+<td>Step Into</td>
+<td>зайти <strong>всередину</strong> функції, що викликається в рядку</td>
+</tr>
+<tr>
+<td><strong>Shift+F7</strong></td>
+<td>Smart Step Into</td>
+<td>якщо в рядку кілька викликів — вибрати, в який зайти</td>
+</tr>
+<tr>
+<td><strong>Alt+Shift+F7</strong></td>
+<td>Step Into My Code</td>
+<td>заходити лише у <strong>свій</strong> код, не в бібліотеки</td>
+</tr>
+<tr>
+<td><strong>F9</strong></td>
+<td>Resume</td>
+<td>виконувати далі до наступної точки зупинки</td>
+</tr>
+</tbody>
+</table>
+<p>Порада: крок за кроком (F8) пройди цикл з уроку 6 і стеж у <strong>Variables</strong>, як змінюються лічильник і список — це дає інтуїцію, якої не дасть жоден <code>print</code>.</p>
+<h2 id="_8">Вбудований термінал<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<p><strong>Alt+F12</strong> (або кнопка <strong>Terminal</strong> внизу) відкриває термінал у папці проєкту. Якщо інтерпретатор проєкту — venv і в <strong>Settings → Tools → Terminal</strong> увімкнено <strong>Activate virtualenv</strong>, venv у терміналі активується автоматично: на початку рядка буде <code>(.venv)</code>. Тут зручно запускати <code>git</code>, <code>pip</code>, <code>pytest</code>, <code>jupyter lab</code>.</p>
+<h2 id="_9">Встановлення пакетів<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<p><strong>Вікно Python Packages</strong>: кнопка <strong>Python Packages</strong> зліва або меню <strong>View → Tool Windows → Python Packages</strong>.</p>
+<ol>
+<li>Почни вводити назву пакета в пошук.</li>
+<li>Вибери пакет → <strong>Install</strong> (остання версія) або вибери версію зі списку.</li>
+</ol>
+<p>Пакет ставиться в <strong>поточний інтерпретатор проєкту</strong>; за замовчуванням PyCharm керує пакетами через <code>pip</code>. Ті самі пакети з версіями й кнопкою оновлення видно в налаштуваннях <strong>Python → Interpreter</strong> (або <strong>Manage Packages…</strong> у перемикачі інтерпретатора). Альтернатива — вбудований термінал з активованим venv: <code>pip install назва</code> або <code>pip install -r requirements.txt</code>.</p>
+<h2 id="git-pycharm">Git у PyCharm<a class="headerlink" href="#git-pycharm" title="Permanent link">&para;</a></h2>
+<p>PyCharm уміє все, що потрібно для <a href="../homework_workflow/">здачі домашніх робіт</a>, без командного рядка:</p>
+<table>
+<thead>
+<tr>
+<th>Дія</th>
+<th>Як</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>створити / перемкнути гілку</td>
+<td>клік по назві гілки у верхній панелі (віджет Git) → <strong>New Branch…</strong>, назва <code>homework-03</code>, галочка <strong>Checkout branch</strong></td>
+</tr>
+<tr>
+<td>коміт</td>
+<td><strong>Ctrl+K</strong> (macOS <strong>⌘K</strong>) → відміть файли → повідомлення коміту → <strong>Commit</strong></td>
+</tr>
+<tr>
+<td>push</td>
+<td><strong>Ctrl+Shift+K</strong> (macOS <strong>⌘⇧K</strong>)</td>
+</tr>
+<tr>
+<td>коміт і одразу push</td>
+<td><strong>Ctrl+Alt+K</strong> / кнопка <strong>Commit and Push…</strong> у вікні коміту</td>
+</tr>
+<tr>
+<td>історія, гілки</td>
+<td>вікно <strong>Git</strong> (<strong>Alt+9</strong>) → вкладка <strong>Log</strong></td>
+</tr>
+<tr>
+<td>усі Git-дії</td>
+<td><strong>Alt+`</strong> (VCS Operations Popup) або меню <strong>Git</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Pull Request на GitHub створюй як завжди — на сайті GitHub після push.</p>
+<h2 id="jupyter-pycharm">Ноутбуки Jupyter у PyCharm<a class="headerlink" href="#jupyter-pycharm" title="Permanent link">&para;</a></h2>
+<p>Підтримка Jupyter — у безкоштовній частині PyCharm: відкрий <code>.ipynb</code> у проєкті, і PyCharm покаже клітинки з кнопками запуску, результати й підказки коду. Ноутбук виконується на <strong>інтерпретаторі проєкту</strong>, тому бібліотеки для ноутбука ставляться туди ж (вікно Python Packages або <code>%pip install</code> у клітинці). Розширені можливості (віддалені ноутбуки, SQL-клітинки, інтерактивні таблиці) — у Pro.</p>
+<h2 id="_10">Корисні налаштування<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Шрифт і розмір</strong>: Settings → Editor → Font.</li>
+<li><strong>PEP 8</strong>: PyCharm перевіряє стиль «з коробки» — жовте підкреслення й підказки справа. Наведи курсор на підкреслене, щоб прочитати пояснення, і натисни <strong>Alt+Enter</strong> (macOS <strong>⌥↩</strong>) — PyCharm запропонує виправлення.</li>
+<li><strong>Автоформатування</strong>: <strong>Ctrl+Alt+L</strong> (macOS <strong>⌘⌥L</strong>) — <strong>Reformat Code</strong>, розставляє відступи й пробіли за PEP 8.</li>
+<li><strong>Мова інтерфейсу, тема</strong> — Settings → Appearance &amp; Behavior.</li>
+</ul>
+<h2 id="_11">Гарячі клавіші, які варто вивчити першими<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Дія</th>
+<th>Windows / Linux</th>
+<th>macOS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>знайти будь-що (файл, клас, налаштування)</td>
+<td><strong>Shift</strong> двічі</td>
+<td><strong>Shift</strong> двічі</td>
+</tr>
+<tr>
+<td>знайти дію / команду меню</td>
+<td><strong>Ctrl+Shift+A</strong></td>
+<td><strong>⌘⇧A</strong></td>
+</tr>
+<tr>
+<td>переформатувати код</td>
+<td><strong>Ctrl+Alt+L</strong></td>
+<td><strong>⌘⌥L</strong></td>
+</tr>
+<tr>
+<td>закоментувати рядок</td>
+<td><strong>Ctrl+/</strong></td>
+<td><strong>⌘/</strong></td>
+</tr>
+<tr>
+<td>дублювати рядок</td>
+<td><strong>Ctrl+D</strong></td>
+<td><strong>⌘D</strong></td>
+</tr>
+<tr>
+<td>запустити вибрану конфігурацію</td>
+<td><strong>Shift+F10</strong></td>
+<td><strong>⌃R</strong></td>
+</tr>
+<tr>
+<td>запустити поточний файл</td>
+<td><strong>Ctrl+Shift+F10</strong></td>
+<td><strong>⌃⇧R</strong></td>
+</tr>
+<tr>
+<td>дебаг</td>
+<td><strong>Shift+F9</strong></td>
+<td>див. Keymap</td>
+</tr>
+<tr>
+<td>термінал</td>
+<td><strong>Alt+F12</strong></td>
+<td>див. Keymap</td>
+</tr>
+<tr>
+<td>точка зупинки</td>
+<td><strong>Ctrl+F8</strong></td>
+<td><strong>⌘F8</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Якщо сумніваєшся — <strong>Find Action</strong> (Ctrl+Shift+A) і введи назву дії англійською: PyCharm покаже і команду, і її гарячу клавішу. Повна шпаргалка для твоєї ОС — <strong>Help → Keyboard Shortcuts PDF</strong>.</p>
+<h2 id="_12">Плагіни<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<p><strong>Settings → Plugins → Marketplace</strong> — пошук і встановлення, вкладка <strong>Installed</strong> — керування встановленими. Основне для курсу (Python, Git, Markdown, Jupyter) уже вбудоване. Став плагіни свідомо: кожен плагін уповільнює запуск IDE, а плагіни від невідомих авторів отримують доступ до твого коду.</p>
+<h2 id="_13">Джерела<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<ul>
+<li>JetBrains: <a href="https://www.jetbrains.com/help/pycharm/unified-pycharm.html">Unified PyCharm overview</a>, <a href="https://blog.jetbrains.com/pycharm/2025/04/pycharm-2025-1/">PyCharm 2025.1: Unified PyCharm…</a>, <a href="https://youtrack.jetbrains.com/articles/SUPPORT-A-4358/PyCharm-Community-Edition-is-discontinued-download-the-unified-PyCharm-instead">PyCharm Community Edition is discontinued</a></li>
+<li><a href="https://www.jetbrains.com/help/pycharm/installation-guide.html">Install PyCharm</a>, <a href="https://www.jetbrains.com/help/toolbox-app/installation.html">Toolbox App: Installation</a></li>
+<li><a href="https://www.jetbrains.com/help/pycharm/configuring-python-interpreter.html">Configure a Python interpreter</a> (оновлено 14 вересня 2026) — перемикач у рядку стану, <strong>Settings → Python → Interpreter</strong>, інтерпретатор для нових проєктів; <a href="https://www.jetbrains.com/help/pycharm/creating-virtual-environment.html">Configure a virtualenv environment</a></li>
+<li><a href="https://www.jetbrains.com/help/pycharm/run-debug-configuration.html">Run/debug configurations</a> (оновлено 17 серпня 2026) — тимчасові й постійні конфігурації, параметри, клавіші запуску для Windows/Linux і macOS</li>
+<li><a href="https://www.jetbrains.com/help/pycharm/debugging-your-first-python-application.html">Debug your first Python application</a>, <a href="https://www.jetbrains.com/help/pycharm/stepping-through-the-program.html">Step through the program</a></li>
+<li><a href="https://www.jetbrains.com/help/pycharm/installing-uninstalling-and-upgrading-packages.html">Install, uninstall, and upgrade packages</a>, <a href="https://www.jetbrains.com/help/pycharm/settings-tools-terminal.html">Terminal settings</a></li>
+<li><a href="https://www.jetbrains.com/help/pycharm/commit-and-push-changes.html">Commit and push changes to Git repository</a>, <a href="https://www.jetbrains.com/help/pycharm/main-version-control-shortcuts.html">Main version control shortcuts</a></li>
+<li><a href="https://www.jetbrains.com/help/pycharm/mastering-keyboard-shortcuts.html">PyCharm keyboard shortcuts</a></li>
+<li><a href="https://sales.jetbrains.com/hc/en-gb/articles/207241195-Do-you-offer-free-educational-licenses-for-students-and-teachers">Free educational licenses</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Футер" >
+        
+          
+          <a href="../jupyter/" class="md-footer__link md-footer__link--prev" aria-label="Назад: Jupyter локально">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Назад
+              </span>
+              <div class="md-ellipsis">
+                Jupyter локально
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../vscode/" class="md-footer__link md-footer__link--next" aria-label="Вперед: VS Code">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Вперед
+              </span>
+              <div class="md-ellipsis">
+                VS Code
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.footer", "toc.follow", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0456\u0439\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u0421\u043a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438 \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0429\u0435 1 \u0437\u0431\u0456\u0433 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.more.other": "\u0429\u0435 # \u0437\u0431\u0456\u0433\u0456\u0432 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.none": "\u0417\u0431\u0456\u0433\u0456\u0432 \u043d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0437\u0431\u0456\u0433", "search.result.other": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e # \u0437\u0431\u0456\u0433\u0456\u0432", "search.result.placeholder": "\u0420\u043e\u0437\u043f\u043e\u0447\u043d\u0456\u0442\u044c \u043f\u0438\u0441\u0430\u0442\u0438 \u0434\u043b\u044f \u043f\u043e\u0448\u0443\u043a\u0443", "search.result.term.missing": "\u041d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e \u0437\u0430\u043f\u0438\u0442\u0443", "select.version": "\u041e\u0431\u0440\u0430\u0442\u0438 \u0432\u0435\u0440\u0441\u0456\u044e"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/sidebars.js"></script>
+      
+    
+  </body>
+</html>

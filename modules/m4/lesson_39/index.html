@@ -1,0 +1,4583 @@
+
+<!doctype html>
+<html lang="uk" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Курс Python українською — від основ до просунутих тем, у форматі книги">
+      
+      
+      
+        <link rel="canonical" href="https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m4/lesson_39/">
+      
+      
+        <link rel="prev" href="../fastapi/fastapi_documentation/">
+      
+      
+        <link rel="next" href="../lesson_40/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>39. FastAPI + SQLAlchemy: повний CRUD - PY Course — Viktor Nikoriak</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#39-fastapi-sqlalchemy-crud" class="md-skip">
+          Перейти до змісту
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Хедер">
+    <a href="../../.." title="PY Course — Viktor Nikoriak" class="md-header__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PY Course — Viktor Nikoriak
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              39. FastAPI + SQLAlchemy: повний CRUD
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Пошук" placeholder="Пошук" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Шукати">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистити" aria-label="Очистити" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Пошук розпочато
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Вкладки" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Головна
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../00_getting_started/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Як користуватися
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Модулі курсу (в розробці)
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../00_python_mental_model/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Довідник
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Навігація" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="PY Course — Viktor Nikoriak" class="md-nav__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    PY Course — Viktor Nikoriak
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Головна
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../00_getting_started/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Як користуватися
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Модулі курсу (в розробці)
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Модулі курсу (в розробці)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../m1/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М1. Основи Python
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М1. Основи Python
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Вступ: формат курсу, AI-політика
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Перші кроки
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Змінні та базові типи даних
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Умови та цикли
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Списки, кортежі, множини
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Словники, for, comprehensions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Функції
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. П1. Big O + базові задачі
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Декоратори
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Ітератори й генератори
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. П2. Пошук
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Модулі та стандартна бібліотека
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Винятки та обробка помилок
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Файли I/O, JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Git & GitHub: система
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. П3. Хеш-структури
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Узагальнення + фінальний проєкт
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М2. Python Advanced
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М2. Python Advanced
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2_python_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Функції як об'єкти першого класу
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Класи, простір імен
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    21. Наслідування, поліморфізм
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    22. Інкапсуляція, область видимості
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    23. П4. Рекурсія, divide & conquer, backtracking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    24. @property, декоратори класів, dunder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    25. Ітератори advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    26. Тестування з pytest (+ валідація AI-коду)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    27. П5. Динамічне програмування + greedy (вступ)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    28. Потоки, multiprocessing, asyncio: вступ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    29. П6. Stack, Queue, Heap, Trie + LRU → ООП-пакет
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М3. Бази даних
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М3. Бази даних
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3_databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m3/bonus_pandas/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. Pandas: аналіз даних, графіки і Dash
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3/lesson_30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    30. Основи SQL (PostgreSQL)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3/lesson_31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    31. Redis overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М4. Web (+ Web Advanced)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М4. Web (+ Web Advanced)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4_web/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    32. HTTP: requests, httpx, aiohttp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    33. REST: принципи дизайну API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    34. Django intro: MVT, ORM, admin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    35. Django: forms, HTML practice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    36. DRF overview + Django vs FastAPI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    37. Typing + Pydantic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../lesson_38/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    38. FastAPI basics + Postman + OpenAPI
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    39. FastAPI + SQLAlchemy: повний CRUD
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    39. FastAPI + SQLAlchemy: повний CRUD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пригадай
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Старт: з якого коду починаємо
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 1. Engine, сесії й таблиця
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 1. Engine, сесії й таблиця">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dbpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        db.py: підключення
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tablespy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        tables.py: таблиця як клас
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Дві моделі однієї новини
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 2. Репозиторій замість NewsStore
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 2. Репозиторій замість NewsStore">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#on-conflict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Покроково: повторний збір з ON CONFLICT
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#session" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Сесія на запит і COMMIT до відповіді
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 3. Повний CRUD
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 3. Повний CRUD">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Дані переживають перезапуск
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alembic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Міграції Alembic
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Архітектура: було → стало
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Архітектура: було → стало">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mypy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Тести і mypy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Практика
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Практика">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-apinewssearchq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Розібраний приклад: пошук GET /api/news/search?q=
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зміни приклад
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#0002" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Спробуй самостійно: міграція 0002
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#find-bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Знайди помилку
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Підсумок
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Підсумок">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Самоперевірка
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що далі
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Документація і джерела
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    40. Middlewares і кешування (Redis на практиці)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    41. Автентифікація та security basics (JWT, hashing, OWASP)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    42. Тестування API (pytest + httpx)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../lesson_43/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    43. AI-інструменти розробника + ризики й валідація
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    44. Інтеграція LLM API (Gemini / Anthropic)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    45. Архітектура застосунків і патерни
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    46. WebSockets + практика: чат
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    47. Security advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    48. Telegram Bot API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М5. Production
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М5. Production
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5_production/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m5/bonus_linux/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. Linux для розробника
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    49. Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    50. Docker Compose + деплой
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    51. CI/CD (GitHub Actions)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М6. Капстоун
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М6. Капстоун
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6_capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6/lesson_52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    52. Робота над фінальним проєктом
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6/lesson_53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    53. Випускний: питч фінального проєкту
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m6/bonus_cv/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. CV розробника
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bonus_ai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Self-paced. AI для розробників (бонус)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../00_python_mental_model/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Довідник
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пригадай
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Старт: з якого коду починаємо
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 1. Engine, сесії й таблиця
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 1. Engine, сесії й таблиця">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dbpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        db.py: підключення
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tablespy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        tables.py: таблиця як клас
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Дві моделі однієї новини
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 2. Репозиторій замість NewsStore
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 2. Репозиторій замість NewsStore">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#on-conflict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Покроково: повторний збір з ON CONFLICT
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#session" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Сесія на запит і COMMIT до відповіді
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 3. Повний CRUD
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 3. Повний CRUD">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Дані переживають перезапуск
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alembic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Міграції Alembic
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Архітектура: було → стало
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Архітектура: було → стало">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mypy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Тести і mypy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Практика
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Практика">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-apinewssearchq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Розібраний приклад: пошук GET /api/news/search?q=
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зміни приклад
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#0002" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Спробуй самостійно: міграція 0002
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#find-bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Знайди помилку
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Підсумок
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Підсумок">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Самоперевірка
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що далі
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Документація і джерела
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Навігація" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Головна
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Модулі курсу (в розробці)
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../m4_web/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    М4. Web (+ Web Advanced)
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="39-fastapi-sqlalchemy-crud">Урок 39. FastAPI + SQLAlchemy: повний CRUD<a class="headerlink" href="#39-fastapi-sqlalchemy-crud" title="Permanent link">&para;</a></h1>
+<p>В уроці 38 агрегатор став HTTP-сервісом, але новини лежать у <code>NewsStore</code> — словнику в пам'яті процесу. Зупинили сервер — новин немає; запустили два процеси uvicorn — у кожного свої новини. Сьогодні агрегатор отримує <strong>базу даних</strong>: новини переживають перезапуск, унікальність <code>url</code> гарантує сама база, а API вміє повний CRUD окремої новини.</p>
+<p>Знову не з нуля: є готовий шар бази — стартовий <code>production_bot</code> (Telegram-бот з адмін-API): async SQLAlchemy 2.0, репозиторії, Alembic-міграції. Беремо його і робимо три рефакторинги <code>news_hub</code> з уроку 38.</p>
+<table>
+<thead>
+<tr>
+<th>Урок</th>
+<th>Крок агрегатора</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>36</td>
+<td>парсер з типами; <code>NewsItem</code> на Pydantic</td>
+</tr>
+<tr>
+<td>37</td>
+<td>FastAPI: <code>GET /api/news</code>, <code>POST /api/scrape</code>, <code>/docs</code>, Postman</td>
+</tr>
+<tr>
+<td><strong>38</strong></td>
+<td><strong>SQLAlchemy: новини в базі, унікальний <code>url</code>, повний CRUD, Alembic</strong></td>
+</tr>
+<tr>
+<td>39</td>
+<td>middleware, кеш і rate limit на Redis</td>
+</tr>
+<tr>
+<td>41</td>
+<td>тести API</td>
+</tr>
+<tr>
+<td>43</td>
+<td>Gemini: підсумок, категорія, тональність</td>
+</tr>
+<tr>
+<td>47</td>
+<td>Telegram-бот</td>
+</tr>
+<tr>
+<td>48–50</td>
+<td>Docker, Compose, CI/CD</td>
+</tr>
+</tbody>
+</table>
+<p>Проєкт: <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_39_fastapi_sqlalchemy/news_hub"><code>news_hub</code></a>.</p>
+<p><strong>Що потрібно з попередніх уроків:</strong> SQL — таблиці, <code>UNIQUE</code>, <code>GROUP BY</code>, транзакції, параметри замість f-рядків (урок 30); <code>async</code>/<code>await</code> (27); FastAPI, <code>Depends</code>, <code>lifespan</code>, <code>TestClient</code> (37); <code>NewsItem</code> (36).</p>
+<p><strong>Після уроку ти зможеш:</strong></p>
+<ul>
+<li>описати таблицю моделлю SQLAlchemy 2.0 (<code>Mapped</code>, <code>mapped_column</code>) і відрізнити її від Pydantic-моделі;</li>
+<li>підключити async-engine і дати кожному HTTP-запиту свою сесію й транзакцію;</li>
+<li>винести SQL у репозиторій і прочитати SQL, який генерує SQLAlchemy;</li>
+<li>написати повний CRUD з правильними кодами: <code>201</code>, <code>404</code>, <code>409</code>, <code>204</code>;</li>
+<li>створити й застосувати міграцію Alembic;</li>
+<li>пояснити, чому «перевір, а потім встав» ламається під навантаженням.</li>
+</ul>
+<p><strong>Ноутбук заняття:</strong> <a class="md-button md-button--primary" href="https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_39_fastapi_sqlalchemy/note_lesson_39_sqlalchemy_student.ipynb">Відкрити вправи в Colab</a> <a class="solutions-link" href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_39_fastapi_sqlalchemy/note_lesson_39_sqlalchemy.ipynb">Переглянути розв’язки</a> — база й CRUD на SQLite, без встановлення PostgreSQL.</p>
+<p><strong>Довідник:</strong> <a href="../fastapi/fastapi_documentation/">FastAPI: архітектура, async і production-патерни</a> — розділи 6–8: пул з'єднань, Repository, Unit of Work.</p>
+<h2 id="_1">Пригадай<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Що зробить PostgreSQL з <code>INSERT</code>, який порушує <code>UNIQUE</code> (урок 30)?</li>
+<li>Що буде з уже виконаними змінами транзакції, якщо в ній стався виняток?</li>
+<li>Навіщо в уроці 38 сховище отримували через <code>Depends</code>, а не глобальною змінною?</li>
+</ol>
+<details class="success">
+<summary>Відповіді</summary>
+<ol>
+<li>Відхилить рядок з помилкою <code>duplicate key value violates unique constraint</code>. Обмеження перевіряє сама база — для будь-якої програми, що в неї пише.</li>
+<li><code>ROLLBACK</code> скасує всі зміни транзакції: або все, або нічого.</li>
+<li>Щоб замінити реалізацію, не чіпаючи ендпоінтів. Сьогодні саме це й зробимо: <code>NewsStore</code> → <code>NewsRepository</code>.</li>
+</ol>
+</details>
+<h2 id="_2">Старт: з якого коду починаємо<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p><code>production_bot</code> — Telegram-бот з адмін-API на FastAPI. Нам потрібен його <strong>шар бази</strong>, а не бот:</p>
+<table>
+<thead>
+<tr>
+<th>Файл <code>production_bot</code></th>
+<th>Що в ньому</th>
+<th>Куди в <code>news_hub</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>backend/core/database.py</code></td>
+<td><code>create_async_engine</code> з пулом, <code>async_sessionmaker</code>, <code>Base</code>, <code>get_db</code> з COMMIT/ROLLBACK</td>
+<td><code>news_hub/db.py</code></td>
+</tr>
+<tr>
+<td><code>backend/models/user.py</code></td>
+<td>модель таблиці: <code>Mapped[...]</code>, <code>mapped_column(...)</code></td>
+<td><code>news_hub/tables.py</code> — <code>NewsRow</code></td>
+</tr>
+<tr>
+<td><code>backend/repositories/base.py</code></td>
+<td><code>BaseRepository[ModelT]</code>: <code>get</code>, <code>create</code>, <code>delete</code>, <code>count</code></td>
+<td><code>news_hub/repository.py</code></td>
+</tr>
+<tr>
+<td><code>alembic.ini</code>, <code>migrations/env.py</code></td>
+<td>async-міграції</td>
+<td><code>alembic.ini</code>, <code>migrations/</code></td>
+</tr>
+<tr>
+<td><code>docker-compose.yml</code>, сервіс <code>postgres</code></td>
+<td>PostgreSQL 16 з volume і healthcheck</td>
+<td><code>docker-compose.yml</code></td>
+</tr>
+<tr>
+<td>бот, JWT, Redis, платежі</td>
+<td>—</td>
+<td>уроки 40, 41, 48</td>
+</tr>
+</tbody>
+</table>
+<h2 id="refactor-1">Рефакторинг 1. Engine, сесії й таблиця<a class="headerlink" href="#refactor-1" title="Permanent link">&para;</a></h2>
+<h3 id="dbpy"><code>db.py</code>: підключення<a class="headerlink" href="#dbpy" title="Permanent link">&para;</a></h3>
+<div class="highlight"><span class="filename">news_hub/db.py (скорочено)</span><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">DATABASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"DATABASE_URL"</span><span class="p">,</span> <span class="s2">"sqlite+aiosqlite:///news_hub.db"</span><span class="p">)</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">make_engine</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DATABASE_URL</span><span class="p">,</span> <span class="n">echo</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncEngine</span><span class="p">:</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="k">if</span> <span class="n">url</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"postgresql"</span><span class="p">):</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        <span class="k">return</span> <span class="n">create_async_engine</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">pool_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_overflow</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">pool_pre_ping</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">echo</span><span class="o">=</span><span class="n">echo</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="o">...</span>                                            <span class="c1"># SQLite: без пулу на 10 з'єднань</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">engine</span> <span class="o">=</span> <span class="n">make_engine</span><span class="p">()</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="n">SessionFactory</span> <span class="o">=</span> <span class="n">async_sessionmaker</span><span class="p">(</span><span class="n">engine</span><span class="p">,</span> <span class="n">expire_on_commit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">autoflush</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="k">class</span><span class="w"> </span><span class="nc">Base</span><span class="p">(</span><span class="n">DeclarativeBase</span><span class="p">):</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="sd">"""Базовий клас моделей; Base.metadata — реєстр таблиць для Alembic і тестів."""</span>
+</code></pre></div>
+<ul>
+<li><strong><code>DATABASE_URL</code></strong> — адреса бази в одному рядку: <code>postgresql+asyncpg://news:news@localhost:5432/news_hub</code> — діалект (<code>postgresql</code>), драйвер (<code>asyncpg</code>), користувач, пароль, хост, порт, база. Береться зі змінної середовища, тож код однаковий для ноутбука, тестів і сервера.</li>
+<li><strong>Без <code>DATABASE_URL</code></strong> — файл SQLite <code>news_hub.db</code> поруч із проєктом: урок і ноутбук працюють без PostgreSQL. У <code>production_bot</code> адреса була лише PostgreSQL.</li>
+<li><strong><code>engine</code></strong> — пул з'єднань: 10 постійно відкритих, до 20 тимчасових на піку, <code>pool_pre_ping</code> перевіряє з'єднання перед видачею. Чому пул — розділ 6 <a href="../fastapi/fastapi_documentation/#s6">довідника</a>.</li>
+<li><strong><code>SessionFactory</code></strong> — фабрика сесій. <strong>Сесія</strong> — робоче місце одного запиту: у ній накопичуються зміни, а <code>commit()</code> відправляє їх однією транзакцією.</li>
+</ul>
+<h3 id="tablespy"><code>tables.py</code>: таблиця як клас<a class="headerlink" href="#tablespy" title="Permanent link">&para;</a></h3>
+<div class="highlight"><span class="filename">news_hub/tables.py</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">NewsRow</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s2">"news"</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="nb">id</span><span class="p">:</span> <span class="n">Mapped</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">mapped_column</span><span class="p">(</span><span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">url</span><span class="p">:</span> <span class="n">Mapped</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">mapped_column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">500</span><span class="p">),</span> <span class="n">unique</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>    <span class="c1"># унікальність гарантує база, а не код</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">title</span><span class="p">:</span> <span class="n">Mapped</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">mapped_column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">300</span><span class="p">))</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="n">source</span><span class="p">:</span> <span class="n">Mapped</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">mapped_column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="n">lang</span><span class="p">:</span> <span class="n">Mapped</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">mapped_column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="n">category</span><span class="p">:</span> <span class="n">Mapped</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">mapped_column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="n">published_time</span><span class="p">:</span> <span class="n">Mapped</span><span class="p">[</span><span class="n">time</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="n">mapped_column</span><span class="p">(</span><span class="n">Time</span><span class="p">)</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    <span class="n">scraped_at</span><span class="p">:</span> <span class="n">Mapped</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="n">mapped_column</span><span class="p">(</span><span class="n">DateTime</span><span class="p">(</span><span class="n">timezone</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">server_default</span><span class="o">=</span><span class="n">func</span><span class="o">.</span><span class="n">now</span><span class="p">())</span>
+</code></pre></div>
+<p><code>Mapped[str]</code> — стовпець <code>NOT NULL</code>, <code>Mapped[time | None]</code> — може бути <code>NULL</code>: ті самі анотації типів з уроку 37 описують і таблицю. Який SQL з цього вийде в PostgreSQL (у папці <code>news_hub</code>):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy.dialects</span><span class="w"> </span><span class="kn">import</span> <span class="n">postgresql</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">CreateIndex</span><span class="p">,</span> <span class="n">CreateTable</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">news_hub.tables</span><span class="w"> </span><span class="kn">import</span> <span class="n">NewsRow</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">CreateTable</span><span class="p">(</span><span class="n">NewsRow</span><span class="o">.</span><span class="n">__table__</span><span class="p">)</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">dialect</span><span class="o">=</span><span class="n">postgresql</span><span class="o">.</span><span class="n">dialect</span><span class="p">()))</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">NewsRow</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">indexes</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">name</span><span class="p">):</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">CreateIndex</span><span class="p">(</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">dialect</span><span class="o">=</span><span class="n">postgresql</span><span class="o">.</span><span class="n">dialect</span><span class="p">()))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>CREATE TABLE news (
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    id SERIAL NOT NULL,
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    url VARCHAR(500) NOT NULL,
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    title VARCHAR(300) NOT NULL,
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    source VARCHAR(100) NOT NULL,
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    lang VARCHAR(2) NOT NULL,
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    category VARCHAR(100) NOT NULL,
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    published_time TIME WITHOUT TIME ZONE,
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    scraped_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    PRIMARY KEY (id),
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    UNIQUE (url)
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>)
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>CREATE INDEX ix_news_category ON news (category)
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>CREATE INDEX ix_news_lang ON news (lang)
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>CREATE INDEX ix_news_source ON news (source)
+</code></pre></div>
+<h3 id="_3">Дві моделі однієї новини<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><code>NewsItem</code> (Pydantic, <code>models.py</code>)</th>
+<th><code>NewsRow</code> (SQLAlchemy, <code>tables.py</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Навіщо</td>
+<td><strong>перевірити</strong> дані з парсера чи тіла запиту</td>
+<td><strong>зберегти</strong> рядок таблиці</td>
+</tr>
+<tr>
+<td>Звідки поля</td>
+<td>з HTML і URL</td>
+<td>з бази: <code>id</code>, <code>scraped_at</code> дає PostgreSQL</td>
+</tr>
+<tr>
+<td>Правила</td>
+<td>довжина заголовка, домен rbc.ua, <code>Literal["uk", "ru"]</code></td>
+<td>типи стовпців, <code>UNIQUE</code>, <code>NOT NULL</code>, індекси</td>
+</tr>
+<tr>
+<td>Коли працює</td>
+<td>до запису</td>
+<td>під час запису й читання</td>
+</tr>
+</tbody>
+</table>
+<p>Відповідь API — <code>NewsOut(NewsItem)</code> з полями <code>id</code> і <code>scraped_at</code> та <code>from_attributes=True</code>: Pydantic будує її прямо з об'єкта <code>NewsRow</code>.</p>
+<h2 id="refactor-2">Рефакторинг 2. Репозиторій замість <code>NewsStore</code><a class="headerlink" href="#refactor-2" title="Permanent link">&para;</a></h2>
+<p><code>NewsRepository</code> має <strong>ті самі методи</strong>, що <code>NewsStore</code> з уроку 38: <code>add_many</code>, <code>find</code>, <code>count</code>, <code>stats</code>, <code>clear</code>. Тому ендпоінти майже не змінилися:</p>
+<div class="highlight"><span class="filename">news_hub/api.py: було (37) → стало (38)</span><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="gd">-StoreDep = Annotated[NewsStore, Depends(get_store)]</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="gi">+SessionDep = Annotated[AsyncSession, Depends(get_db, scope="function")]</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="gi">+</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="gi">+def get_repo(session: SessionDep) -&gt; NewsRepository:</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="gi">+    return NewsRepository(session)</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="gi">+</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="gi">+RepoDep = Annotated[NewsRepository, Depends(get_repo)]</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="gd">-@app.get("/api/news", response_model=list[NewsItem], ...)</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="gd">-async def list_news(store: StoreDep, ...) -&gt; list[NewsItem]:</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="gd">-    return store.find(skip=skip, limit=limit, category=category, source=source, lang=lang or "")</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="gi">+@app.get("/api/news", response_model=list[NewsOut], ...)</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="gi">+async def list_news(repo: RepoDep, ...) -&gt; list[NewsRow]:</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="gi">+    return await repo.find(skip=skip, limit=limit, category=category, source=source, lang=lang or "")</span>
+</code></pre></div>
+<p>Було: словник і list comprehension у пам'яті. Стало: SQL-запит. Подивимось, який SQL будує SQLAlchemy для трьох методів репозиторію:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy</span><span class="w"> </span><span class="kn">import</span> <span class="n">func</span><span class="p">,</span> <span class="n">select</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">pg</span> <span class="o">=</span> <span class="n">postgresql</span><span class="o">.</span><span class="n">dialect</span><span class="p">()</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">find</span> <span class="o">=</span> <span class="n">select</span><span class="p">(</span><span class="n">NewsRow</span><span class="p">)</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">NewsRow</span><span class="o">.</span><span class="n">lang</span> <span class="o">==</span> <span class="s2">"uk"</span><span class="p">)</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="n">NewsRow</span><span class="o">.</span><span class="n">id</span><span class="p">)</span><span class="o">.</span><span class="n">offset</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">find</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">dialect</span><span class="o">=</span><span class="n">pg</span><span class="p">),</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="n">stats</span> <span class="o">=</span> <span class="n">select</span><span class="p">(</span><span class="n">NewsRow</span><span class="o">.</span><span class="n">lang</span><span class="p">,</span> <span class="n">func</span><span class="o">.</span><span class="n">count</span><span class="p">())</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="n">NewsRow</span><span class="o">.</span><span class="n">lang</span><span class="p">)</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">desc</span><span class="p">(),</span> <span class="n">NewsRow</span><span class="o">.</span><span class="n">lang</span><span class="p">)</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="nb">print</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">dialect</span><span class="o">=</span><span class="n">pg</span><span class="p">),</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="n">add_many</span> <span class="o">=</span> <span class="p">(</span><span class="n">postgresql</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">NewsRow</span><span class="p">)</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>            <span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">"https://www.rbc.ua/ukr/news/x.html"</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Заголовок новини"</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s2">"rbc.ua"</span><span class="p">,</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>                    <span class="n">lang</span><span class="o">=</span><span class="s2">"uk"</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s2">"Новини"</span><span class="p">,</span> <span class="n">published_time</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>            <span class="o">.</span><span class="n">on_conflict_do_nothing</span><span class="p">(</span><span class="n">index_elements</span><span class="o">=</span><span class="p">[</span><span class="s2">"url"</span><span class="p">])</span><span class="o">.</span><span class="n">returning</span><span class="p">(</span><span class="n">NewsRow</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="nb">print</span><span class="p">(</span><span class="n">add_many</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">dialect</span><span class="o">=</span><span class="n">pg</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>SELECT news.id, news.url, news.title, news.source, news.lang, news.category, news.published_time, news.scraped_at
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>FROM news
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>WHERE news.lang = %(lang_1)s::VARCHAR ORDER BY news.id
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a> LIMIT %(param_1)s::INTEGER OFFSET %(param_2)s::INTEGER
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>SELECT news.lang, count(*) AS count_1
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>FROM news GROUP BY news.lang ORDER BY count(*) DESC, news.lang
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>INSERT INTO news (url, title, source, lang, category, published_time) VALUES (%(url)s::VARCHAR, %(title)s::VARCHAR, %(source)s::VARCHAR, %(lang)s::VARCHAR, %(category)s::VARCHAR, %(published_time)s::TIME WITHOUT TIME ZONE) ON CONFLICT (url) DO NOTHING RETURNING news.id
+</code></pre></div>
+<ul>
+<li><code>%(lang_1)s</code>, <code>%(param_1)s</code> — <strong>параметри</strong>: значення йдуть окремо від SQL, як в уроці 30. SQL-ін'єкція через фільтр <code>?lang=</code> неможлива.</li>
+<li><code>stats</code> рахує в базі (<code>GROUP BY</code>), а не тягне всі рядки в Python.</li>
+<li><code>add_many</code> — один <code>INSERT</code> на весь збір: <code>ON CONFLICT (url) DO NOTHING</code> — дублікат <strong>пропускає база</strong>, <code>RETURNING news.id</code> повертає id лише вставлених рядків, тож <code>len(...)</code> — «скільки нових».</li>
+</ul>
+<h3 id="on-conflict">Покроково: повторний збір з <code>ON CONFLICT</code><a class="headerlink" href="#on-conflict" title="Permanent link">&para;</a></h3>
+<p>Той самий знімок збираємо вдруге. Для кожного рядка PostgreSQL бере наступне значення лічильника <code>id</code> <strong>до</strong> перевірки <code>UNIQUE</code>:</p>
+<pre class="mermaid"><code>flowchart TD
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    subgraph S0 ["перший збір: 168 новин"]
+        direction LR
+        a0["id 1 … 168&lt;br&gt;вставлено 168"] ~~~ a1["лічильник id = 168"]
+    end
+    subgraph S1 ["другий збір, рядок 1: url уже є"]
+        direction LR
+        b0["nextval → 169"] --&gt; b1{"url у news?"} -- так --&gt; b2["DO NOTHING&lt;br&gt;id 169 пропав"]
+    end
+    subgraph S2 ["рядки 2–168: те саме"]
+        direction LR
+        c0["nextval → 170 … 336"] --&gt; c1["усі url є&lt;br&gt;вставлено 0"]
+    end
+    subgraph S3 ["POST /api/news: новий url"]
+        direction LR
+        d0["nextval → 337"] --&gt; d1{"url у news?"} -- ні --&gt; d2["INSERT&lt;br&gt;id = 337"]
+    end
+    S0 --&gt; S1 --&gt; S2 --&gt; S3
+
+    class a0,a1 step
+    class b0,c0,d0 warning
+    class b1,d1 decision
+    class b2,c1 error
+    class d2 success</code></pre>
+<p>Перевіримо на справжній базі (PostgreSQL, сервер з кроку нижче) — таблиця чиста:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">httpx</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">api</span> <span class="o">=</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="n">base_url</span><span class="o">=</span><span class="s2">"http://127.0.0.1:8000"</span><span class="p">)</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="k">for</span> <span class="n">attempt</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="n">report</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/api/scrape"</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">"source"</span><span class="p">:</span> <span class="s2">"snapshot"</span><span class="p">})</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"збір </span><span class="si">{</span><span class="n">attempt</span><span class="si">}</span><span class="s2">:"</span><span class="p">,</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">report</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"news_found"</span><span class="p">,</span> <span class="s2">"news_saved"</span><span class="p">,</span> <span class="s2">"news_total"</span><span class="p">)})</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="n">created</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/api/news"</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Гривня зміцнилася до долара на міжбанку"</span><span class="p">,</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>                                      <span class="s2">"url"</span><span class="p">:</span> <span class="s2">"https://www.rbc.ua/ukr/news/hryvnia-777.html"</span><span class="p">})</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"нова новина: id ="</span><span class="p">,</span> <span class="n">created</span><span class="p">[</span><span class="s2">"id"</span><span class="p">])</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>збір 1: {'news_found': 168, 'news_saved': 168, 'news_total': 168}
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>збір 2: {'news_found': 168, 'news_saved': 0, 'news_total': 168}
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>нова новина: id = 337
+</code></pre></div>
+<p>Дірки в id — нормальні: <strong>id — ідентифікатор, а не лічильник новин</strong>. Скільки новин — питай <code>count(*)</code> (<code>/api/news/count</code>), а не найбільший id. На SQLite (ноутбук заняття) та сама послідовність дає id = 169: там <code>INTEGER PRIMARY KEY</code> бере найбільший id + 1 і пропущені рядки номерів не забирають. Одна програма — різні id на різних базах; ще одна причина не рахувати новини за id.</p>
+<h2 id="session">Сесія на запит і COMMIT до відповіді<a class="headerlink" href="#session" title="Permanent link">&para;</a></h2>
+<p><code>get_db</code> — зі стартового <code>database.py</code> майже без змін:</p>
+<div class="highlight"><span class="filename">news_hub/db.py</span><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_db</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="n">AsyncSession</span><span class="p">]:</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="sd">"""FastAPI Depends: одна сесія (і одна транзакція) на HTTP-запит."""</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    <span class="k">async</span> <span class="k">with</span> <span class="n">SessionFactory</span><span class="p">()</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>        <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>            <span class="k">yield</span> <span class="n">session</span>                <span class="c1"># тут виконується ендпоінт</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>            <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>       <span class="c1"># ендпоінт без винятку → COMMIT</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>            <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>     <span class="c1"># виняток → ROLLBACK</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>            <span class="k">raise</span>
+</code></pre></div>
+<p>Одна сесія на запит — усі зміни запиту однією транзакцією: або все, або нічого. Якщо ендпоінт отримує і <code>RepoDep</code>, і <code>RowDep</code>, FastAPI викличе <code>get_db</code> <strong>один раз</strong> на запит і дасть обом ту саму сесію.</p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant C as Клієнт
+    participant F as FastAPI
+    participant G as get_db
+    participant R as NewsRepository
+    participant DB as PostgreSQL
+
+    C-&gt;&gt;F: PATCH /api/news/7 {"category": "Економіка"}
+    F-&gt;&gt;G: відкрити сесію
+    F-&gt;&gt;R: get(7)
+    R-&gt;&gt;DB: SELECT … WHERE id = 7
+    DB--&gt;&gt;R: рядок
+    F-&gt;&gt;F: row.category = "Економіка"
+    F-&gt;&gt;G: ендпоінт завершився без винятку
+    G-&gt;&gt;DB: UPDATE news SET category=…, потім COMMIT
+    DB--&gt;&gt;G: OK
+    G--&gt;&gt;F: сесію закрито
+    F--&gt;&gt;C: 200 {"id": 7, "category": "Економіка", …}</code></pre>
+<div class="admonition danger">
+<p class="admonition-title">З FastAPI 0.118 COMMIT за замовчуванням іде вже після відповіді</p>
+<p>До FastAPI 0.118 код після <code>yield</code> виконувався <strong>до</strong> відповіді. З версії 0.118 за замовчуванням — <strong>після</strong>: клієнт отримує <code>200</code>/<code>201</code> ще до COMMIT. Якщо COMMIT не вдасться (обрив з'єднання, обмеження бази, що перевіряється при COMMIT), клієнт уже почув «збережено», а даних немає.</p>
+<p>Перевірили однією залежністю, що падає після <code>yield</code> (<code>raise</code> замість COMMIT):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>FastAPI 0.115.0 → 500 Internal Server Error
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>FastAPI 0.117.1 → 500 Internal Server Error
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>FastAPI 0.118.0 → 200 {"ok":true}
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>FastAPI 0.141.1 → 200 {"ok":true}
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>FastAPI 0.141.1, Depends(dep, scope="function") → 500 Internal Server Error
+</code></pre></div>
+<p>Тому — <code>Depends(get_db, scope="function")</code> (є з FastAPI 0.121): залежність завершується <strong>до</strong> відправлення відповіді. Тест <code>test_failed_commit_is_500_not_200</code> закріплює це: без <code>scope="function"</code> він падає.</p>
+</div>
+<h2 id="refactor-3">Рефакторинг 3. Повний CRUD<a class="headerlink" href="#refactor-3" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Дія</th>
+<th>Метод і шлях</th>
+<th>Успіх</th>
+<th>Помилки</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>створити</td>
+<td><code>POST /api/news</code></td>
+<td><code>201</code> + новина з <code>id</code></td>
+<td><code>422</code> — не пройшла <code>NewsItem</code>; <code>409</code> — такий url уже є</td>
+</tr>
+<tr>
+<td>прочитати</td>
+<td><code>GET /api/news/{news_id}</code></td>
+<td><code>200</code></td>
+<td><code>404</code></td>
+</tr>
+<tr>
+<td>змінити</td>
+<td><code>PATCH /api/news/{news_id}</code></td>
+<td><code>200</code></td>
+<td><code>404</code>, <code>422</code></td>
+</tr>
+<tr>
+<td>видалити</td>
+<td><code>DELETE /api/news/{news_id}</code></td>
+<td><code>204</code>, без тіла</td>
+<td><code>404</code></td>
+</tr>
+<tr>
+<td>список, пошук</td>
+<td><code>GET /api/news</code>, <code>GET /api/news/search?q=</code></td>
+<td><code>200</code></td>
+<td><code>422</code></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><span class="filename">news_hub/api.py (фрагмент)</span><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_news_or_404</span><span class="p">(</span><span class="n">news_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">repo</span><span class="p">:</span> <span class="n">RepoDep</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NewsRow</span><span class="p">:</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    <span class="n">row</span> <span class="o">=</span> <span class="k">await</span> <span class="n">repo</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">news_id</span><span class="p">)</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    <span class="k">if</span> <span class="n">row</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_404_NOT_FOUND</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="sa">f</span><span class="s2">"новини </span><span class="si">{</span><span class="n">news_id</span><span class="si">}</span><span class="s2"> немає"</span><span class="p">)</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>    <span class="k">return</span> <span class="n">row</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="n">RowDep</span> <span class="o">=</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">NewsRow</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_news_or_404</span><span class="p">)]</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/api/news"</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">NewsOut</span><span class="p">,</span> <span class="n">status_code</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_201_CREATED</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">create_news</span><span class="p">(</span><span class="n">body</span><span class="p">:</span> <span class="n">NewsCreate</span><span class="p">,</span> <span class="n">repo</span><span class="p">:</span> <span class="n">RepoDep</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NewsRow</span><span class="p">:</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>    <span class="n">item</span> <span class="o">=</span> <span class="n">NewsItem</span><span class="o">.</span><span class="n">from_raw</span><span class="p">({</span><span class="o">...</span><span class="p">})</span>                   <span class="c1"># та сама перевірка, що для парсера (урок 37)</span>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>        <span class="k">return</span> <span class="k">await</span> <span class="n">repo</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>                <span class="c1"># INSERT + flush: помилку UNIQUE видно одразу</span>
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>    <span class="k">except</span> <span class="n">IntegrityError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_409_CONFLICT</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="sa">f</span><span class="s2">"новина з url </span><span class="si">{</span><span class="n">item</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s2"> уже є"</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">error</span>
+<a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a>
+<a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a>
+<a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a><span class="nd">@app</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="s2">"/api/news/</span><span class="si">{news_id}</span><span class="s2">"</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">NewsOut</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">update_news</span><span class="p">(</span><span class="n">body</span><span class="p">:</span> <span class="n">NewsPatch</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span> <span class="n">RowDep</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NewsRow</span><span class="p">:</span>
+<a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a>    <span class="k">for</span> <span class="n">field</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">body</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span><span class="n">exclude_unset</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>   <span class="c1"># лише передані поля</span>
+<a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a>        <span class="nb">setattr</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>                                     <span class="c1"># UPDATE зробить COMMIT у get_db</span>
+<a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a>    <span class="k">return</span> <span class="n">row</span>
+</code></pre></div>
+<ul>
+<li><strong><code>RowDep</code></strong> — «знайди новину або <code>404</code>» один раз для <code>GET</code>, <code>PATCH</code>, <code>DELETE</code>.</li>
+<li><strong><code>flush()</code> у <code>repo.create</code></strong> відправляє <code>INSERT</code> одразу, в межах транзакції: помилку <code>UNIQUE</code> ловимо в ендпоінті й перетворюємо на <code>409</code>, а не на <code>500</code> при COMMIT.</li>
+<li><strong><code>exclude_unset=True</code></strong> — <code>PATCH {"category": …}</code> не затре заголовок.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">row</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/api/news"</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">"title"</span><span class="p">:</span> <span class="s2">"НБУ залишив облікову ставку без змін"</span><span class="p">,</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>                                  <span class="s2">"url"</span><span class="p">:</span> <span class="s2">"https://www.rbc.ua/ukr/news/nbu-rate-778.html"</span><span class="p">,</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>                                  <span class="s2">"published_time"</span><span class="p">:</span> <span class="s2">"14:00"</span><span class="p">})</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="n">news_id</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">"id"</span><span class="p">]</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"POST  "</span><span class="p">,</span> <span class="n">row</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">row</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="s2">"lang"</span><span class="p">,</span> <span class="s2">"category"</span><span class="p">,</span> <span class="s2">"published_time"</span><span class="p">)})</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="n">again</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/api/news"</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">"title"</span><span class="p">:</span> <span class="s2">"НБУ залишив облікову ставку без змін"</span><span class="p">,</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>                                    <span class="s2">"url"</span><span class="p">:</span> <span class="s2">"https://www.rbc.ua/ukr/news/nbu-rate-778.html"</span><span class="p">})</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"POST  "</span><span class="p">,</span> <span class="n">again</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">again</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="n">patched</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="sa">f</span><span class="s2">"/api/news/</span><span class="si">{</span><span class="n">news_id</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">"category"</span><span class="p">:</span> <span class="s2">"Економіка"</span><span class="p">})</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"PATCH "</span><span class="p">,</span> <span class="n">patched</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">patched</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">"category"</span><span class="p">],</span> <span class="s2">"|"</span><span class="p">,</span> <span class="n">patched</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">"title"</span><span class="p">])</span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"GET   "</span><span class="p">,</span> <span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">"/api/news/</span><span class="si">{</span><span class="n">news_id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">"category"</span><span class="p">])</span>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a><span class="n">deleted</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="sa">f</span><span class="s2">"/api/news/</span><span class="si">{</span><span class="n">news_id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"DELETE"</span><span class="p">,</span> <span class="n">deleted</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">deleted</span><span class="o">.</span><span class="n">text</span><span class="p">))</span>
+<a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a><span class="n">missing</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">"/api/news/</span><span class="si">{</span><span class="n">news_id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"GET   "</span><span class="p">,</span> <span class="n">missing</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">missing</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>POST   201 {'id': 338, 'lang': 'uk', 'category': 'Новини', 'published_time': '14:00:00'}
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>POST   409 {'detail': 'новина з url https://www.rbc.ua/ukr/news/nbu-rate-778.html уже є'}
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>PATCH  200 Економіка | НБУ залишив облікову ставку без змін
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>GET    Економіка
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>DELETE 204 ''
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>GET    404 {'detail': 'новини 338 немає'}
+</code></pre></div>
+<h3 id="_4">Дані переживають перезапуск<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>Новини тепер у PostgreSQL, а не в процесі сервера. Порахуємо їх <strong>окремою програмою</strong> — без FastAPI, лише через репозиторій:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>$ python -c "import asyncio; from news_hub.db import SessionFactory; from news_hub.repository import NewsRepository; print(asyncio.run(NewsRepository(SessionFactory()).count()))"
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>169
+</code></pre></div>
+<p>Зупини uvicorn (<code>Ctrl+C</code>), запусти знову — <code>GET /api/news/count</code> поверне те саме число. Два процеси uvicorn бачать ті самі новини.</p>
+<h2 id="alembic">Міграції Alembic<a class="headerlink" href="#alembic" title="Permanent link">&para;</a></h2>
+<p><code>Base.metadata.create_all()</code> створює таблиці, яких немає, — але не змінює наявні. Коли в уроці 44 у таблиці з'явиться стовпець <code>summary</code>, база з тисячами новин має отримати його <strong>без втрати даних</strong>. Для цього — <strong>міграції</strong>: версії схеми як код, у git поруч із програмою (як <code>makemigrations</code>/<code>migrate</code> у Django, урок 34).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>alembic<span class="w"> </span>revision<span class="w"> </span>--autogenerate<span class="w"> </span>--rev-id<span class="w"> </span><span class="m">0001</span><span class="w"> </span>-m<span class="w"> </span><span class="s2">"news table"</span><span class="w">   </span><span class="c1"># порівняти NewsRow з базою → файл міграції</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>alembic<span class="w"> </span>upgrade<span class="w"> </span>head<span class="w">                                            </span><span class="c1"># застосувати всі нові міграції</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>alembic<span class="w"> </span>downgrade<span class="w"> </span>-1<span class="w">                                            </span><span class="c1"># відкотити останню</span>
+</code></pre></div>
+<p>Історія й поточна версія бази:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>$ alembic history
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>&lt;base&gt; -&gt; 0001 (head), news table — таблиця новин агрегатора (урок 39)
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>$ alembic current
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>0001 (head)
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>INFO  [alembic.runtime.migration] Will assume transactional DDL.
+</code></pre></div>
+<p>SQL, який виконує міграція, можна подивитись, не чіпаючи бази (<code>--sql</code> — «офлайн»-режим):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>$ alembic upgrade head --sql
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>BEGIN;
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>CREATE TABLE alembic_version (
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>    version_num VARCHAR(32) NOT NULL,
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>    CONSTRAINT alembic_version_pkc PRIMARY KEY (version_num)
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>);
+<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>
+<a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>-- Running upgrade  -&gt; 0001
+<a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a>
+<a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a>CREATE TABLE news (
+<a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a>    id SERIAL NOT NULL,
+<a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a>    url VARCHAR(500) NOT NULL,
+<a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a>    title VARCHAR(300) NOT NULL,
+<a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a>    source VARCHAR(100) NOT NULL,
+<a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a>    lang VARCHAR(2) NOT NULL,
+<a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a>    category VARCHAR(100) NOT NULL,
+<a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a>    published_time TIME WITHOUT TIME ZONE,
+<a id="__codelineno-17-19" name="__codelineno-17-19" href="#__codelineno-17-19"></a>    scraped_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
+<a id="__codelineno-17-20" name="__codelineno-17-20" href="#__codelineno-17-20"></a>    PRIMARY KEY (id),
+<a id="__codelineno-17-21" name="__codelineno-17-21" href="#__codelineno-17-21"></a>    UNIQUE (url)
+<a id="__codelineno-17-22" name="__codelineno-17-22" href="#__codelineno-17-22"></a>);
+<a id="__codelineno-17-23" name="__codelineno-17-23" href="#__codelineno-17-23"></a>
+<a id="__codelineno-17-24" name="__codelineno-17-24" href="#__codelineno-17-24"></a>CREATE INDEX ix_news_category ON news (category);
+<a id="__codelineno-17-25" name="__codelineno-17-25" href="#__codelineno-17-25"></a>
+<a id="__codelineno-17-26" name="__codelineno-17-26" href="#__codelineno-17-26"></a>CREATE INDEX ix_news_lang ON news (lang);
+<a id="__codelineno-17-27" name="__codelineno-17-27" href="#__codelineno-17-27"></a>
+<a id="__codelineno-17-28" name="__codelineno-17-28" href="#__codelineno-17-28"></a>CREATE INDEX ix_news_source ON news (source);
+<a id="__codelineno-17-29" name="__codelineno-17-29" href="#__codelineno-17-29"></a>
+<a id="__codelineno-17-30" name="__codelineno-17-30" href="#__codelineno-17-30"></a>INSERT INTO alembic_version (version_num) VALUES ('0001') RETURNING alembic_version.version_num;
+<a id="__codelineno-17-31" name="__codelineno-17-31" href="#__codelineno-17-31"></a>
+<a id="__codelineno-17-32" name="__codelineno-17-32" href="#__codelineno-17-32"></a>COMMIT;
+<a id="__codelineno-17-33" name="__codelineno-17-33" href="#__codelineno-17-33"></a>
+<a id="__codelineno-17-34" name="__codelineno-17-34" href="#__codelineno-17-34"></a>INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+<a id="__codelineno-17-35" name="__codelineno-17-35" href="#__codelineno-17-35"></a>INFO  [alembic.runtime.migration] Generating static SQL
+<a id="__codelineno-17-36" name="__codelineno-17-36" href="#__codelineno-17-36"></a>INFO  [alembic.runtime.migration] Will assume transactional DDL.
+<a id="__codelineno-17-37" name="__codelineno-17-37" href="#__codelineno-17-37"></a>INFO  [alembic.runtime.migration] Running upgrade  -&gt; 0001, news table — таблиця новин агрегатора (урок 39)
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Autogenerate — чернетка, а не готова міграція</p>
+<p>Alembic записав <code>server_default=sa.text('now()')</code>: текст функції PostgreSQL. На SQLite такої функції немає — міграція там падала. Тому в міграції — <code>sa.func.now()</code>: SQLAlchemy підставляє правильний SQL для кожної бази (<code>now()</code> для PostgreSQL, <code>CURRENT_TIMESTAMP</code> для SQLite). Правило: <strong>кожну автоміграцію читай перед комітом</strong>, а <code>alembic check</code> покаже, чи збігаються моделі з базою.</p>
+</div>
+<h2 id="architecture">Архітектура: було → стало<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    subgraph OLD ["урок 38: у пам'яті процесу"]
+        direction LR
+        A0["api.py"] -- "Depends" --&gt; S0["NewsStore&lt;br&gt;dict url → NewsItem"]
+        S0 --&gt; L0["зникає при&lt;br&gt;перезапуску"]
+    end
+    subgraph NEW ["урок 39: база даних"]
+        direction LR
+        A1["api.py&lt;br&gt;CRUD, 201/404/409/204"] -- "Depends" --&gt; R1["NewsRepository&lt;br&gt;увесь SQL"]
+        A1 -- "Depends, scope=function" --&gt; G1["get_db&lt;br&gt;сесія й транзакція"]
+        R1 --&gt; G1
+        G1 --&gt; DB[("PostgreSQL&lt;br&gt;або SQLite")]
+        M1["Alembic&lt;br&gt;migrations/"] --&gt; DB
+        T1["tables.py&lt;br&gt;NewsRow"] -.-&gt; R1
+        T1 -.-&gt; M1
+    end
+    subgraph NEXT ["далі"]
+        direction LR
+        N1["урок 40: кеш Redis&lt;br&gt;перед репозиторієм"] ~~~ N2["урок 42: тести API&lt;br&gt;на тестовій базі"] ~~~ N3["урок 44: стовпець summary&lt;br&gt;міграція 0002"]
+    end
+    OLD --&gt; NEW --&gt; NEXT
+
+    class A0,S0 step
+    class L0 error
+    class A1,R1,T1 step
+    class G1 warning
+    class DB,M1 success
+    class N1,N2,N3 success</code></pre>
+<ul>
+<li><strong>Репозиторій — єдине місце з SQL.</strong> Ендпоінти не знають, PostgreSQL це чи SQLite; тести ганяють ті самі 32 тести на обох (<code>TEST_DATABASE_URL</code>). Детальніше про патерн — розділ 7 <a href="../fastapi/fastapi_documentation/#s7">довідника</a>.</li>
+<li><strong>Транзакція = запит.</strong> <code>get_db</code> відкриває сесію, ендпоінт працює, COMMIT — до відповіді (<code>scope="function"</code>). Розділ 8 довідника — Unit of Work, той самий принцип для кількох репозиторіїв.</li>
+<li><strong>Правила даних — у базі.</strong> <code>UNIQUE (url)</code> тримає і API, і міграції, і будь-яку іншу програму, що пише в <code>news</code>; код лише перетворює помилку на зрозумілий <code>409</code>.</li>
+<li><strong>Схема — у git.</strong> <code>tables.py</code> описує, якою таблиця має бути; <code>migrations/</code> — як до цього дійти з будь-якої попередньої версії.</li>
+</ul>
+<h3 id="mypy">Тести і mypy<a class="headerlink" href="#mypy" title="Permanent link">&para;</a></h3>
+<p>Приклад виводу (час залежить від машини):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>$ pytest -q -p no:cacheprovider
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>................................                                                             [100%]
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>32 passed in 0.93s
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>$ TEST_DATABASE_URL=postgresql+asyncpg://news:news@localhost:5432/news_hub_test pytest -q -p no:cacheprovider
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>................................                                                             [100%]
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>32 passed in 2.46s
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>$ mypy --strict news_hub
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>Success: no issues found in 9 source files
+</code></pre></div>
+<p><code>tests/conftest.py</code> створює для кожного тесту окремий engine і порожні таблиці (<code>Base.metadata.create_all</code>) і підміняє <code>get_db</code>; за замовчуванням — SQLite у пам'яті, з <code>TEST_DATABASE_URL</code> — PostgreSQL. Додалось 9 тестів CRUD: <code>201</code>, <code>409</code>, <code>422</code>, <code>404</code>, <code>PATCH</code> і збереження змін, <code>204</code>, <code>GROUP BY</code>, пошук, «COMMIT не вдався → <code>500</code>».</p>
+<h2 id="practice">Практика<a class="headerlink" href="#practice" title="Permanent link">&para;</a></h2>
+<h3 id="get-apinewssearchq">Розібраний приклад: пошук <code>GET /api/news/search?q=</code><a class="headerlink" href="#get-apinewssearchq" title="Permanent link">&para;</a></h3>
+<p>В уроці 38 пошук був завданням «спробуй самостійно». У прототипі <code>news_dashboard</code> він виглядав так: <code>{"title": {"$regex": keyword, "$options": "i"}}</code> — рядок користувача ставав <strong>регулярним виразом</strong> у MongoDB. Тепер — SQL:</p>
+<ol>
+<li><strong>Репозиторій.</strong> <code>NewsRow.title.icontains(q, autoescape=True)</code> → <code>title ILIKE '%' || :q || '%'</code> у PostgreSQL. <code>q</code> — параметр; <code>autoescape=True</code> — символи <code>%</code> і <code>_</code> у запиті шукаються буквально, а не як «будь-що».</li>
+<li><strong>Ендпоінт.</strong> <code>q: str = Query(min_length=2, max_length=60)</code> — порожній чи надто довгий пошук відсічено до SQL.</li>
+<li><strong>Порядок маршрутів.</strong> <code>/api/news/search</code> оголошено <strong>до</strong> <code>/api/news/{news_id}</code>: інакше FastAPI спробував би прочитати <code>"search"</code> як <code>news_id: int</code> і відповів би <code>422</code> (урок 38, розібраний приклад).</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"зеленськ"</span><span class="p">,</span> <span class="s2">"ЗЕЛЕНСЬК"</span><span class="p">,</span> <span class="s2">"</span><span class="si">%%</span><span class="s2">"</span><span class="p">):</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>    <span class="n">found</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/api/news/search"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">"q"</span><span class="p">:</span> <span class="n">q</span><span class="p">,</span> <span class="s2">"limit"</span><span class="p">:</span> <span class="mi">100</span><span class="p">})</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>    <span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">q</span><span class="p">),</span> <span class="s2">"→"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">found</span><span class="p">),</span> <span class="p">[</span><span class="n">news</span><span class="p">[</span><span class="s2">"title"</span><span class="p">][:</span><span class="mi">40</span><span class="p">]</span> <span class="k">for</span> <span class="n">news</span> <span class="ow">in</span> <span class="n">found</span><span class="p">[:</span><span class="mi">2</span><span class="p">]])</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/api/news/search"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">"q"</span><span class="p">:</span> <span class="s2">"а"</span><span class="p">})</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>'зеленськ' → 11 ['У Путіна образилися на дозвіл Зеленськог', 'Зеленський дозволив проведення параду в ']
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>'ЗЕЛЕНСЬК' → 11 ['У Путіна образилися на дозвіл Зеленськог', 'Зеленський дозволив проведення параду в ']
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>'%%' → 0 []
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>422
+</code></pre></div>
+<h3 id="_5">Зміни приклад<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Додай до пошуку фільтр <code>lang: Literal["uk", "ru"] | None</code> — у репозиторії це ще одна умова <code>.where(...)</code>.</li>
+<li>Додай у <code>NewsRepository</code> метод <code>latest(limit)</code> — найновіші за <code>scraped_at</code> (<code>order_by(NewsRow.scraped_at.desc())</code>), і ендпоінт <code>GET /api/news/latest</code>. Не забудь про порядок маршрутів.</li>
+</ol>
+<h3 id="0002">Спробуй самостійно: міграція 0002<a class="headerlink" href="#0002" title="Permanent link">&para;</a></h3>
+<p>Підготуй таблицю до уроку 44 (підсумки від Gemini):</p>
+<ul>
+<li>у <code>NewsRow</code> — стовпець <code>summary: Mapped[str | None] = mapped_column(Text)</code>;</li>
+<li><code>alembic revision --autogenerate --rev-id 0002 -m "news summary"</code> → <strong>прочитай</strong> файл міграції;</li>
+<li><code>alembic upgrade head</code> на базі, де вже є новини; <code>alembic downgrade -1</code> і знову <code>upgrade head</code>;</li>
+<li><code>summary</code> — у <code>NewsOut</code> і в <code>NewsPatch</code>.</li>
+</ul>
+<p><strong>Критерії перевірки:</strong> новини, зібрані до міграції, лишились на місці з <code>summary: null</code>; <code>PATCH {"summary": "…"}</code> зберігає підсумок; <code>alembic check</code> — «No new upgrade operations detected»; тести проходять на SQLite і PostgreSQL.</p>
+<h3 id="find-bug">Знайди помилку<a class="headerlink" href="#find-bug" title="Permanent link">&para;</a></h3>
+<p>Студент вирішив, що <code>ON CONFLICT</code> — це складно, і написав збір «по-простому»: для кожної новини перевірити, чи є такий url, і лише тоді додати. Запускаємо <strong>два збори одночасно</strong> — як два користувачі натиснули «Зібрати» або бот і планувальник спрацювали разом:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy</span><span class="w"> </span><span class="kn">import</span> <span class="n">delete</span><span class="p">,</span> <span class="n">select</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">news_hub.db</span><span class="w"> </span><span class="kn">import</span> <span class="n">SessionFactory</span>
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">news_hub.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate_news</span>
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a><span class="kn">from</span><span class="w"> </span><span class="nn">news_hub.repository</span><span class="w"> </span><span class="kn">import</span> <span class="n">news_values</span>
+<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a><span class="kn">from</span><span class="w"> </span><span class="nn">news_hub.snapshot</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_snapshot</span>
+<a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>
+<a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a><span class="n">news</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">validate_news</span><span class="p">(</span><span class="n">load_snapshot</span><span class="p">()[:</span><span class="mi">20</span><span class="p">])</span>
+<a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>
+<a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a>
+<a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">naive_add_many</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+<a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a>    <span class="k">async</span> <span class="k">with</span> <span class="n">SessionFactory</span><span class="p">()</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
+<a id="__codelineno-21-15" name="__codelineno-21-15" href="#__codelineno-21-15"></a>        <span class="n">saved</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-21-16" name="__codelineno-21-16" href="#__codelineno-21-16"></a>        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+<a id="__codelineno-21-17" name="__codelineno-21-17" href="#__codelineno-21-17"></a>            <span class="n">exists</span> <span class="o">=</span> <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">scalar</span><span class="p">(</span><span class="n">select</span><span class="p">(</span><span class="n">NewsRow</span><span class="o">.</span><span class="n">id</span><span class="p">)</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">NewsRow</span><span class="o">.</span><span class="n">url</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">url</span><span class="p">)))</span>
+<a id="__codelineno-21-18" name="__codelineno-21-18" href="#__codelineno-21-18"></a>            <span class="k">if</span> <span class="n">exists</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>                     <span class="c1"># «такого url ще немає — додаю»</span>
+<a id="__codelineno-21-19" name="__codelineno-21-19" href="#__codelineno-21-19"></a>                <span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">NewsRow</span><span class="p">(</span><span class="o">**</span><span class="n">news_values</span><span class="p">(</span><span class="n">item</span><span class="p">)))</span>
+<a id="__codelineno-21-20" name="__codelineno-21-20" href="#__codelineno-21-20"></a>                <span class="n">saved</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="__codelineno-21-21" name="__codelineno-21-21" href="#__codelineno-21-21"></a>        <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+<a id="__codelineno-21-22" name="__codelineno-21-22" href="#__codelineno-21-22"></a>        <span class="k">return</span> <span class="n">saved</span>
+<a id="__codelineno-21-23" name="__codelineno-21-23" href="#__codelineno-21-23"></a>
+<a id="__codelineno-21-24" name="__codelineno-21-24" href="#__codelineno-21-24"></a>
+<a id="__codelineno-21-25" name="__codelineno-21-25" href="#__codelineno-21-25"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">two_scrapes_at_once</span><span class="p">():</span>
+<a id="__codelineno-21-26" name="__codelineno-21-26" href="#__codelineno-21-26"></a>    <span class="k">async</span> <span class="k">with</span> <span class="n">SessionFactory</span><span class="p">()</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
+<a id="__codelineno-21-27" name="__codelineno-21-27" href="#__codelineno-21-27"></a>        <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">delete</span><span class="p">(</span><span class="n">NewsRow</span><span class="p">))</span>
+<a id="__codelineno-21-28" name="__codelineno-21-28" href="#__codelineno-21-28"></a>        <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+<a id="__codelineno-21-29" name="__codelineno-21-29" href="#__codelineno-21-29"></a>    <span class="n">results</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">naive_add_many</span><span class="p">(</span><span class="n">news</span><span class="p">),</span> <span class="n">naive_add_many</span><span class="p">(</span><span class="n">news</span><span class="p">),</span> <span class="n">return_exceptions</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-21-30" name="__codelineno-21-30" href="#__codelineno-21-30"></a>    <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+<a id="__codelineno-21-31" name="__codelineno-21-31" href="#__codelineno-21-31"></a>        <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">") "</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<a id="__codelineno-21-32" name="__codelineno-21-32" href="#__codelineno-21-32"></a>
+<a id="__codelineno-21-33" name="__codelineno-21-33" href="#__codelineno-21-33"></a>
+<a id="__codelineno-21-34" name="__codelineno-21-34" href="#__codelineno-21-34"></a><span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">two_scrapes_at_once</span><span class="p">())</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>int 20
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>IntegrityError duplicate key value violates unique constraint "news_url_key"
+</code></pre></div>
+<p>Кожен збір «перевірив» усі 20 url, і кожен вирішив, що новин немає. Чому, і що з цим робити?</p>
+<details class="success">
+<summary>Відповідь</summary>
+<p><strong>Гонка «перевір, потім зроби» (check-then-act).</strong> Між <code>SELECT</code> і <code>COMMIT</code> є проміжок, і на кожному <code>await</code> цикл подій перемикається на інший збір. Обидва встигли виконати <code>SELECT</code> раніше, ніж хтось зробив <code>COMMIT</code>, тож обидва «побачили» порожню таблицю. Перший COMMIT пройшов, другий упав на <code>UNIQUE</code>: у справжньому ендпоінті це був би <code>500</code>.</p>
+<p>У тестах з одним користувачем цей код працює завжди — помилка проявляється лише під паралельними запитами. Найгірший вид помилок: у розробці її не видно.</p>
+<p>Виправлення — не перевіряти в Python, а <strong>віддати рішення базі одним оператором</strong>: <code>INSERT … ON CONFLICT (url) DO NOTHING</code> у <code>NewsRepository.add_many</code>. База перевіряє унікальність атомарно, тому два одночасні збори просто вставлять кожну новину рівно один раз. Для одиничного <code>POST /api/news</code> — те саме правило з іншого боку: <code>UNIQUE</code> у таблиці + <code>IntegrityError</code> → <code>409</code>.</p>
+</details>
+<h2 id="_6">Підсумок<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Поняття</th>
+<th>Що запам'ятати</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DATABASE_URL</code></td>
+<td>діалект+драйвер://користувач:пароль@хост:порт/база; зі змінної середовища</td>
+</tr>
+<tr>
+<td><code>create_async_engine</code></td>
+<td>пул з'єднань; для PostgreSQL — <code>asyncpg</code>, для SQLite — <code>aiosqlite</code></td>
+</tr>
+<tr>
+<td><code>Mapped</code> / <code>mapped_column</code></td>
+<td>таблиця як клас; <code>X \| None</code> — <code>NULL</code> дозволено</td>
+</tr>
+<tr>
+<td>Pydantic vs SQLAlchemy модель</td>
+<td>перевірка даних vs рядок таблиці; <code>from_attributes=True</code> з'єднує їх у відповіді</td>
+</tr>
+<tr>
+<td>Сесія</td>
+<td>робоче місце запиту: зміни → <code>flush</code> (SQL у транзакції) → <code>commit</code></td>
+</tr>
+<tr>
+<td><code>get_db</code> + <code>scope="function"</code></td>
+<td>одна сесія й транзакція на запит, COMMIT до відповіді</td>
+</tr>
+<tr>
+<td>Репозиторій</td>
+<td>увесь SQL в одному місці; ендпоінти не знають, яка база</td>
+</tr>
+<tr>
+<td><code>ON CONFLICT DO NOTHING</code></td>
+<td>дублікати відсіює база атомарно; id при цьому можуть «перескакувати»</td>
+</tr>
+<tr>
+<td>CRUD-коди</td>
+<td><code>201</code> створено, <code>404</code> немає, <code>409</code> конфлікт, <code>204</code> видалено без тіла</td>
+</tr>
+<tr>
+<td>Alembic</td>
+<td>версії схеми в git; autogenerate — чернетка, читай перед комітом</td>
+</tr>
+<tr>
+<td>Check-then-act</td>
+<td>«перевір, потім встав» ламається під паралельними запитами — правило даних віддай базі</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_7">Самоперевірка<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Чим <code>NewsRow</code> відрізняється від <code>NewsItem</code> і чому не одна модель на все?</li>
+<li>Навіщо <code>flush()</code> у <code>repo.create</code>, якщо COMMIT однаково буде в <code>get_db</code>?</li>
+<li>Що станеться з клієнтом, якщо COMMIT не вдасться, з <code>scope="function"</code> і без нього (FastAPI ≥ 0.118)?</li>
+<li>Чому id новин ідуть з дірками і чи це проблема?</li>
+<li>Навіщо міграції, якщо є <code>Base.metadata.create_all()</code>?</li>
+<li>Чому два одночасні <code>naive_add_many</code> зламались, а два <code>add_many</code> — ні?</li>
+</ol>
+<details class="success">
+<summary>Відповіді</summary>
+<ol>
+<li><code>NewsItem</code> перевіряє дані ззовні (довжина, домен, мова); <code>NewsRow</code> описує рядок таблиці (типи стовпців, <code>UNIQUE</code>, <code>id</code> і <code>scraped_at</code> від бази). У них різні задачі й різний час роботи; змішування тягне SQL у перевірку або правила перевірки в таблицю.</li>
+<li>Щоб <code>INSERT</code> пішов у базу зараз і помилка <code>UNIQUE</code> виникла в ендпоінті — там її перетворюємо на <code>409</code>. Без <code>flush</code> вона вилетіла б при COMMIT у <code>get_db</code> як <code>500</code>.</li>
+<li>З <code>scope="function"</code> — <code>500</code>: залежність завершується до відповіді. Без нього — клієнт уже отримав <code>200</code>/<code>201</code>, а дані не збережено.</li>
+<li>PostgreSQL бере значення лічильника до перевірки <code>UNIQUE</code>, і пропущені рядки його «з'їдають». Не проблема: id лише ідентифікує рядок; кількість — <code>count(*)</code>.</li>
+<li><code>create_all</code> лише створює відсутні таблиці. Міграції змінюють наявну схему (додати стовпець, індекс) без втрати даних, у контрольованому порядку, з можливістю відкату — і зберігаються в git.</li>
+<li><code>naive_add_many</code> вирішує в Python між <code>SELECT</code> і <code>COMMIT</code> — інший збір встигає втрутитись. <code>add_many</code> робить один <code>INSERT … ON CONFLICT DO NOTHING</code>: унікальність перевіряє база атомарно.</li>
+</ol>
+</details>
+<h3 id="_8">Що далі<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Ноутбук заняття: <a class="md-button md-button--primary" href="https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_39_fastapi_sqlalchemy/note_lesson_39_sqlalchemy_student.ipynb">Відкрити вправи в Colab</a> <a class="solutions-link" href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_39_fastapi_sqlalchemy/note_lesson_39_sqlalchemy.ipynb">Переглянути розв’язки</a>.</li>
+<li>Урок 40 — middleware і Redis: кеш <code>GET /api/news</code> перед репозиторієм, rate limit на <code>POST /api/scrape</code>, фоновий збір.</li>
+</ul>
+<h2 id="_9">Документація і джерела<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Код: <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_39_fastapi_sqlalchemy/news_hub"><code>news_hub</code></a> — шар бази зі стартового <code>production_bot</code> (<code>backend/core/database.py</code>, <code>backend/repositories/base.py</code>, <code>migrations/</code>, <code>docker-compose.yml</code>), API — з уроку 38.</li>
+<li>Довідник курсу: <a href="../fastapi/fastapi_documentation/">FastAPI: архітектура, async і production-патерни</a>, розділи 6–8.</li>
+<li>SQLAlchemy 2.0: <a href="https://docs.sqlalchemy.org/en/20/orm/quickstart.html">ORM Quick Start</a>, <a href="https://docs.sqlalchemy.org/en/20/orm/declarative_tables.html">Declarative Mapping</a>, <a href="https://docs.sqlalchemy.org/en/20/orm/extensions/asyncio.html">Asynchronous I/O</a>, <a href="https://docs.sqlalchemy.org/en/20/orm/session_basics.html">Session Basics</a>, <a href="https://docs.sqlalchemy.org/en/20/dialects/postgresql.html#insert-on-conflict-upsert">INSERT…ON CONFLICT (PostgreSQL)</a></li>
+<li>FastAPI: <a href="https://fastapi.tiangolo.com/tutorial/sql-databases/">SQL (Relational) Databases</a>, <a href="https://fastapi.tiangolo.com/tutorial/dependencies/dependencies-with-yield/">Dependencies with yield</a></li>
+<li>Alembic: <a href="https://alembic.sqlalchemy.org/en/latest/tutorial.html">Tutorial</a>, <a href="https://alembic.sqlalchemy.org/en/latest/autogenerate.html">Auto Generating Migrations</a></li>
+<li>PostgreSQL: <a href="https://www.postgresql.org/docs/current/sql-insert.html#SQL-ON-CONFLICT">INSERT … ON CONFLICT</a>, <a href="https://www.postgresql.org/docs/current/functions-sequence.html">Sequence functions</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Футер" >
+        
+          
+          <a href="../fastapi/fastapi_documentation/" class="md-footer__link md-footer__link--prev" aria-label="Назад: Довідник: FastAPI — архітектура і async">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Назад
+              </span>
+              <div class="md-ellipsis">
+                Довідник: FastAPI — архітектура і async
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../lesson_40/" class="md-footer__link md-footer__link--next" aria-label="Вперед: 40. Middlewares і кешування (Redis на практиці)">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Вперед
+              </span>
+              <div class="md-ellipsis">
+                40. Middlewares і кешування (Redis на практиці)
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.footer", "toc.follow", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0456\u0439\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u0421\u043a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438 \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0429\u0435 1 \u0437\u0431\u0456\u0433 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.more.other": "\u0429\u0435 # \u0437\u0431\u0456\u0433\u0456\u0432 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.none": "\u0417\u0431\u0456\u0433\u0456\u0432 \u043d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0437\u0431\u0456\u0433", "search.result.other": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e # \u0437\u0431\u0456\u0433\u0456\u0432", "search.result.placeholder": "\u0420\u043e\u0437\u043f\u043e\u0447\u043d\u0456\u0442\u044c \u043f\u0438\u0441\u0430\u0442\u0438 \u0434\u043b\u044f \u043f\u043e\u0448\u0443\u043a\u0443", "search.result.term.missing": "\u041d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e \u0437\u0430\u043f\u0438\u0442\u0443", "select.version": "\u041e\u0431\u0440\u0430\u0442\u0438 \u0432\u0435\u0440\u0441\u0456\u044e"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/sidebars.js"></script>
+      
+    
+  </body>
+</html>

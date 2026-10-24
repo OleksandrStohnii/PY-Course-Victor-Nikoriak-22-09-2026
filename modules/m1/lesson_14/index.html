@@ -1,0 +1,4507 @@
+
+<!doctype html>
+<html lang="uk" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Курс Python українською — від основ до просунутих тем, у форматі книги">
+      
+      
+      
+        <link rel="canonical" href="https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m1/lesson_14/">
+      
+      
+        <link rel="prev" href="../lesson_13/">
+      
+      
+        <link rel="next" href="../lesson_15/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>14. Винятки та обробка помилок - PY Course — Viktor Nikoriak</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#14" class="md-skip">
+          Перейти до змісту
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Хедер">
+    <a href="../../.." title="PY Course — Viktor Nikoriak" class="md-header__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PY Course — Viktor Nikoriak
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              14. Винятки та обробка помилок
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Пошук" placeholder="Пошук" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Шукати">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистити" aria-label="Очистити" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Пошук розпочато
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Вкладки" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Головна
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../00_getting_started/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Як користуватися
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Модулі курсу (в розробці)
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../00_python_mental_model/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Довідник
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Навігація" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="PY Course — Viktor Nikoriak" class="md-nav__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    PY Course — Viktor Nikoriak
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Головна
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../00_getting_started/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Як користуватися
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Модулі курсу (в розробці)
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Модулі курсу (в розробці)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М1. Основи Python
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М1. Основи Python
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Вступ: формат курсу, AI-політика
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Перші кроки
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Змінні та базові типи даних
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Умови та цикли
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Списки, кортежі, множини
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Словники, for, comprehensions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Функції
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. П1. Big O + базові задачі
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Декоратори
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Ітератори й генератори
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. П2. Пошук
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Модулі та стандартна бібліотека
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Винятки та обробка помилок
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Винятки та обробка помилок
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пригадай
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Звіт упав: читаємо трасування
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Звіт упав: читаємо трасування">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Два види помилок
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Каса віддає рядки
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Часті винятки
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#try-except" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        try / except: перехопити виняток
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="try / except: перехопити виняток">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#else-finally" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        else і finally
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#except" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Кілька except і ієрархія винятків
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#raise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        raise: правила кафе
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Виняток спливає по стеку
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Антипатерн «підгузок»
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eafp-lbyl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EAFP чи LBYL
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Практика
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Практика">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Розібраний приклад: зрозумілі помилки для адміністратора
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зміни приклад: питати, доки не введуть правильно
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Спробуй самостійно: меню і бюджет
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Знайди помилку
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Підсумок
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Підсумок">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Самоперевірка
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що далі
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Документація і джерела
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Файли I/O, JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Git & GitHub: система
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. П3. Хеш-структури
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Узагальнення + фінальний проєкт
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М2. Python Advanced
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М2. Python Advanced
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2_python_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Функції як об'єкти першого класу
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Класи, простір імен
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    21. Наслідування, поліморфізм
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    22. Інкапсуляція, область видимості
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    23. П4. Рекурсія, divide & conquer, backtracking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    24. @property, декоратори класів, dunder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    25. Ітератори advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    26. Тестування з pytest (+ валідація AI-коду)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    27. П5. Динамічне програмування + greedy (вступ)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    28. Потоки, multiprocessing, asyncio: вступ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    29. П6. Stack, Queue, Heap, Trie + LRU → ООП-пакет
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М3. Бази даних
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М3. Бази даних
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3_databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m3/bonus_pandas/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. Pandas: аналіз даних, графіки і Dash
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3/lesson_30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    30. Основи SQL (PostgreSQL)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3/lesson_31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    31. Redis overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М4. Web (+ Web Advanced)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М4. Web (+ Web Advanced)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4_web/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    32. HTTP: requests, httpx, aiohttp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    33. REST: принципи дизайну API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    34. Django intro: MVT, ORM, admin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    35. Django: forms, HTML practice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    36. DRF overview + Django vs FastAPI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    37. Typing + Pydantic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m4/lesson_38/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    38. FastAPI basics + Postman + OpenAPI
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    39. FastAPI + SQLAlchemy: повний CRUD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    40. Middlewares і кешування (Redis на практиці)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    41. Автентифікація та security basics (JWT, hashing, OWASP)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    42. Тестування API (pytest + httpx)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m4/lesson_43/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    43. AI-інструменти розробника + ризики й валідація
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    44. Інтеграція LLM API (Gemini / Anthropic)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    45. Архітектура застосунків і патерни
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    46. WebSockets + практика: чат
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    47. Security advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    48. Telegram Bot API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М5. Production
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М5. Production
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5_production/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m5/bonus_linux/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. Linux для розробника
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    49. Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    50. Docker Compose + деплой
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    51. CI/CD (GitHub Actions)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М6. Капстоун
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М6. Капстоун
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6_capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6/lesson_52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    52. Робота над фінальним проєктом
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6/lesson_53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    53. Випускний: питч фінального проєкту
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m6/bonus_cv/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. CV розробника
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bonus_ai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Self-paced. AI для розробників (бонус)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../00_python_mental_model/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Довідник
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пригадай
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Звіт упав: читаємо трасування
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Звіт упав: читаємо трасування">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Два види помилок
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Каса віддає рядки
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Часті винятки
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#try-except" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        try / except: перехопити виняток
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="try / except: перехопити виняток">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#else-finally" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        else і finally
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#except" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Кілька except і ієрархія винятків
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#raise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        raise: правила кафе
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Виняток спливає по стеку
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Антипатерн «підгузок»
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eafp-lbyl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EAFP чи LBYL
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Практика
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Практика">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Розібраний приклад: зрозумілі помилки для адміністратора
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зміни приклад: питати, доки не введуть правильно
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Спробуй самостійно: меню і бюджет
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Знайди помилку
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Підсумок
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Підсумок">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Самоперевірка
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що далі
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Документація і джерела
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Навігація" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Головна
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Модулі курсу (в розробці)
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    М1. Основи Python
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="14">Урок 14. Винятки<a class="headerlink" href="#14" title="Permanent link">&para;</a></h1>
+<p>В уроці 13 звіт кафе переїхав у модулі, і адміністратор запускає його сам: <code>python main.py 2024 7</code>. Першого ж дня він надрукував місяць словом, <code>python main.py 2024 липень</code>, і замість звіту побачив кілька рядків англійською з <code>Traceback</code> і <code>ValueError</code>. Що з цим робити, він не зрозумів.</p>
+<p>А тут ще каса. Чеки тепер приходять з неї <strong>рядками тексту</strong>, <code>"2024-07-19 18:30;540.00;50;2"</code>, і не всі рядки цілі: десь кома замість крапки, десь рядок обрізаний, десь 30 лютого. Програма падає на першому ж зіпсованому рядку, і звіт не отримує ніхто, навіть за правильні чеки.</p>
+<p><strong>Виняток</strong> (exception) — це спосіб, яким Python повідомляє: «цю дію виконати не можу». У цьому уроці навчимося читати ці повідомлення, перехоплювати винятки там, де знаємо, що відповісти людині, і піднімати власні, коли дані порушують правила кафе. Мета — програма, яка не падає від чужої помилки, але й <strong>не мовчить</strong> про неї.</p>
+<p><strong>Що потрібно з попередніх уроків:</strong> рядки й <code>split</code> (урок 3), <code>if</code> і <code>while</code> (урок 4), словники (урок 6), функції й <code>return</code> (урок 8), модулі, <code>datetime</code> і <code>sys.argv</code> (урок 13).</p>
+<p><strong>Після уроку ти зможеш:</strong></p>
+<ul>
+<li>читати трасування (traceback) знизу вгору і знаходити рядок, де сталася помилка;</li>
+<li>розрізняти <code>SyntaxError</code> і винятки під час виконання, впізнавати <code>ValueError</code>, <code>TypeError</code>, <code>KeyError</code>, <code>IndexError</code>, <code>ZeroDivisionError</code>;</li>
+<li>перехоплювати винятки через <code>try</code> / <code>except</code> / <code>else</code> / <code>finally</code> і обирати, де саме їх ловити;</li>
+<li>піднімати власні винятки через <code>raise</code>, коли дані порушують правила програми;</li>
+<li>пояснювати, чому голий <code>except:</code> небезпечний і чим EAFP відрізняється від LBYL.</li>
+</ul>
+<p><strong>Задача розділу.</strong> Каса віддає дев'ять рядків, п'ять із них зіпсовані. Програма має прийняти чотири правильні чеки й для кожного пропущеного рядка пояснити, що з ним не так. Повний код — у розділі <a href="#practice">«Практика»</a>.</p>
+<p><strong>Ноутбук заняття:</strong> <a class="md-button md-button--primary" href="https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_14_exceptions/note_lesson_14_exceptions_student.ipynb">Відкрити вправи в Colab</a> <a class="solutions-link" href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_14_exceptions/note_lesson_14_exceptions.ipynb">Переглянути розв’язки</a></p>
+<h2 id="_1">Пригадай<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>Дай відповідь подумки, нічого не запускаючи:</p>
+<ol>
+<li>Що станеться при <code>menu["піца"]</code>, якщо такого ключа в словнику немає? А при <code>menu.get("піца")</code>?</li>
+<li>Що поверне <code>"2024-07-19 18:30;540.00;50;2".split(";")</code>?</li>
+<li><code>sys.argv</code> для <code>python main.py 2024 липень</code> — який тип у <code>sys.argv[2]</code>?</li>
+</ol>
+<details class="success">
+<summary>Відповіді</summary>
+<ol>
+<li><code>menu["піца"]</code> зупинить програму з <code>KeyError</code>. <code>menu.get("піца")</code> поверне <code>None</code>.</li>
+<li>Список з чотирьох рядків: <code>['2024-07-19 18:30', '540.00', '50', '2']</code>.</li>
+<li><code>str</code>: усі аргументи командного рядка — рядки. Тому <code>main.py</code> викликає <code>int(args[2])</code>, і саме тут <code>"липень"</code> зламав програму.</li>
+</ol>
+</details>
+<h2 id="_2">Звіт упав: читаємо трасування<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>Ось що побачив адміністратор (шляхи до файлів скорочено):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python<span class="w"> </span>main.py<span class="w"> </span><span class="m">2024</span><span class="w"> </span>липень
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Traceback (most recent call last):
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  File "main.py", line 23, in &lt;module&gt;
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    main(sys.argv)
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  File "main.py", line 14, in main
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    year, month = int(args[1]), int(args[2])
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>                                ^^^^^^^^^^^^
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>ValueError: invalid literal for int() with base 10: 'липень'
+</code></pre></div>
+<p><strong>Трасування</strong> (traceback) — це шлях, яким програма дійшла до помилки. Читати його треба <strong>знизу вгору</strong>:</p>
+<ol>
+<li><strong>Останній рядок</strong> — тип винятку і повідомлення: <code>ValueError</code> — «неприпустиме значення», <code>int()</code> не може перетворити <code>'липень'</code> на число.</li>
+<li><strong>Над ним</strong> — рядок коду, що впав, і файл з номером рядка: <code>main.py</code>, рядок 14, функція <code>main</code>. Стрілки <code>^^^^</code> показують, яка саме частина рядка.</li>
+<li><strong>Ще вище</strong> — хто викликав цю функцію: рядок 23, <code>main(sys.argv)</code> на верхньому рівні файлу (<code>&lt;module&gt;</code>).</li>
+</ol>
+<p>Найчастіше відповідь — в останніх двох рядках. Решта показує, як програма туди потрапила.</p>
+<h3 id="_3">Два види помилок<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p><strong><code>SyntaxError</code></strong> — Python не може навіть прочитати код. Програма не запускається зовсім, і не виконується жоден рядок, навіть той, що стоїть вище помилки:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Звіт кафе"</span><span class="p">)</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Середній чек:"</span><span class="p">,</span> <span class="mf">860.0</span> <span class="o">/</span> <span class="mi">2</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>SyntaxError: '(' was never closed
+</code></pre></div>
+<p>Перший <code>print</code> правильний, але нічого не надрукувалося: Python спершу читає весь файл і лише потім виконує.</p>
+<p><strong>Виняток під час виконання</strong> — код написаний правильно, програма стартує, і рядки виконуються, доки один з них не натрапить на неможливу дію:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Звіт кафе"</span><span class="p">)</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Середній чек:"</span><span class="p">,</span> <span class="mf">860.0</span> <span class="o">/</span> <span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Кінець звіту"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Звіт кафе
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>ZeroDivisionError: float division by zero
+</code></pre></div>
+<p>Перший рядок виконався, другий зупинив програму, до третього черга не дійшла. Далі йдеться саме про такі помилки: їх можна передбачити й обробити.</p>
+<div class="admonition note">
+<p class="admonition-title">Вивід на цій сторінці</p>
+<p>Коли код падає, у блоці виводу показано лише останній рядок трасування — тип винятку і повідомлення.</p>
+</div>
+<h2 id="_4">Каса віддає рядки<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>Чек з каси — це рядок з чотирма полями через <code>;</code>: час, сума, чайові, кількість гостей. Сьогодні каса віддала дев'ять рядків:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">NamedTuple</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="k">class</span><span class="w"> </span><span class="nc">RawOrder</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    <span class="n">total_bill</span><span class="p">:</span> <span class="nb">float</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>    <span class="n">tip</span><span class="p">:</span> <span class="nb">float</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    <span class="n">size</span><span class="p">:</span> <span class="nb">int</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>    <span class="n">timestamp</span><span class="p">:</span> <span class="n">datetime</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="n">KASA_LINES</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>    <span class="s2">"2024-07-19 18:30;540.00;50;2"</span><span class="p">,</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>    <span class="s2">"2024-07-19 12:10;320.00;30;1"</span><span class="p">,</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>    <span class="s2">"2024-07-19 19:05;540,00;40;3"</span><span class="p">,</span>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>    <span class="s2">"2024-07-20 20:15;980.00;120;4"</span><span class="p">,</span>
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>    <span class="s2">"2024-07-20 13:40;760.00"</span><span class="p">,</span>
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>    <span class="s2">"2024-02-30 19:00;450.00;0;5"</span><span class="p">,</span>
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>    <span class="s2">"2024-07-21 18:00;-120.00;0;2"</span><span class="p">,</span>
+<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a>    <span class="s2">"2024-07-21 14:20;610.00;60;0"</span><span class="p">,</span>
+<a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a>    <span class="s2">"2024-07-21 21:30;1200.00;150;6"</span><span class="p">,</span>
+<a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a><span class="p">]</span>
+</code></pre></div>
+<p><code>RawOrder</code> — той самий чек, що в уроці 13. Перша версія розбору — «все буде добре»:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">parse_line</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="sd">"""Рядок каси -&gt; RawOrder."""</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="n">time_text</span><span class="p">,</span> <span class="n">bill_text</span><span class="p">,</span> <span class="n">tip_text</span><span class="p">,</span> <span class="n">size_text</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">";"</span><span class="p">)</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="n">timestamp</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">time_text</span><span class="p">,</span> <span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M"</span><span class="p">)</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="k">return</span> <span class="n">RawOrder</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">bill_text</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">tip_text</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">size_text</span><span class="p">),</span> <span class="n">timestamp</span><span class="p">)</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">load_orders</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>    <span class="n">orders</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>        <span class="n">orders</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parse_line</span><span class="p">(</span><span class="n">line</span><span class="p">))</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>    <span class="k">return</span> <span class="n">orders</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="nb">print</span><span class="p">(</span><span class="n">parse_line</span><span class="p">(</span><span class="n">KASA_LINES</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>RawOrder(total_bill=540.0, tip=50.0, size=2, timestamp=datetime.datetime(2024, 7, 19, 18, 30))
+</code></pre></div>
+<p>Перший рядок розібрано. <strong>Прогноз:</strong> що буде з усіма дев'ятьма?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">orders</span> <span class="o">=</span> <span class="n">load_orders</span><span class="p">(</span><span class="n">KASA_LINES</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>ValueError: could not convert string to float: '540,00'
+</code></pre></div>
+<p>Третій рядок — <code>540,00</code> з комою — зупинив усю програму. Два правильні чеки перед ним і чотири після нього втрачені разом з ним.</p>
+<h2 id="_5">Часті винятки<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>Кожен зіпсований рядок каси ламає програму по-своєму. Ось винятки, які трапляються найчастіше:</p>
+<table>
+<thead>
+<tr>
+<th>Виняток</th>
+<th>Приклад з кафе</th>
+<th>Що каже Python</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ValueError</code></td>
+<td><code>float("540,00")</code></td>
+<td>could not convert string to float: '540,00'</td>
+</tr>
+<tr>
+<td><code>ValueError</code></td>
+<td><code>datetime.strptime("2024-02-30 19:00", ...)</code></td>
+<td>day is out of range for month</td>
+</tr>
+<tr>
+<td><code>ValueError</code></td>
+<td><code>a, b, c, d = "2024-07-20 13:40;760.00".split(";")</code></td>
+<td>not enough values to unpack (expected 4, got 2)</td>
+</tr>
+<tr>
+<td><code>TypeError</code></td>
+<td><code>"Чек: " + 540.0</code></td>
+<td>can only concatenate str (not "float") to str</td>
+</tr>
+<tr>
+<td><code>ZeroDivisionError</code></td>
+<td><code>610.0 / 0</code> — середній чек на 0 гостей</td>
+<td>float division by zero</td>
+</tr>
+<tr>
+<td><code>IndexError</code></td>
+<td><code>sys.argv[2]</code>, коли аргумент один</td>
+<td>list index out of range</td>
+</tr>
+<tr>
+<td><code>KeyError</code></td>
+<td><code>menu["піца"]</code></td>
+<td>'піца'</td>
+</tr>
+</tbody>
+</table>
+<p><code>ValueError</code> — «тип правильний, значення ні»: <code>float</code> приймає рядок, але не такий. <code>TypeError</code> — «тип не той»: рядок з числом не складаються. Ще один виняток, <code>FileNotFoundError</code>, з'явиться в <a href="../lesson_15/">уроці 15</a>, коли каса віддаватиме чеки файлом.</p>
+<h2 id="try-except">try / except: перехопити виняток<a class="headerlink" href="#try-except" title="Permanent link">&para;</a></h2>
+<p>Заборонити касі помилятися ми не можемо. Але можемо сказати програмі: «спробуй; якщо вийде <code>ValueError</code> — зроби інше».</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">parse_bill</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">"Не число:"</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>        <span class="k">return</span> <span class="kc">None</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="nb">print</span><span class="p">(</span><span class="n">parse_bill</span><span class="p">(</span><span class="s2">"540.00"</span><span class="p">))</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="nb">print</span><span class="p">(</span><span class="n">parse_bill</span><span class="p">(</span><span class="s2">"540,00"</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>540.0
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>Не число: 540,00
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>None
+</code></pre></div>
+<ul>
+<li><strong><code>try</code></strong> — код, який може впасти;</li>
+<li><strong><code>except ValueError</code></strong> — що робити, якщо в <code>try</code> виник саме <code>ValueError</code>. Виконання переходить сюди <strong>одразу</strong>, решта <code>try</code> пропускається;</li>
+<li>якщо винятку не було, <code>except</code> не виконується зовсім.</li>
+</ul>
+<p>Повідомлення Python часто корисне. Щоб його отримати, додай <code>as</code> та ім'я змінної:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>    <span class="nb">float</span><span class="p">(</span><span class="s2">"540,00"</span><span class="p">)</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"Каса надіслала не число:"</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>Каса надіслала не число: could not convert string to float: '540,00'
+</code></pre></div>
+<h3 id="else-finally">else і finally<a class="headerlink" href="#else-finally" title="Permanent link">&para;</a></h3>
+<p>Повна форма має ще дві гілки:</p>
+<ul>
+<li><strong><code>else</code></strong> — виконується, лише якщо в <code>try</code> <strong>не</strong> було винятку: «чек прийнято»;</li>
+<li><strong><code>finally</code></strong> — виконується <strong>завжди</strong>, був виняток чи ні.</li>
+</ul>
+<p><strong>Прогноз:</strong> що надрукує функція для правильного рядка і для рядка з комою?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">check_line</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"try: розбираю"</span><span class="p">,</span> <span class="n">line</span><span class="p">[:</span><span class="mi">16</span><span class="p">])</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>        <span class="n">order</span> <span class="o">=</span> <span class="n">parse_line</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">"try: розібрано"</span><span class="p">)</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>    <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">"except:"</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">"else: чек на"</span><span class="p">,</span> <span class="n">order</span><span class="o">.</span><span class="n">total_bill</span><span class="p">)</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>    <span class="k">finally</span><span class="p">:</span>
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">"finally: рядок перевірено"</span><span class="p">)</span>
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="n">check_line</span><span class="p">(</span><span class="n">KASA_LINES</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"---"</span><span class="p">)</span>
+<a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a><span class="n">check_line</span><span class="p">(</span><span class="n">KASA_LINES</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>try: розбираю 2024-07-19 18:30
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>try: розібрано
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>else: чек на 540.0
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>finally: рядок перевірено
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>---
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>try: розбираю 2024-07-19 19:05
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>except: could not convert string to float: '540,00'
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>finally: рядок перевірено
+</code></pre></div>
+<p>У другому виклику <code>print("try: розібрано")</code> не виконався: виняток перервав <code>try</code> на рядку <code>parse_line(line)</code>. <code>else</code> пропущено, бо виняток був. <code>finally</code> спрацював обидва рази.</p>
+<p>Обидва виклики поруч:</p>
+<pre class="mermaid"><code>flowchart TD
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    subgraph OK["check_line(KASA_LINES[0]) — правильний рядок"]
+        direction LR
+        T1["try&lt;br&gt;parse_line — ок"] --&gt; E1["else&lt;br&gt;чек на 540.0"] --&gt; F1["finally&lt;br&gt;рядок перевірено"]
+    end
+    subgraph BAD["check_line(KASA_LINES[2]) — «540,00»"]
+        direction LR
+        T2["try&lt;br&gt;parse_line — ValueError"] --&gt; X2["except&lt;br&gt;could not convert…"] --&gt; F2["finally&lt;br&gt;рядок перевірено"]
+    end
+    OK ~~~ BAD
+
+    class T1,E1 success
+    class T2 warning
+    class X2 error
+    class F1,F2 step</code></pre>
+<p><code>try</code> і <code>finally</code> є в обох шляхах; між ними — або <code>else</code>, або <code>except</code>, але ніколи обидва разом.</p>
+<p>Навіщо <code>else</code>, якщо той самий код можна дописати в кінець <code>try</code>? Щоб у <code>try</code> лишався лише рядок, який ми <strong>очікуємо</strong> побачити впалим. Помилка в коді з <code>else</code> не буде випадково перехоплена чужим <code>except</code>. <code>finally</code> зазвичай закриває те, що відкрили: файл, з'єднання, зміну каси. У <a href="../lesson_15/">уроці 15</a> цю роботу візьме на себе <code>with</code>.</p>
+<h2 id="except">Кілька except і ієрархія винятків<a class="headerlink" href="#except" title="Permanent link">&para;</a></h2>
+<p>Винятки утворюють <strong>дерево</strong>: загальні типи вгорі, конкретні внизу. <code>except</code> ловить свій тип <strong>і всіх його нащадків</strong>:</p>
+<pre class="mermaid"><code>flowchart TD
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    E["Exception&lt;br&gt;майже всі винятки"] --&gt; V["ValueError"]
+    E --&gt; T["TypeError"]
+    E --&gt; A["ArithmeticError"]
+    E --&gt; L["LookupError&lt;br&gt;пошук за ключем чи індексом"]
+    V --&gt; C["calendar.IllegalMonthError&lt;br&gt;місяць 13"]
+    A --&gt; Z["ZeroDivisionError"]
+    L --&gt; K["KeyError"]
+    L --&gt; I["IndexError"]
+
+    class E warning
+    class V,T,A,L decision
+    class C,Z,K,I step</code></pre>
+<p>Тому <code>except ValueError</code> ловить і помилку з уроку 13, <code>python main.py 2024 13</code>: <code>IllegalMonthError</code> — різновид <code>ValueError</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">calendar</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>    <span class="n">calendar</span><span class="o">.</span><span class="n">monthrange</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">13</span><span class="p">)</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"Не той місяць:"</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>Не той місяць: bad month number 13; must be 1-12
+</code></pre></div>
+<p>Якщо різні винятки треба обробити по-різному, пишуть кілька <code>except</code>. Python перевіряє їх <strong>згори вниз</strong> і виконує <strong>перший</strong>, що підійшов:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="n">menu</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"борщ"</span><span class="p">:</span> <span class="mi">95</span><span class="p">,</span> <span class="s2">"вареники"</span><span class="p">:</span> <span class="mi">80</span><span class="p">,</span> <span class="s2">"вода"</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">price_per_guest</span><span class="p">(</span><span class="n">dish</span><span class="p">,</span> <span class="n">guests</span><span class="p">):</span>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>        <span class="k">return</span> <span class="n">menu</span><span class="p">[</span><span class="n">dish</span><span class="p">]</span> <span class="o">/</span> <span class="n">guests</span>
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">"страви </span><span class="si">{</span><span class="n">dish</span><span class="si">}</span><span class="s2"> немає в меню"</span>
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>    <span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
+<a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>        <span class="k">return</span> <span class="s2">"гостей має бути хоча б один"</span>
+<a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a>
+<a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a>
+<a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a><span class="nb">print</span><span class="p">(</span><span class="n">price_per_guest</span><span class="p">(</span><span class="s2">"борщ"</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<a id="__codelineno-19-14" name="__codelineno-19-14" href="#__codelineno-19-14"></a><span class="nb">print</span><span class="p">(</span><span class="n">price_per_guest</span><span class="p">(</span><span class="s2">"піца"</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<a id="__codelineno-19-15" name="__codelineno-19-15" href="#__codelineno-19-15"></a><span class="nb">print</span><span class="p">(</span><span class="n">price_per_guest</span><span class="p">(</span><span class="s2">"борщ"</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>47.5
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>страви піца немає в меню
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>гостей має бути хоча б один
+</code></pre></div>
+<p>Якщо обробка однакова, типи записують кортежем: <code>except (KeyError, ZeroDivisionError):</code>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Від вузького до широкого</p>
+<p><code>except Exception:</code>, поставлений першим, забере <strong>всі</strong> винятки, і гілки під ним не виконаються ніколи. Конкретні типи пишуть вище, загальні — нижче або не пишуть зовсім.</p>
+</div>
+<h2 id="raise">raise: правила кафе<a class="headerlink" href="#raise" title="Permanent link">&para;</a></h2>
+<p>Шостий рядок каси, <code>-120.00</code>, Python розбере без жодної помилки: це цілком нормальне число. Сьомий, <code>0</code> гостей, — теж. Але для кафе це неможливі чеки. Python про правила кафе нічого не знає, тож перевіряти їх мусимо ми, і повідомляти так само, як Python: <strong>винятком</strong>.</p>
+<p><code>raise</code> піднімає виняток власноруч:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">parse_line</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">    </span><span class="sd">"""Рядок каси -&gt; RawOrder. Зіпсований рядок -&gt; ValueError з поясненням."""</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>    <span class="n">fields</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">";"</span><span class="p">)</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">4</span><span class="p">:</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"очікували 4 поля, а маємо </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>    <span class="n">time_text</span><span class="p">,</span> <span class="n">bill_text</span><span class="p">,</span> <span class="n">tip_text</span><span class="p">,</span> <span class="n">size_text</span> <span class="o">=</span> <span class="n">fields</span>
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>    <span class="n">timestamp</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">time_text</span><span class="p">,</span> <span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M"</span><span class="p">)</span>
+<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>    <span class="n">bill</span><span class="p">,</span> <span class="n">tip</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">bill_text</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">tip_text</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">size_text</span><span class="p">)</span>
+<a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>    <span class="k">if</span> <span class="n">bill</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"сума чека має бути більшою за 0, а маємо </span><span class="si">{</span><span class="n">bill</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>    <span class="k">if</span> <span class="n">tip</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"чайові не можуть бути від'ємними: </span><span class="si">{</span><span class="n">tip</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a>    <span class="k">if</span> <span class="n">size</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+<a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"гостей має бути хоча б один, а маємо </span><span class="si">{</span><span class="n">size</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-21-15" name="__codelineno-21-15" href="#__codelineno-21-15"></a>    <span class="k">return</span> <span class="n">RawOrder</span><span class="p">(</span><span class="n">bill</span><span class="p">,</span> <span class="n">tip</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">)</span>
+<a id="__codelineno-21-16" name="__codelineno-21-16" href="#__codelineno-21-16"></a>
+<a id="__codelineno-21-17" name="__codelineno-21-17" href="#__codelineno-21-17"></a>
+<a id="__codelineno-21-18" name="__codelineno-21-18" href="#__codelineno-21-18"></a><span class="nb">print</span><span class="p">(</span><span class="n">parse_line</span><span class="p">(</span><span class="s2">"2024-07-21 21:30;1200.00;150;6"</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+<a id="__codelineno-21-19" name="__codelineno-21-19" href="#__codelineno-21-19"></a><span class="n">parse_line</span><span class="p">(</span><span class="s2">"2024-07-21 18:00;-120.00;0;2"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>6
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>ValueError: сума чека має бути більшою за 0, а маємо -120.0
+</code></pre></div>
+<p><code>raise</code> працює як <code>return</code>, тільки для поганого випадку: функція одразу завершується, а виняток летить до того, хто її викликав. Чому <code>ValueError</code>, а не <code>print</code> і <code>return None</code>?</p>
+<ul>
+<li><code>None</code> легко не помітити: він потрапить у список чеків і зламає звіт десь пізніше, далеко від справжньої причини;</li>
+<li>виняток неможливо не помітити: або його обробить той, хто знає, що робити, або програма зупиниться з точним повідомленням;</li>
+<li>для того, хто викликає <code>parse_line</code>, усі проблеми рядка — і кома, і 30 лютого, і наші правила — тепер однакові: <code>ValueError</code>.</li>
+</ul>
+<h2 id="_6">Виняток спливає по стеку<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>Функція <code>parse_line</code> не ловить винятки сама. Куди вони дінуться? Згадай трасування наївної версії (скорочено):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>Traceback (most recent call last):
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>  File "kasa.py", ..., in &lt;module&gt;
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>    orders = load_orders(KASA_LINES)
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>  File "kasa.py", ..., in load_orders
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>    orders.append(parse_line(line))
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>  File "kasa.py", ..., in parse_line
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>    return RawOrder(float(bill_text), float(tip_text), int(size_text), timestamp)
+<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>ValueError: could not convert string to float: '540,00'
+</code></pre></div>
+<p>Виняток народився у <code>float()</code> всередині <code>parse_line</code>. Там його ніхто не ловив, і він <strong>спливає</strong> до того, хто викликав: у <code>load_orders</code>. Там теж не ловили — далі на верхній рівень програми. Не зловив ніхто — програма зупинилася і надрукувала весь шлях.</p>
+<pre class="mermaid"><code>flowchart TD
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    F["float('540,00')&lt;br&gt;ValueError"] --&gt; P{"parse_line&lt;br&gt;має except?"}
+    P -- ні --&gt; L{"load_orders&lt;br&gt;має except?"}
+    L -- так --&gt; OK["рядок 3 пропущено&lt;br&gt;розбір іде далі"]
+    L -- ні --&gt; M{"верхній рівень&lt;br&gt;має except?"}
+    M -- ні --&gt; X["програма зупинилась&lt;br&gt;трасування"]
+
+    class F error
+    class P,L,M decision
+    class OK success
+    class X error</code></pre>
+<p><strong>Де ловити?</strong> Там, де знаєш, <strong>що відповісти</strong>. <code>parse_line</code> бачить лише один рядок і не знає, пропустити його чи зупинити все. <code>load_orders</code> знає номер рядка і що робити: пропустити й записати причину. Отже, <code>try</code> — у <code>load_orders</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">load_orders</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="w">    </span><span class="sd">"""Правильні чеки і список пояснень до пропущених рядків."""</span>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>    <span class="n">orders</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>    <span class="n">errors</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>    <span class="k">for</span> <span class="n">number</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>        <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>            <span class="n">orders</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parse_line</span><span class="p">(</span><span class="n">line</span><span class="p">))</span>
+<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+<a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>            <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"рядок </span><span class="si">{</span><span class="n">number</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">error</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a>    <span class="k">return</span> <span class="n">orders</span><span class="p">,</span> <span class="n">errors</span>
+<a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a>
+<a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a>
+<a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a><span class="n">orders</span><span class="p">,</span> <span class="n">errors</span> <span class="o">=</span> <span class="n">load_orders</span><span class="p">(</span><span class="n">KASA_LINES</span><span class="p">)</span>
+<a id="__codelineno-24-14" name="__codelineno-24-14" href="#__codelineno-24-14"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Прийнято чеків:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">orders</span><span class="p">))</span>
+<a id="__codelineno-24-15" name="__codelineno-24-15" href="#__codelineno-24-15"></a><span class="k">for</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">errors</span><span class="p">:</span>
+<a id="__codelineno-24-16" name="__codelineno-24-16" href="#__codelineno-24-16"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>Прийнято чеків: 4
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>рядок 3: could not convert string to float: '540,00'
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>рядок 5: очікували 4 поля, а маємо 2
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>рядок 6: day is out of range for month
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>рядок 7: сума чека має бути більшою за 0, а маємо -120.0
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>рядок 8: гостей має бути хоча б один, а маємо 0
+</code></pre></div>
+<p>Чотири правильні чеки прийнято, п'ять рядків пропущено, і про кожен сказано, що з ним не так. Жоден <code>try</code> не знадобився ні в <code>parse_line</code>, ні в <code>float</code>, ні в <code>strptime</code>: одного обробника в правильному місці досить.</p>
+<div class="admonition tip">
+<p class="admonition-title">Errors should never pass silently</p>
+<p>«Помилки ніколи не мають минати тихо» — рядок з <a href="https://peps.python.org/pep-0020/">Дзену Python</a>. <code>load_orders</code> не ховає зіпсовані рядки, а повертає їх разом з поясненнями. Власниця кафе може віддати список касирові й виправити дані.</p>
+</div>
+<h2 id="_7">Антипатерн «підгузок»<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>Найпростіший спосіб «прибрати» помилки — <code>except</code> без типу. Він ловить <strong>усе</strong>. Тому його й називають «підгузком»:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="n">accepted</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>    <span class="n">order</span> <span class="o">=</span> <span class="n">parse_line</span><span class="p">(</span><span class="n">KASA_LINES</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>    <span class="n">accepted</span><span class="o">.</span><span class="n">apend</span><span class="p">(</span><span class="n">order</span><span class="p">)</span>
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="k">except</span><span class="p">:</span>
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"Зіпсований рядок каси"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>Зіпсований рядок каси
+</code></pre></div>
+<p>Рядок каси правильний. Впав <code>accepted.apend</code> — друкарська помилка в імені методу (<code>AttributeError</code>). Але повідомлення звинувачує касу, і програміст годину шукатиме проблему не там. Голий <code>except:</code> ховає <strong>твої власні</strong> помилки так само старанно, як і чужі.</p>
+<p>З конкретним типом друкарська помилка одразу себе показує:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>    <span class="n">order</span> <span class="o">=</span> <span class="n">parse_line</span><span class="p">(</span><span class="n">KASA_LINES</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>    <span class="n">accepted</span><span class="o">.</span><span class="n">apend</span><span class="p">(</span><span class="n">order</span><span class="p">)</span>
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"Зіпсований рядок каси"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>AttributeError: 'list' object has no attribute 'apend'
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Лови лише те, що вмієш обробити</p>
+<p>Пиши <code>except</code> з конкретним типом і лише навколо рядків, які справді можуть так впасти. <code>except Exception:</code> трохи кращий за голий <code>except:</code>, але ховає ті самі друкарські помилки.</p>
+</div>
+<h2 id="eafp-lbyl">EAFP чи LBYL<a class="headerlink" href="#eafp-lbyl" title="Permanent link">&para;</a></h2>
+<p>Є два підходи до ризикованих дій:</p>
+<ul>
+<li><strong>LBYL</strong> (Look Before You Leap, «подивись, перш ніж стрибати») — спершу перевірити умову через <code>if</code>, потім діяти;</li>
+<li><strong>EAFP</strong> (Easier to Ask Forgiveness than Permission, «легше попросити вибачення, ніж дозволу») — діяти одразу, а на помилку відповісти в <code>except</code>.</li>
+</ul>
+<p>Здається, перевірити аргумент можна й через <code>if text.isdigit():</code>. Але перевірка і сама дія розуміють «число» по-різному:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"7"</span><span class="p">,</span> <span class="s2">" 7"</span><span class="p">,</span> <span class="s2">"-5"</span><span class="p">,</span> <span class="s2">"07"</span><span class="p">]:</span>
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>    <span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">text</span><span class="p">),</span> <span class="n">text</span><span class="o">.</span><span class="n">isdigit</span><span class="p">(),</span> <span class="n">end</span><span class="o">=</span><span class="s2">" "</span><span class="p">)</span>
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>        <span class="nb">print</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+<a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">"ValueError"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>'7' True 7
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>' 7' False 7
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>'-5' False -5
+<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>'07' True 7
+</code></pre></div>
+<p><code>isdigit()</code> відкидає <code>" 7"</code> і <code>"-5"</code>, які <code>int()</code> чудово перетворює. Тобто перевірка каже одне, а дія робить інше. <code>try: int(text)</code> питає саму операцію: вийде чи ні. Тому в Python для перетворень і розбору зазвичай обирають <strong>EAFP</strong>.</p>
+<p>LBYL доречний, коли перевірка проста і відсутність — нормальна ситуація, а не помилка:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="nb">print</span><span class="p">(</span><span class="n">menu</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"піца"</span><span class="p">,</span> <span class="s2">"немає в меню"</span><span class="p">))</span>
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"піца"</span> <span class="ow">in</span> <span class="n">menu</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>немає в меню
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>False
+</code></pre></div>
+<p>Обидва підходи описано в <a href="https://docs.python.org/3/glossary.html#term-EAFP">глосарії Python</a>.</p>
+<h2 id="practice">Практика<a class="headerlink" href="#practice" title="Permanent link">&para;</a></h2>
+<h3 id="_8">Розібраний приклад: зрозумілі помилки для адміністратора<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>Повернемося до <code>main.py</code> з уроку 13. Адміністратор має бачити не трасування, а пояснення і підказку. Розділимо роботу так само, як з касою:</p>
+<ul>
+<li><code>parse_period(args)</code> перевіряє аргументи й піднімає <code>ValueError</code> з поясненням людською мовою;</li>
+<li><code>main(args)</code> ловить <code>ValueError</code> і друкує пояснення та підказку.</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-34-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-34-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-34-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-34-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-34-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-34-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-34-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-34-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-34-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-34-10">10</a></span>
+<span class="normal"><a href="#__codelineno-34-11">11</a></span>
+<span class="normal"><a href="#__codelineno-34-12">12</a></span>
+<span class="normal"><a href="#__codelineno-34-13">13</a></span>
+<span class="normal"><a href="#__codelineno-34-14">14</a></span>
+<span class="normal"><a href="#__codelineno-34-15">15</a></span>
+<span class="normal"><a href="#__codelineno-34-16">16</a></span>
+<span class="normal"><a href="#__codelineno-34-17">17</a></span>
+<span class="normal"><a href="#__codelineno-34-18">18</a></span>
+<span class="normal"><a href="#__codelineno-34-19">19</a></span>
+<span class="normal"><a href="#__codelineno-34-20">20</a></span>
+<span class="normal"><a href="#__codelineno-34-21">21</a></span>
+<span class="normal"><a href="#__codelineno-34-22">22</a></span>
+<span class="normal"><a href="#__codelineno-34-23">23</a></span>
+<span class="normal"><a href="#__codelineno-34-24">24</a></span>
+<span class="normal"><a href="#__codelineno-34-25">25</a></span>
+<span class="normal"><a href="#__codelineno-34-26">26</a></span>
+<span class="normal"><a href="#__codelineno-34-27">27</a></span>
+<span class="normal"><a href="#__codelineno-34-28">28</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">parse_period</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+<a id="__codelineno-34-2" name="__codelineno-34-2"></a><span class="w">    </span><span class="sd">"""['main.py', '2024', '7'] -&gt; (2024, 7). Некоректні аргументи -&gt; ValueError."""</span>
+<a id="__codelineno-34-3" name="__codelineno-34-3"></a><span class="hll">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+</span><a id="__codelineno-34-4" name="__codelineno-34-4"></a><span class="hll">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"потрібно два аргументи: рік і місяць"</span><span class="p">)</span>
+</span><a id="__codelineno-34-5" name="__codelineno-34-5"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-34-6" name="__codelineno-34-6"></a><span class="hll">        <span class="n">year</span><span class="p">,</span> <span class="n">month</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</span><a id="__codelineno-34-7" name="__codelineno-34-7"></a><span class="hll">    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+</span><a id="__codelineno-34-8" name="__codelineno-34-8"></a><span class="hll">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"рік і місяць мають бути числами, а маємо </span><span class="si">{</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> і </span><span class="si">{</span><span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><a id="__codelineno-34-9" name="__codelineno-34-9"></a><span class="hll">    <span class="k">if</span> <span class="ow">not</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">month</span> <span class="o">&lt;=</span> <span class="mi">12</span><span class="p">:</span>
+</span><a id="__codelineno-34-10" name="__codelineno-34-10"></a><span class="hll">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"місяць має бути від 1 до 12, а маємо </span><span class="si">{</span><span class="n">month</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><a id="__codelineno-34-11" name="__codelineno-34-11"></a><span class="hll">    <span class="k">return</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span>
+</span><a id="__codelineno-34-12" name="__codelineno-34-12"></a>
+<a id="__codelineno-34-13" name="__codelineno-34-13"></a>
+<a id="__codelineno-34-14" name="__codelineno-34-14"></a><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+<a id="__codelineno-34-15" name="__codelineno-34-15"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-34-16" name="__codelineno-34-16"></a><span class="hll">        <span class="n">year</span><span class="p">,</span> <span class="n">month</span> <span class="o">=</span> <span class="n">parse_period</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+</span><a id="__codelineno-34-17" name="__codelineno-34-17"></a><span class="hll">    <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+</span><a id="__codelineno-34-18" name="__codelineno-34-18"></a><span class="hll">        <span class="nb">print</span><span class="p">(</span><span class="s2">"Помилка:"</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+</span><a id="__codelineno-34-19" name="__codelineno-34-19"></a><span class="hll">        <span class="nb">print</span><span class="p">(</span><span class="s2">"Використання: python main.py РІК МІСЯЦЬ, наприклад: python main.py 2024 7"</span><span class="p">)</span>
+</span><a id="__codelineno-34-20" name="__codelineno-34-20"></a><span class="hll">        <span class="k">return</span> <span class="mi">1</span>
+</span><a id="__codelineno-34-21" name="__codelineno-34-21"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Звіт кафе за </span><span class="si">{</span><span class="n">month</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-34-22" name="__codelineno-34-22"></a>    <span class="k">return</span> <span class="mi">0</span>
+<a id="__codelineno-34-23" name="__codelineno-34-23"></a>
+<a id="__codelineno-34-24" name="__codelineno-34-24"></a>
+<a id="__codelineno-34-25" name="__codelineno-34-25"></a><span class="n">main</span><span class="p">([</span><span class="s2">"main.py"</span><span class="p">,</span> <span class="s2">"2024"</span><span class="p">,</span> <span class="s2">"липень"</span><span class="p">])</span>
+<a id="__codelineno-34-26" name="__codelineno-34-26"></a><span class="n">main</span><span class="p">([</span><span class="s2">"main.py"</span><span class="p">,</span> <span class="s2">"2024"</span><span class="p">,</span> <span class="s2">"13"</span><span class="p">])</span>
+<a id="__codelineno-34-27" name="__codelineno-34-27"></a><span class="n">main</span><span class="p">([</span><span class="s2">"main.py"</span><span class="p">,</span> <span class="s2">"2024"</span><span class="p">])</span>
+<a id="__codelineno-34-28" name="__codelineno-34-28"></a><span class="n">main</span><span class="p">([</span><span class="s2">"main.py"</span><span class="p">,</span> <span class="s2">"2024"</span><span class="p">,</span> <span class="s2">"7"</span><span class="p">])</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>Помилка: рік і місяць мають бути числами, а маємо 2024 і липень
+<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>Використання: python main.py РІК МІСЯЦЬ, наприклад: python main.py 2024 7
+<a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>Помилка: місяць має бути від 1 до 12, а маємо 13
+<a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a>Використання: python main.py РІК МІСЯЦЬ, наприклад: python main.py 2024 7
+<a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a>Помилка: потрібно два аргументи: рік і місяць
+<a id="__codelineno-35-6" name="__codelineno-35-6" href="#__codelineno-35-6"></a>Використання: python main.py РІК МІСЯЦЬ, наприклад: python main.py 2024 7
+<a id="__codelineno-35-7" name="__codelineno-35-7" href="#__codelineno-35-7"></a>Звіт кафе за 07.2024
+</code></pre></div>
+<p>Що відбувається в ключових рядках:</p>
+<ul>
+<li><strong>рядки 3–4</strong> — перевірка кількості аргументів <strong>до</strong> звернення до <code>args[2]</code>. Без неї <code>python main.py 2024</code> впав би з <code>IndexError</code>;</li>
+<li><strong>рядки 6–8</strong> — <code>raise</code> всередині <code>except</code>: технічне повідомлення <code>int()</code> замінюємо зрозумілим. <code>ValueError</code> з <code>int()</code> для адміністратора нічого не означає, а «рік і місяць мають бути числами» — означає;</li>
+<li><strong>рядки 9–10</strong> — правило, якого Python не знає: місяць від 1 до 12. Тепер місяць 13 не доходить до <code>calendar</code>, і помилка звучить однаково з іншими;</li>
+<li><strong>рядки 16–20</strong> — <code>main</code> єдина, хто розмовляє з людиною: друкує пояснення і повертає <code>1</code>. Код повернення <code>0</code> означає «успіх», інше число — «помилка». Так програми в терміналі повідомляють про результат одна одній;</li>
+<li><strong><code>parse_period</code></strong> нічого не друкує: вона лише повертає результат або піднімає виняток. Тому її легко перевірити окремо.</li>
+</ul>
+<p>У справжньому <code>main.py</code> останній рядок буде <code>sys.exit(main(sys.argv))</code>: <a href="https://docs.python.org/3/library/sys.html#sys.exit"><code>sys.exit</code></a> передає код повернення терміналу.</p>
+<h3 id="_9">Зміни приклад: питати, доки не введуть правильно<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>У ноутбуці немає командного рядка, тож місяць краще <strong>спитати</strong>. Напиши <code>ask_month(ask)</code>, яка:</p>
+<ul>
+<li>викликає <code>ask("Місяць (1–12): ")</code> і перетворює відповідь на ціле число;</li>
+<li>якщо відповідь не число або не від 1 до 12 — друкує <code>Помилка: …</code> і питає знову;</li>
+<li>повертає перший правильний місяць.</li>
+</ul>
+<p><code>ask</code> — функція, яка отримує підказку і повертає рядок. У справжній програмі це <code>input</code>, а для перевірки — підробка з готовими відповідями:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">fake_input</span><span class="p">(</span><span class="n">answers</span><span class="p">):</span>
+<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a><span class="w">    </span><span class="sd">"""Функція, що замість клавіатури повертає відповіді зі списку по черзі."""</span>
+<a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>    <span class="n">it</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">answers</span><span class="p">)</span>
+<a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a>
+<a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">ask</span><span class="p">(</span><span class="n">prompt</span><span class="p">):</span>
+<a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a>        <span class="n">answer</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+<a id="__codelineno-36-7" name="__codelineno-36-7" href="#__codelineno-36-7"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">prompt</span> <span class="o">+</span> <span class="n">answer</span><span class="p">)</span>
+<a id="__codelineno-36-8" name="__codelineno-36-8" href="#__codelineno-36-8"></a>        <span class="k">return</span> <span class="n">answer</span>
+<a id="__codelineno-36-9" name="__codelineno-36-9" href="#__codelineno-36-9"></a>
+<a id="__codelineno-36-10" name="__codelineno-36-10" href="#__codelineno-36-10"></a>    <span class="k">return</span> <span class="n">ask</span>
+</code></pre></div>
+<p>Очікуваний вивід для <code>ask_month(fake_input(["липень", "13", " 7 "]))</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>Місяць (1–12): липень
+<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>Помилка: потрібне число, а маємо липень
+<a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a>Місяць (1–12): 13
+<a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a>Помилка: місяць має бути від 1 до 12
+<a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a>Місяць (1–12):  7 
+<a id="__codelineno-37-6" name="__codelineno-37-6" href="#__codelineno-37-6"></a>7
+</code></pre></div>
+<p><strong>Критерії перевірки:</strong></p>
+<ul>
+<li>цикл — <code>while True</code>, вихід — <code>return</code> правильного місяця;</li>
+<li><code>try</code> охоплює лише <code>int(...)</code>, а перевірка 1–12 — звичайний <code>if</code> після нього;</li>
+<li><code>ask_month(fake_input(["12"]))</code> повертає <code>12</code> з першої спроби;</li>
+<li><code>ask_month(input)</code> працює з клавіатурою без змін у коді.</li>
+</ul>
+<details class="tip">
+<summary>Підказка</summary>
+<p>Всередині <code>while True</code>: <code>text = ask(...)</code>, потім <code>try: month = int(text)</code> / <code>except ValueError: print(...)</code> і <code>continue</code>. Далі <code>if 1 &lt;= month &lt;= 12: return month</code>, інакше — друк помилки, і цикл піде на нове коло.</p>
+</details>
+<h3 id="_10">Спробуй самостійно: меню і бюджет<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p>Гість питає: «Скільки порцій борщу я можу взяти на 300 грн?» Напиши <code>portions_for_budget(dish, budget, menu)</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="n">menu</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"борщ"</span><span class="p">:</span> <span class="mi">95</span><span class="p">,</span> <span class="s2">"вареники"</span><span class="p">:</span> <span class="mi">80</span><span class="p">,</span> <span class="s2">"узвар"</span><span class="p">:</span> <span class="mi">35</span><span class="p">,</span> <span class="s2">"вода"</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Виклик</th>
+<th>Результат</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>portions_for_budget("борщ", 300, menu)</code></td>
+<td><code>3</code></td>
+</tr>
+<tr>
+<td><code>portions_for_budget("узвар", 100, menu)</code></td>
+<td><code>2</code></td>
+</tr>
+<tr>
+<td><code>portions_for_budget("вода", 100, menu)</code></td>
+<td><code>None</code> — безкоштовно, порцій скільки завгодно</td>
+</tr>
+<tr>
+<td><code>portions_for_budget("піца", 300, menu)</code></td>
+<td><code>ValueError: страви піца немає в меню</code></td>
+</tr>
+<tr>
+<td><code>portions_for_budget("борщ", -50, menu)</code></td>
+<td><code>ValueError: бюджет не може бути від'ємним</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Правила:</strong></p>
+<ul>
+<li>кількість порцій — <code>budget // menu[dish]</code>;</li>
+<li>відсутню страву не перевіряй через <code>in</code>: зловити <code>KeyError</code> і підняти замість нього <code>ValueError</code> з поясненням;</li>
+<li>безкоштовну страву теж не перевіряй через <code>if</code>: зловити <code>ZeroDivisionError</code>;</li>
+<li>від'ємний бюджет — власний <code>raise</code>, <strong>до</strong> будь-яких обчислень;</li>
+<li>жодного голого <code>except:</code>.</li>
+</ul>
+<h3 id="_11">Знайди помилку<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<p>Три фрагменти з кафе, у кожному обробка винятків зроблена неправильно. Що піде не так і як виправити?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="c1"># 1</span>
+<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a>    <span class="n">orders</span><span class="o">.</span><span class="n">apend</span><span class="p">(</span><span class="n">parse_line</span><span class="p">(</span><span class="n">line</span><span class="p">))</span>
+<a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a><span class="k">except</span><span class="p">:</span>
+<a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"Зіпсований рядок"</span><span class="p">)</span>
+<a id="__codelineno-39-6" name="__codelineno-39-6" href="#__codelineno-39-6"></a>
+<a id="__codelineno-39-7" name="__codelineno-39-7" href="#__codelineno-39-7"></a><span class="c1"># 2</span>
+<a id="__codelineno-39-8" name="__codelineno-39-8" href="#__codelineno-39-8"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-39-9" name="__codelineno-39-9" href="#__codelineno-39-9"></a>    <span class="n">price</span> <span class="o">=</span> <span class="n">menu</span><span class="p">[</span><span class="n">dish</span><span class="p">]</span>
+<a id="__codelineno-39-10" name="__codelineno-39-10" href="#__codelineno-39-10"></a><span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+<a id="__codelineno-39-11" name="__codelineno-39-11" href="#__codelineno-39-11"></a>    <span class="n">price</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-39-12" name="__codelineno-39-12" href="#__codelineno-39-12"></a>
+<a id="__codelineno-39-13" name="__codelineno-39-13" href="#__codelineno-39-13"></a><span class="c1"># 3</span>
+<a id="__codelineno-39-14" name="__codelineno-39-14" href="#__codelineno-39-14"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-39-15" name="__codelineno-39-15" href="#__codelineno-39-15"></a>    <span class="n">year</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<a id="__codelineno-39-16" name="__codelineno-39-16" href="#__codelineno-39-16"></a><span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+<a id="__codelineno-39-17" name="__codelineno-39-17" href="#__codelineno-39-17"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"Щось пішло не так"</span><span class="p">)</span>
+<a id="__codelineno-39-18" name="__codelineno-39-18" href="#__codelineno-39-18"></a><span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+<a id="__codelineno-39-19" name="__codelineno-39-19" href="#__codelineno-39-19"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"Рік має бути числом"</span><span class="p">)</span>
+</code></pre></div>
+<details class="success">
+<summary>Відповіді</summary>
+<ol>
+<li>Голий <code>except:</code> ховає друкарську помилку <code>apend</code> (<code>AttributeError</code>): кожен рядок, навіть правильний, буде «зіпсованим». Треба <code>except ValueError:</code> і <code>append</code>.</li>
+<li>Словник піднімає <code>KeyError</code>, а не <code>IndexError</code>, тож <code>except</code> не спрацює і програма впаде. Треба <code>except KeyError:</code>, а ще простіше — <code>price = menu.get(dish)</code>.</li>
+<li><code>Exception</code> стоїть першим і забирає і <code>ValueError</code>: друге повідомлення не з'явиться ніколи. Поміняти місця або прибрати <code>except Exception</code>.</li>
+</ol>
+</details>
+<h2 id="_12">Підсумок<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Поняття</th>
+<th>Що запам'ятати</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Трасування</td>
+<td>читати знизу вгору: тип і повідомлення → рядок → хто викликав</td>
+</tr>
+<tr>
+<td><code>try</code> / <code>except</code></td>
+<td>лови конкретний тип і лише навколо рядків, що можуть так впасти</td>
+</tr>
+<tr>
+<td><code>else</code> / <code>finally</code></td>
+<td><code>else</code> — лише якщо винятку не було, <code>finally</code> — завжди</td>
+</tr>
+<tr>
+<td>Ієрархія</td>
+<td><code>except ValueError</code> ловить і нащадків; вузькі типи вище за широкі</td>
+</tr>
+<tr>
+<td><code>raise</code></td>
+<td>правило програми порушено → виняток з поясненням, а не <code>print</code> і <code>None</code></td>
+</tr>
+<tr>
+<td>Де ловити</td>
+<td>там, де знаєш, що відповісти людині</td>
+</tr>
+<tr>
+<td>EAFP</td>
+<td>для перетворень — <code>try: int(text)</code>, а не <code>isdigit()</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_13">Самоперевірка<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Що виконається з програми, у третьому рядку якої <code>SyntaxError</code>? А якщо там <code>ZeroDivisionError</code>?</li>
+<li>Трасування має п'ять рядків <code>File ...</code>. У якому з них шукати рядок, що впав?</li>
+<li>У <code>try</code> три рядки, виняток виник у першому. Чи виконаються другий і третій?</li>
+<li>Чим відрізняються <code>else</code> і <code>finally</code>?</li>
+<li><code>except ValueError:</code> стоїть навколо <code>calendar.monthrange(2024, 13)</code>. Чи спрацює він? Чому?</li>
+<li>Чому <code>parse_line</code> піднімає <code>ValueError</code>, а не друкує повідомлення і повертає <code>None</code>?</li>
+<li>Чому <code>try</code> стоїть у <code>load_orders</code>, а не в <code>parse_line</code>?</li>
+<li><code>if text.isdigit(): month = int(text)</code>. Які правильні відповіді користувача цей код відкине?</li>
+</ol>
+<details class="success">
+<summary>Відповіді</summary>
+<ol>
+<li>Із <code>SyntaxError</code> — нічого: Python не запустить програму, яку не може прочитати. Із <code>ZeroDivisionError</code> — перші два рядки виконаються, третій зупинить програму.</li>
+<li>В останньому, найближчому до повідомлення про виняток. Рядки вище показують, хто викликав цю функцію.</li>
+<li>Ні: виконання одразу переходить до відповідного <code>except</code>.</li>
+<li><code>else</code> виконується, лише якщо в <code>try</code> не було винятку. <code>finally</code> виконується завжди.</li>
+<li>Так: <code>IllegalMonthError</code> — нащадок <code>ValueError</code>, а <code>except</code> ловить свій тип і всіх нащадків.</li>
+<li><code>None</code> легко не помітити, і він зламає програму пізніше, далеко від причини. Виняток або обробить той, хто знає, що робити, або програма зупиниться з точним повідомленням.</li>
+<li><code>load_orders</code> знає номер рядка і що робити зі зіпсованим рядком: пропустити й записати причину. <code>parse_line</code> бачить лише один рядок.</li>
+<li><code>" 7"</code> з пробілом і від'ємні числа: <code>isdigit()</code> поверне <code>False</code>, хоча <code>int()</code> їх перетворює. <code>try: int(text)</code> питає саму операцію.</li>
+</ol>
+</details>
+<h3 id="_14">Що далі<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Ноутбук заняття: <a class="md-button md-button--primary" href="https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_14_exceptions/note_lesson_14_exceptions_student.ipynb">Відкрити вправи в Colab</a> <a class="solutions-link" href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_14_exceptions/note_lesson_14_exceptions.ipynb">Переглянути розв’язки</a> — той самий день каси: прогнози, <code>parse_line</code> і <code>load_orders</code>, вправи з перевірками.</li>
+<li>Довідник: <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_14_exceptions/notes_exceptions.ipynb"><code>notes_exceptions.ipynb</code></a> <a href="https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_14_exceptions/notes_exceptions.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a> і сторінка <a href="../../../reference/python_core/exceptions/">Exceptions &amp; Error Handling</a> — стислий повтор усієї теми.</li>
+<li>Наступне заняття: <a href="../lesson_15/">Урок 15. Файли, менеджери контексту та JSON</a>. Рядки каси прийдуть з файлу: з'являться <code>FileNotFoundError</code> і <code>with</code>, який закриває файл навіть тоді, коли всередині стався виняток.</li>
+</ul>
+<h2 id="_15">Документація і джерела<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Туторіал Python: <a href="https://docs.python.org/3/tutorial/errors.html">Errors and Exceptions</a> — <code>try</code>, <code>except</code>, <code>else</code>, <code>finally</code>, <code>raise</code></li>
+<li><a href="https://docs.python.org/3/library/exceptions.html">Built-in Exceptions</a> — усі вбудовані винятки і <a href="https://docs.python.org/3/library/exceptions.html#exception-hierarchy">їхня ієрархія</a></li>
+<li>Глосарій: <a href="https://docs.python.org/3/glossary.html#term-EAFP">EAFP</a>, <a href="https://docs.python.org/3/glossary.html#term-LBYL">LBYL</a></li>
+<li><a href="https://peps.python.org/pep-0020/">PEP 20 — The Zen of Python</a>: «Errors should never pass silently»</li>
+<li>Для охочих:<ul>
+<li>Harvard CS50P, <a href="https://cs50.harvard.edu/python/weeks/3/">лекція 3 «Exceptions»</a> — <code>ValueError</code>, <code>try</code>/<code>except</code>/<code>else</code>, цикл вводу до правильної відповіді;</li>
+<li>MIT 6.0001, <a href="https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/resources/lecture-7-testing-debugging-exceptions-and-assertions/">лекція 7 «Testing, Debugging, Exceptions, and Assertions»</a>.</li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Футер" >
+        
+          
+          <a href="../lesson_13/" class="md-footer__link md-footer__link--prev" aria-label="Назад: 13. Модулі та стандартна бібліотека">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Назад
+              </span>
+              <div class="md-ellipsis">
+                13. Модулі та стандартна бібліотека
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../lesson_15/" class="md-footer__link md-footer__link--next" aria-label="Вперед: 15. Файли I/O, JSON">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Вперед
+              </span>
+              <div class="md-ellipsis">
+                15. Файли I/O, JSON
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.footer", "toc.follow", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0456\u0439\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u0421\u043a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438 \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0429\u0435 1 \u0437\u0431\u0456\u0433 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.more.other": "\u0429\u0435 # \u0437\u0431\u0456\u0433\u0456\u0432 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.none": "\u0417\u0431\u0456\u0433\u0456\u0432 \u043d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0437\u0431\u0456\u0433", "search.result.other": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e # \u0437\u0431\u0456\u0433\u0456\u0432", "search.result.placeholder": "\u0420\u043e\u0437\u043f\u043e\u0447\u043d\u0456\u0442\u044c \u043f\u0438\u0441\u0430\u0442\u0438 \u0434\u043b\u044f \u043f\u043e\u0448\u0443\u043a\u0443", "search.result.term.missing": "\u041d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e \u0437\u0430\u043f\u0438\u0442\u0443", "select.version": "\u041e\u0431\u0440\u0430\u0442\u0438 \u0432\u0435\u0440\u0441\u0456\u044e"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/sidebars.js"></script>
+      
+    
+  </body>
+</html>

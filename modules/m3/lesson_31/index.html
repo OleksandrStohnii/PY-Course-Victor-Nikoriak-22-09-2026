@@ -1,0 +1,4594 @@
+
+<!doctype html>
+<html lang="uk" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Курс Python українською — від основ до просунутих тем, у форматі книги">
+      
+      
+      
+        <link rel="canonical" href="https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m3/lesson_31/">
+      
+      
+        <link rel="prev" href="../lesson_30/">
+      
+      
+        <link rel="next" href="../../m4_web/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>31. Redis overview - PY Course — Viktor Nikoriak</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#31-redis-overview" class="md-skip">
+          Перейти до змісту
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Хедер">
+    <a href="../../.." title="PY Course — Viktor Nikoriak" class="md-header__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PY Course — Viktor Nikoriak
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              31. Redis overview
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Пошук" placeholder="Пошук" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Шукати">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистити" aria-label="Очистити" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Пошук розпочато
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Вкладки" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Головна
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../00_getting_started/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Як користуватися
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Модулі курсу (в розробці)
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../00_python_mental_model/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Довідник
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Навігація" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="PY Course — Viktor Nikoriak" class="md-nav__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    PY Course — Viktor Nikoriak
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Головна
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../00_getting_started/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Як користуватися
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Модулі курсу (в розробці)
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Модулі курсу (в розробці)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../m1/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М1. Основи Python
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М1. Основи Python
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Вступ: формат курсу, AI-політика
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Перші кроки
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Змінні та базові типи даних
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Умови та цикли
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Списки, кортежі, множини
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Словники, for, comprehensions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Функції
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. П1. Big O + базові задачі
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Декоратори
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Ітератори й генератори
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. П2. Пошук
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Модулі та стандартна бібліотека
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Винятки та обробка помилок
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Файли I/O, JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Git & GitHub: система
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. П3. Хеш-структури
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Узагальнення + фінальний проєкт
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М2. Python Advanced
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М2. Python Advanced
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2_python_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Функції як об'єкти першого класу
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Класи, простір імен
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    21. Наслідування, поліморфізм
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    22. Інкапсуляція, область видимості
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    23. П4. Рекурсія, divide & conquer, backtracking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    24. @property, декоратори класів, dunder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    25. Ітератори advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    26. Тестування з pytest (+ валідація AI-коду)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    27. П5. Динамічне програмування + greedy (вступ)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    28. Потоки, multiprocessing, asyncio: вступ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    29. П6. Stack, Queue, Heap, Trie + LRU → ООП-пакет
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М3. Бази даних
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М3. Бази даних
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3_databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../bonus_pandas/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. Pandas: аналіз даних, графіки і Dash
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    30. Основи SQL (PostgreSQL)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    31. Redis overview
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    31. Redis overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пригадай
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redis-postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Redis і PostgreSQL: навіщо двоє
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Redis і PostgreSQL: навіщо двоє">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Встановлення і підключення
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ключі, рядки, лічильники
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ключі, рядки, лічильники">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#incr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        INCR: лічильник однією командою
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expire-ttl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Час життя: EXPIRE і TTL
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Структури даних Redis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Структури даних Redis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        List: черга і стек
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hash" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hash: картка кур'єра
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set: унікальні клієнти
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sorted-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sorted set: рейтинг кур'єрів
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redis-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Redis з Python
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Redis з Python">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipeline: кілька команд за один раз
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cache-aside" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Кеш: cache-aside
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#producer-consumer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Черга задач: producer і consumer
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Черга задач: producer і consumer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pubsub" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pub/Sub: сповіщення «всім, хто слухає»
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Архітектура: що класти в Redis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Практика
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Практика">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Розібраний приклад: не більше трьох замовлень за хвилину
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зміни приклад: ліміт для різних дій
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Спробуй самостійно: рейтинг кур'єрів
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Знайди помилку
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Підсумок
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Підсумок">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Самоперевірка
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що далі
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Документація і джерела
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М4. Web (+ Web Advanced)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М4. Web (+ Web Advanced)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4_web/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    32. HTTP: requests, httpx, aiohttp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    33. REST: принципи дизайну API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    34. Django intro: MVT, ORM, admin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    35. Django: forms, HTML practice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    36. DRF overview + Django vs FastAPI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    37. Typing + Pydantic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m4/lesson_38/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    38. FastAPI basics + Postman + OpenAPI
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    39. FastAPI + SQLAlchemy: повний CRUD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    40. Middlewares і кешування (Redis на практиці)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    41. Автентифікація та security basics (JWT, hashing, OWASP)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    42. Тестування API (pytest + httpx)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m4/lesson_43/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    43. AI-інструменти розробника + ризики й валідація
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    44. Інтеграція LLM API (Gemini / Anthropic)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    45. Архітектура застосунків і патерни
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    46. WebSockets + практика: чат
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    47. Security advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    48. Telegram Bot API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М5. Production
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М5. Production
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5_production/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m5/bonus_linux/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. Linux для розробника
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    49. Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    50. Docker Compose + деплой
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    51. CI/CD (GitHub Actions)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М6. Капстоун
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М6. Капстоун
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6_capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6/lesson_52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    52. Робота над фінальним проєктом
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6/lesson_53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    53. Випускний: питч фінального проєкту
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m6/bonus_cv/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. CV розробника
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bonus_ai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Self-paced. AI для розробників (бонус)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../00_python_mental_model/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Довідник
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пригадай
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redis-postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Redis і PostgreSQL: навіщо двоє
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Redis і PostgreSQL: навіщо двоє">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Встановлення і підключення
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ключі, рядки, лічильники
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ключі, рядки, лічильники">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#incr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        INCR: лічильник однією командою
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expire-ttl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Час життя: EXPIRE і TTL
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Структури даних Redis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Структури даних Redis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        List: черга і стек
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hash" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hash: картка кур'єра
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set: унікальні клієнти
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sorted-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sorted set: рейтинг кур'єрів
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redis-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Redis з Python
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Redis з Python">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipeline: кілька команд за один раз
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cache-aside" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Кеш: cache-aside
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#producer-consumer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Черга задач: producer і consumer
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Черга задач: producer і consumer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pubsub" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pub/Sub: сповіщення «всім, хто слухає»
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Архітектура: що класти в Redis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Практика
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Практика">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Розібраний приклад: не більше трьох замовлень за хвилину
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зміни приклад: ліміт для різних дій
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Спробуй самостійно: рейтинг кур'єрів
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Знайди помилку
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Підсумок
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Підсумок">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Самоперевірка
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що далі
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Документація і джерела
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Навігація" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Головна
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Модулі курсу (в розробці)
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../m3_databases/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    М3. Бази даних
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="31-redis-overview">Урок 31. Redis overview<a class="headerlink" href="#31-redis-overview" title="Permanent link">&para;</a></h1>
+<p>База PostgreSQL з уроку 30 стала для диспетчерської «Смачно + Таксі» <strong>джерелом правди</strong>: замовлення, кур'єри й гроші не загубляться. Але сервіс росте, і з'являються питання, для яких реляційна база — не найкращий інструмент:</p>
+<ul>
+<li>лічильник «скільки замовлень за останню хвилину» оновлюється сотні разів на секунду — і нікому не потрібен завтра;</li>
+<li>тижневий звіт власниці рахується 2 секунди, а його відкривають десять разів на хвилину;</li>
+<li>SMS клієнтам треба відправляти <strong>у фоні</strong>: програма, що приймає замовлення, не повинна чекати SMS-шлюз;</li>
+<li>рейтинг кур'єрів має оновлюватися миттєво після кожної доставки.</li>
+</ul>
+<p>Для таких задач поруч із PostgreSQL ставлять <strong>Redis</strong> — сховище «ключ → значення», яке тримає дані <strong>в оперативній пам'яті</strong> і відповідає за мікросекунди. Сьогодні — що вміє Redis, які в ньому структури даних (знайомі з уроку 29!) і як працювати з ним з Python.</p>
+<p><strong>Що потрібно з попередніх уроків:</strong> словник (урок 6), стан гонитви (урок 28), черга, стек, купа й LRU-кеш (урок 29), PostgreSQL і клієнт-сервер (урок 30).</p>
+<p><strong>Після уроку ти зможеш:</strong></p>
+<ul>
+<li>пояснити, чим Redis відрізняється від PostgreSQL і для чого його ставлять поруч;</li>
+<li>працювати з ключами, лічильниками й часом життя (<code>SET</code>, <code>GET</code>, <code>INCR</code>, <code>EXPIRE</code>, <code>TTL</code>);</li>
+<li>обрати структуру Redis під задачу: список, хеш, множина, відсортована множина;</li>
+<li>працювати з Redis з Python через <code>redis-py</code>;</li>
+<li>реалізувати кеш <strong>cache-aside</strong>, чергу задач і обмеження частоти запитів (rate limit).</li>
+</ul>
+<p><strong>Задача розділу.</strong> Лічильники, кеш звітів, черга SMS і рейтинг кур'єрів для диспетчерської. Повний приклад — у розділі <a href="#practice">«Практика»</a>.</p>
+<p><strong>Ноутбук заняття:</strong> <a class="md-button md-button--primary" href="https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_3/lessons/lesson_31_redis_overview/note_lesson_31_redis_student.ipynb">Відкрити вправи в Colab</a> <a class="solutions-link" href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_3/lessons/lesson_31_redis_overview/note_lesson_31_redis.ipynb">Переглянути розв’язки</a> — зі встановленням Redis прямо в Colab.</p>
+<h2 id="_1">Пригадай<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Чому <code>balance = balance + 1</code> з кількох потоків губить оплати (урок 28)?</li>
+<li>Що викидає LRU-кеш, коли місця немає (урок 29)?</li>
+<li>Що гарантує <code>COMMIT</code> у PostgreSQL (урок 30)?</li>
+</ol>
+<details class="success">
+<summary>Відповіді</summary>
+<ol>
+<li>«Прочитати» і «записати» — два кроки, між якими інший потік встигає своє. Сьогодні побачимо, як Redis робить «прочитати-додати-записати» однією неподільною командою.</li>
+<li>Запис, до якого найдовше не зверталися. Redis уміє працювати саме так, коли закінчується пам'ять.</li>
+<li>Що зміни записані на диск і переживуть навіть вимкнення сервера. Redis за замовчуванням дає слабшу гарантію — і це свідомий компроміс заради швидкості.</li>
+</ol>
+</details>
+<h2 id="redis-postgresql">Redis і PostgreSQL: навіщо двоє<a class="headerlink" href="#redis-postgresql" title="Permanent link">&para;</a></h2>
+<p><strong>Redis</strong> (REmote DIctionary Server) — сервер, який тримає <strong>великий словник</strong> в оперативній пам'яті: ключ — рядок, значення — рядок, список, хеш, множина… Клієнти підключаються до нього мережею, як до PostgreSQL, і надсилають короткі команди.</p>
+<pre class="mermaid"><code>flowchart LR
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    APP["сервіс диспетчерської&lt;br&gt;Python"] -- "лічильники, кеш,&lt;br&gt;черги, рейтинг" --&gt; R[("Redis&lt;br&gt;пам'ять, порт 6379")]
+    APP -- "замовлення, кур'єри,&lt;br&gt;гроші" --&gt; PG[("PostgreSQL&lt;br&gt;диск, порт 5432")]
+    W["воркер SMS&lt;br&gt;Python"] -- "бере задачі з черги" --&gt; R
+
+    class APP,W step
+    class R warning
+    class PG success</code></pre>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>PostgreSQL</th>
+<th>Redis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Де дані</td>
+<td>на диску</td>
+<td>в оперативній пам'яті (з копією на диск за бажанням)</td>
+</tr>
+<tr>
+<td>Модель</td>
+<td>таблиці, зв'язки, SQL</td>
+<td>ключ → значення різних типів</td>
+</tr>
+<tr>
+<td>Швидкість</td>
+<td>мілісекунди</td>
+<td>мікросекунди</td>
+</tr>
+<tr>
+<td>Запити</td>
+<td>будь-які: <code>JOIN</code>, <code>GROUP BY</code></td>
+<td>лише за ключем і командами структури</td>
+</tr>
+<tr>
+<td>Обмеження, транзакції</td>
+<td>сильні: <code>CHECK</code>, <code>FOREIGN KEY</code>, ACID</td>
+<td>мінімальні</td>
+</tr>
+<tr>
+<td>Для чого</td>
+<td><strong>джерело правди</strong></td>
+<td>швидкі тимчасові дані: кеш, лічильники, черги, сесії</td>
+</tr>
+</tbody>
+</table>
+<p>Правило просте: усе, що не можна втратити, — у PostgreSQL. Redis тримає те, що можна <strong>відновити</strong> (кеш) або що <strong>живе недовго</strong> (лічильник за хвилину, задача в черзі).</p>
+<h3 id="_2">Встановлення і підключення<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:4"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Docker (рекомендовано)</label><label for="__tabbed_1_2">Linux (Ubuntu)</label><label for="__tabbed_1_3">Windows / macOS</label><label for="__tabbed_1_4">Google Colab</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>smachno-redis<span class="w"> </span>-p<span class="w"> </span><span class="m">6379</span>:6379<span class="w"> </span>-d<span class="w"> </span>redis:7
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>smachno-redis<span class="w"> </span>redis-cli
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>redis-server
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>redis-cli
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>На Windows Redis офіційно запускають через Docker або WSL (Ubuntu всередині Windows). На macOS — Docker або <code>brew install redis</code>, потім <code>brew services start redis</code>.</p>
+</div>
+<div class="tabbed-block">
+<p>Colab — Ubuntu, тож Redis ставиться командою <code>apt-get install redis-server</code> і запускається <code>redis-server --daemonize yes</code>. Готова клітинка — на початку ноутбука заняття.</p>
+</div>
+</div>
+</div>
+<p><code>redis-cli</code> — консольний клієнт, як <code>psql</code> для PostgreSQL. Перевірка зв'язку:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$ redis-cli
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>127.0.0.1:6379&gt; PING
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>PONG
+</code></pre></div>
+<h2 id="_3">Ключі, рядки, лічильники<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>Найпростіше значення — рядок. <code>SET</code> записує, <code>GET</code> читає, <code>DEL</code> видаляє, <code>EXISTS</code> перевіряє:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$ redis-cli --raw
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>127.0.0.1:6379&gt; SET courier:1:name "Оксана"
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>OK
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>127.0.0.1:6379&gt; GET courier:1:name
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>Оксана
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>127.0.0.1:6379&gt; GET courier:99:name
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>127.0.0.1:6379&gt; EXISTS courier:1:name courier:99:name
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>1
+</code></pre></div>
+<p>Redis зберігає байти й не знає про кодування. Звичайний <code>redis-cli</code> показує не-ASCII символи кодами — <code>GET courier:1:name</code> дасть <code>"\xd0\x9e\xd0\xba…"</code>. Ключ <code>--raw</code> виводить їх як є, тому далі в уроці консоль запущена саме так. У режимі <code>--raw</code> відповідь «значення немає» (nil) — порожній рядок, а числа — без позначки <code>(integer)</code>.</p>
+<p>Назви ключів у Redis — просто рядки. Двокрапки — домовленість, а не синтаксис: <code>courier:1:name</code> читається як «кур'єр 1, ім'я». Такі «простори імен» допомагають не плутати ключі різних частин сервісу. <code>EXISTS</code> повертає, <strong>скільки</strong> з переданих ключів існує; <code>GET</code> неіснуючого ключа повертає nil — «немає значення», як <code>None</code> у Python.</p>
+<h3 id="incr">INCR: лічильник однією командою<a class="headerlink" href="#incr" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>127.0.0.1:6379&gt; INCR orders:today
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>1
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>127.0.0.1:6379&gt; INCR orders:today
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>2
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>127.0.0.1:6379&gt; INCRBY orders:today 5
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>7
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>127.0.0.1:6379&gt; GET orders:today
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>7
+</code></pre></div>
+<p><code>INCR</code> створює ключ зі значенням 0, якщо його не було, і додає 1. Головне: <code>INCR</code> — <strong>одна атомарна команда</strong>. Redis виконує команди по одній, тож «прочитати-додати-записати» не може перерватися іншим клієнтом — стан гонитви з уроку 28 тут неможливий.</p>
+<pre class="mermaid"><code>flowchart TD
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    subgraph B["GET + SET з двох кас: гонитва"]
+        direction LR
+        B1["каса 1: GET → 7"] --&gt; B2["каса 2: GET → 7"] --&gt; B3["каса 1: SET 8"] --&gt; B4["каса 2: SET 8&lt;br&gt;одне замовлення втрачено"]
+    end
+    subgraph G["INCR з двох кас: черга команд у Redis"]
+        direction LR
+        G1["каса 1: INCR&lt;br&gt;7 → 8"] --&gt; G2["каса 2: INCR&lt;br&gt;8 → 9"] --&gt; G3["9 — обидва враховано"]
+    end
+    B ~~~ G
+
+    class B1,B2,B3 step
+    class B4 error
+    class G1,G2 warning
+    class G3 success</code></pre>
+<h3 id="expire-ttl">Час життя: EXPIRE і TTL<a class="headerlink" href="#expire-ttl" title="Permanent link">&para;</a></h3>
+<p>Лічильник «замовлень за цю хвилину» має зникнути сам. Кожному ключу можна задати <strong>час життя</strong> (TTL, time to live):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>127.0.0.1:6379&gt; SET promo:SUMMER10 "active"
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>OK
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>127.0.0.1:6379&gt; EXPIRE promo:SUMMER10 60
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>1
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>127.0.0.1:6379&gt; TTL promo:SUMMER10
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>60
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>127.0.0.1:6379&gt; SET report:week "..." EX 300
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>OK
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>127.0.0.1:6379&gt; TTL report:week
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>300
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>127.0.0.1:6379&gt; TTL courier:1:name
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>-1
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>127.0.0.1:6379&gt; TTL no:such:key
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>-2
+</code></pre></div>
+<p><code>TTL</code> показує, скільки секунд ключ ще житиме: <code>-1</code> — вічно (TTL не задано), <code>-2</code> — ключа немає. <code>SET ... EX 300</code> — записати й одразу задати час життя. Коли час мине, Redis видалить ключ сам — саме те, що потрібно для кешу й тимчасових лічильників.</p>
+<h2 id="redis">Структури даних Redis<a class="headerlink" href="#redis" title="Permanent link">&para;</a></h2>
+<p>Значенням ключа може бути не лише рядок. П'ять основних типів — старі знайомі з уроку 29:</p>
+<table>
+<thead>
+<tr>
+<th>Урок 29</th>
+<th>Redis</th>
+<th>Команди</th>
+<th>Для диспетчерської</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Queue</code> / <code>Stack</code></td>
+<td><strong>list</strong> — список</td>
+<td><code>LPUSH</code>, <code>RPUSH</code>, <code>LPOP</code>, <code>RPOP</code>, <code>BRPOP</code>, <code>LRANGE</code></td>
+<td>черга SMS, історія дій</td>
+</tr>
+<tr>
+<td><code>dict</code></td>
+<td><strong>hash</strong> — словник у ключі</td>
+<td><code>HSET</code>, <code>HGET</code>, <code>HGETALL</code>, <code>HINCRBY</code></td>
+<td>картка кур'єра</td>
+</tr>
+<tr>
+<td><code>set</code></td>
+<td><strong>set</strong> — множина</td>
+<td><code>SADD</code>, <code>SISMEMBER</code>, <code>SCARD</code>, <code>SINTER</code></td>
+<td>унікальні клієнти дня</td>
+</tr>
+<tr>
+<td><code>MinHeap</code></td>
+<td><strong>sorted set</strong> — множина з балами</td>
+<td><code>ZADD</code>, <code>ZINCRBY</code>, <code>ZRANGE</code>, <code>ZPOPMIN</code></td>
+<td>рейтинг, черга за дедлайном</td>
+</tr>
+<tr>
+<td><code>LRUCache</code></td>
+<td>увесь Redis з <code>maxmemory-policy allkeys-lru</code></td>
+<td>налаштування сервера</td>
+<td>кеш</td>
+</tr>
+</tbody>
+</table>
+<h3 id="list">List: черга і стек<a class="headerlink" href="#list" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>127.0.0.1:6379&gt; RPUSH sms:queue "Анна: замовлення #101 прийнято"
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>1
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>127.0.0.1:6379&gt; RPUSH sms:queue "Богдан: кур'єр виїхав"
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>2
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>127.0.0.1:6379&gt; RPUSH sms:queue "Віра: замовлення доставлено"
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>3
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>127.0.0.1:6379&gt; LRANGE sms:queue 0 -1
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>Анна: замовлення #101 прийнято
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>Богдан: кур'єр виїхав
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>Віра: замовлення доставлено
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>127.0.0.1:6379&gt; LPOP sms:queue
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>Анна: замовлення #101 прийнято
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>127.0.0.1:6379&gt; LLEN sms:queue
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>2
+</code></pre></div>
+<p><code>RPUSH</code> додає в хвіст, <code>LPOP</code> бере з голови — черга FIFO, як <code>Queue</code> з уроку 29. <code>LRANGE 0 -1</code> — усі елементи (від першого до останнього). Для стеку беруть з того самого кінця, куди додають: <code>RPUSH</code> + <code>RPOP</code>.</p>
+<h3 id="hash">Hash: картка кур'єра<a class="headerlink" href="#hash" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>127.0.0.1:6379&gt; HSET courier:1 name "Оксана" district "Поділ" delivered 3
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>3
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>127.0.0.1:6379&gt; HGET courier:1 district
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>Поділ
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>127.0.0.1:6379&gt; HINCRBY courier:1 delivered 1
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>4
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>127.0.0.1:6379&gt; HGETALL courier:1
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>name
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>Оксана
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>district
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>Поділ
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>delivered
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>4
+</code></pre></div>
+<p>Hash — словник усередині одного ключа. <code>HSET</code> повертає, скільки <strong>нових</strong> полів додано; <code>HINCRBY</code> — атомарний <code>+=</code> для поля.</p>
+<h3 id="set">Set: унікальні клієнти<a class="headerlink" href="#set" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>127.0.0.1:6379&gt; SADD customers:2026-09-21 "Анна" "Богдан" "Віра" "Анна"
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>3
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>127.0.0.1:6379&gt; SADD customers:2026-09-22 "Анна" "Галина"
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>2
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>127.0.0.1:6379&gt; SCARD customers:2026-09-21
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>3
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>127.0.0.1:6379&gt; SISMEMBER customers:2026-09-21 "Галина"
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>0
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>127.0.0.1:6379&gt; SINTER customers:2026-09-21 customers:2026-09-22
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>Анна
+</code></pre></div>
+<p>Друга «Анна» не додалась — множина тримає лише унікальні значення (<code>SADD</code> повернув 3, а не 4). <code>SINTER</code> — перетин, як <code>&amp;</code> для <code>set</code> у Python (урок 5): хто замовляв обидва дні.</p>
+<h3 id="sorted-set">Sorted set: рейтинг кур'єрів<a class="headerlink" href="#sorted-set" title="Permanent link">&para;</a></h3>
+<p><strong>Відсортована множина</strong> — множина, де в кожного елемента є <strong>бал</strong> (score), і Redis тримає елементи впорядкованими за ним. Ідеально для рейтингів і черг з пріоритетом.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>127.0.0.1:6379&gt; ZADD rating 2130 "Оксана" 1570 "Тарас" 1040 "Ігор" 0 "Марія"
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>4
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>127.0.0.1:6379&gt; ZINCRBY rating 390 "Марія"
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>390
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>127.0.0.1:6379&gt; ZREVRANGE rating 0 2 WITHSCORES
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>Оксана
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>2130
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>Тарас
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>1570
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>Ігор
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>1040
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>127.0.0.1:6379&gt; ZRANK rating "Марія"
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>0
+</code></pre></div>
+<p>Виторг кур'єрів з уроку 30 став балами. <code>ZINCRBY</code> додає до балу, <code>ZREVRANGE 0 2</code> — трійка найкращих (від більшого до меншого), <code>ZRANK</code> — місце за зростанням, починаючи з 0. Кожна зміна — <code>O(log n)</code>, як у купі з уроку 29.</p>
+<h2 id="redis-python">Redis з Python<a class="headerlink" href="#redis-python" title="Permanent link">&para;</a></h2>
+<p>Клієнт — пакет <code>redis</code> (redis-py): <code>pip install redis</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">redis</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="n">r</span> <span class="o">=</span> <span class="n">redis</span><span class="o">.</span><span class="n">Redis</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">"localhost"</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">6379</span><span class="p">,</span> <span class="n">decode_responses</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">ping</span><span class="p">())</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="n">r</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"courier:2:name"</span><span class="p">,</span> <span class="s2">"Тарас"</span><span class="p">)</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"courier:2:name"</span><span class="p">))</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">incr</span><span class="p">(</span><span class="s2">"orders:today"</span><span class="p">))</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">hgetall</span><span class="p">(</span><span class="s2">"courier:1"</span><span class="p">))</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">zrevrange</span><span class="p">(</span><span class="s2">"rating"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">withscores</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>True
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>Тарас
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>8
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>{'name': 'Оксана', 'district': 'Поділ', 'delivered': '4'}
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>[('Оксана', 2130.0), ('Тарас', 1570.0), ('Ігор', 1040.0)]
+</code></pre></div>
+<p>Кожна команда Redis — метод з тією самою назвою в нижньому регістрі. <code>decode_responses=True</code> перетворює відповіді з <code>bytes</code> на <code>str</code>; без нього <code>get</code> повертав би <code>b'...'</code>. Числа Redis зберігає як рядки, тож <code>get("orders:today")</code> поверне <code>'9'</code>, а не <code>9</code> — перетворюй через <code>int()</code>.</p>
+<h3 id="pipeline">Pipeline: кілька команд за один раз<a class="headerlink" href="#pipeline" title="Permanent link">&para;</a></h3>
+<p>Кожна команда — запит мережею й очікування відповіді. <code>pipeline</code> збирає кілька команд і відправляє їх разом:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">pipe</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">pipeline</span><span class="p">()</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="n">pipe</span><span class="o">.</span><span class="n">hset</span><span class="p">(</span><span class="s2">"courier:2"</span><span class="p">,</span> <span class="n">mapping</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Тарас"</span><span class="p">,</span> <span class="s2">"district"</span><span class="p">:</span> <span class="s2">"Центр"</span><span class="p">,</span> <span class="s2">"delivered"</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="n">pipe</span><span class="o">.</span><span class="n">zincrby</span><span class="p">(</span><span class="s2">"rating"</span><span class="p">,</span> <span class="mi">450</span><span class="p">,</span> <span class="s2">"Тарас"</span><span class="p">)</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="n">pipe</span><span class="o">.</span><span class="n">incr</span><span class="p">(</span><span class="s2">"orders:today"</span><span class="p">)</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">pipe</span><span class="o">.</span><span class="n">execute</span><span class="p">())</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>[3, 2020.0, 9]
+</code></pre></div>
+<p><code>execute()</code> повертає відповіді всіх команд списком. За замовчуванням pipeline в redis-py ще й <strong>транзакційний</strong> (<code>MULTI</code> / <code>EXEC</code>): команди виконаються разом, і жоден інший клієнт не вклиниться між ними.</p>
+<h2 id="cache-aside">Кеш: cache-aside<a class="headerlink" href="#cache-aside" title="Permanent link">&para;</a></h2>
+<p>Звіт власниці з уроку 30 рахується довго. Замість того щоб щоразу питати PostgreSQL, результат зберігають у Redis на кілька хвилин. Найпоширеніша схема — <strong>cache-aside</strong> («кеш збоку»):</p>
+<ol>
+<li>спершу шукаємо в Redis;</li>
+<li>є (<strong>hit</strong>) — віддаємо одразу;</li>
+<li>немає (<strong>miss</strong>) — рахуємо в базі, кладемо в Redis з TTL і віддаємо.</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="n">database_calls</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="k">def</span><span class="w"> </span><span class="nf">weekly_report_from_db</span><span class="p">():</span>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="w">    </span><span class="sd">"""Замість справжнього SQL-запиту з уроку 30 — повільна функція з лічильником."""</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>    <span class="k">global</span> <span class="n">database_calls</span>
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>    <span class="n">database_calls</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">"Поділ"</span><span class="p">:</span> <span class="mf">2730.0</span><span class="p">,</span> <span class="s2">"Оболонь"</span><span class="p">:</span> <span class="mf">2010.0</span><span class="p">}</span>
+<a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>
+<a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>
+<a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a><span class="k">def</span><span class="w"> </span><span class="nf">weekly_report</span><span class="p">():</span>
+<a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>    <span class="n">cached</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"cache:weekly_report"</span><span class="p">)</span>
+<a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a>    <span class="k">if</span> <span class="n">cached</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>                       <span class="c1"># hit</span>
+<a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a>        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">cached</span><span class="p">)</span>
+<a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a>    <span class="n">report</span> <span class="o">=</span> <span class="n">weekly_report_from_db</span><span class="p">()</span>             <span class="c1"># miss</span>
+<a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a>    <span class="n">r</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"cache:weekly_report"</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">report</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> <span class="n">ex</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a>    <span class="k">return</span> <span class="n">report</span>
+<a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a>
+<a id="__codelineno-14-23" name="__codelineno-14-23" href="#__codelineno-14-23"></a>
+<a id="__codelineno-14-24" name="__codelineno-14-24" href="#__codelineno-14-24"></a><span class="k">for</span> <span class="n">attempt</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
+<a id="__codelineno-14-25" name="__codelineno-14-25" href="#__codelineno-14-25"></a>    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+<a id="__codelineno-14-26" name="__codelineno-14-26" href="#__codelineno-14-26"></a>    <span class="n">report</span> <span class="o">=</span> <span class="n">weekly_report</span><span class="p">()</span>
+<a id="__codelineno-14-27" name="__codelineno-14-27" href="#__codelineno-14-27"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">attempt</span><span class="p">,</span> <span class="n">report</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> с"</span><span class="p">)</span>
+<a id="__codelineno-14-28" name="__codelineno-14-28" href="#__codelineno-14-28"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"звернень до бази:"</span><span class="p">,</span> <span class="n">database_calls</span><span class="p">,</span> <span class="s2">"| TTL кешу:"</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">ttl</span><span class="p">(</span><span class="s2">"cache:weekly_report"</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>1 {'Поділ': 2730.0, 'Оболонь': 2010.0} 0.5 с
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>2 {'Поділ': 2730.0, 'Оболонь': 2010.0} 0.0 с
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>3 {'Поділ': 2730.0, 'Оболонь': 2010.0} 0.0 с
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>звернень до бази: 1 | TTL кешу: 300
+</code></pre></div>
+<p>Redis зберігає лише рядки, тому словник звіту перетворюємо на JSON (урок 15) і назад. Перше звернення — повільне (miss), наступні — миттєві (hit), а база працювала один раз.</p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant S as сервіс
+    participant R as Redis
+    participant P as PostgreSQL
+    S-&gt;&gt;R: GET cache:weekly_report
+    R--&gt;&gt;S: (nil) — miss
+    S-&gt;&gt;P: SELECT … GROUP BY … (0.5 с)
+    P--&gt;&gt;S: звіт
+    S-&gt;&gt;R: SET cache:weekly_report … EX 300
+    Note over S,R: наступні 300 секунд
+    S-&gt;&gt;R: GET cache:weekly_report
+    R--&gt;&gt;S: JSON звіту — hit, база не потрібна</code></pre>
+<div class="admonition warning">
+<p class="admonition-title">Кеш — це копія, і вона застаріває</p>
+<p>Поки кеш живий, нове замовлення в PostgreSQL у звіті не з'явиться. Тому кеш <strong>завжди</strong> має TTL, а коли дані змінюються — старий запис видаляють (<code>DEL cache:weekly_report</code>), щоб наступний запит порахував свіжий звіт. Скільки секунд «застарілості» допустимо — бізнес-рішення: для звіту за тиждень 5 хвилин — нормально, для балансу рахунку — ні.</p>
+</div>
+<h2 id="producer-consumer">Черга задач: producer і consumer<a class="headerlink" href="#producer-consumer" title="Permanent link">&para;</a></h2>
+<p>Приймання замовлення не повинно чекати SMS-шлюз. Сервіс-<strong>producer</strong> кладе задачу в список Redis і одразу відповідає клієнтові; окремий процес-<strong>consumer</strong> (воркер) забирає задачі й відправляє SMS.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">send_sms_later</span><span class="p">(</span><span class="n">phone</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">    </span><span class="sd">"""Producer: покласти задачу в чергу й повернутися одразу."""</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>    <span class="n">r</span><span class="o">.</span><span class="n">rpush</span><span class="p">(</span><span class="s2">"queue:sms"</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s2">"phone"</span><span class="p">:</span> <span class="n">phone</span><span class="p">,</span> <span class="s2">"text"</span><span class="p">:</span> <span class="n">text</span><span class="p">},</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">sms_worker</span><span class="p">(</span><span class="n">max_tasks</span><span class="p">):</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="w">    </span><span class="sd">"""Consumer: брати задачі з голови черги; чекати, якщо черга порожня."""</span>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_tasks</span><span class="p">):</span>
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>        <span class="n">item</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">blpop</span><span class="p">(</span><span class="s2">"queue:sms"</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>        <span class="k">if</span> <span class="n">item</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">"черга порожня — воркер чекав 1 с і зупинився"</span><span class="p">)</span>
+<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a>            <span class="k">return</span>
+<a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a>        <span class="n">_queue_name</span><span class="p">,</span> <span class="n">payload</span> <span class="o">=</span> <span class="n">item</span>
+<a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a>        <span class="n">task</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+<a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">"відправлено:"</span><span class="p">,</span> <span class="n">task</span><span class="p">[</span><span class="s2">"phone"</span><span class="p">],</span> <span class="s2">"—"</span><span class="p">,</span> <span class="n">task</span><span class="p">[</span><span class="s2">"text"</span><span class="p">])</span>
+<a id="__codelineno-16-16" name="__codelineno-16-16" href="#__codelineno-16-16"></a>
+<a id="__codelineno-16-17" name="__codelineno-16-17" href="#__codelineno-16-17"></a>
+<a id="__codelineno-16-18" name="__codelineno-16-18" href="#__codelineno-16-18"></a><span class="n">send_sms_later</span><span class="p">(</span><span class="s2">"+380501112233"</span><span class="p">,</span> <span class="s2">"Замовлення #101 прийнято"</span><span class="p">)</span>
+<a id="__codelineno-16-19" name="__codelineno-16-19" href="#__codelineno-16-19"></a><span class="n">send_sms_later</span><span class="p">(</span><span class="s2">"+380672223344"</span><span class="p">,</span> <span class="s2">"Кур'єр уже їде"</span><span class="p">)</span>
+<a id="__codelineno-16-20" name="__codelineno-16-20" href="#__codelineno-16-20"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"у черзі:"</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">llen</span><span class="p">(</span><span class="s2">"queue:sms"</span><span class="p">))</span>
+<a id="__codelineno-16-21" name="__codelineno-16-21" href="#__codelineno-16-21"></a><span class="n">sms_worker</span><span class="p">(</span><span class="n">max_tasks</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>у черзі: 2
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>відправлено: +380501112233 — Замовлення #101 прийнято
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>відправлено: +380672223344 — Кур'єр уже їде
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>черга порожня — воркер чекав 1 с і зупинився
+</code></pre></div>
+<p><code>BLPOP</code> — «блокуючий» <code>LPOP</code>: якщо черга порожня, воркер <strong>чекає</strong>, доки задача з'явиться (або мине <code>timeout</code>). Producer і consumer можуть бути різними програмами на різних комп'ютерах — Redis між ними як поштова скринька. Так працює Celery (урок 49+): Redis — брокер, воркери — окремі процеси.</p>
+<pre class="mermaid"><code>flowchart LR
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    A["сервіс замовлень&lt;br&gt;producer"] -- "RPUSH" --&gt; Q[("queue:sms&lt;br&gt;список у Redis")]
+    Q -- "BLPOP" --&gt; W1["воркер 1&lt;br&gt;consumer"]
+    Q -- "BLPOP" --&gt; W2["воркер 2&lt;br&gt;consumer"]
+    W1 --&gt; G["SMS-шлюз"]
+    W2 --&gt; G
+
+    class A step
+    class Q warning
+    class W1,W2 success
+    class G step</code></pre>
+<p>Кожну задачу отримає <strong>рівно один</strong> воркер: <code>BLPOP</code> атомарно знімає елемент. Більше воркерів — більше SMS за секунду.</p>
+<h3 id="pubsub">Pub/Sub: сповіщення «всім, хто слухає»<a class="headerlink" href="#pubsub" title="Permanent link">&para;</a></h3>
+<p>Черга — «одна задача одному воркеру». <strong>Pub/Sub</strong> — навпаки: повідомлення отримують <strong>усі</strong> підписники каналу, а хто не слухав — не отримає нічого.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">listener</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">pubsub</span><span class="p">()</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="n">listener</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="s2">"dispatch:events"</span><span class="p">)</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="n">listener</span><span class="o">.</span><span class="n">get_message</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>                 <span class="c1"># підтвердження підписки</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="n">r</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="s2">"dispatch:events"</span><span class="p">,</span> <span class="s2">"нове термінове замовлення #104"</span><span class="p">)</span>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="n">message</span> <span class="o">=</span> <span class="n">listener</span><span class="o">.</span><span class="n">get_message</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="s2">"channel"</span><span class="p">],</span> <span class="s2">"→"</span><span class="p">,</span> <span class="n">message</span><span class="p">[</span><span class="s2">"data"</span><span class="p">])</span>
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="n">listener</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>dispatch:events → нове термінове замовлення #104
+</code></pre></div>
+<p>Pub/Sub підходить для «живих» сповіщень: екран диспетчера, чат (урок 46). Повідомлення ніде не зберігаються — для задач, які не можна загубити, беруть чергу.</p>
+<h2 id="architecture">Архітектура: що класти в Redis<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    Q["нові дані"] --&gt; L{"втрата — катастрофа?&lt;br&gt;гроші, замовлення"}
+    L -- так --&gt; PG["PostgreSQL&lt;br&gt;джерело правди"]
+    L -- ні --&gt; R{"можна відновити&lt;br&gt;або живе недовго?"}
+    R -- "так: копія з бази" --&gt; C["Redis-кеш&lt;br&gt;з TTL"]
+    R -- "так: лічильник, сесія" --&gt; T["Redis з TTL"]
+    R -- "задача у фоні" --&gt; QU["Redis-черга&lt;br&gt;list / Celery"]
+
+    class Q step
+    class L,R decision
+    class PG success
+    class C,T,QU warning</code></pre>
+<p><strong>Чи зберігає Redis дані на диск?</strong> Може, двома способами:</p>
+<ul>
+<li><strong>RDB</strong> — знімок усієї пам'яті на диск раз на кілька хвилин. Після падіння втрачається все, що змінилося після останнього знімка;</li>
+<li><strong>AOF</strong> — журнал кожної команди. Втрати менші, але файл більший і повільніше відновлення.</li>
+</ul>
+<p>Навіть з AOF Redis не дає гарантій PostgreSQL: немає обмежень, зовнішніх ключів, складних транзакцій. Тому гроші й замовлення — у PostgreSQL.</p>
+<p><strong>Що буде, коли закінчиться пам'ять?</strong> Це вирішує налаштування <code>maxmemory-policy</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>127.0.0.1:6379&gt; CONFIG GET maxmemory-policy
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>maxmemory-policy
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>noeviction
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>127.0.0.1:6379&gt; CONFIG SET maxmemory-policy allkeys-lru
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>OK
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>127.0.0.1:6379&gt; CONFIG GET maxmemory-policy
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>maxmemory-policy
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>allkeys-lru
+</code></pre></div>
+<p>За замовчуванням <code>noeviction</code>: коли пам'ять заповнена, нові записи отримують помилку. <code>allkeys-lru</code> робить з усього Redis <strong>LRU-кеш з уроку 29</strong>: викидає ключі, до яких найдовше не зверталися. Для сервера-кешу — саме те; для черги задач — небезпечно (зникнуть задачі). Тому кеш і черги часто тримають у <strong>різних</strong> екземплярах Redis.</p>
+<p><strong>Коли Redis не потрібен?</strong> Коли PostgreSQL справляється: один звіт на годину, сотня замовлень на день. Кожен додатковий сервер — це ще одна річ, яка може впасти, і питання «а чи свіжий кеш?». Спершу виміряй (урок 9), потім додавай кеш.</p>
+<details class="note">
+<summary>Для допитливих: як Redis говорить мережею</summary>
+<p>Redis спілкується через TCP простим текстовим протоколом <strong>RESP</strong>. Команду можна надіслати звичайним сокетом, без бібліотеки:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">socket</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="k">with</span> <span class="n">socket</span><span class="o">.</span><span class="n">create_connection</span><span class="p">((</span><span class="s2">"localhost"</span><span class="p">,</span> <span class="mi">6379</span><span class="p">))</span> <span class="k">as</span> <span class="n">sock</span><span class="p">:</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>    <span class="n">sock</span><span class="o">.</span><span class="n">sendall</span><span class="p">(</span><span class="sa">b</span><span class="s2">"*1</span><span class="se">\r\n</span><span class="s2">$4</span><span class="se">\r\n</span><span class="s2">PING</span><span class="se">\r\n</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">sock</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">64</span><span class="p">))</span>
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>    <span class="n">sock</span><span class="o">.</span><span class="n">sendall</span><span class="p">(</span><span class="sa">b</span><span class="s2">"*2</span><span class="se">\r\n</span><span class="s2">$3</span><span class="se">\r\n</span><span class="s2">GET</span><span class="se">\r\n</span><span class="s2">$12</span><span class="se">\r\n</span><span class="s2">orders:today</span><span class="se">\r\n</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">sock</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">64</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>b'+PONG\r\n'
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>b'$1\r\n9\r\n'
+</code></pre></div>
+<p><code>*1</code> — масив з одного елемента, <code>$4</code> — рядок довжиною 4 байти, <code>\r\n</code> — розділювач. Відповідь <code>+PONG</code> — простий рядок, <code>$1\r\n9</code> — рядок з одного байта: значення лічильника <code>orders:today</code>. Саме це робить redis-py за тебе. Сокети й TCP докладно — в уроці 32.</p>
+</details>
+<h2 id="practice">Практика<a class="headerlink" href="#practice" title="Permanent link">&para;</a></h2>
+<h3 id="_4">Розібраний приклад: не більше трьох замовлень за хвилину<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>Хтось скриптом надсилає сотні фейкових замовлень. Обмежимо: <strong>не більше 3 замовлень за хвилину з одного номера телефону</strong> (rate limit). Ключ — номер плюс поточна хвилина; значення — лічильник; TTL — 60 секунд.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">allow_order</span><span class="p">(</span><span class="n">phone</span><span class="p">,</span> <span class="n">minute</span><span class="p">):</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>    <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"rate:</span><span class="si">{</span><span class="n">phone</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">minute</span><span class="si">}</span><span class="s2">"</span>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>    <span class="n">count</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">incr</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>          <span class="c1"># атомарно: +1 і повернути нове значення</span>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>    <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>        <span class="n">r</span><span class="o">.</span><span class="n">expire</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>        <span class="c1"># перше замовлення хвилини — ключ зникне сам</span>
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>    <span class="k">return</span> <span class="n">count</span> <span class="o">&lt;=</span> <span class="mi">3</span>
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>
+<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>
+<a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a><span class="k">for</span> <span class="n">attempt</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">):</span>
+<a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">attempt</span><span class="p">,</span> <span class="n">allow_order</span><span class="p">(</span><span class="s2">"+380501112233"</span><span class="p">,</span> <span class="s2">"2026-09-26T12:05"</span><span class="p">))</span>
+<a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"інша хвилина:"</span><span class="p">,</span> <span class="n">allow_order</span><span class="p">(</span><span class="s2">"+380501112233"</span><span class="p">,</span> <span class="s2">"2026-09-26T12:06"</span><span class="p">))</span>
+<a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"інший номер:"</span><span class="p">,</span> <span class="n">allow_order</span><span class="p">(</span><span class="s2">"+380672223344"</span><span class="p">,</span> <span class="s2">"2026-09-26T12:05"</span><span class="p">))</span>
+<a id="__codelineno-23-13" name="__codelineno-23-13" href="#__codelineno-23-13"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"TTL:"</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">ttl</span><span class="p">(</span><span class="s2">"rate:+380501112233:2026-09-26T12:05"</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>1 True
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>2 True
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>3 True
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>4 False
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>5 False
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>інша хвилина: True
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>інший номер: True
+<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>TTL: 60
+</code></pre></div>
+<ul>
+<li>Хвилина — частина ключа: нова хвилина — новий лічильник з нуля. У справжньому сервісі її беруть з <code>datetime.now()</code> (урок 13), тут вона передається параметром, щоб результат можна було перевірити.</li>
+<li><code>INCR</code> атомарний: навіть якщо п'ять запитів прийдуть одночасно з різних серверів, кожен отримає своє число 1, 2, 3, 4, 5.</li>
+<li>Старі лічильники прибере TTL — пам'ять не забивається вчорашніми хвилинами.</li>
+</ul>
+<h3 id="_5">Зміни приклад: ліміт для різних дій<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>Узагальни <code>allow_order</code> до <code>allow(action, user, minute, limit)</code>: для <code>action="order"</code> ліміт 3, для <code>action="promo"</code> (перевірка промокоду) — 5 за хвилину. Ключ має містити дію, щоб лічильники не змішувались.</p>
+<p><strong>Критерії перевірки:</strong></p>
+<ul>
+<li>6 перевірок промокоду: <code>True</code> ×5, потім <code>False</code>;</li>
+<li>лічильники замовлень і промокодів одного користувача не впливають один на одного;</li>
+<li>у кожного ключа є TTL.</li>
+</ul>
+<h3 id="_6">Спробуй самостійно: рейтинг кур'єрів<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>Напиши три функції на sorted set <code>rating:week</code>:</p>
+<ul>
+<li><code>add_delivery(courier, amount)</code> — додати суму доставки до балу кур'єра;</li>
+<li><code>top(n)</code> — список <code>(кур'єр, сума)</code> від найбільшої суми;</li>
+<li><code>place(courier)</code> — місце кур'єра в рейтингу <strong>з одиниці</strong> (перший — 1).</li>
+</ul>
+<p><strong>Критерії перевірки:</strong></p>
+<ul>
+<li>після доставок Оксана 540 + 980, Тарас 1250, Ігор 760: <code>top(2) == [("Оксана", 1520.0), ("Тарас", 1250.0)]</code>;</li>
+<li><code>place("Ігор") == 3</code>;</li>
+<li>повторна доставка Тараса на 300 піднімає його на перше місце.</li>
+</ul>
+<details class="tip">
+<summary>Підказка</summary>
+<p><code>ZINCRBY</code>, <code>ZREVRANGE … WITHSCORES</code> і <code>ZREVRANK</code> (місце за спаданням, з нуля — додай 1).</p>
+</details>
+<h3 id="_7">Знайди помилку<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>Колега рахує замовлення за день так:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">count_order_buggy</span><span class="p">():</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>    <span class="n">current</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"orders:buggy"</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>    <span class="n">r</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"orders:buggy"</span><span class="p">,</span> <span class="n">current</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<p>Чотири сервери приймають по 500 замовлень одночасно:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">threading</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="n">r</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s2">"orders:buggy"</span><span class="p">)</span>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="n">threads</span> <span class="o">=</span> <span class="p">[</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="p">[</span><span class="n">count_order_buggy</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">500</span><span class="p">)])</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span>
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="k">for</span> <span class="n">thread</span> <span class="ow">in</span> <span class="n">threads</span><span class="p">:</span>
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>    <span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a><span class="k">for</span> <span class="n">thread</span> <span class="ow">in</span> <span class="n">threads</span><span class="p">:</span>
+<a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a>    <span class="n">thread</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+<a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"очікували 2000, маємо:"</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"orders:buggy"</span><span class="p">))</span>
+</code></pre></div>
+<p>Приклад виводу (у тебе число буде іншим):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>очікували 2000, маємо: 698
+</code></pre></div>
+<details class="success">
+<summary>Відповідь</summary>
+<p><code>GET</code>, а потім <code>SET</code> — два окремі запити до Redis, і між ними інші сервери встигають прочитати те саме старе значення: стан гонитви з уроку 28, тільки між процесами, а не потоками. <code>Lock</code> з уроку 28 тут не допоможе — сервери різні. Правильно — одна атомарна команда: <code>r.incr("orders:today")</code>.</p>
+</details>
+<h2 id="_8">Підсумок<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Поняття</th>
+<th>Що запам'ятати</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Redis</td>
+<td>сервер «ключ → значення» в пам'яті; мікросекунди; поруч із PostgreSQL, а не замість</td>
+</tr>
+<tr>
+<td><code>SET</code> / <code>GET</code> / <code>DEL</code> / <code>EXISTS</code></td>
+<td>базові операції з ключем; nil — немає (<code>None</code> у Python)</td>
+</tr>
+<tr>
+<td><code>INCR</code> / <code>INCRBY</code> / <code>HINCRBY</code></td>
+<td>атомарні лічильники — без стану гонитви</td>
+</tr>
+<tr>
+<td><code>EXPIRE</code> / <code>TTL</code> / <code>SET … EX</code></td>
+<td>час життя ключа: <code>-1</code> вічно, <code>-2</code> немає</td>
+</tr>
+<tr>
+<td>list</td>
+<td>черга й стек: <code>RPUSH</code> / <code>LPOP</code> / <code>BLPOP</code></td>
+</tr>
+<tr>
+<td>hash</td>
+<td>словник у ключі: <code>HSET</code> / <code>HGETALL</code></td>
+</tr>
+<tr>
+<td>set</td>
+<td>унікальні значення: <code>SADD</code> / <code>SCARD</code> / <code>SINTER</code></td>
+</tr>
+<tr>
+<td>sorted set</td>
+<td>впорядковано за балом: рейтинги, черги з пріоритетом</td>
+</tr>
+<tr>
+<td>redis-py</td>
+<td><code>redis.Redis(decode_responses=True)</code>; команди — методи; <code>pipeline</code></td>
+</tr>
+<tr>
+<td>cache-aside</td>
+<td>GET → miss → база → SET з TTL; кеш застаріває — TTL і <code>DEL</code></td>
+</tr>
+<tr>
+<td>Черга задач</td>
+<td>producer <code>RPUSH</code>, consumer <code>BLPOP</code>; кожна задача — одному воркеру</td>
+</tr>
+<tr>
+<td>Pub/Sub</td>
+<td>повідомлення всім підписникам, без збереження</td>
+</tr>
+<tr>
+<td>Персистентність</td>
+<td>RDB-знімки, AOF-журнал; джерело правди — PostgreSQL</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_9">Самоперевірка<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Чому Redis відповідає швидше за PostgreSQL і чим за це платимо?</li>
+<li>Чому <code>INCR</code> не має стану гонитви, а <code>GET</code> + <code>SET</code> має?</li>
+<li>Що повернуть <code>TTL</code> для ключа без часу життя і для ключа, якого немає?</li>
+<li>Яку структуру Redis взяти для: черги SMS; рейтингу кур'єрів; картки кур'єра; унікальних клієнтів за день?</li>
+<li>Опиши cache-aside. Чому кеш без TTL — погана ідея?</li>
+<li>Чим черга на list відрізняється від Pub/Sub?</li>
+<li>Що станеться із заповненим Redis за <code>noeviction</code> і за <code>allkeys-lru</code>?</li>
+</ol>
+<details class="success">
+<summary>Відповіді</summary>
+<ol>
+<li>Дані в оперативній пам'яті, команди прості й виконуються по одній. Платимо обсягом пам'яті та слабшими гарантіями збереження, немає SQL і обмежень.</li>
+<li><code>INCR</code> — одна команда, а Redis виконує команди по черзі; між двома командами <code>GET</code> і <code>SET</code> встигають команди інших клієнтів.</li>
+<li><code>-1</code> і <code>-2</code>.</li>
+<li>List; sorted set; hash; set.</li>
+<li>Шукаємо в Redis; немає — рахуємо в базі й кладемо в Redis з TTL. Без TTL копія житиме вічно й показуватиме застарілі дані, доки хтось не видалить її вручну.</li>
+<li>У черзі кожну задачу бере один воркер, і вона чекає в Redis, доки її заберуть. Pub/Sub розсилає повідомлення всім підписникам одразу й ніде його не зберігає.</li>
+<li><code>noeviction</code> — нові записи отримають помилку; <code>allkeys-lru</code> — Redis викине ключі, до яких найдовше не зверталися.</li>
+</ol>
+</details>
+<h3 id="_10">Що далі<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Ноутбук заняття: <a class="md-button md-button--primary" href="https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_3/lessons/lesson_31_redis_overview/note_lesson_31_redis_student.ipynb">Відкрити вправи в Colab</a> <a class="solutions-link" href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_3/lessons/lesson_31_redis_overview/note_lesson_31_redis.ipynb">Переглянути розв’язки</a> — встановлення Redis у Colab, лічильники, структури, кеш, черга й rate limit з перевірками.</li>
+<li>Наступний урок — 32, HTTP: <code>requests</code>, <code>httpx</code>, <code>aiohttp</code> — як програми говорять мережею.</li>
+<li>Redis на практиці у веб-застосунку — урок 40 «Middlewares і кешування»; Celery з Redis-брокером і Docker — уроки 49–50; Pub/Sub для чату — урок 46.</li>
+</ul>
+<h2 id="_11">Документація і джерела<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Redis: <a href="https://redis.io/docs/latest/get-started/">Get started</a>, <a href="https://redis.io/docs/latest/develop/data-types/">Data types</a> (strings, lists, hashes, sets, sorted sets), <a href="https://redis.io/docs/latest/commands/">Commands</a>, <a href="https://redis.io/docs/latest/develop/reference/eviction/">Key eviction</a>, <a href="https://redis.io/docs/latest/operate/oss_and_stack/management/persistence/">Persistence</a>, <a href="https://redis.io/docs/latest/develop/pubsub/">Pub/Sub</a>, <a href="https://redis.io/docs/latest/develop/reference/protocol-spec/">RESP</a></li>
+<li>Python: <a href="https://redis.readthedocs.io/en/stable/">redis-py</a> — <a href="https://redis.readthedocs.io/en/stable/advanced_features.html">Pipelines</a> і Pub/Sub</li>
+<li>Встановлення: образ <a href="https://hub.docker.com/_/redis">redis на Docker Hub</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Футер" >
+        
+          
+          <a href="../lesson_30/" class="md-footer__link md-footer__link--prev" aria-label="Назад: 30. Основи SQL (PostgreSQL)">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Назад
+              </span>
+              <div class="md-ellipsis">
+                30. Основи SQL (PostgreSQL)
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../m4_web/" class="md-footer__link md-footer__link--next" aria-label="Вперед: Огляд модуля">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Вперед
+              </span>
+              <div class="md-ellipsis">
+                Огляд модуля
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.footer", "toc.follow", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0456\u0439\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u0421\u043a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438 \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0429\u0435 1 \u0437\u0431\u0456\u0433 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.more.other": "\u0429\u0435 # \u0437\u0431\u0456\u0433\u0456\u0432 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.none": "\u0417\u0431\u0456\u0433\u0456\u0432 \u043d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0437\u0431\u0456\u0433", "search.result.other": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e # \u0437\u0431\u0456\u0433\u0456\u0432", "search.result.placeholder": "\u0420\u043e\u0437\u043f\u043e\u0447\u043d\u0456\u0442\u044c \u043f\u0438\u0441\u0430\u0442\u0438 \u0434\u043b\u044f \u043f\u043e\u0448\u0443\u043a\u0443", "search.result.term.missing": "\u041d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e \u0437\u0430\u043f\u0438\u0442\u0443", "select.version": "\u041e\u0431\u0440\u0430\u0442\u0438 \u0432\u0435\u0440\u0441\u0456\u044e"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/sidebars.js"></script>
+      
+    
+  </body>
+</html>

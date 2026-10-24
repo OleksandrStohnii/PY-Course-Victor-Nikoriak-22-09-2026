@@ -1,0 +1,125 @@
+/* Сторінка огляду модуля М1 (docs/modules/m1/index.md).
+   Усі правила обмежені класами .m1-*, щоб не змінювати інші сторінки книги. */
+
+.md-typeset .m1-subtitle {
+  margin-top: -0.8em;
+  margin-bottom: 1.4em;
+  font-size: 1.05rem;
+  line-height: 1.4;
+  color: var(--md-default-fg-color--light);
+}
+
+.md-typeset .m1-program table:not([class]) {
+  font-size: 0.75rem;
+}
+
+.md-typeset .m1-program table:not([class]) td {
+  vertical-align: top;
+}
+
+/* № — вузька колонка, назва заняття не переноситься посеред короткого слова */
+.md-typeset .m1-program table:not([class]) td:first-child,
+.md-typeset .m1-program table:not([class]) th:first-child {
+  width: 2.5em;
+  text-align: right;
+  color: var(--md-default-fg-color--light);
+}
+
+.md-typeset .m1-program table:not([class]) td:nth-child(2) {
+  min-width: 9.5em;
+  font-weight: 600;
+}
+
+/* Телефони: кожен рядок програми — окремий блок «№ + назва / результат»,
+   щоб третя колонка не стискалась до одного слова в рядку. */
+@media screen and (max-width: 44.9375em) {
+  .md-typeset .m1-program table:not([class]),
+  .md-typeset .m1-program table:not([class]) tbody,
+  .md-typeset .m1-program table:not([class]) tr,
+  .md-typeset .m1-program table:not([class]) td {
+    display: block;
+  }
+  .md-typeset .m1-program table:not([class]) {
+    font-size: 0.75rem;
+  }
+  .md-typeset .m1-program table:not([class]) thead {
+    display: none;
+  }
+  .md-typeset .m1-program table:not([class]) tr {
+    padding: 0.7em 0.8em;
+    border-top: 0.05rem solid var(--md-typeset-table-color);
+  }
+  .md-typeset .m1-program table:not([class]) tr:first-child {
+    border-top: none;
+  }
+  .md-typeset .m1-program table:not([class]) td {
+    padding: 0;
+    border-top: none;
+  }
+  .md-typeset .m1-program table:not([class]) td:first-child {
+    float: left;
+    width: 2em;
+    text-align: left;
+  }
+  .md-typeset .m1-program table:not([class]) td:nth-child(2),
+  .md-typeset .m1-program table:not([class]) td:nth-child(3) {
+    min-width: 0;
+    margin-left: 2em;
+  }
+  .md-typeset .m1-program table:not([class]) td:nth-child(3) {
+    margin-top: 0.2em;
+  }
+}
+
+/* Кнопки згортання бічних панелей (docs/javascripts/sidebars.js). */
+.sidebar-toggle {
+  display: none;
+  align-items: center;
+  gap: 0.3em;
+  margin: 0 0.2rem;
+  padding: 0.3em 0.6em;
+  border: 0.05rem solid var(--md-primary-bg-color--light);
+  border-radius: 0.2rem;
+  color: var(--md-primary-bg-color);
+  background: transparent;
+  font-size: 0.7rem;
+  cursor: pointer;
+}
+.sidebar-toggle:hover,
+.sidebar-toggle:focus-visible {
+  background: var(--md-primary-bg-color--light);
+  outline: none;
+}
+.sidebar-toggle[aria-pressed="true"] {
+  opacity: 0.7;
+}
+/* Ліве меню Material показує збоку лише від 76.25em, зміст — від 60em;
+   на вужчих екранах панелі й так сховані в меню-«бургер», кнопки не потрібні. */
+@media screen and (min-width: 76.25em) {
+  .sidebar-toggle--nav { display: inline-flex; }
+  .sidebar-hide-nav .md-sidebar--primary { display: none; }
+}
+@media screen and (min-width: 60em) {
+  .sidebar-toggle--toc { display: inline-flex; }
+  .sidebar-hide-toc .md-sidebar--secondary { display: none; }
+}
+@media screen and (max-width: 89.9375em) {
+  .sidebar-toggle__text { display: none; }
+}
+
+/* Посилання на ноутбуки уроку: головне — кнопка «Відкрити вправи в Colab» (студентська версія без розв'язків);
+   поруч, менш помітно, — «Переглянути розв’язки» (майстер-ноутбук на GitHub, для самоперевірки). */
+.md-typeset .md-button {
+  margin: 0.2em 0.4em 0.2em 0;
+  padding: 0.35em 1.2em;
+  font-size: 0.8rem;
+}
+.md-typeset a.solutions-link {
+  font-size: 0.75rem;
+  color: var(--md-default-fg-color--light);
+  text-decoration: underline dotted;
+  white-space: nowrap;
+}
+.md-typeset a.solutions-link:hover {
+  color: var(--md-accent-fg-color);
+}

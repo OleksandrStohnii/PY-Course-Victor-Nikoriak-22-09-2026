@@ -1,0 +1,4673 @@
+
+<!doctype html>
+<html lang="uk" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Курс Python українською — від основ до просунутих тем, у форматі книги">
+      
+      
+      
+        <link rel="canonical" href="https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m4/lesson_42/">
+      
+      
+        <link rel="prev" href="../lesson_41/">
+      
+      
+        <link rel="next" href="../lesson_43/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>42. Тестування API (pytest + httpx) - PY Course — Viktor Nikoriak</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#42-api-pytest-httpx" class="md-skip">
+          Перейти до змісту
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Хедер">
+    <a href="../../.." title="PY Course — Viktor Nikoriak" class="md-header__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PY Course — Viktor Nikoriak
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              42. Тестування API (pytest + httpx)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Пошук" placeholder="Пошук" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Шукати">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистити" aria-label="Очистити" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Пошук розпочато
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Вкладки" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Головна
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../00_getting_started/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Як користуватися
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Модулі курсу (в розробці)
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../00_python_mental_model/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Довідник
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Навігація" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="PY Course — Viktor Nikoriak" class="md-nav__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    PY Course — Viktor Nikoriak
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Головна
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../00_getting_started/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Як користуватися
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Модулі курсу (в розробці)
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Модулі курсу (в розробці)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../m1/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М1. Основи Python
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М1. Основи Python
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Вступ: формат курсу, AI-політика
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Перші кроки
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Змінні та базові типи даних
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Умови та цикли
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Списки, кортежі, множини
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Словники, for, comprehensions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Функції
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. П1. Big O + базові задачі
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Декоратори
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Ітератори й генератори
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. П2. Пошук
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Модулі та стандартна бібліотека
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Винятки та обробка помилок
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Файли I/O, JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Git & GitHub: система
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. П3. Хеш-структури
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Узагальнення + фінальний проєкт
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М2. Python Advanced
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М2. Python Advanced
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2_python_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Функції як об'єкти першого класу
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Класи, простір імен
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    21. Наслідування, поліморфізм
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    22. Інкапсуляція, область видимості
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    23. П4. Рекурсія, divide & conquer, backtracking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    24. @property, декоратори класів, dunder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    25. Ітератори advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    26. Тестування з pytest (+ валідація AI-коду)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    27. П5. Динамічне програмування + greedy (вступ)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    28. Потоки, multiprocessing, asyncio: вступ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    29. П6. Stack, Queue, Heap, Trie + LRU → ООП-пакет
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М3. Бази даних
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М3. Бази даних
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3_databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m3/bonus_pandas/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. Pandas: аналіз даних, графіки і Dash
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3/lesson_30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    30. Основи SQL (PostgreSQL)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3/lesson_31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    31. Redis overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М4. Web (+ Web Advanced)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М4. Web (+ Web Advanced)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4_web/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    32. HTTP: requests, httpx, aiohttp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    33. REST: принципи дизайну API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    34. Django intro: MVT, ORM, admin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    35. Django: forms, HTML practice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    36. DRF overview + Django vs FastAPI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    37. Typing + Pydantic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../lesson_38/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    38. FastAPI basics + Postman + OpenAPI
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    39. FastAPI + SQLAlchemy: повний CRUD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    40. Middlewares і кешування (Redis на практиці)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    41. Автентифікація та security basics (JWT, hashing, OWASP)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    42. Тестування API (pytest + httpx)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    42. Тестування API (pytest + httpx)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пригадай
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Старт: з якого коду починаємо
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 1. Шари тестів: unit і integration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 2. Збережені сторінки замість рядків у тесті
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 3. Мок мережі: patch where used
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 4. Фейк замість моку: локальний HTTP-сервер
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 4. Фейк замість моку: локальний HTTP-сервер">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fakeredis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Межа фейку: fakeredis і гонка
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 5. API асинхронно: httpx.AsyncClient
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 6. Покриття: що тести не зачепили
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 6. Покриття: що тести не зачепили">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get_db" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Справжній get_db
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fakerbcua" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        fakerbc.ua
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#min-versions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Мінімальні версії залежностей
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Архітектура: що справжнє, а що підмінене
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Архітектура: що справжнє, а що підмінене">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mypy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Тести і mypy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Практика
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Практика">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Розібраний приклад: тест ключа кешу
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зміни приклад
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Спробуй самостійно: фоновий збір проти фейкового сайту
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#find-bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Знайди помилку
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Підсумок
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Підсумок">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Самоперевірка
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що далі
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Документація і джерела
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../lesson_43/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    43. AI-інструменти розробника + ризики й валідація
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    44. Інтеграція LLM API (Gemini / Anthropic)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    45. Архітектура застосунків і патерни
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    46. WebSockets + практика: чат
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    47. Security advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    48. Telegram Bot API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М5. Production
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М5. Production
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5_production/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m5/bonus_linux/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. Linux для розробника
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    49. Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    50. Docker Compose + деплой
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    51. CI/CD (GitHub Actions)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М6. Капстоун
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М6. Капстоун
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6_capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6/lesson_52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    52. Робота над фінальним проєктом
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6/lesson_53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    53. Випускний: питч фінального проєкту
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m6/bonus_cv/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. CV розробника
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bonus_ai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Self-paced. AI для розробників (бонус)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../00_python_mental_model/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Довідник
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пригадай
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Старт: з якого коду починаємо
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 1. Шари тестів: unit і integration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 2. Збережені сторінки замість рядків у тесті
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 3. Мок мережі: patch where used
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 4. Фейк замість моку: локальний HTTP-сервер
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 4. Фейк замість моку: локальний HTTP-сервер">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fakeredis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Межа фейку: fakeredis і гонка
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 5. API асинхронно: httpx.AsyncClient
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 6. Покриття: що тести не зачепили
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 6. Покриття: що тести не зачепили">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get_db" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Справжній get_db
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fakerbcua" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        fakerbc.ua
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#min-versions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Мінімальні версії залежностей
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Архітектура: що справжнє, а що підмінене
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Архітектура: що справжнє, а що підмінене">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mypy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Тести і mypy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Практика
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Практика">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Розібраний приклад: тест ключа кешу
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зміни приклад
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Спробуй самостійно: фоновий збір проти фейкового сайту
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#find-bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Знайди помилку
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Підсумок
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Підсумок">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Самоперевірка
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що далі
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Документація і джерела
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Навігація" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Головна
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Модулі курсу (в розробці)
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../m4_web/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    М4. Web (+ Web Advanced)
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="42-api-pytest-httpx">Урок 42. Тестування API (pytest + httpx)<a class="headerlink" href="#42-api-pytest-httpx" title="Permanent link">&para;</a></h1>
+<p>Після уроку 40 в агрегатора 41 зелений тест. Здається, все перевірено. Але подивимось, що ці тести <strong>не</strong> роблять:</p>
+<ul>
+<li>код, який ходить у мережу (<code>scraper.fetch_one</code>), не виконується жодного разу: API-тести підміняють скрапер заглушкою;</li>
+<li>справжній <code>get_db</code> теж не виконується: його підміняє тестова версія з <code>conftest.py</code>;</li>
+<li>парсер і модель перевірено окремо, кожен на своїх даних, — а разом їх не запускав ніхто;</li>
+<li>звіт покриття показує 88%, і навіть ця цифра неточна.</li>
+</ul>
+<p>Сьогодні <code>news_hub</code> не змінюється ззовні — змінюються його <strong>тести</strong>: шість рефакторингів папки <code>tests/</code>. Нові тести знаходять у коді уроків 37–40 <strong>чотири помилки</strong>, які старі тести пропускали, — кожну розберемо нижче.</p>
+<table>
+<thead>
+<tr>
+<th>Урок</th>
+<th>Крок агрегатора</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>36</td>
+<td>парсер з типами; <code>NewsItem</code> на Pydantic</td>
+</tr>
+<tr>
+<td>37</td>
+<td>FastAPI: <code>GET /api/news</code>, <code>POST /api/scrape</code>, <code>/docs</code>, Postman</td>
+</tr>
+<tr>
+<td>38</td>
+<td>SQLAlchemy: новини в базі, повний CRUD, Alembic</td>
+</tr>
+<tr>
+<td>39</td>
+<td>middleware, кеш і rate limit на Redis, фоновий збір</td>
+</tr>
+<tr>
+<td><strong>41</strong></td>
+<td><strong>тести: unit / integration, HTML-фікстури, мок і фейк мережі, httpx, покриття</strong></td>
+</tr>
+<tr>
+<td>43</td>
+<td>Gemini: підсумок, категорія, тональність</td>
+</tr>
+<tr>
+<td>47</td>
+<td>Telegram-бот</td>
+</tr>
+<tr>
+<td>48–50</td>
+<td>Docker, Compose, CI/CD</td>
+</tr>
+</tbody>
+</table>
+<p>Проєкт: <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_42_api_testing/news_hub"><code>news_hub</code></a>.</p>
+<p><strong>Що потрібно з попередніх уроків:</strong> pytest, fixtures, <code>parametrize</code>, mock і правило «patch where used», покриття, піраміда тестів (урок 26); <code>asyncio.gather</code> (27); <code>TestClient</code> і <code>dependency_overrides</code> (37); <code>get_db</code> і COMMIT (38); <code>fakeredis</code> і rate limit (39).</p>
+<p><strong>Після уроку ти зможеш:</strong></p>
+<ul>
+<li>розкласти тести на unit та integration і запускати їх окремо;</li>
+<li>тестувати парсер на збережених сторінках, а не на рядках у коді тесту;</li>
+<li>замокати мережу в правильному місці — і пояснити, чого мок не побачить;</li>
+<li>підняти фейковий HTTP-сервер для тесту та тестувати API асинхронно через <code>httpx.AsyncClient</code>;</li>
+<li>читати звіт покриття гілок і перетворювати червоні рядки на тести.</li>
+</ul>
+<p><strong>Ноутбук заняття:</strong> <a class="md-button md-button--primary" href="https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_42_api_testing/note_lesson_42_testing_student.ipynb">Відкрити вправи в Colab</a> <a class="solutions-link" href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_42_api_testing/note_lesson_42_testing.ipynb">Переглянути розв’язки</a> — pytest запускається з ноутбука, без серверів.</p>
+<h2 id="_1">Пригадай<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Що дає <code>@pytest.mark.parametrize</code> і чим fixture відрізняється від звичайної функції (урок 26)?</li>
+<li>Модуль <code>a</code> робить <code>from b import f</code>. Що треба патчити, щоб підмінити <code>f</code> для коду з <code>a</code>?</li>
+<li>Що робить <code>app.dependency_overrides[get_db] = test_db</code> (урок 38)?</li>
+</ol>
+<details class="success">
+<summary>Відповіді</summary>
+<ol>
+<li><code>parametrize</code> запускає один тест на кожному рядку таблиці випадків. Fixture pytest викликає сам — за іменем параметра тесту — і дає кожному тесту свіжий результат; код після <code>yield</code> прибирає.</li>
+<li><code>a.f</code>. Після <code>from b import f</code> у модулі <code>a</code> є власне ім'я <code>f</code>; код з <code>a</code> шукає саме його. Патч <code>b.f</code> змінить лише ім'я в <code>b</code>.</li>
+<li>Щоразу, коли ендпоінт просить <code>get_db</code>, FastAPI викликає <code>test_db</code>. Сам <code>get_db</code> при цьому не виконується — це стане важливим сьогодні.</li>
+</ol>
+</details>
+<h2 id="_2">Старт: з якого коду починаємо<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Що є</th>
+<th>Що там</th>
+<th>Куди в <code>news_hub</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TESTING_FOUNDATIONS.md</code></td>
+<td>піраміда тестів: багато швидких unit, менше integration</td>
+<td><code>tests/unit/</code> і <code>tests/integration/</code>, маркери</td>
+</tr>
+<tr>
+<td><code>MOCKING_AND_PATCHING.md</code></td>
+<td>«patch where used»; «мокай зовнішні межі, а не всю систему»</td>
+<td><code>tests/unit/test_scraper.py</code> — мок мережі</td>
+</tr>
+<tr>
+<td><code>TEST_DATA_AND_FIXTURES.md</code></td>
+<td>фабрики: у тесті видно лише важливі поля</td>
+<td><code>tests/factories.py</code> → <code>make_raw(...)</code></td>
+</tr>
+<tr>
+<td>ноутбук web scraping</td>
+<td>справжній фрагмент стрічки rbc.ua (клітинка 44), демо-розмітка (клітинка 12)</td>
+<td><code>tests/fixtures/*.html</code></td>
+</tr>
+<tr>
+<td>урок 40 курсу</td>
+<td>41 тест у трьох файлах, <code>TestClient</code>, fakeredis</td>
+<td>основа; нічого не видалено</td>
+</tr>
+</tbody>
+</table>
+<p>Теорію тестування з цих файлів тепер містить частина VIII <a href="https://nikoriakviktot.github.io/notes_chat_app/08_testing_and_quality/">Django-книги</a>. Тут — лише те, що з'являється в проєкті.</p>
+<h2 id="refactor-1">Рефакторинг 1. Шари тестів: unit і integration<a class="headerlink" href="#refactor-1" title="Permanent link">&para;</a></h2>
+<p>Було — три файли поруч: <code>test_models.py</code>, <code>test_api.py</code>, <code>test_redis.py</code>. Щоб перевірити одну функцію парсера, pytest однаково збирав тести, які піднімають застосунок, базу й Redis.</p>
+<div class="highlight"><span class="filename">tests/: було (39) → стало (41)</span><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>tests/                              tests/
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── conftest.py                     ├── conftest.py        ← фікстура html(), маркер за папкою
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├── test_models.py                  ├── factories.py       ← make_raw(**зміни)
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>├── test_api.py                     ├── fixtures/          ← збережені сторінки *.html
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>└── test_redis.py                   ├── unit/              ← без бази, Redis і мережі
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>                                    │   ├── test_parser.py, test_models.py
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>                                    │   ├── test_pipeline.py    ← парсер → модель
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>                                    │   └── test_scraper.py     ← мережа під моком
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>                                    └── integration/       ← застосунок цілком
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>                                        ├── conftest.py    ← client, aclient, тестова база
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>                                        ├── test_api.py, test_crud.py, test_redis.py
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>                                        ├── test_async_api.py   ← httpx.AsyncClient
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>                                        ├── test_db.py          ← справжній get_db
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>                                        └── test_scraper_server.py  ← локальний HTTP-сервер
+</code></pre></div>
+<p>Маркер ставить сама папка — не треба пам'ятати про <code>@pytest.mark.unit</code> у кожному файлі:</p>
+<div class="highlight"><span class="filename">tests/conftest.py (фрагмент)</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">pytest_collection_modifyitems</span><span class="p">(</span><span class="n">items</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">pytest</span><span class="o">.</span><span class="n">Item</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="sd">"""Маркер з назви папки: не треба пам'ятати про @pytest.mark.unit у кожному файлі."""</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"unit"</span><span class="p">,</span> <span class="s2">"integration"</span><span class="p">):</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>            <span class="k">if</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">Path</span><span class="p">(</span><span class="s1">'tests'</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">layer</span><span class="si">}</span><span class="s2">"</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">path</span><span class="p">):</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>                <span class="n">item</span><span class="o">.</span><span class="n">add_marker</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">pytest</span><span class="o">.</span><span class="n">mark</span><span class="p">,</span> <span class="n">layer</span><span class="p">))</span>
+</code></pre></div>
+<p><code>pytest_collection_modifyitems</code> — <strong>хук</strong> pytest: функція з цим ім'ям у <code>conftest.py</code> отримує всі зібрані тести до запуску. Маркери оголошено в <code>pytest.ini</code> — інакше pytest попередить про невідомий маркер:</p>
+<div class="highlight"><span class="filename">pytest.ini</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">[pytest]</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="na">testpaths</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">tests</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="na">pythonpath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">.</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="na">markers</span><span class="w"> </span><span class="o">=</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="na">unit</span><span class="o">:</span><span class="w"> </span><span class="s">швидкі тести однієї функції чи класу — без бази, Redis і мережі</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="na">integration</span><span class="o">:</span><span class="w"> </span><span class="s">API разом з базою й Redis</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="na">asyncio_default_fixture_loop_scope</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">function</span>
+</code></pre></div>
+<p>Приклад виводу (час залежить від машини):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$ pytest -q -p no:cacheprovider -m unit
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>.......................................                                                      [100%]
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>39 passed, 47 deselected in 0.85s
+</code></pre></div>
+<p>Unit-тести ганяють після кожної зміни — вони йдуть близько секунди. Повний набір — перед комітом і в CI (урок 51).</p>
+<p>Поглиблено: <a href="https://nikoriakviktot.github.io/notes_chat_app/08_testing_and_quality/testing_foundations_full/">піраміда тестів</a>, <a href="https://nikoriakviktot.github.io/notes_chat_app/08_testing_and_quality/pytest_basics_full/">маркери й конфігурація pytest</a>.</p>
+<h2 id="refactor-2">Рефакторинг 2. Збережені сторінки замість рядків у тесті<a class="headerlink" href="#refactor-2" title="Permanent link">&para;</a></h2>
+<p>Тести парсера в уроці 37 містили HTML прямо в коді — рядки, які автор тесту придумав сам. Тепер розмітка лежить у файлах <code>tests/fixtures/</code>:</p>
+<ul>
+<li><code>rbc_newsline_item.html</code> — <strong>справжній</strong> фрагмент стрічки rbc.ua з ноутбука web scraping: <code>div.item &gt; a &gt; span.time</code>, контейнерів <code>newsline__item</code> немає;</li>
+<li><code>demo_newsline.html</code> — демо-розмітка з того ж ноутбука: контейнери <code>newsline__item</code>, час в атрибуті <code>&lt;time datetime="…"&gt;</code>.</li>
+</ul>
+<p>Файл видно в браузері; коли сайт змінить розмітку, його оновлюють збереженою сторінкою — і тести показують, що зламалось. Фікстура віддає вміст за назвою:</p>
+<div class="highlight"><span class="filename">tests/conftest.py і tests/unit/test_parser.py (фрагменти)</span><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">html</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">]:</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="sd">"""html("demo_newsline") → вміст tests/fixtures/demo_newsline.html."""</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="k">return</span> <span class="k">lambda</span> <span class="n">name</span><span class="p">:</span> <span class="p">(</span><span class="n">FIXTURES</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.html"</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_real_rbc_markup_links_strategy</span><span class="p">(</span><span class="n">html</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="sd">"""Справжній фрагмент стрічки: div.item &gt; a &gt; span.time — контейнерів newsline__item немає."""</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    <span class="k">assert</span> <span class="n">parse_rbc_news</span><span class="p">(</span><span class="n">html</span><span class="p">(</span><span class="s2">"rbc_newsline_item"</span><span class="p">))</span> <span class="o">==</span> <span class="p">[{</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>        <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"США хочуть підкупити кубинців безплатним інтернетом, - AP"</span><span class="p">,</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>        <span class="s2">"url"</span><span class="p">:</span> <span class="s2">"https://www.rbc.ua/rus/news/ssha-hochut-pidkupiti-kubintsiv-bezpaltnim-1778194920.html"</span><span class="p">,</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>        <span class="s2">"category"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span> <span class="s2">"description"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span> <span class="s2">"datetime"</span><span class="p">:</span> <span class="s2">"02:06"</span><span class="p">}]</span>
+</code></pre></div>
+<p>Фабрика з <code>TEST_DATA_AND_FIXTURES.md</code> прибирає однакові словники з тестів моделі — у тесті видно лише поле, яке він перевіряє:</p>
+<div class="highlight"><span class="filename">tests/factories.py</span><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">make_raw</span><span class="p">(</span><span class="o">**</span><span class="n">overrides</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RawNews</span><span class="p">:</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="sd">"""make_raw(title="Коротко") — сира новина, як її дає парсер, з одним зміненим полем."""</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="n">item</span><span class="p">:</span> <span class="n">RawNews</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Уряд затвердив новий бюджет"</span><span class="p">,</span> <span class="s2">"url"</span><span class="p">:</span> <span class="s2">"https://www.rbc.ua/ukr/news/budget-1.html"</span><span class="p">,</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>                     <span class="s2">"category"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span> <span class="s2">"description"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span> <span class="s2">"datetime"</span><span class="p">:</span> <span class="s2">"14:19"</span><span class="p">}</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="k">return</span> <span class="p">{</span><span class="o">**</span><span class="n">item</span><span class="p">,</span> <span class="o">**</span><span class="n">overrides</span><span class="p">}</span>  <span class="c1"># type: ignore[typeddict-item]</span>
+</code></pre></div>
+<p>Найважливіший новий тест — <strong>конвеєр</strong>: те, що дає парсер на збереженій сторінці, модель має прийняти.</p>
+<div class="highlight"><span class="filename">tests/unit/test_pipeline.py (фрагмент)</span><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">((</span><span class="s2">"page"</span><span class="p">,</span> <span class="s2">"expected"</span><span class="p">),</span> <span class="p">[</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="p">(</span><span class="s2">"rbc_newsline_item"</span><span class="p">,</span> <span class="p">[(</span><span class="s2">"США хочуть підкупити кубинців безплатним інтернетом, - AP"</span><span class="p">,</span> <span class="s2">"ru"</span><span class="p">,</span> <span class="s2">"02:06:00"</span><span class="p">)]),</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="p">(</span><span class="s2">"demo_newsline"</span><span class="p">,</span> <span class="p">[(</span><span class="s2">"Уряд затвердив новий бюджет на 2024 рік"</span><span class="p">,</span> <span class="s2">"uk"</span><span class="p">,</span> <span class="s2">"10:30:00"</span><span class="p">),</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>                       <span class="p">(</span><span class="s2">"Збірна України перемогла у фіналі"</span><span class="p">,</span> <span class="s2">"uk"</span><span class="p">,</span> <span class="s2">"09:15:00"</span><span class="p">)]),</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="p">])</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_every_parsed_item_passes_the_model</span><span class="p">(</span><span class="n">html</span><span class="p">,</span> <span class="n">page</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>    <span class="n">valid</span><span class="p">,</span> <span class="n">rejected</span> <span class="o">=</span> <span class="n">validate_news</span><span class="p">(</span><span class="n">parse_rbc_news</span><span class="p">(</span><span class="n">html</span><span class="p">(</span><span class="n">page</span><span class="p">)))</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    <span class="k">assert</span> <span class="n">rejected</span> <span class="o">==</span> <span class="p">[]</span>
+</code></pre></div>
+<p>На коді уроку 40 цей тест упав: обидві новини з <code>demo_newsline</code> модель <strong>відхилила</strong>. Тести парсера й моделі при цьому були зелені. Чому так сталося — розбір у «<a href="#find-bug">Знайди помилку</a>»; правильне рішення — <code>field_validator</code> у <code>models.py</code>.</p>
+<h2 id="refactor-3">Рефакторинг 3. Мок мережі: patch where used<a class="headerlink" href="#refactor-3" title="Permanent link">&para;</a></h2>
+<p><code>fetch_one</code> робить HTTP-запит. У тесті інтернету може не бути, а rbc.ua може відповісти 403 — тест залежав би від погоди. <strong>Мок</strong> замінює <code>aiohttp.ClientSession</code> об'єктом, який відповідає так, як скаже тест: 200 з HTML, 403, тайм-аут, обрив з'єднання.</p>
+<div class="highlight"><span class="filename">tests/unit/test_scraper.py (фрагмент)</span><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">fake_session</span><span class="p">(</span><span class="n">html</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span> <span class="n">error</span><span class="p">:</span> <span class="ne">BaseException</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">mock</span><span class="o">.</span><span class="n">MagicMock</span><span class="p">:</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="sd">"""Замість aiohttp.ClientSession: session.get(...) — async-контекст, що віддає відповідь з html."""</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">mock</span><span class="o">.</span><span class="n">MagicMock</span><span class="p">()</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="n">response</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">mock</span><span class="o">.</span><span class="n">AsyncMock</span><span class="p">(</span><span class="n">return_value</span><span class="o">=</span><span class="n">html</span><span class="p">)</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="n">session</span> <span class="o">=</span> <span class="n">mock</span><span class="o">.</span><span class="n">MagicMock</span><span class="p">()</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="n">aiohttp</span><span class="o">.</span><span class="n">ClientResponseError</span><span class="p">):</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>        <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="o">.</span><span class="n">side_effect</span> <span class="o">=</span> <span class="n">error</span>       <span class="c1"># статус 4xx/5xx</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>    <span class="k">elif</span> <span class="n">error</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>        <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="o">.</span><span class="n">side_effect</span> <span class="o">=</span> <span class="n">error</span>                     <span class="c1"># мережа впала до відповіді</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>    <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="o">.</span><span class="n">return_value</span><span class="o">.</span><span class="fm">__aenter__</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="n">response</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>    <span class="k">return</span> <span class="n">session</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">asyncio</span>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">((</span><span class="s2">"error"</span><span class="p">,</span> <span class="s2">"expected"</span><span class="p">),</span> <span class="p">[</span>
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>    <span class="p">(</span><span class="n">http_error</span><span class="p">(</span><span class="mi">403</span><span class="p">),</span> <span class="s2">"ClientResponseError: 403"</span><span class="p">),</span>
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>    <span class="p">(</span><span class="n">asyncio</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">(),</span> <span class="s2">"TimeoutError"</span><span class="p">),</span>
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>    <span class="p">(</span><span class="n">aiohttp</span><span class="o">.</span><span class="n">ClientConnectionError</span><span class="p">(</span><span class="s2">"Connection reset by peer"</span><span class="p">),</span> <span class="s2">"ClientConnectionError: Connection reset"</span><span class="p">),</span>
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="p">],</span> <span class="n">ids</span><span class="o">=</span><span class="p">[</span><span class="s2">"403"</span><span class="p">,</span> <span class="s2">"timeout"</span><span class="p">,</span> <span class="s2">"connection-reset"</span><span class="p">])</span>
+<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_network_errors_become_page_error</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="w">    </span><span class="sd">"""Сторінка з помилкою — не виняток на весь збір, а PageResult з error і нулем новин."""</span>
+<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>    <span class="n">page</span><span class="p">,</span> <span class="n">items</span> <span class="o">=</span> <span class="k">await</span> <span class="n">scraper</span><span class="o">.</span><span class="n">fetch_one</span><span class="p">(</span><span class="n">fake_session</span><span class="p">(</span><span class="n">error</span><span class="o">=</span><span class="n">error</span><span class="p">),</span> <span class="n">URL</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+<a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>    <span class="k">assert</span> <span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">count</span><span class="p">,</span> <span class="n">items</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">[])</span>
+<a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>    <span class="k">assert</span> <span class="n">page</span><span class="o">.</span><span class="n">error</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">page</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">expected</span><span class="p">)</span>
+</code></pre></div>
+<p><code>MagicMock</code> підтримує <code>async with</code>: <code>__aenter__</code> у нього — <code>AsyncMock</code>. <code>@pytest.mark.asyncio</code> (пакет <code>pytest-asyncio</code>) запускає тест-корутину в циклі подій. Ті самі три помилки — поза pytest:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">aiohttp</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">news_hub</span><span class="w"> </span><span class="kn">import</span> <span class="n">scraper</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">tests.unit.test_scraper</span><span class="w"> </span><span class="kn">import</span> <span class="n">URL</span><span class="p">,</span> <span class="n">fake_session</span><span class="p">,</span> <span class="n">http_error</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="p">(</span><span class="n">http_error</span><span class="p">(</span><span class="mi">403</span><span class="p">),</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">(),</span> <span class="n">aiohttp</span><span class="o">.</span><span class="n">ClientConnectionError</span><span class="p">(</span><span class="s2">"Connection reset by peer"</span><span class="p">)):</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>    <span class="n">page</span><span class="p">,</span> <span class="n">items</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">scraper</span><span class="o">.</span><span class="n">fetch_one</span><span class="p">(</span><span class="n">fake_session</span><span class="p">(</span><span class="n">error</span><span class="o">=</span><span class="n">error</span><span class="p">),</span> <span class="n">URL</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mf">0.0</span><span class="p">))</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">page</span><span class="o">.</span><span class="n">count</span><span class="si">}</span><span class="s2"> новин, error = </span><span class="si">{</span><span class="n">page</span><span class="o">.</span><span class="n">error</span><span class="si">!r}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>0 новин, error = "ClientResponseError: 403, message='Forbidden', url='https://www.rbc.ua/ukr/news/'"
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>0 новин, error = 'TimeoutError: '
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>0 новин, error = 'ClientConnectionError: Connection reset by peer'
+</code></pre></div>
+<p>Тепер — правило з уроку 26 на справжньому проєкті. <code>scraper.py</code> робить <code>from .parser import parse_rbc_news</code>: у модулі <code>scraper</code> з'являється <strong>власне</strong> ім'я, що вказує на ту саму функцію. <code>mock.patch</code> міняє ім'я лише в одному модулі:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">unittest</span><span class="w"> </span><span class="kn">import</span> <span class="n">mock</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">news_hub</span><span class="w"> </span><span class="kn">import</span> <span class="n">parser</span><span class="p">,</span> <span class="n">scraper</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"одна функція, два імена:"</span><span class="p">,</span> <span class="n">scraper</span><span class="o">.</span><span class="n">parse_rbc_news</span> <span class="ow">is</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_rbc_news</span><span class="p">)</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="k">with</span> <span class="n">mock</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="s2">"news_hub.parser.parse_rbc_news"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fake</span><span class="p">:</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"patch news_hub.parser  → scraper бачить мок:"</span><span class="p">,</span> <span class="n">scraper</span><span class="o">.</span><span class="n">parse_rbc_news</span> <span class="ow">is</span> <span class="n">fake</span><span class="p">)</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="k">with</span> <span class="n">mock</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="s2">"news_hub.scraper.parse_rbc_news"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fake</span><span class="p">:</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"patch news_hub.scraper → scraper бачить мок:"</span><span class="p">,</span> <span class="n">scraper</span><span class="o">.</span><span class="n">parse_rbc_news</span> <span class="ow">is</span> <span class="n">fake</span><span class="p">)</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"після with — знову справжня:"</span><span class="p">,</span> <span class="n">scraper</span><span class="o">.</span><span class="n">parse_rbc_news</span> <span class="ow">is</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_rbc_news</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>одна функція, два імена: True
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>patch news_hub.parser  → scraper бачить мок: False
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>patch news_hub.scraper → scraper бачить мок: True
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>після with — знову справжня: True
+</code></pre></div>
+<pre class="mermaid"><code>flowchart TD
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    subgraph S1["імпорт: from .parser import parse_rbc_news"]
+        direction LR
+        P1["news_hub.parser&lt;br&gt;parse_rbc_news"] --&gt; F1["функція&lt;br&gt;parse_rbc_news"]
+        C1["news_hub.scraper&lt;br&gt;parse_rbc_news"] --&gt; F1
+    end
+    subgraph S2["patch('news_hub.parser.parse_rbc_news')"]
+        direction LR
+        P2["news_hub.parser&lt;br&gt;parse_rbc_news"] --&gt; M2["Mock"]
+        C2["news_hub.scraper&lt;br&gt;parse_rbc_news"] --&gt; F2["справжня функція"]
+        FO2["fetch_one шукає&lt;br&gt;у scraper"] --&gt; C2
+    end
+    subgraph S3["patch('news_hub.scraper.parse_rbc_news')"]
+        direction LR
+        P3["news_hub.parser&lt;br&gt;parse_rbc_news"] --&gt; F3["справжня функція"]
+        C3["news_hub.scraper&lt;br&gt;parse_rbc_news"] --&gt; M3["Mock"]
+        FO3["fetch_one шукає&lt;br&gt;у scraper"] --&gt; C3
+    end
+    S1 --&gt; S2 --&gt; S3
+
+    class P1,C1,F1,P3,F3 step
+    class P2,M2 warning
+    class C2,F2,FO2 error
+    class C3,M3,FO3 success</code></pre>
+<p>Тест <code>test_patch_where_used</code> робить те саме з <code>fetch_one</code>: після патча <code>news_hub.parser</code> мок не викликано жодного разу, і <code>fetch_one</code> розібрав сторінку справжнім парсером.</p>
+<p>Поглиблено: <a href="https://nikoriakviktot.github.io/notes_chat_app/08_testing_and_quality/mocking_and_patching_full/">Mock і patch</a>.</p>
+<h2 id="refactor-4">Рефакторинг 4. Фейк замість моку: локальний HTTP-сервер<a class="headerlink" href="#refactor-4" title="Permanent link">&para;</a></h2>
+<p>Мок відповідає тим, що йому сказали. Код, що стоїть <strong>між</strong> запитом і рядком HTML, — з'єднання, заголовки, статус, <strong>декодування байтів</strong>, тайм-аут — під моком не виконується. <strong>Фейк</strong> — справжня, але спрощена реалізація: тут це HTTP-сервер на <code>127.0.0.1</code> з <code>aiohttp.test_utils</code>, який віддає сторінки з <code>tests/fixtures/</code>. <code>fetch_one</code> працює проти нього без жодної підміни:</p>
+<div class="highlight"><span class="filename">tests/integration/test_scraper_server.py (фрагмент)</span><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nd">@pytest_asyncio</span><span class="o">.</span><span class="n">fixture</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">site</span><span class="p">(</span><span class="n">html</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="n">TestServer</span><span class="p">]:</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>    <span class="o">...</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">broken_bytes</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">web</span><span class="o">.</span><span class="n">Request</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">web</span><span class="o">.</span><span class="n">Response</span><span class="p">:</span>       <span class="c1"># сервер обіцяє UTF-8, а байт 0xff — ні</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>        <span class="n">body</span> <span class="o">=</span> <span class="n">html</span><span class="p">(</span><span class="s2">"rbc_newsline_item"</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span> <span class="o">+</span> <span class="sa">b</span><span class="s2">"&lt;p&gt;</span><span class="se">\xff</span><span class="s2">&lt;/p&gt;"</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>        <span class="k">return</span> <span class="n">web</span><span class="o">.</span><span class="n">Response</span><span class="p">(</span><span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span> <span class="n">content_type</span><span class="o">=</span><span class="s2">"text/html"</span><span class="p">,</span> <span class="n">charset</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>    <span class="n">app</span> <span class="o">=</span> <span class="n">web</span><span class="o">.</span><span class="n">Application</span><span class="p">()</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>    <span class="n">app</span><span class="o">.</span><span class="n">router</span><span class="o">.</span><span class="n">add_get</span><span class="p">(</span><span class="s2">"/ukr/news/"</span><span class="p">,</span> <span class="n">feed</span><span class="p">)</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>    <span class="n">app</span><span class="o">.</span><span class="n">router</span><span class="o">.</span><span class="n">add_get</span><span class="p">(</span><span class="s2">"/slow-1/"</span><span class="p">,</span> <span class="n">slow</span><span class="p">)</span>          <span class="c1"># asyncio.sleep(0.3) — для gather проти черги</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>    <span class="n">app</span><span class="o">.</span><span class="n">router</span><span class="o">.</span><span class="n">add_get</span><span class="p">(</span><span class="s2">"/forbidden/"</span><span class="p">,</span> <span class="n">forbidden</span><span class="p">)</span>  <span class="c1"># 403</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>    <span class="n">app</span><span class="o">.</span><span class="n">router</span><span class="o">.</span><span class="n">add_get</span><span class="p">(</span><span class="s2">"/broken/"</span><span class="p">,</span> <span class="n">broken_bytes</span><span class="p">)</span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>    <span class="k">async</span> <span class="k">with</span> <span class="n">TestServer</span><span class="p">(</span><span class="n">app</span><span class="p">)</span> <span class="k">as</span> <span class="n">server</span><span class="p">:</span>         <span class="c1"># вільний порт на 127.0.0.1</span>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>        <span class="k">yield</span> <span class="n">server</span>
+</code></pre></div>
+<p>Перший же прогін знайшов помилку, якої мок не бачив. Сторінка з одним невалідним байтом UTF-8 — і <strong>весь</strong> збір падає:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">urllib.parse</span><span class="w"> </span><span class="kn">import</span> <span class="n">urlsplit</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="kn">import</span><span class="w"> </span><span class="nn">aiohttp</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">aiohttp</span><span class="w"> </span><span class="kn">import</span> <span class="n">web</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="kn">from</span><span class="w"> </span><span class="nn">aiohttp.test_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">TestServer</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="kn">from</span><span class="w"> </span><span class="nn">news_hub</span><span class="w"> </span><span class="kn">import</span> <span class="n">scraper</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="n">FEED</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"tests/fixtures/rbc_newsline_item.html"</span><span class="p">)</span><span class="o">.</span><span class="n">read_bytes</span><span class="p">()</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">good</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">web</span><span class="o">.</span><span class="n">Request</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">web</span><span class="o">.</span><span class="n">Response</span><span class="p">:</span>
+<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a>    <span class="k">return</span> <span class="n">web</span><span class="o">.</span><span class="n">Response</span><span class="p">(</span><span class="n">body</span><span class="o">=</span><span class="n">FEED</span><span class="p">,</span> <span class="n">content_type</span><span class="o">=</span><span class="s2">"text/html"</span><span class="p">,</span> <span class="n">charset</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span>
+<a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a>
+<a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a>
+<a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">broken</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">web</span><span class="o">.</span><span class="n">Request</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">web</span><span class="o">.</span><span class="n">Response</span><span class="p">:</span>
+<a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a>    <span class="k">return</span> <span class="n">web</span><span class="o">.</span><span class="n">Response</span><span class="p">(</span><span class="n">body</span><span class="o">=</span><span class="n">FEED</span> <span class="o">+</span> <span class="sa">b</span><span class="s2">"&lt;p&gt;</span><span class="se">\xff</span><span class="s2">&lt;/p&gt;"</span><span class="p">,</span> <span class="n">content_type</span><span class="o">=</span><span class="s2">"text/html"</span><span class="p">,</span> <span class="n">charset</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span>
+<a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a>
+<a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a>
+<a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a>    <span class="n">app</span> <span class="o">=</span> <span class="n">web</span><span class="o">.</span><span class="n">Application</span><span class="p">()</span>
+<a id="__codelineno-13-24" name="__codelineno-13-24" href="#__codelineno-13-24"></a>    <span class="n">app</span><span class="o">.</span><span class="n">router</span><span class="o">.</span><span class="n">add_get</span><span class="p">(</span><span class="s2">"/good/"</span><span class="p">,</span> <span class="n">good</span><span class="p">)</span>
+<a id="__codelineno-13-25" name="__codelineno-13-25" href="#__codelineno-13-25"></a>    <span class="n">app</span><span class="o">.</span><span class="n">router</span><span class="o">.</span><span class="n">add_get</span><span class="p">(</span><span class="s2">"/broken/"</span><span class="p">,</span> <span class="n">broken</span><span class="p">)</span>
+<a id="__codelineno-13-26" name="__codelineno-13-26" href="#__codelineno-13-26"></a>    <span class="k">async</span> <span class="k">with</span> <span class="n">TestServer</span><span class="p">(</span><span class="n">app</span><span class="p">)</span> <span class="k">as</span> <span class="n">server</span><span class="p">:</span>
+<a id="__codelineno-13-27" name="__codelineno-13-27" href="#__codelineno-13-27"></a>        <span class="k">async</span> <span class="k">with</span> <span class="n">aiohttp</span><span class="o">.</span><span class="n">ClientSession</span><span class="p">()</span> <span class="k">as</span> <span class="n">session</span><span class="p">,</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">make_url</span><span class="p">(</span><span class="s2">"/broken/"</span><span class="p">))</span> <span class="k">as</span> <span class="n">resp</span><span class="p">:</span>
+<a id="__codelineno-13-28" name="__codelineno-13-28" href="#__codelineno-13-28"></a>            <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-13-29" name="__codelineno-13-29" href="#__codelineno-13-29"></a>                <span class="k">await</span> <span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>                                   <span class="c1"># так було в уроках 38–40</span>
+<a id="__codelineno-13-30" name="__codelineno-13-30" href="#__codelineno-13-30"></a>            <span class="k">except</span> <span class="ne">UnicodeDecodeError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+<a id="__codelineno-13-31" name="__codelineno-13-31" href="#__codelineno-13-31"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"resp.text(): </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">error</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">; це aiohttp.ClientError? "</span>
+<a id="__codelineno-13-32" name="__codelineno-13-32" href="#__codelineno-13-32"></a>                      <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">error</span><span class="p">,</span><span class="w"> </span><span class="n">aiohttp</span><span class="o">.</span><span class="n">ClientError</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-13-33" name="__codelineno-13-33" href="#__codelineno-13-33"></a>        <span class="n">outcome</span> <span class="o">=</span> <span class="k">await</span> <span class="n">scraper</span><span class="o">.</span><span class="n">scrape_all_async</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">make_url</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"/broken/"</span><span class="p">,</span> <span class="s2">"/good/"</span><span class="p">)])</span>
+<a id="__codelineno-13-34" name="__codelineno-13-34" href="#__codelineno-13-34"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">"урок 42:"</span><span class="p">,</span> <span class="p">[(</span><span class="n">urlsplit</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">count</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">error</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">outcome</span><span class="o">.</span><span class="n">pages</span><span class="p">])</span>
+<a id="__codelineno-13-35" name="__codelineno-13-35" href="#__codelineno-13-35"></a>
+<a id="__codelineno-13-36" name="__codelineno-13-36" href="#__codelineno-13-36"></a><span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>resp.text(): UnicodeDecodeError; це aiohttp.ClientError? False
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>урок 42: [('/broken/', 1, None), ('/good/', 1, None)]
+</code></pre></div>
+<p><code>fetch_one</code> ловить лише <code>aiohttp.ClientError</code> і <code>asyncio.TimeoutError</code>. <code>UnicodeDecodeError</code> пролітав повз, <code>asyncio.gather</code> передавав його нагору, і <code>POST /api/scrape</code> відповідав <code>500</code>: новини <strong>решти шести</strong> сторінок губилися через один байт. Правильно — один аргумент:</p>
+<div class="highlight"><span class="filename">news_hub/scraper.py: fetch_one</span><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="gd">-            html = await resp.text()</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="gi">+            html = await resp.text(errors="replace")   # один битий байт ≠ втрачена сторінка</span>
+</code></pre></div>
+<p>Під моком цієї помилки не видно в принципі: <code>response.text</code> там — <code>AsyncMock(return_value=html)</code>, готовий рядок, декодування немає. Без <code>errors="replace"</code> тест <code>test_undecodable_page_does_not_kill_scrape</code> падає, а всі шість мок-тестів — зелені.</p>
+<p>Ще два тести на фейковому сервері, неможливі з моком: заголовок <code>User-Agent</code> справді дійшов до сервера; <code>scrape_all_async</code> дві «повільні» сторінки бере за ~0,3 с, а <code>scrape_sequential</code> — за ~0,6 с (урок 28 — тепер як тест).</p>
+<h3 id="fakeredis">Межа фейку: fakeredis і гонка<a class="headerlink" href="#fakeredis" title="Permanent link">&para;</a></h3>
+<p>Фейк теж щось спрощує. <code>fakeredis</code> виконує команду одразу і <strong>не віддає керування</strong> циклу подій — тож одночасні корутини на ньому ніколи не перемежовуються. Ось лічильник «прочитати → +1 → записати» (дві команди) і <code>INCR</code> (одна), по 10 одночасних викликів:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">fakeredis</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">redis.asyncio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Redis</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">naive_hit</span><span class="p">(</span><span class="n">redis</span><span class="p">:</span> <span class="n">Redis</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>     <span class="c1"># прочитати → +1 → записати</span>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>    <span class="n">count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="k">await</span> <span class="n">redis</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>    <span class="k">await</span> <span class="n">redis</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a>
+<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="n">redis</span><span class="p">:</span> <span class="n">Redis</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a>    <span class="k">await</span> <span class="n">redis</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s2">"naive"</span><span class="p">,</span> <span class="s2">"atomic"</span><span class="p">)</span>
+<a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a>    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">naive_hit</span><span class="p">(</span><span class="n">redis</span><span class="p">,</span> <span class="s2">"naive"</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)))</span>
+<a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a>    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">redis</span><span class="o">.</span><span class="n">incr</span><span class="p">(</span><span class="s2">"atomic"</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)))</span>
+<a id="__codelineno-16-16" name="__codelineno-16-16" href="#__codelineno-16-16"></a>    <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="k">await</span> <span class="n">redis</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"naive"</span><span class="p">),</span> <span class="k">await</span> <span class="n">redis</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"atomic"</span><span class="p">))</span>
+<a id="__codelineno-16-17" name="__codelineno-16-17" href="#__codelineno-16-17"></a>    <span class="k">await</span> <span class="n">redis</span><span class="o">.</span><span class="n">aclose</span><span class="p">()</span>
+<a id="__codelineno-16-18" name="__codelineno-16-18" href="#__codelineno-16-18"></a>    <span class="k">return</span> <span class="n">result</span>
+<a id="__codelineno-16-19" name="__codelineno-16-19" href="#__codelineno-16-19"></a>
+<a id="__codelineno-16-20" name="__codelineno-16-20" href="#__codelineno-16-20"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"fakeredis:     naive, atomic ="</span><span class="p">,</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">run</span><span class="p">(</span><span class="n">fakeredis</span><span class="o">.</span><span class="n">FakeAsyncRedis</span><span class="p">(</span><span class="n">decode_responses</span><span class="o">=</span><span class="kc">True</span><span class="p">))))</span>
+<a id="__codelineno-16-21" name="__codelineno-16-21" href="#__codelineno-16-21"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Redis-сервер:  naive, atomic ="</span><span class="p">,</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">run</span><span class="p">(</span><span class="n">Redis</span><span class="o">.</span><span class="n">from_url</span><span class="p">(</span><span class="s2">"redis://localhost:6379/15"</span><span class="p">,</span>
+<a id="__codelineno-16-22" name="__codelineno-16-22" href="#__codelineno-16-22"></a>                                                                        <span class="n">decode_responses</span><span class="o">=</span><span class="kc">True</span><span class="p">))))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>fakeredis:     naive, atomic = ('10', '10')
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>Redis-сервер:  naive, atomic = ('2', '10')
+</code></pre></div>
+<p>На fakeredis «наївний» лічильник дорахував до 10 — гонки не видно. На справжньому Redis — далеко не 10 (у цьому прогоні 2, щоразу по-різному): поки одна корутина чекала відповіді на <code>GET</code>, інші прочитали те саме значення — і записали те саме. Тому <code>test_concurrent_requests_hit_rate_limit_exactly</code> (рефакторинг 5) доводить атомарність rate limit <strong>лише</strong> з <code>TEST_REDIS_URL</code>; з fakeredis він проходить і з «наївним» <code>RateLimiter</code> — ми перевірили, підставивши такий. Про це сказано в docstring тесту.</p>
+<h2 id="refactor-5">Рефакторинг 5. API асинхронно: <code>httpx.AsyncClient</code><a class="headerlink" href="#refactor-5" title="Permanent link">&para;</a></h2>
+<p><code>TestClient</code> синхронний: застосунок крутиться в окремому потоці, запити йдуть по одному, а до Redis чи бази тест дістається через <code>client.portal.call(...)</code>. <code>httpx.AsyncClient</code> з <code>ASGITransport</code> викликає застосунок <strong>напряму</strong>, в тому ж циклі подій, що й тест:</p>
+<div class="highlight"><span class="filename">tests/integration/conftest.py: client (39) → client + aclient (41)</span><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="gd">-@pytest.fixture</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="gd">-def client() -&gt; Iterator[TestClient]:</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="gd">-    extra = {"poolclass": StaticPool} if TEST_DATABASE_URL.startswith("sqlite") else {}</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="gd">-    engine = make_engine(TEST_DATABASE_URL, **extra)</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="gd">-    ...</span>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="gd">-    app.dependency_overrides[get_db] = test_db</span>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="gi">+class TestDatabase:</span>
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="gi">+    """Тестова база + підміна залежностей застосунку. Спільне для `client` (sync) і `aclient` (async)."""</span>
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a><span class="gi">+    def __init__(self) -&gt; None: ...                  # engine і фабрика сесій</span>
+<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a><span class="gi">+    async def create_tables(self) -&gt; None: ...</span>
+<a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a><span class="gi">+    async def get_db(self) -&gt; AsyncIterator[AsyncSession]: ...</span>
+<a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a><span class="gi">+    def install(self) -&gt; None: ...                   # dependency_overrides</span>
+<a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a><span class="gi">+</span>
+<a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a><span class="gi">+@pytest.fixture</span>
+<a id="__codelineno-18-15" name="__codelineno-18-15" href="#__codelineno-18-15"></a><span class="gi">+def client() -&gt; Iterator[TestClient]: ...           # як і було, через TestDatabase</span>
+<a id="__codelineno-18-16" name="__codelineno-18-16" href="#__codelineno-18-16"></a><span class="gi">+</span>
+<a id="__codelineno-18-17" name="__codelineno-18-17" href="#__codelineno-18-17"></a><span class="gi">+@pytest_asyncio.fixture</span>
+<a id="__codelineno-18-18" name="__codelineno-18-18" href="#__codelineno-18-18"></a><span class="gi">+async def aclient() -&gt; AsyncIterator[httpx.AsyncClient]:</span>
+<a id="__codelineno-18-19" name="__codelineno-18-19" href="#__codelineno-18-19"></a><span class="gi">+    db = TestDatabase()</span>
+<a id="__codelineno-18-20" name="__codelineno-18-20" href="#__codelineno-18-20"></a><span class="gi">+    db.install()</span>
+<a id="__codelineno-18-21" name="__codelineno-18-21" href="#__codelineno-18-21"></a><span class="gi">+    async with app.router.lifespan_context(app):    # ASGITransport lifespan не запускає</span>
+<a id="__codelineno-18-22" name="__codelineno-18-22" href="#__codelineno-18-22"></a><span class="gi">+        await db.create_tables()</span>
+<a id="__codelineno-18-23" name="__codelineno-18-23" href="#__codelineno-18-23"></a><span class="gi">+        await app.state.redis.flushdb()</span>
+<a id="__codelineno-18-24" name="__codelineno-18-24" href="#__codelineno-18-24"></a><span class="gi">+        transport = httpx.ASGITransport(app=app)</span>
+<a id="__codelineno-18-25" name="__codelineno-18-25" href="#__codelineno-18-25"></a><span class="gi">+        async with httpx.AsyncClient(transport=transport, base_url="http://test") as c:</span>
+<a id="__codelineno-18-26" name="__codelineno-18-26" href="#__codelineno-18-26"></a><span class="gi">+            yield c</span>
+<a id="__codelineno-18-27" name="__codelineno-18-27" href="#__codelineno-18-27"></a><span class="gi">+        await db.engine.dispose()</span>
+<a id="__codelineno-18-28" name="__codelineno-18-28" href="#__codelineno-18-28"></a><span class="gi">+    app.dependency_overrides.clear()</span>
+</code></pre></div>
+<p>Що це дає — два тести з <code>test_async_api.py</code>:</p>
+<div class="highlight"><span class="filename">tests/integration/test_async_api.py (фрагмент)</span><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_cache_state_is_awaited_directly</span><span class="p">(</span><span class="n">aclient</span><span class="p">:</span> <span class="n">httpx</span><span class="o">.</span><span class="n">AsyncClient</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">    </span><span class="sd">"""Без portal: той самий Redis-клієнт, що в застосунку, — просто await."""</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>    <span class="k">assert</span> <span class="p">(</span><span class="k">await</span> <span class="n">aclient</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/api/news"</span><span class="p">))</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">"X-Cache"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"MISS"</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>    <span class="k">assert</span> <span class="p">(</span><span class="k">await</span> <span class="n">aclient</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/api/news"</span><span class="p">))</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">"X-Cache"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"HIT"</span>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>    <span class="k">assert</span> <span class="k">await</span> <span class="n">app</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">redis</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"news:version"</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>                  <span class="c1"># записів ще не було</span>
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>    <span class="k">await</span> <span class="n">aclient</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/api/scrape"</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">"source"</span><span class="p">:</span> <span class="s2">"snapshot"</span><span class="p">})</span>
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>    <span class="k">assert</span> <span class="k">await</span> <span class="n">app</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">redis</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"news:version"</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"1"</span>
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>
+<a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_concurrent_requests_hit_rate_limit_exactly</span><span class="p">(</span><span class="n">aclient</span><span class="p">:</span> <span class="n">httpx</span><span class="o">.</span><span class="n">AsyncClient</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a>    <span class="n">total</span> <span class="o">=</span> <span class="n">RATE_LIMIT_REQUESTS</span> <span class="o">*</span> <span class="mi">2</span>
+<a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a>    <span class="n">responses</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">aclient</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/api/scrape"</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">"source"</span><span class="p">:</span> <span class="s2">"ftp"</span><span class="p">})</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">total</span><span class="p">)))</span>
+<a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a>    <span class="n">statuses</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">responses</span><span class="p">)</span>
+<a id="__codelineno-19-14" name="__codelineno-19-14" href="#__codelineno-19-14"></a>    <span class="k">assert</span> <span class="n">statuses</span> <span class="o">==</span> <span class="p">[</span><span class="mi">422</span><span class="p">]</span> <span class="o">*</span> <span class="n">RATE_LIMIT_REQUESTS</span> <span class="o">+</span> <span class="p">[</span><span class="mi">429</span><span class="p">]</span> <span class="o">*</span> <span class="n">RATE_LIMIT_REQUESTS</span>
+</code></pre></div>
+<p>Тіло <code>{"source": "ftp"}</code> навмисно неправильне: відповідь <code>422</code> показує, що rate limit рахує запит <strong>до</strong> перевірки тіла. Інакше сервер можна було б засипати помилковими запитами без обмежень.</p>
+<p>Коли що брати:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><code>TestClient</code></th>
+<th><code>httpx.AsyncClient</code> + <code>ASGITransport</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>тест</td>
+<td>звичайна функція</td>
+<td>корутина, <code>@pytest.mark.asyncio</code></td>
+</tr>
+<tr>
+<td><code>lifespan</code></td>
+<td>запускає сам (<code>with TestClient(app)</code>)</td>
+<td>запускаєш сам (<code>app.router.lifespan_context</code>)</td>
+</tr>
+<tr>
+<td>Redis / база в тесті</td>
+<td><code>client.portal.call(redis.get, …)</code></td>
+<td><code>await redis.get(…)</code></td>
+</tr>
+<tr>
+<td>одночасні запити</td>
+<td>ні, по одному</td>
+<td><code>asyncio.gather</code></td>
+</tr>
+<tr>
+<td>коли</td>
+<td>більшість тестів API</td>
+<td>конкурентність, async-стан застосунку</td>
+</tr>
+</tbody>
+</table>
+<p>Поглиблено: <a href="https://nikoriakviktot.github.io/notes_chat_app/08_testing_and_quality/pytest_basics_full/">async-тести й клієнти</a>; FastAPI — <a href="https://fastapi.tiangolo.com/advanced/async-tests/">Async Tests</a>.</p>
+<h2 id="refactor-6">Рефакторинг 6. Покриття: що тести не зачепили<a class="headerlink" href="#refactor-6" title="Permanent link">&para;</a></h2>
+<p>Покриття тестів уроку 40 — стандартний звіт <code>pytest-cov</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>$ cd ../../lesson_40_middleware_redis/news_hub &amp;&amp; pytest -q -p no:cacheprovider --cov=news_hub --cov-report=term:skip-covered tests | tail -n 12
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>news_hub/cache.py           33      1    97%
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>news_hub/db.py              26      8    69%
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>news_hub/jobs.py            58      1    98%
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>news_hub/parser.py          75     10    87%
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>news_hub/repository.py      58      6    90%
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>news_hub/scraper.py         49     28    43%
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>news_hub/tables.py          16      1    94%
+<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>--------------------------------------------
+<a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>TOTAL                      596     70    88%
+<a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a>
+<a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a>4 files skipped due to complete coverage.
+<a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a>41 passed in 2.41s
+</code></pre></div>
+<p>Перше: 88% — <strong>занижена</strong> цифра. Async SQLAlchemy виконує роботу з базою в greenlet (урок 39), а coverage за замовчуванням стежить лише за звичайними потоками. Рядки сесії, <code>flush</code>, <code>commit</code> насправді виконуються, але у звіт не потрапляють. Тому в проєкті тепер <code>.coveragerc</code>:</p>
+<div class="highlight"><span class="filename">.coveragerc</span><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="k">[run]</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="na">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">news_hub</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="na">branch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">true</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="c1"># Без greenlet coverage не бачить рядків, які async SQLAlchemy виконує в greenlet</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="c1"># (сесія, flush, commit) — і показує занижене покриття.</span>
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="na">concurrency</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">thread,greenlet</span>
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>
+<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a><span class="k">[report]</span>
+<a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a><span class="na">show_missing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">true</span>
+</code></pre></div>
+<p><code>branch = true</code> рахує ще й <strong>гілки</strong>: чи виконувались обидва виходи кожного <code>if</code> і <code>for</code>. Ті самі тести уроку 40 з цими налаштуваннями:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>$ cd ../../lesson_40_middleware_redis/news_hub &amp;&amp; pytest -q -p no:cacheprovider --cov=news_hub --cov-config=../../lesson_42_api_testing/news_hub/.coveragerc --cov-report=term:skip-covered tests | tail -n 12
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>news_hub/api.py            170      3     18      2    97%   97, 110, 160-&gt;159, 162
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>news_hub/cache.py           33      1      2      1    94%   28
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>news_hub/db.py              26      8      2      1    68%   26, 54-60
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>news_hub/parser.py          75     10     26      9    81%   69, 73, 78, 89, 95-96, 108, 111, 116, 120
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>news_hub/repository.py      58      3     10      3    91%   57, 71, 73
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>news_hub/scraper.py         49     28      6      0    38%   50-61, 65-72, 78-81, 86-89
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>news_hub/tables.py          16      1      0      0    94%   28
+<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>--------------------------------------------------------------------
+<a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>TOTAL                      596     54     80     16    89%
+<a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a>
+<a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a>5 files skipped due to complete coverage.
+<a id="__codelineno-22-13" name="__codelineno-22-13" href="#__codelineno-22-13"></a>41 passed in 3.25s
+</code></pre></div>
+<p>Непокритих рядків стало 54 замість 70: ці 16 рядків виконувались і раніше, звіт їх просто не бачив. Загальна цифра — 89%, бо тепер рахуються ще й гілки (16 частково пройдених).</p>
+<p>Червоні рядки — це список питань «а що тут має статися?». Чотири з них стали тестами уроку:</p>
+<table>
+<thead>
+<tr>
+<th>Непокрите (урок 40)</th>
+<th>Новий тест</th>
+<th>Знайшов</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>scraper.py</code> 43%: <code>fetch_one</code>, <code>scrape_*</code></td>
+<td><code>unit/test_scraper.py</code> (мок), <code>integration/test_scraper_server.py</code> (фейк)</td>
+<td>битий байт валить увесь збір</td>
+</tr>
+<tr>
+<td><code>db.py</code> 54–60: справжній <code>get_db</code></td>
+<td><code>integration/test_db.py</code></td>
+<td>— (працює; тепер це доведено)</td>
+</tr>
+<tr>
+<td><code>api.py</code>: <code>pages</code> з правильними адресами</td>
+<td><code>test_custom_pages_reach_scraper_as_strings</code>, <code>test_is_rbc_host</code></td>
+<td><code>fakerbc.ua</code> проходить перевірку</td>
+</tr>
+<tr>
+<td><code>repository.py</code> 71, 73: фільтри <code>category</code>, <code>source</code></td>
+<td><code>test_filters_combine</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>parser.py</code>: гілки <code>continue</code></td>
+<td><code>test_what_parser_skips</code></td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<h3 id="get_db">Справжній <code>get_db</code><a class="headerlink" href="#get_db" title="Permanent link">&para;</a></h3>
+<p>API-тести підміняють <code>get_db</code> копією з <code>conftest.py</code>. Копія може розійтися з оригіналом, і ніхто не помітить. <code>test_db.py</code> викликає <strong>оригінал</strong> так, як це робить FastAPI, а патчить лише фабрику сесій, яку <code>get_db</code> шукає в модулі <code>db</code>:</p>
+<div class="highlight"><span class="filename">tests/integration/test_db.py (фрагмент)</span><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="nd">@pytest_asyncio</span><span class="o">.</span><span class="n">fixture</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">factory</span><span class="p">(</span><span class="n">monkeypatch</span><span class="p">):</span>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>    <span class="n">engine</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">make_engine</span><span class="p">(</span><span class="s2">"sqlite+aiosqlite://"</span><span class="p">,</span> <span class="n">poolclass</span><span class="o">=</span><span class="n">StaticPool</span><span class="p">)</span>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>    <span class="o">...</span>
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>    <span class="n">monkeypatch</span><span class="o">.</span><span class="n">setattr</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="s2">"SessionFactory"</span><span class="p">,</span> <span class="n">test_factory</span><span class="p">)</span>    <span class="c1"># patch where used</span>
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>
+<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_exception_rolls_back_and_propagates</span><span class="p">(</span><span class="n">factory</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>    <span class="n">dependency</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">get_db</span><span class="p">()</span>
+<a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>    <span class="n">session</span> <span class="o">=</span> <span class="k">await</span> <span class="n">anext</span><span class="p">(</span><span class="n">dependency</span><span class="p">)</span>              <span class="c1"># FastAPI: код до yield</span>
+<a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a>    <span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">row</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a>    <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>                          <span class="c1"># INSERT уже в базі, але в незавершеній транзакції</span>
+<a id="__codelineno-23-13" name="__codelineno-23-13" href="#__codelineno-23-13"></a>    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">,</span> <span class="n">match</span><span class="o">=</span><span class="s2">"ендпоінт упав"</span><span class="p">):</span>
+<a id="__codelineno-23-14" name="__codelineno-23-14" href="#__codelineno-23-14"></a>        <span class="k">await</span> <span class="n">dependency</span><span class="o">.</span><span class="n">athrow</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">"ендпоінт упав"</span><span class="p">))</span>    <span class="c1"># так FastAPI передає виняток у залежність</span>
+<a id="__codelineno-23-15" name="__codelineno-23-15" href="#__codelineno-23-15"></a>    <span class="k">assert</span> <span class="k">await</span> <span class="n">count</span><span class="p">(</span><span class="n">factory</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+</code></pre></div>
+<h3 id="fakerbcua"><code>fakerbc.ua</code><a class="headerlink" href="#fakerbcua" title="Permanent link">&para;</a></h3>
+<p>Червона гілка в <code>ScrapeRequest.only_rbc</code>: жоден тест не передавав <strong>правильний</strong> список <code>pages</code>. Тест з межовими значеннями знайшов, що перевірка пропускає не лише rbc.ua:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">news_hub.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_rbc_host</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="k">for</span> <span class="n">host</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"rbc.ua"</span><span class="p">,</span> <span class="s2">"www.rbc.ua"</span><span class="p">,</span> <span class="s2">"auto.rbc.ua"</span><span class="p">,</span> <span class="s2">"fakerbc.ua"</span><span class="p">,</span> <span class="s2">"rbc.ua.evil.com"</span><span class="p">):</span>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">host</span><span class="si">:</span><span class="s2">16</span><span class="si">}</span><span class="s2"> endswith('rbc.ua'): </span><span class="si">{</span><span class="n">host</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'rbc.ua'</span><span class="p">)</span><span class="si">!s:</span><span class="s2">5</span><span class="si">}</span><span class="s2">  is_rbc_host: </span><span class="si">{</span><span class="n">is_rbc_host</span><span class="p">(</span><span class="n">host</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>rbc.ua           endswith('rbc.ua'): True   is_rbc_host: True
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>www.rbc.ua       endswith('rbc.ua'): True   is_rbc_host: True
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>auto.rbc.ua      endswith('rbc.ua'): True   is_rbc_host: True
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>fakerbc.ua       endswith('rbc.ua'): True   is_rbc_host: False
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>rbc.ua.evil.com  endswith('rbc.ua'): False  is_rbc_host: False
+</code></pre></div>
+<p><code>POST /api/scrape</code> з <code>{"pages": ["https://fakerbc.ua/"]}</code> змушував сервер завантажити чужий сайт на прохання будь-кого — і те саме пропускала модель <code>NewsItem</code>. Правильно — одна функція для обох місць:</p>
+<div class="highlight"><span class="filename">news_hub/models.py</span><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="gi">+def is_rbc_host(host: str | None) -&gt; bool:</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="gi">+    """rbc.ua або його піддомен (www., auto.). Не endswith("rbc.ua"): тоді пройшов би і fakerbc.ua."""</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="gi">+    return host == "rbc.ua" or (host or "").endswith(".rbc.ua")</span>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="w"> </span>...
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="gd">-        if not (url.host or "").endswith("rbc.ua"):</span>
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="gi">+        if not is_rbc_host(url.host):</span>
+</code></pre></div>
+<p>Після всіх рефакторингів:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>$ pytest -q -p no:cacheprovider --cov=news_hub --cov-report=term:skip-covered | tail -n 10
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>Name                 Stmts   Miss Branch BrPart  Cover   Missing
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>----------------------------------------------------------------
+<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>news_hub/cache.py       33      1      2      1    94%   28
+<a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>news_hub/parser.py      75      1     26      1    98%   111
+<a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a>news_hub/tables.py      16      1      0      0    94%   28
+<a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a>----------------------------------------------------------------
+<a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a>TOTAL                  607      3     82      2    99%
+<a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a>
+<a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a>9 files skipped due to complete coverage.
+<a id="__codelineno-27-11" name="__codelineno-27-11" href="#__codelineno-27-11"></a>86 passed in 6.72s
+</code></pre></div>
+<p>Лишились три рядки — і їх свідомо не покрито: <code>cache.py:28</code> — гілка справжнього Redis (її покриває прогін з <code>TEST_REDIS_URL</code>), <code>parser.py:111</code> — перевірка типу для mypy (<code>find_all(href=True)</code> дає лише <code>Tag</code>), <code>tables.py:28</code> — <code>__repr__</code>. <strong>100% — не мета</strong>; мета — щоб кожен червоний рядок був рішенням, а не випадком.</p>
+<h2 id="min-versions">Мінімальні версії залежностей<a class="headerlink" href="#min-versions" title="Permanent link">&para;</a></h2>
+<p><code>requirements.txt</code> обіцяє, що проєкт працює з <code>beautifulsoup4&gt;=4.12</code>, <code>fastapi&gt;=0.121</code>, <code>aiohttp&gt;=3.10</code>… Перевіряли досі лише найновіші версії. Прогін тих самих тестів на <strong>мінімальних</strong> версіях (Python 3.10) знайшов четверту помилку:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a># Python 3.10, beautifulsoup4 4.12.3, парсер уроку 40
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>$ pytest -q -p no:cacheprovider tests/unit/test_parser.py
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>FAILED tests/unit/test_parser.py::test_description_equal_to_title_is_dropped_time_from_class
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>E       TypeError: sequence item 0: expected str instance, NoneType found
+</code></pre></div>
+<p>Для тегу без атрибута <code>class</code> bs4 4.12 повертає <code>get_attribute_list("class") == [None]</code>, новіші версії — <code>[]</code>. <code>" ".join([None])</code> падає — а <code>_classes</code> викликається для кожного тегу всередині контейнера новини. На справжній сторінці з тегом <code>&lt;p&gt;</code> без класу парсер падав би з bs4 4.12. Тести на новій bs4 цього не бачили:</p>
+<div class="highlight"><span class="filename">news_hub/parser.py</span><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="w"> </span>def _classes(tag: Tag) -&gt; str:
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="gd">-    return " ".join(tag.get_attribute_list("class"))</span>
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="gi">+    # Тег без class: beautifulsoup4 4.12 дає [None] (join падав з TypeError), новіші — [] (урок 42)</span>
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="gi">+    return " ".join(cls for cls in tag.get_attribute_list("class") if cls)</span>
+</code></pre></div>
+<p>Тепер <code>news_hub</code> перевірено на трьох наборах: Python 3.10 з мінімальними версіями, Python 3.10 і 3.13 з найновішими. Окремо — на PostgreSQL 16 і Redis 7 (<code>TEST_DATABASE_URL</code>, <code>TEST_REDIS_URL</code>). У CI (урок 51) ці набори стануть матрицею.</p>
+<h2 id="architecture">Архітектура: що справжнє, а що підмінене<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
+<p>Кожен шар тестів відповідає на своє питання. Різниця — в тому, що справжнє, а що підмінене:</p>
+<pre class="mermaid"><code>graph LR
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    subgraph U["unit: 39 тестів, ≈1 с"]
+        UP["parser, models&lt;br&gt;на fixtures/*.html"]
+        US["fetch_one"] --&gt; UM["Mock&lt;br&gt;ClientSession"]
+    end
+    subgraph I["integration: 47 тестів, ≈4 с"]
+        TC["TestClient /&lt;br&gt;httpx.AsyncClient"] --&gt; APP["FastAPI app&lt;br&gt;middleware, Depends"]
+        APP --&gt; DB["SQLite у пам'яті&lt;br&gt;або PostgreSQL"]
+        APP --&gt; RD["fakeredis&lt;br&gt;або Redis"]
+        APP --&gt; FS["скрапер-заглушка&lt;br&gt;dependency_overrides"]
+        SC["scrape_all_async"] --&gt; TS["TestServer&lt;br&gt;127.0.0.1"]
+        GD["справжній get_db"] --&gt; DB
+    end
+
+    class UP,US,TC,APP,SC,GD success
+    class UM,FS warning
+    class DB,RD,TS decision</code></pre>
+<ul>
+<li><strong>зелене</strong> — справжній код застосунку, який тест виконує;</li>
+<li><strong>жовте</strong> — мок або заглушка: тест вирішує, що вона відповість;</li>
+<li><strong>синє</strong> — фейк або справжній сервер: поводиться як реальний (SQL, команди Redis, HTTP), лише локальний.</li>
+</ul>
+<p>Як обрати підміну для залежності:</p>
+<pre class="mermaid"><code>flowchart TD
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    Q1{"залежність — твій код&lt;br&gt;(парсер, модель, репозиторій)?"}
+    Q2{"є локальний аналог?&lt;br&gt;SQLite, fakeredis, TestServer"}
+    Q3{"перевіряєш гонки чи&lt;br&gt;SQL конкретної бази?"}
+    R1["виклич справжній&lt;br&gt;не мокай"]
+    R2["мок лише на зовнішній межі&lt;br&gt;мережа, email, платежі, час"]
+    R3["фейк у звичайному прогоні"]
+    R4["справжній сервер&lt;br&gt;TEST_DATABASE_URL, TEST_REDIS_URL"]
+
+    Q1 -- так --&gt; R1
+    Q1 -- ні --&gt; Q2
+    Q2 -- ні --&gt; R2
+    Q2 -- так --&gt; Q3
+    Q3 -- ні --&gt; R3
+    Q3 -- так --&gt; R4
+
+    class Q1,Q2,Q3 decision
+    class R1,R3,R4 success
+    class R2 warning</code></pre>
+<h3 id="mypy">Тести і mypy<a class="headerlink" href="#mypy" title="Permanent link">&para;</a></h3>
+<p>Приклад виводу (час залежить від машини):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>$ pytest -q -p no:cacheprovider
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>......................................................................................       [100%]
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>86 passed in 3.85s
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>$ mypy --strict news_hub
+<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>Success: no issues found in 12 source files
+</code></pre></div>
+<p>Було 41 тест у трьох файлах, стало 86 у десяти; покриття 88% (рядки, без greenlet) → 99% (рядки й гілки).</p>
+<h2 id="practice">Практика<a class="headerlink" href="#practice" title="Permanent link">&para;</a></h2>
+<h3 id="_3">Розібраний приклад: тест ключа кешу<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p><code>NewsCache.key</code> (урок 40) будує ключ з параметрів запиту. Що має бути правдою?</p>
+<ol>
+<li>Той самий набір параметрів у <strong>іншому порядку</strong> — той самий ключ: <code>?lang=uk&amp;limit=5</code> і <code>?limit=5&amp;lang=uk</code> — один запит.</li>
+<li>Інші параметри — інший ключ.</li>
+<li>Після <code>invalidate()</code> ключ змінюється — старий кеш більше не читається.</li>
+</ol>
+<p>Шар — unit: потрібен лише Redis, і fakeredis тут достатньо (гонок у тесті немає).</p>
+<div class="highlight"><span class="filename">tests/unit/test_cache.py (розв&#x27;язок)</span><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">fakeredis</span>
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>
+<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">news_hub.cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">NewsCache</span>
+<a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>
+<a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>
+<a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">asyncio</span>
+<a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_key_depends_on_params_not_order_and_changes_after_invalidate</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a>    <span class="n">cache</span> <span class="o">=</span> <span class="n">NewsCache</span><span class="p">(</span><span class="n">fakeredis</span><span class="o">.</span><span class="n">FakeAsyncRedis</span><span class="p">(</span><span class="n">decode_responses</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<a id="__codelineno-31-10" name="__codelineno-31-10" href="#__codelineno-31-10"></a>    <span class="n">first</span> <span class="o">=</span> <span class="k">await</span> <span class="n">cache</span><span class="o">.</span><span class="n">key</span><span class="p">(</span><span class="s2">"list"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"lang"</span><span class="p">:</span> <span class="s2">"uk"</span><span class="p">,</span> <span class="s2">"limit"</span><span class="p">:</span> <span class="mi">5</span><span class="p">})</span>
+<a id="__codelineno-31-11" name="__codelineno-31-11" href="#__codelineno-31-11"></a>    <span class="k">assert</span> <span class="n">first</span> <span class="o">==</span> <span class="k">await</span> <span class="n">cache</span><span class="o">.</span><span class="n">key</span><span class="p">(</span><span class="s2">"list"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"limit"</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s2">"lang"</span><span class="p">:</span> <span class="s2">"uk"</span><span class="p">})</span>
+<a id="__codelineno-31-12" name="__codelineno-31-12" href="#__codelineno-31-12"></a>    <span class="k">assert</span> <span class="n">first</span> <span class="o">!=</span> <span class="k">await</span> <span class="n">cache</span><span class="o">.</span><span class="n">key</span><span class="p">(</span><span class="s2">"list"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"lang"</span><span class="p">:</span> <span class="s2">"ru"</span><span class="p">,</span> <span class="s2">"limit"</span><span class="p">:</span> <span class="mi">5</span><span class="p">})</span>
+<a id="__codelineno-31-13" name="__codelineno-31-13" href="#__codelineno-31-13"></a>    <span class="k">await</span> <span class="n">cache</span><span class="o">.</span><span class="n">invalidate</span><span class="p">()</span>
+<a id="__codelineno-31-14" name="__codelineno-31-14" href="#__codelineno-31-14"></a>    <span class="k">assert</span> <span class="n">first</span> <span class="o">!=</span> <span class="k">await</span> <span class="n">cache</span><span class="o">.</span><span class="n">key</span><span class="p">(</span><span class="s2">"list"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"lang"</span><span class="p">:</span> <span class="s2">"uk"</span><span class="p">,</span> <span class="s2">"limit"</span><span class="p">:</span> <span class="mi">5</span><span class="p">})</span>
+</code></pre></div>
+<p>Перевір, що тест ловить помилку: прибери <code>sort_keys=True</code> у <code>NewsCache.key</code> — перший <code>assert</code> має впасти.</p>
+<h3 id="_4">Зміни приклад<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Додай до тесту випадок з кирилицею в параметрах (<code>{"category": "Економіка"}</code>) — ключ має бути ASCII, бо це хеш.</li>
+<li>Перепиши тест через <code>parametrize</code>: пари параметрів і очікування «ключі рівні / різні».</li>
+</ol>
+<h3 id="_5">Спробуй самостійно: фоновий збір проти фейкового сайту<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>Напиши інтеграційний тест, у якому <code>POST /api/scrape/jobs</code> збирає новини з <code>TestServer</code>, а не із заглушки:</p>
+<ul>
+<li>підміни <code>get_scrapers</code> так, щоб <code>"async"</code> викликав справжній <code>scrape_all_async</code> з адресами фейкового сервера;</li>
+<li>але <code>ScrapeRequest</code> пропускає лише rbc.ua — тож адреси задай у самій підміні, а не в тілі запиту;</li>
+<li>тест — через <code>aclient</code> (тоді <code>TestServer</code> і застосунок в одному циклі подій).</li>
+</ul>
+<p><strong>Критерії перевірки:</strong> статус задачі <code>done</code>, <code>news_saved == 1</code>, у базі — новина «США хочуть підкупити кубинців…»; тест проходить без інтернету; <code>pytest -m integration</code> зелений.</p>
+<h3 id="find-bug">Знайди помилку<a class="headerlink" href="#find-bug" title="Permanent link">&para;</a></h3>
+<p>Ось два тести з уроків 37–40 — вони справді були в проєкті, скорочено — і модель тих уроків (лише поле часу). Обидва тести зелені:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">time</span>
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>
+<a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">ValidationError</span>
+<a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a>
+<a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">news_hub.parser</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse_rbc_news</span>
+<a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a>
+<a id="__codelineno-32-8" name="__codelineno-32-8" href="#__codelineno-32-8"></a>
+<a id="__codelineno-32-9" name="__codelineno-32-9" href="#__codelineno-32-9"></a><span class="k">class</span><span class="w"> </span><span class="nc">NewsTime39</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>                  <span class="c1"># поле published_time моделі уроків 37–40</span>
+<a id="__codelineno-32-10" name="__codelineno-32-10" href="#__codelineno-32-10"></a>    <span class="n">published_time</span><span class="p">:</span> <span class="n">time</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-32-11" name="__codelineno-32-11" href="#__codelineno-32-11"></a>
+<a id="__codelineno-32-12" name="__codelineno-32-12" href="#__codelineno-32-12"></a>
+<a id="__codelineno-32-13" name="__codelineno-32-13" href="#__codelineno-32-13"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_parser_reads_time_attribute</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-32-14" name="__codelineno-32-14" href="#__codelineno-32-14"></a>    <span class="n">page</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'&lt;div class="newsline__item"&gt;&lt;a class="title" href="/ukr/news/1/"&gt;Уряд затвердив новий бюджет&lt;/a&gt;'</span>
+<a id="__codelineno-32-15" name="__codelineno-32-15" href="#__codelineno-32-15"></a>            <span class="s1">'&lt;time datetime="2024-05-08T10:30:00"&gt;10:30&lt;/time&gt;&lt;/div&gt;'</span><span class="p">)</span>
+<a id="__codelineno-32-16" name="__codelineno-32-16" href="#__codelineno-32-16"></a>    <span class="k">assert</span> <span class="n">parse_rbc_news</span><span class="p">(</span><span class="n">page</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="s2">"datetime"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"2024-05-08T10:30:00"</span>
+<a id="__codelineno-32-17" name="__codelineno-32-17" href="#__codelineno-32-17"></a>
+<a id="__codelineno-32-18" name="__codelineno-32-18" href="#__codelineno-32-18"></a>
+<a id="__codelineno-32-19" name="__codelineno-32-19" href="#__codelineno-32-19"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_model_parses_time</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-32-20" name="__codelineno-32-20" href="#__codelineno-32-20"></a>    <span class="k">assert</span> <span class="n">NewsTime39</span><span class="p">(</span><span class="n">published_time</span><span class="o">=</span><span class="s2">"14:19"</span><span class="p">)</span><span class="o">.</span><span class="n">published_time</span> <span class="o">==</span> <span class="n">time</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">19</span><span class="p">)</span>
+<a id="__codelineno-32-21" name="__codelineno-32-21" href="#__codelineno-32-21"></a>
+<a id="__codelineno-32-22" name="__codelineno-32-22" href="#__codelineno-32-22"></a>
+<a id="__codelineno-32-23" name="__codelineno-32-23" href="#__codelineno-32-23"></a><span class="n">test_parser_reads_time_attribute</span><span class="p">()</span>
+<a id="__codelineno-32-24" name="__codelineno-32-24" href="#__codelineno-32-24"></a><span class="n">test_model_parses_time</span><span class="p">()</span>
+<a id="__codelineno-32-25" name="__codelineno-32-25" href="#__codelineno-32-25"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"обидва тести зелені"</span><span class="p">)</span>
+<a id="__codelineno-32-26" name="__codelineno-32-26" href="#__codelineno-32-26"></a>
+<a id="__codelineno-32-27" name="__codelineno-32-27" href="#__codelineno-32-27"></a><span class="n">raw</span> <span class="o">=</span> <span class="n">parse_rbc_news</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">"tests/fixtures/demo_newsline.html"</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">))</span>
+<a id="__codelineno-32-28" name="__codelineno-32-28" href="#__codelineno-32-28"></a><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">raw</span><span class="p">:</span>
+<a id="__codelineno-32-29" name="__codelineno-32-29" href="#__codelineno-32-29"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-32-30" name="__codelineno-32-30" href="#__codelineno-32-30"></a>        <span class="n">NewsTime39</span><span class="p">(</span><span class="n">published_time</span><span class="o">=</span><span class="n">item</span><span class="p">[</span><span class="s2">"datetime"</span><span class="p">])</span>
+<a id="__codelineno-32-31" name="__codelineno-32-31" href="#__codelineno-32-31"></a>    <span class="k">except</span> <span class="n">ValidationError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+<a id="__codelineno-32-32" name="__codelineno-32-32" href="#__codelineno-32-32"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">item</span><span class="p">[</span><span class="s1">'datetime'</span><span class="p">]</span><span class="si">!r}</span><span class="s2"> → </span><span class="si">{</span><span class="n">error</span><span class="o">.</span><span class="n">errors</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="s1">'msg'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>обидва тести зелені
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>'2024-05-08T10:30:00' → Input should be in a valid time format, invalid time separator, expected `:`
+<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>'2024-05-08T09:15:00' → Input should be in a valid time format, invalid time separator, expected `:`
+</code></pre></div>
+<p>Кожен тест правильний. Чому разом вони пропустили помилку, і який тест її ловить?</p>
+<details class="success">
+<summary>Відповідь</summary>
+<p>Кожен тест перевіряє свою половину <strong>на своїх даних</strong>: тест парсера — що він віддає ISO-рядок, тест моделі — що вона приймає «14:19». Ніхто не перевіряв <strong>контракт між ними</strong>: чи приймає модель те, що віддає парсер. Парсер віддає <code>"2024-05-08T10:30:00"</code>, а Pydantic для поля <code>time</code> приймає лише час — <code>"Input should be in a valid time format"</code>. На сайті з контейнерами <code>newsline__item</code> модель відхиляла б <strong>кожну</strong> новину з атрибутом <code>&lt;time datetime&gt;</code>. <code>validate_news</code> не губить їх мовчки, а кладе в <code>rejected</code>. Але звіт <code>POST /api/scrape</code> показував би «знайдено N, збережено 0».</p>
+<p>Ловить <strong>тест конвеєра</strong> (<code>tests/unit/test_pipeline.py</code>): вихід парсера на збереженій сторінці → модель, <code>rejected == []</code>. Правило: коли дві частини з'єднані даними, потрібен хоча б один тест, у якому дані з однієї справді йдуть у другу. Спільна фікстура (<code>demo_newsline.html</code>) для обох тестів дала б те саме.</p>
+<p>Правильно — <code>field_validator("published_time", mode="before")</code> у <code>NewsItem</code>: з ISO-рядка береться час.</p>
+</details>
+<h2 id="_6">Підсумок<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Поняття</th>
+<th>Що запам'ятати</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>unit / integration</td>
+<td>папки + маркери з <code>conftest.py</code>; <code>pytest -m unit</code> — секунди, після кожної зміни</td>
+</tr>
+<tr>
+<td>Збережені сторінки</td>
+<td><code>tests/fixtures/*.html</code>: справжня розмітка, спільна для кількох тестів</td>
+</tr>
+<tr>
+<td>Тест конвеєра</td>
+<td>дані з однієї частини — справді в другу; ловить помилки контракту</td>
+</tr>
+<tr>
+<td>Мок</td>
+<td>лише зовнішня межа; patch <strong>where used</strong>; не бачить коду між запитом і рядком</td>
+</tr>
+<tr>
+<td>Фейк</td>
+<td>справжня поведінка локально: <code>TestServer</code>, SQLite, fakeredis; має свої межі (гонки)</td>
+</tr>
+<tr>
+<td><code>httpx.AsyncClient</code> + <code>ASGITransport</code></td>
+<td>тест і застосунок в одному циклі; <code>await</code> Redis напряму; <code>asyncio.gather</code></td>
+</tr>
+<tr>
+<td>Покриття</td>
+<td><code>concurrency = thread,greenlet</code> для async SQLAlchemy; <code>branch = true</code>; червоне — питання, не мета</td>
+</tr>
+<tr>
+<td>Мінімальні версії</td>
+<td>те, що обіцяє <code>requirements.txt</code>, теж треба перевірити</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_7">Самоперевірка<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Чим unit-тест відрізняється від інтеграційного в цьому проєкті? Назви по одному прикладу.</li>
+<li>Чому патч <code>news_hub.parser.parse_rbc_news</code> не впливає на <code>fetch_one</code>?</li>
+<li>Яку помилку знайшов фейковий сервер і чому мок її не бачив?</li>
+<li>Чому тест одночасних запитів на fakeredis не доводить атомарність rate limit?</li>
+<li>Що змінює <code>concurrency = thread,greenlet</code> у звіті покриття?</li>
+<li>Навіщо тестувати справжній <code>get_db</code>, якщо API-тести працюють?</li>
+</ol>
+<details class="success">
+<summary>Відповіді</summary>
+<ol>
+<li>Unit — одна функція чи клас без бази, Redis і мережі: <code>test_parser.py</code>, <code>test_scraper.py</code> (мережа під моком). Integration — застосунок цілком або з реальним ресурсом: <code>test_crud.py</code> (API + база), <code>test_scraper_server.py</code> (справжній aiohttp + локальний сервер).</li>
+<li><code>scraper.py</code> імпортував функцію до себе (<code>from .parser import …</code>), і <code>fetch_one</code> шукає ім'я в модулі <code>scraper</code>. Патч замінив ім'я лише в модулі <code>parser</code>.</li>
+<li>Сторінка з невалідним байтом UTF-8: <code>resp.text()</code> кидав <code>UnicodeDecodeError</code>, який <code>fetch_one</code> не ловив, — і <code>gather</code> губив усі сторінки. У мока <code>text()</code> повертає готовий рядок, декодування не відбувається.</li>
+<li>fakeredis не віддає керування циклу подій між командами — одночасні корутини не перемежовуються, гонки не буває. «Наївний» лічильник на ньому теж проходить. Доводить лише прогін зі справжнім Redis.</li>
+<li>coverage починає бачити рядки, виконані в greenlet, — так async SQLAlchemy працює з базою. Без цього звіт занижений: на тестах уроку 40 — 70 непокритих рядків замість 54 (88% замість 91%).</li>
+<li>API-тести підміняють <code>get_db</code> копією з <code>conftest.py</code>, тож оригінал не виконується ніколи. Копія може розійтися з оригіналом, а тести лишаться зеленими.</li>
+</ol>
+</details>
+<h3 id="_8">Що далі<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Ноутбук заняття: <a class="md-button md-button--primary" href="https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_42_api_testing/note_lesson_42_testing_student.ipynb">Відкрити вправи в Colab</a> <a class="solutions-link" href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_42_api_testing/note_lesson_42_testing.ipynb">Переглянути розв’язки</a>.</li>
+<li>Урок 43 — AI-інструменти розробника і як перевіряти згенерований код. Тести цього уроку — перший інструмент такої перевірки.</li>
+<li>Урок 44 — Gemini в агрегаторі; виклик LLM API — ще одна зовнішня межа, яку мокатимемо за сьогоднішніми правилами.</li>
+</ul>
+<h2 id="_9">Документація і джерела<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Код: <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_42_api_testing/news_hub"><code>news_hub</code></a> — тести уроку 40, перебудовані за <code>TESTING_FOUNDATIONS.md</code>, <code>MOCKING_AND_PATCHING.md</code>, <code>TEST_DATA_AND_FIXTURES.md</code>; HTML-фікстури — з ноутбука web scraping.</li>
+<li>Урок 26 курсу — <a href="../../m2/lesson_26/">pytest і тестування</a>: fixtures, <code>parametrize</code>, mock, покриття, піраміда тестів.</li>
+<li>Django-книга, частина VIII: <a href="https://nikoriakviktot.github.io/notes_chat_app/08_testing_and_quality/testing_foundations_full/">основи тестування</a>, <a href="https://nikoriakviktot.github.io/notes_chat_app/08_testing_and_quality/pytest_basics_full/">pytest</a>, <a href="https://nikoriakviktot.github.io/notes_chat_app/08_testing_and_quality/mocking_and_patching_full/">Mock і patch</a>, <a href="https://nikoriakviktot.github.io/notes_chat_app/08_testing_and_quality/test_data_and_fixtures_full/">тестові дані й фікстури</a>, <a href="https://nikoriakviktot.github.io/notes_chat_app/08_testing_and_quality/testing_practice_project_full/">практика</a>.</li>
+<li>pytest: <a href="https://docs.pytest.org/en/stable/how-to/mark.html">markers</a>, <a href="https://docs.pytest.org/en/stable/reference/reference.html#pytest.hookspec.pytest_collection_modifyitems">hooks: pytest_collection_modifyitems</a>, <a href="https://docs.pytest.org/en/stable/how-to/monkeypatch.html">monkeypatch</a>; <a href="https://pytest-asyncio.readthedocs.io/">pytest-asyncio</a>; <a href="https://pytest-cov.readthedocs.io/">pytest-cov</a>.</li>
+<li>Python: <a href="https://docs.python.org/3/library/unittest.mock.html#where-to-patch">unittest.mock — where to patch</a>, <a href="https://docs.python.org/3/library/unittest.mock.html#unittest.mock.AsyncMock">AsyncMock</a>.</li>
+<li>FastAPI: <a href="https://fastapi.tiangolo.com/tutorial/testing/">Testing</a>, <a href="https://fastapi.tiangolo.com/advanced/async-tests/">Async Tests</a>, <a href="https://fastapi.tiangolo.com/advanced/testing-dependencies/">Testing Dependencies with Overrides</a>; HTTPX: <a href="https://www.python-httpx.org/advanced/transports/#asgi-transport">ASGI transport</a>.</li>
+<li>aiohttp: <a href="https://docs.aiohttp.org/en/stable/testing.html">Testing — TestServer</a>; coverage.py: <a href="https://coverage.readthedocs.io/en/latest/branch.html">branch coverage</a>, <a href="https://coverage.readthedocs.io/en/latest/config.html#run-concurrency">concurrency</a>.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Футер" >
+        
+          
+          <a href="../lesson_41/" class="md-footer__link md-footer__link--prev" aria-label="Назад: 41. Автентифікація та security basics (JWT, hashing, OWASP)">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Назад
+              </span>
+              <div class="md-ellipsis">
+                41. Автентифікація та security basics (JWT, hashing, OWASP)
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../lesson_43/" class="md-footer__link md-footer__link--next" aria-label="Вперед: Урок">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Вперед
+              </span>
+              <div class="md-ellipsis">
+                Урок
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.footer", "toc.follow", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0456\u0439\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u0421\u043a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438 \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0429\u0435 1 \u0437\u0431\u0456\u0433 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.more.other": "\u0429\u0435 # \u0437\u0431\u0456\u0433\u0456\u0432 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.none": "\u0417\u0431\u0456\u0433\u0456\u0432 \u043d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0437\u0431\u0456\u0433", "search.result.other": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e # \u0437\u0431\u0456\u0433\u0456\u0432", "search.result.placeholder": "\u0420\u043e\u0437\u043f\u043e\u0447\u043d\u0456\u0442\u044c \u043f\u0438\u0441\u0430\u0442\u0438 \u0434\u043b\u044f \u043f\u043e\u0448\u0443\u043a\u0443", "search.result.term.missing": "\u041d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e \u0437\u0430\u043f\u0438\u0442\u0443", "select.version": "\u041e\u0431\u0440\u0430\u0442\u0438 \u0432\u0435\u0440\u0441\u0456\u044e"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/sidebars.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,4642 @@
+
+<!doctype html>
+<html lang="uk" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Курс Python українською — від основ до просунутих тем, у форматі книги">
+      
+      
+      
+        <link rel="canonical" href="https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m2/lesson_25/">
+      
+      
+        <link rel="prev" href="../lesson_24/">
+      
+      
+        <link rel="next" href="../lesson_26/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>25. Ітератори advanced - PY Course — Viktor Nikoriak</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#25-advanced" class="md-skip">
+          Перейти до змісту
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Хедер">
+    <a href="../../.." title="PY Course — Viktor Nikoriak" class="md-header__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PY Course — Viktor Nikoriak
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              25. Ітератори advanced
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Пошук" placeholder="Пошук" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Шукати">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистити" aria-label="Очистити" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Пошук розпочато
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Вкладки" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Головна
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../00_getting_started/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Як користуватися
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Модулі курсу (в розробці)
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../00_python_mental_model/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Довідник
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Навігація" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="PY Course — Viktor Nikoriak" class="md-nav__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    PY Course — Viktor Nikoriak
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Головна
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../00_getting_started/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Як користуватися
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Модулі курсу (в розробці)
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Модулі курсу (в розробці)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../m1/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М1. Основи Python
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М1. Основи Python
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Вступ: формат курсу, AI-політика
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Перші кроки
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Змінні та базові типи даних
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Умови та цикли
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Списки, кортежі, множини
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Словники, for, comprehensions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Функції
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. П1. Big O + базові задачі
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Декоратори
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Ітератори й генератори
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. П2. Пошук
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Модулі та стандартна бібліотека
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Винятки та обробка помилок
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Файли I/O, JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Git & GitHub: система
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. П3. Хеш-структури
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Узагальнення + фінальний проєкт
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М2. Python Advanced
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М2. Python Advanced
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2_python_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Функції як об'єкти першого класу
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Класи, простір імен
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    21. Наслідування, поліморфізм
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    22. Інкапсуляція, область видимості
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    23. П4. Рекурсія, divide & conquer, backtracking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    24. @property, декоратори класів, dunder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    25. Ітератори advanced
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    25. Ітератори advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пригадай
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#-__iter__-__next__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Клас-ітератор: __iter__ і __next__
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Генератор зсередини
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Генератор зсередини">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#close-finally" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        close() і finally: прибирання за собою
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#send" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .send(): генератор, що приймає дані
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=".send(): генератор, що приймає дані">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Генератор як скінченний автомат
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yield-from" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        yield from: делегування й результат
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#itertools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Алгебра itertools
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Алгебра itertools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dropwhile-takewhile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dropwhile і takewhile: межі потоку
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#groupby" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        groupby: групи сусідів
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pairwise-accumulate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pairwise і accumulate: сусідні пари й наростаючий підсумок
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#combinations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        combinations: перебір без вкладених циклів
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Архітектура: ETL-конвеєр подій
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Архітектура: ETL-конвеєр подій">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Хто штовхає, а хто тягне
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Компроміси
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Помилки й тести
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Практика
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Практика">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Розібраний приклад: середній час доставки по кур'єрах
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зміни приклад: запізнення
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Спробуй самостійно: пачки й ковзне середнє
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Знайди помилку
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Підсумок
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Підсумок">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Самоперевірка
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що далі
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Документація і джерела
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    26. Тестування з pytest (+ валідація AI-коду)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    27. П5. Динамічне програмування + greedy (вступ)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    28. Потоки, multiprocessing, asyncio: вступ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    29. П6. Stack, Queue, Heap, Trie + LRU → ООП-пакет
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М3. Бази даних
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М3. Бази даних
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3_databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m3/bonus_pandas/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. Pandas: аналіз даних, графіки і Dash
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3/lesson_30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    30. Основи SQL (PostgreSQL)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3/lesson_31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    31. Redis overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М4. Web (+ Web Advanced)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М4. Web (+ Web Advanced)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4_web/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    32. HTTP: requests, httpx, aiohttp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    33. REST: принципи дизайну API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    34. Django intro: MVT, ORM, admin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    35. Django: forms, HTML practice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    36. DRF overview + Django vs FastAPI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    37. Typing + Pydantic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m4/lesson_38/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    38. FastAPI basics + Postman + OpenAPI
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    39. FastAPI + SQLAlchemy: повний CRUD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    40. Middlewares і кешування (Redis на практиці)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    41. Автентифікація та security basics (JWT, hashing, OWASP)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    42. Тестування API (pytest + httpx)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m4/lesson_43/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    43. AI-інструменти розробника + ризики й валідація
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    44. Інтеграція LLM API (Gemini / Anthropic)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    45. Архітектура застосунків і патерни
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    46. WebSockets + практика: чат
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    47. Security advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    48. Telegram Bot API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М5. Production
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М5. Production
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5_production/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m5/bonus_linux/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. Linux для розробника
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    49. Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    50. Docker Compose + деплой
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    51. CI/CD (GitHub Actions)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М6. Капстоун
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М6. Капстоун
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6_capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6/lesson_52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    52. Робота над фінальним проєктом
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6/lesson_53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    53. Випускний: питч фінального проєкту
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m6/bonus_cv/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. CV розробника
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bonus_ai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Self-paced. AI для розробників (бонус)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../00_python_mental_model/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Довідник
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пригадай
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#-__iter__-__next__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Клас-ітератор: __iter__ і __next__
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Генератор зсередини
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Генератор зсередини">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#close-finally" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        close() і finally: прибирання за собою
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#send" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .send(): генератор, що приймає дані
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=".send(): генератор, що приймає дані">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Генератор як скінченний автомат
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yield-from" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        yield from: делегування й результат
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#itertools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Алгебра itertools
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Алгебра itertools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dropwhile-takewhile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dropwhile і takewhile: межі потоку
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#groupby" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        groupby: групи сусідів
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pairwise-accumulate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pairwise і accumulate: сусідні пари й наростаючий підсумок
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#combinations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        combinations: перебір без вкладених циклів
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Архітектура: ETL-конвеєр подій
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Архітектура: ETL-конвеєр подій">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Хто штовхає, а хто тягне
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Компроміси
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Помилки й тести
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Практика
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Практика">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Розібраний приклад: середній час доставки по кур'єрах
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зміни приклад: запізнення
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Спробуй самостійно: пачки й ковзне середнє
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Знайди помилку
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Підсумок
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Підсумок">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Самоперевірка
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що далі
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Документація і джерела
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Навігація" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Головна
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Модулі курсу (в розробці)
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../m2_python_advanced/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    М2. Python Advanced
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="25-advanced">Урок 25. Ітератори advanced<a class="headerlink" href="#25-advanced" title="Permanent link">&para;</a></h1>
+<p>Застосунок кур'єрів «Смачно + Таксі» шле в диспетчерську потік подій: кур'єр забрав замовлення (<code>picked</code>), кур'єр доставив (<code>delivered</code>). Кожна подія — рядок «час кур'єр замовлення подія». Так виглядає журнал вечірньої зміни:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">LOG</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="s2">"17:52 D-2 98 delivered"</span><span class="p">,</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="s2">"17:58 D-1 97 delivered"</span><span class="p">,</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="s2">"18:03 D-1 101 picked"</span><span class="p">,</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="s2">"18:05 D-2 102 picked"</span><span class="p">,</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="s2">"18:07 D-3 103 picked"</span><span class="p">,</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="s2">"18:21 D-1 101 delivered"</span><span class="p">,</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="s2">"18:24 ?? зламаний рядок"</span><span class="p">,</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="s2">"18:29 D-2 102 delivered"</span><span class="p">,</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="s2">"18:31 D-1 104 picked"</span><span class="p">,</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="s2">"18:44 D-3 103 delivered"</span><span class="p">,</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="s2">"18:52 D-1 104 delivered"</span><span class="p">,</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="p">]</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">LOG</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>11
+</code></pre></div>
+<p>Тут усе, з чим стикається справжній потік: події попередньої зміни (до 18:00), битий рядок, доставки різних кур'єрів упереміш. А диспетчерській потрібно:</p>
+<ul>
+<li>середній час доставки <strong>на льоту</strong>, після кожної події, а не наприкінці дня;</li>
+<li>звіт по кур'єрах;</li>
+<li>лише події поточної зміни;</li>
+<li>список битих рядків, щоб розібратися з ними, а не губити мовчки.</li>
+</ul>
+<p>В уроці 11 ми навчилися будувати конвеєри з генераторів. Сьогодні — наступний рівень: власні ітератори-класи, генератори, які <strong>приймають</strong> дані через <code>.send()</code>, генератор як скінченний автомат і «алгебра» <code>itertools</code>.</p>
+<p><strong>Що потрібно з попередніх уроків:</strong> ітератори, <code>yield</code>, конвеєри й <code>islice</code> (урок 11), декоратори (урок 10), скінченний автомат статусів (урок 22), <code>__iter__</code> (урок 24), перебір з поверненням (урок 23).</p>
+<p><strong>Після уроку ти зможеш:</strong></p>
+<ul>
+<li>писати клас-ітератор з <code>__iter__</code> і <code>__next__</code> і відокремлювати ітерабельне від ітератора;</li>
+<li>пояснювати стани генератора, <code>return</code> у генераторі, <code>close()</code> і <code>finally</code>;</li>
+<li>передавати дані в генератор через <code>.send()</code> і запускати його декоратором;</li>
+<li>будувати скінченний автомат на генераторі;</li>
+<li>використовувати <code>yield from</code> для делегування й отримання результату;</li>
+<li>обирати інструмент <code>itertools</code>: <code>dropwhile</code>, <code>takewhile</code>, <code>groupby</code>, <code>pairwise</code>, <code>accumulate</code>, <code>combinations</code>;</li>
+<li>проєктувати ETL-конвеєр зі стадіями, які легко тестувати, і окремим списком відхилених записів.</li>
+</ul>
+<p><strong>Задача розділу.</strong> Конвеєр «журнал → розбір → зміна → тривалості → звіт», що рахує середній час доставки кожного кур'єра й збирає биті рядки окремо. Повний код — у розділі <a href="#practice">«Практика»</a>.</p>
+<p><strong>Ноутбук заняття:</strong> <a class="md-button md-button--primary" href="https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_25_iterators_advanced/note_lesson_25_iterators_advanced_student.ipynb">Відкрити вправи в Colab</a> <a class="solutions-link" href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_25_iterators_advanced/note_lesson_25_iterators_advanced.ipynb">Переглянути розв’язки</a></p>
+<h2 id="_1">Пригадай<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Що робить <code>for</code> з об'єктом, перш ніж узяти перший елемент?</li>
+<li>Чому другий <code>list()</code> від того самого генератора порожній?</li>
+<li>Як в уроці 22 автомат статусів вирішував, чи дозволений перехід?</li>
+<li>Що повертав <code>__iter__</code> кошика в уроці 24?</li>
+</ol>
+<details class="success">
+<summary>Відповіді</summary>
+<ol>
+<li>Викликає <code>iter()</code> і отримує ітератор, а далі — <code>next()</code>, доки не прийде <code>StopIteration</code>.</li>
+<li>Генератор одноразовий: перший <code>list()</code> дійшов до кінця.</li>
+<li>Шукав пару «поточний статус → новий» у словнику <code>TRANSITIONS</code>.</li>
+<li>Готовий ітератор словника: <code>iter(self._items.items())</code>.</li>
+</ol>
+</details>
+<h2 id="-__iter__-__next__">Клас-ітератор: <code>__iter__</code> і <code>__next__</code><a class="headerlink" href="#-__iter__-__next__" title="Permanent link">&para;</a></h2>
+<p>В уроці 11 ми бачили протокол ззовні: <code>iter()</code>, потім <code>next()</code>, доки не <code>StopIteration</code>. Щоб наш клас сам був ітератором, треба два методи: <code>__next__</code> віддає наступний елемент або кидає <code>StopIteration</code>, а <code>__iter__</code> повертає сам ітератор. Перша спроба — журнал зміни, що перебирає власні рядки:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">ShiftLog</span><span class="p">:</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lines</span><span class="p">):</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="n">lines</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        <span class="k">return</span> <span class="bp">self</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="p">):</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>            <span class="k">raise</span> <span class="ne">StopIteration</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>        <span class="n">line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">]</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>        <span class="k">return</span> <span class="n">line</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="n">log</span> <span class="o">=</span> <span class="n">ShiftLog</span><span class="p">(</span><span class="n">LOG</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">5</span><span class="p">])</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">log</span><span class="p">))</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">log</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>['18:03 D-1 101 picked', '18:05 D-2 102 picked', '18:07 D-3 103 picked']
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>[]
+</code></pre></div>
+<p>Працює — один раз. Курсор <code>position</code> живе в самому журналі, тож після першого проходу журнал «порожній», хоча рядки нікуди не ділися. Так само зламаються вкладені цикли по тому самому журналу: внутрішній цикл вичерпає курсор для зовнішнього.</p>
+<p>Проблема в тому, що ми змішали дві ролі:</p>
+<ul>
+<li><strong>ітерабельне</strong> (журнал) — знає дані й на кожен <code>iter()</code> видає <strong>новий</strong> ітератор;</li>
+<li><strong>ітератор</strong> (курсор) — пам'ятає позицію, одноразовий.</li>
+</ul>
+<pre class="mermaid"><code>flowchart LR
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    LOG["ShiftLog&lt;br&gt;дані"] -- "iter()" --&gt; C1["курсор 1&lt;br&gt;position = 0"]
+    LOG -- "iter()" --&gt; C2["курсор 2&lt;br&gt;position = 0"]
+    C1 -- "next()" --&gt; L["рядок"]
+    C1 -- "next() в кінці" --&gt; STOP["StopIteration"]
+
+    class LOG success
+    class C1,C2 step
+    class L step
+    class STOP warning</code></pre>
+<p>Розділяємо ролі на два класи:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">ShiftLogIterator</span><span class="p">:</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lines</span><span class="p">):</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_lines</span> <span class="o">=</span> <span class="n">lines</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_position</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>        <span class="k">return</span> <span class="bp">self</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_position</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_lines</span><span class="p">):</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>            <span class="k">raise</span> <span class="ne">StopIteration</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>        <span class="n">line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lines</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_position</span><span class="p">]</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_position</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>        <span class="k">return</span> <span class="n">line</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="k">class</span><span class="w"> </span><span class="nc">ShiftLog</span><span class="p">:</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lines</span><span class="p">):</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>        <span class="k">return</span> <span class="n">ShiftLogIterator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="p">)</span>
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a>
+<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="n">log</span> <span class="o">=</span> <span class="n">ShiftLog</span><span class="p">(</span><span class="n">LOG</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">5</span><span class="p">])</span>
+<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">log</span><span class="p">)),</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">log</span><span class="p">)))</span>
+<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">([(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">log</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">log</span><span class="p">]))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>3 3
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>9
+</code></pre></div>
+<p>Кожен <code>for</code> отримує свій курсор: два проходи по 3 рядки, вкладений цикл — 3 × 3 пар. А <code>__iter__</code> ітератора повертає <code>self</code> для того, щоб ітератор теж можна було передати в <code>for</code>.</p>
+<p>Писати окремий клас-курсор доводиться рідко. Якщо <code>__iter__</code> — генератор, Python сам створює новий курсор на кожен виклик:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">ShiftLog</span><span class="p">:</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lines</span><span class="p">):</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="p">:</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>            <span class="k">yield</span> <span class="n">line</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="n">log</span> <span class="o">=</span> <span class="n">ShiftLog</span><span class="p">(</span><span class="n">LOG</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">5</span><span class="p">])</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">log</span><span class="p">)),</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">log</span><span class="p">)))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>3 3
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Коли потрібен справжній клас-ітератор</p>
+<p>Коли курсор має <strong>власний інтерфейс</strong>: наприклад, <code>peek()</code> — подивитися наступний елемент, не забираючи його, чи <code>position</code> для відновлення читання після збою. Для простого перебору досить генератора в <code>__iter__</code>.</p>
+</div>
+<h2 id="_2">Генератор зсередини<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>Генераторна функція при виклику не виконується, а створює об'єкт-генератор. Модуль <code>inspect</code> показує, в якому стані цей об'єкт:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">inspect</span><span class="w"> </span><span class="kn">import</span> <span class="n">getgeneratorstate</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">shift</span><span class="p">():</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"зміна почалась"</span><span class="p">)</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    <span class="k">yield</span> <span class="s2">"перша подія"</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"між подіями"</span><span class="p">)</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>    <span class="k">yield</span> <span class="s2">"друга подія"</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"зміна закінчилась"</span><span class="p">)</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>    <span class="k">return</span> <span class="s2">"звіт готовий"</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="n">gen</span> <span class="o">=</span> <span class="n">shift</span><span class="p">()</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="nb">print</span><span class="p">(</span><span class="n">getgeneratorstate</span><span class="p">(</span><span class="n">gen</span><span class="p">))</span>
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">gen</span><span class="p">))</span>
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="nb">print</span><span class="p">(</span><span class="n">getgeneratorstate</span><span class="p">(</span><span class="n">gen</span><span class="p">))</span>
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">gen</span><span class="p">))</span>
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>    <span class="nb">next</span><span class="p">(</span><span class="n">gen</span><span class="p">)</span>
+<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="k">except</span> <span class="ne">StopIteration</span> <span class="k">as</span> <span class="n">stop</span><span class="p">:</span>
+<a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"StopIteration:"</span><span class="p">,</span> <span class="n">stop</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+<a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a><span class="nb">print</span><span class="p">(</span><span class="n">getgeneratorstate</span><span class="p">(</span><span class="n">gen</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>GEN_CREATED
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>зміна почалась
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>перша подія
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>GEN_SUSPENDED
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>між подіями
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>друга подія
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>зміна закінчилась
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>StopIteration: звіт готовий
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>GEN_CLOSED
+</code></pre></div>
+<pre class="mermaid"><code>stateDiagram-v2
+    [*] --&gt; GEN_CREATED: gen = shift()
+    GEN_CREATED --&gt; GEN_RUNNING: next()
+    GEN_RUNNING --&gt; GEN_SUSPENDED: yield
+    GEN_SUSPENDED --&gt; GEN_RUNNING: next() / send()
+    GEN_RUNNING --&gt; GEN_CLOSED: return або кінець тіла
+    GEN_SUSPENDED --&gt; GEN_CLOSED: close()
+    GEN_CLOSED --&gt; [*]</code></pre>
+<p>Три речі, яких не було в уроці 11:</p>
+<ul>
+<li>кожен <code>next()</code> виконує тіло <strong>від попереднього <code>yield</code> до наступного</strong> — тому «між подіями» друкується лише з другим <code>next()</code>;</li>
+<li><code>return</code> у генераторі не віддає значення в <code>for</code>, а кладе його в <code>StopIteration.value</code>. <code>for</code> це значення ігнорує; нижче побачимо, хто його забирає;</li>
+<li>закритий генератор уже нічого не віддасть.</li>
+</ul>
+<h3 id="close-finally"><code>close()</code> і <code>finally</code>: прибирання за собою<a class="headerlink" href="#close-finally" title="Permanent link">&para;</a></h3>
+<p>Генератор, що читає з мережі чи файлу, мусить закрити з'єднання, навіть якщо споживач узяв лише частину даних:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">read_events</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"відкрили з'єднання"</span><span class="p">)</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>            <span class="k">yield</span> <span class="n">line</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>    <span class="k">finally</span><span class="p">:</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">"закрили з'єднання"</span><span class="p">)</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="n">events</span> <span class="o">=</span> <span class="n">read_events</span><span class="p">(</span><span class="n">LOG</span><span class="p">)</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">events</span><span class="p">))</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="n">events</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="nb">print</span><span class="p">(</span><span class="n">getgeneratorstate</span><span class="p">(</span><span class="n">events</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>відкрили з'єднання
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>17:52 D-2 98 delivered
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>закрили з'єднання
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>GEN_CLOSED
+</code></pre></div>
+<p><code>close()</code> кидає всередину генератора, на місці паузи, спеціальний виняток <code>GeneratorExit</code>. Спрацьовує <code>finally</code>, і генератор завершується. CPython робить те саме автоматично, коли на генератор більше немає посилань, але явне закриття — надійніше.</p>
+<h2 id="send"><code>.send()</code>: генератор, що приймає дані<a class="headerlink" href="#send" title="Permanent link">&para;</a></h2>
+<p>Досі дані текли <strong>з</strong> генератора. Метод <code>.send(value)</code> передає значення <strong>в</strong> генератор: воно стає результатом виразу <code>yield</code>. Середній час доставки, що оновлюється після кожної доставки:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">running_average</span><span class="p">():</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>    <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>    <span class="n">average</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>        <span class="n">minutes</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">average</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>        <span class="n">total</span> <span class="o">+=</span> <span class="n">minutes</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>        <span class="n">average</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">total</span> <span class="o">/</span> <span class="n">count</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="n">avg</span> <span class="o">=</span> <span class="n">running_average</span><span class="p">()</span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">avg</span><span class="p">))</span>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="k">for</span> <span class="n">minutes</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">18</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">21</span><span class="p">]:</span>
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">avg</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">minutes</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>None
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>18.0
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>21.0
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>26.3
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>25.0
+</code></pre></div>
+<p>Рядок <code>minutes = yield average</code> робить дві речі: віддає назовні поточне середнє й ставить функцію на паузу, <strong>чекаючи</strong> на наступне число. Стан — <code>total</code> і <code>count</code> — живе в локальних змінних призупиненої функції, без класу й без глобальних змінних.</p>
+<p>Перший <code>next(avg)</code> <strong>запускає</strong> генератор: доводить його до першого <code>yield</code>, де вже є кому прийняти значення. Без запуску:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">fresh</span> <span class="o">=</span> <span class="n">running_average</span><span class="p">()</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>    <span class="n">fresh</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="mi">18</span><span class="p">)</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>can't send non-None value to a just-started generator
+</code></pre></div>
+<p>Щоб не забувати запуск, його ховають у декоратор — той самий прийом, що в уроці 10:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">wraps</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">primed</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>    <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>        <span class="n">gen</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>        <span class="nb">next</span><span class="p">(</span><span class="n">gen</span><span class="p">)</span>
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>        <span class="k">return</span> <span class="n">gen</span>
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>    <span class="k">return</span> <span class="n">wrapper</span>
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a>
+<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a>
+<a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a><span class="nd">@primed</span>
+<a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a><span class="k">def</span><span class="w"> </span><span class="nf">running_average</span><span class="p">():</span>
+<a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a>    <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-16-16" name="__codelineno-16-16" href="#__codelineno-16-16"></a>    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-16-17" name="__codelineno-16-17" href="#__codelineno-16-17"></a>    <span class="n">average</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-16-18" name="__codelineno-16-18" href="#__codelineno-16-18"></a>    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<a id="__codelineno-16-19" name="__codelineno-16-19" href="#__codelineno-16-19"></a>        <span class="n">minutes</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">average</span>
+<a id="__codelineno-16-20" name="__codelineno-16-20" href="#__codelineno-16-20"></a>        <span class="n">total</span> <span class="o">+=</span> <span class="n">minutes</span>
+<a id="__codelineno-16-21" name="__codelineno-16-21" href="#__codelineno-16-21"></a>        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="__codelineno-16-22" name="__codelineno-16-22" href="#__codelineno-16-22"></a>        <span class="n">average</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">total</span> <span class="o">/</span> <span class="n">count</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-16-23" name="__codelineno-16-23" href="#__codelineno-16-23"></a>
+<a id="__codelineno-16-24" name="__codelineno-16-24" href="#__codelineno-16-24"></a>
+<a id="__codelineno-16-25" name="__codelineno-16-25" href="#__codelineno-16-25"></a><span class="n">avg</span> <span class="o">=</span> <span class="n">running_average</span><span class="p">()</span>
+<a id="__codelineno-16-26" name="__codelineno-16-26" href="#__codelineno-16-26"></a><span class="nb">print</span><span class="p">(</span><span class="n">avg</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="mi">18</span><span class="p">),</span> <span class="n">avg</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="mi">24</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>18.0 21.0
+</code></pre></div>
+<p>Такий генератор, що отримує дані через <code>send</code>, називають <strong>сопрограмою</strong> (coroutine).</p>
+<h3 id="_3">Генератор як скінченний автомат<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>В уроці 22 автомат статусів жив у класі <code>Order</code>. Той самий автомат можна записати генератором: стан — локальна змінна, подія приходить через <code>send</code>, новий стан віддається через <code>yield</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">COURIER_TRANSITIONS</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>    <span class="p">(</span><span class="s2">"вільний"</span><span class="p">,</span> <span class="s2">"picked"</span><span class="p">):</span> <span class="s2">"везе"</span><span class="p">,</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>    <span class="p">(</span><span class="s2">"везе"</span><span class="p">,</span> <span class="s2">"delivered"</span><span class="p">):</span> <span class="s2">"вільний"</span><span class="p">,</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="p">}</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="nd">@primed</span>
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">courier_state</span><span class="p">():</span>
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>    <span class="n">state</span> <span class="o">=</span> <span class="s2">"вільний"</span>
+<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a>    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a>        <span class="n">event</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">state</span>
+<a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a>        <span class="n">new_state</span> <span class="o">=</span> <span class="n">COURIER_TRANSITIONS</span><span class="o">.</span><span class="n">get</span><span class="p">((</span><span class="n">state</span><span class="p">,</span> <span class="n">event</span><span class="p">))</span>
+<a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a>        <span class="k">if</span> <span class="n">new_state</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  подія </span><span class="si">{</span><span class="n">event</span><span class="si">}</span><span class="s2"> у стані «</span><span class="si">{</span><span class="n">state</span><span class="si">}</span><span class="s2">» — пропускаю"</span><span class="p">)</span>
+<a id="__codelineno-18-15" name="__codelineno-18-15" href="#__codelineno-18-15"></a>        <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-18-16" name="__codelineno-18-16" href="#__codelineno-18-16"></a>            <span class="n">state</span> <span class="o">=</span> <span class="n">new_state</span>
+<a id="__codelineno-18-17" name="__codelineno-18-17" href="#__codelineno-18-17"></a>
+<a id="__codelineno-18-18" name="__codelineno-18-18" href="#__codelineno-18-18"></a>
+<a id="__codelineno-18-19" name="__codelineno-18-19" href="#__codelineno-18-19"></a><span class="n">courier</span> <span class="o">=</span> <span class="n">courier_state</span><span class="p">()</span>
+<a id="__codelineno-18-20" name="__codelineno-18-20" href="#__codelineno-18-20"></a><span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"picked"</span><span class="p">,</span> <span class="s2">"delivered"</span><span class="p">,</span> <span class="s2">"delivered"</span><span class="p">,</span> <span class="s2">"picked"</span><span class="p">]:</span>
+<a id="__codelineno-18-21" name="__codelineno-18-21" href="#__codelineno-18-21"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="s2">"→"</span><span class="p">,</span> <span class="n">courier</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">event</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>picked → везе
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>delivered → вільний
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>  подія delivered у стані «вільний» — пропускаю
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>delivered → вільний
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>picked → везе
+</code></pre></div>
+<p>Генератор чи клас? Генератор коротший, коли автомат має <strong>один вхід і один вихід</strong>: подія → стан. Клас кращий, коли станом цікавиться багато коду (<code>order.status</code>), є кілька дій з різними іменами (<code>cook()</code>, <code>cancel()</code>) чи історія змін. Для <code>Order</code> з уроку 22 клас правильний; для лічильника стану кур'єра в потоці подій — генератор.</p>
+<h3 id="yield-from"><code>yield from</code>: делегування й результат<a class="headerlink" href="#yield-from" title="Permanent link">&para;</a></h3>
+<p>В уроці 11 <code>yield from</code> просто віддавав елементи іншого ітерабельного. Але він робить більше: передає <code>send</code> і <code>close</code> вкладеному генератору, а коли той завершується — <strong>повертає його <code>return</code>-значення</strong>. Так генератор-стадія може віддавати дані й наприкінці ще й звітувати:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">valid_events</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>    <span class="n">broken</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>        <span class="n">parts</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">4</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">parts</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>            <span class="n">broken</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>            <span class="k">continue</span>
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>        <span class="k">yield</span> <span class="n">parts</span>
+<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>    <span class="k">return</span> <span class="n">broken</span>
+<a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>
+<a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a>
+<a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a><span class="k">def</span><span class="w"> </span><span class="nf">with_report</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
+<a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a>    <span class="n">broken</span> <span class="o">=</span> <span class="k">yield from</span> <span class="n">valid_events</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+<a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"битих рядків: </span><span class="si">{</span><span class="n">broken</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a>
+<a id="__codelineno-20-16" name="__codelineno-20-16" href="#__codelineno-20-16"></a>
+<a id="__codelineno-20-17" name="__codelineno-20-17" href="#__codelineno-20-17"></a><span class="n">events</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">with_report</span><span class="p">(</span><span class="n">LOG</span><span class="p">))</span>
+<a id="__codelineno-20-18" name="__codelineno-20-18" href="#__codelineno-20-18"></a><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">),</span> <span class="n">events</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>битих рядків: 1
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>10 ['18:03', 'D-1', '101', 'picked']
+</code></pre></div>
+<p><code>with_report</code> для зовнішнього коду — звичайний генератор із 10 подіями, а всередині він дізнався, скільки рядків відкинуто. Саме з <code>yield from</code> і сопрограм на генераторах виросли <code>async</code> / <code>await</code> — про них в уроці 28.</p>
+<h2 id="itertools">Алгебра <code>itertools</code><a class="headerlink" href="#itertools" title="Permanent link">&para;</a></h2>
+<p>Модуль <code>itertools</code> — набір «цеглинок», з яких збирають конвеєри без ручних циклів. В уроці 11 були <code>count</code>, <code>chain</code>, <code>islice</code>. Далі — ті, що розв'язують задачі диспетчерської.</p>
+<h3 id="dropwhile-takewhile"><code>dropwhile</code> і <code>takewhile</code>: межі потоку<a class="headerlink" href="#dropwhile-takewhile" title="Permanent link">&para;</a></h3>
+<p>Журнал упорядкований за часом. Треба відкинути події до початку зміни й узяти першу половину зміни:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">itertools</span><span class="w"> </span><span class="kn">import</span> <span class="n">dropwhile</span><span class="p">,</span> <span class="n">takewhile</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="n">shift_events</span> <span class="o">=</span> <span class="n">dropwhile</span><span class="p">(</span><span class="k">lambda</span> <span class="n">line</span><span class="p">:</span> <span class="n">line</span> <span class="o">&lt;</span> <span class="s2">"18:00"</span><span class="p">,</span> <span class="n">LOG</span><span class="p">)</span>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">shift_events</span><span class="p">))</span>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="n">first_half</span> <span class="o">=</span> <span class="n">takewhile</span><span class="p">(</span><span class="k">lambda</span> <span class="n">line</span><span class="p">:</span> <span class="n">line</span> <span class="o">&lt;</span> <span class="s2">"18:30"</span><span class="p">,</span> <span class="n">dropwhile</span><span class="p">(</span><span class="k">lambda</span> <span class="n">line</span><span class="p">:</span> <span class="n">line</span> <span class="o">&lt;</span> <span class="s2">"18:00"</span><span class="p">,</span> <span class="n">LOG</span><span class="p">))</span>
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">first_half</span><span class="p">)))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>18:03 D-1 101 picked
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>6
+</code></pre></div>
+<p>Рядки порівнюються як текст, а формат «ГГ:ХХ» сортується так само, як час. Чим це відрізняється від <code>filter</code>:</p>
+<ul>
+<li><code>dropwhile</code> відкидає елементи, <strong>доки</strong> умова правдива, а потім пропускає все, вже не перевіряючи;</li>
+<li><code>takewhile</code> бере елементи, <strong>доки</strong> умова правдива, і на першому хибному <strong>зупиняє</strong> потік.</li>
+</ul>
+<p>Тому <code>takewhile</code> працює і з нескінченним потоком, а <code>filter</code> на ньому ніколи не закінчиться. Ціна — обидва покладаються на <strong>упорядкованість</strong>: подія 18:10, що запізнилася й прийшла після 18:31, буде відкинута <code>takewhile</code> разом із рештою.</p>
+<h3 id="groupby"><code>groupby</code>: групи сусідів<a class="headerlink" href="#groupby" title="Permanent link">&para;</a></h3>
+<p><code>groupby(дані, key)</code> збирає в групу <strong>сусідні</strong> елементи з однаковим ключем. Як гадаєш, скільки груп дадуть події, згруповані за кур'єром?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">itertools</span><span class="w"> </span><span class="kn">import</span> <span class="n">groupby</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="n">groups</span> <span class="o">=</span> <span class="p">[(</span><span class="n">courier</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">group</span><span class="p">)))</span> <span class="k">for</span> <span class="n">courier</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">groupby</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">event</span><span class="p">:</span> <span class="n">event</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">groups</span><span class="p">),</span> <span class="n">groups</span><span class="p">[:</span><span class="mi">4</span><span class="p">])</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>9 [('D-2', 1), ('D-1', 2), ('D-2', 1), ('D-3', 1)]
+</code></pre></div>
+<p>Дев'ять груп на трьох кур'єрів: щойно кур'єр змінюється, починається нова група. <code>groupby</code> схожий на <code>uniq</code> з командного рядка — він не шукає однакові ключі по всьому потоку. Щоб отримати по групі на кур'єра, дані спершу сортують за тим самим ключем:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="n">by_courier</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">event</span><span class="p">:</span> <span class="n">event</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="nb">print</span><span class="p">([(</span><span class="n">courier</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">group</span><span class="p">)))</span> <span class="k">for</span> <span class="n">courier</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">groupby</span><span class="p">(</span><span class="n">by_courier</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">event</span><span class="p">:</span> <span class="n">event</span><span class="p">[</span><span class="mi">1</span><span class="p">])])</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>[('D-1', 5), ('D-2', 3), ('D-3', 2)]
+</code></pre></div>
+<p>Але сортування потребує <strong>всіх</strong> даних у пам'яті й <code>O(n log n)</code>. Для потоку зі змішаними ключами словник або <code>Counter</code> з уроку 6 — один прохід і пам'ять лише на ключі. <code>groupby</code> доречний, коли дані <strong>вже</strong> прийшли згруповані: журнал, відсортований за днем, файл, розбитий за кур'єром.</p>
+<h3 id="pairwise-accumulate"><code>pairwise</code> і <code>accumulate</code>: сусідні пари й наростаючий підсумок<a class="headerlink" href="#pairwise-accumulate" title="Permanent link">&para;</a></h3>
+<p>Найдовша пауза між подіями — сигнал, що застосунок втрачав зв'язок. <code>pairwise</code> (Python 3.10+) віддає пари сусідніх елементів:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">itertools</span><span class="w"> </span><span class="kn">import</span> <span class="n">accumulate</span><span class="p">,</span> <span class="n">pairwise</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">minutes</span><span class="p">(</span><span class="n">hhmm</span><span class="p">):</span>
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>    <span class="n">hours</span><span class="p">,</span> <span class="n">mins</span> <span class="o">=</span> <span class="n">hhmm</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">":"</span><span class="p">)</span>
+<a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">hours</span><span class="p">)</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">mins</span><span class="p">)</span>
+<a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>
+<a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>
+<a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a><span class="n">times</span> <span class="o">=</span> <span class="p">[</span><span class="n">minutes</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">]</span>
+<a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a><span class="n">gaps</span> <span class="o">=</span> <span class="p">[</span><span class="n">later</span> <span class="o">-</span> <span class="n">earlier</span> <span class="k">for</span> <span class="n">earlier</span><span class="p">,</span> <span class="n">later</span> <span class="ow">in</span> <span class="n">pairwise</span><span class="p">(</span><span class="n">times</span><span class="p">)]</span>
+<a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a><span class="nb">print</span><span class="p">(</span><span class="n">gaps</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">gaps</span><span class="p">))</span>
+<a id="__codelineno-28-12" name="__codelineno-28-12" href="#__codelineno-28-12"></a>
+<a id="__codelineno-28-13" name="__codelineno-28-13" href="#__codelineno-28-13"></a><span class="n">delivered</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="k">if</span> <span class="n">event</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"delivered"</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">]</span>
+<a id="__codelineno-28-14" name="__codelineno-28-14" href="#__codelineno-28-14"></a><span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">accumulate</span><span class="p">(</span><span class="n">delivered</span><span class="p">)))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>[6, 5, 2, 2, 14, 8, 2, 13, 8] 14
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>[1, 2, 2, 2, 2, 3, 4, 4, 5, 6]
+</code></pre></div>
+<p><code>accumulate</code> — наростаючий підсумок: після кожної події видно, скільки доставок уже виконано. Це той самий «підсумок на льоту», що й <code>running_average</code>, лише для суми.</p>
+<h3 id="combinations"><code>combinations</code>: перебір без вкладених циклів<a class="headerlink" href="#combinations" title="Permanent link">&para;</a></h3>
+<p>В уроці 23 ми шукали набори поїздок на ваучер 500 грн перебором з поверненням. Для наборів фіксованого розміру є готовий перебір:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">itertools</span><span class="w"> </span><span class="kn">import</span> <span class="n">combinations</span>
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="n">fares</span> <span class="o">=</span> <span class="p">[</span><span class="mi">230</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">270</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">410</span><span class="p">]</span>
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a><span class="nb">print</span><span class="p">([</span><span class="n">pair</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">combinations</span><span class="p">(</span><span class="n">fares</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">pair</span><span class="p">)</span> <span class="o">==</span> <span class="mi">500</span><span class="p">])</span>
+<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a><span class="nb">print</span><span class="p">([</span><span class="n">trio</span> <span class="k">for</span> <span class="n">trio</span> <span class="ow">in</span> <span class="n">combinations</span><span class="p">(</span><span class="n">fares</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">trio</span><span class="p">)</span> <span class="o">==</span> <span class="mi">500</span><span class="p">])</span>
+<a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a><span class="nb">print</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">size</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">fares</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">combinations</span><span class="p">(</span><span class="n">fares</span><span class="p">,</span> <span class="n">size</span><span class="p">)))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>[(230, 270)]
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>[(230, 150, 120)]
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>63
+</code></pre></div>
+<p>Ті самі два набори, що в уроці 23. Але <code>combinations</code> перебирає <strong>всі</strong> 63 непорожні підмножини — без відсікання. Для 6 поїздок це дрібниця; для 40 — понад трильйон. <code>combinations</code> і <code>product</code> замінюють вкладені цикли, коли перебрати треба все; коли гілки можна відсікати — потрібен перебір з поверненням.</p>
+<div class="admonition note">
+<p class="admonition-title">Інші корисні цеглинки</p>
+<p><code>zip_longest</code> — <code>zip</code>, що не обрізає довший потік; <code>chain.from_iterable</code> — сплющити потік списків; <code>tee</code> — розгалузити один ітератор на кілька (з буфером у пам'яті); <code>batched(дані, n)</code> — пачки по n (з Python 3.12; для старіших версій напишемо самі в практиці).</p>
+</div>
+<h2 id="architecture">Архітектура: ETL-конвеєр подій<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
+<p>Задачу диспетчерської зручно побудувати як <strong>ETL</strong> (extract — transform — load): витягти дані, перетворити, завантажити результат. Кожна стадія — функція «ітерабельне → ітерабельне», і стадії з'єднуються як труби:</p>
+<pre class="mermaid"><code>flowchart TD
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    SRC["журнал&lt;br&gt;рядки"] --&gt; P["parse&lt;br&gt;рядок → подія"]
+    P --&gt; S["in_shift&lt;br&gt;dropwhile"]
+    S --&gt; D["durations&lt;br&gt;пара picked–delivered"]
+    D --&gt; R["report&lt;br&gt;середнє по кур'єрах"]
+    P -. "битий рядок" .-&gt; REJ["rejected&lt;br&gt;окремий список"]
+
+    class SRC,P,S,D step
+    class R success
+    class REJ warning</code></pre>
+<h3 id="_4">Хто штовхає, а хто тягне<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>У конвеєрі з генераторів дані <strong>тягне</strong> споживач: <code>report</code> просить наступну тривалість, <code>durations</code> — наступну подію, і так до джерела. Сопрограми з <code>.send()</code> працюють навпаки — дані <strong>штовхає</strong> джерело:</p>
+<pre class="mermaid"><code>flowchart LR
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    subgraph PUSH["push: сопрограми"]
+        direction TB
+        SRC2["джерело: подія прийшла"] -- "send()" --&gt; K1["стадія"]
+        K1 -- "send()" --&gt; K2["підсумок"]
+    end
+    subgraph PULL["pull: генератори"]
+        direction TB
+        C1["споживач: for / list"] -- "next()" --&gt; G1["стадія"]
+        G1 -- "next()" --&gt; SRC1["джерело"]
+    end
+
+    class C1,SRC2 decision
+    class G1,K1 step
+    class SRC1 step
+    class K2 success</code></pre>
+<p>Pull природний, коли дані можна <strong>попросити</strong>: файл, список, база. Push — коли дані <strong>приходять самі</strong> й треба реагувати на кожну: повідомлення від застосунку, дані з датчика. Середній час після кожної доставки — задача push; звіт наприкінці зміни — pull.</p>
+<h3 id="_5">Компроміси<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Підхід</th>
+<th>Пам'ять</th>
+<th>Проходів</th>
+<th>Хто керує</th>
+<th>Коли</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>списки між стадіями</td>
+<td>весь проміжний результат</td>
+<td>скільки завгодно</td>
+<td>код, що викликає стадії</td>
+<td>мало даних, треба кілька проходів чи індекси</td>
+</tr>
+<tr>
+<td>конвеєр генераторів</td>
+<td>один елемент на стадію</td>
+<td>один</td>
+<td>споживач (pull)</td>
+<td>великі файли, потоки, звіти</td>
+</tr>
+<tr>
+<td>клас-ітератор</td>
+<td>як генератор</td>
+<td>один на курсор</td>
+<td>споживач</td>
+<td>курсор з власними методами: <code>peek</code>, позиція</td>
+</tr>
+<tr>
+<td>сопрограма <code>.send()</code></td>
+<td>стан сопрограми</td>
+<td>—</td>
+<td>джерело (push)</td>
+<td>реакція на кожну подію, автомат, ковзні підсумки</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_6">Помилки й тести<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Биті дані не губимо мовчки</strong> (Zen of Python: «помилки не мають минати непомітно»). Стадія розбору відкладає биті рядки в окремий список — у промисловому ETL це «dead letter queue». Альтернатива — лічильник через <code>return</code> і <code>yield from</code>, як у <code>valid_events</code>.</li>
+<li><strong>Кожна стадія тестується окремо</strong>: вона приймає будь-яке ітерабельне, тож для перевірки досить списку з двох-трьох рядків. Саме так ми писатимемо тести в уроці 26.</li>
+</ul>
+<h2 id="practice">Практика<a class="headerlink" href="#practice" title="Permanent link">&para;</a></h2>
+<h3 id="_7">Розібраний приклад: середній час доставки по кур'єрах<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-32-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-32-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-32-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-32-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-32-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-32-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-32-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-32-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-32-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-32-10">10</a></span>
+<span class="normal"><a href="#__codelineno-32-11">11</a></span>
+<span class="normal"><a href="#__codelineno-32-12">12</a></span>
+<span class="normal"><a href="#__codelineno-32-13">13</a></span>
+<span class="normal"><a href="#__codelineno-32-14">14</a></span>
+<span class="normal"><a href="#__codelineno-32-15">15</a></span>
+<span class="normal"><a href="#__codelineno-32-16">16</a></span>
+<span class="normal"><a href="#__codelineno-32-17">17</a></span>
+<span class="normal"><a href="#__codelineno-32-18">18</a></span>
+<span class="normal"><a href="#__codelineno-32-19">19</a></span>
+<span class="normal"><a href="#__codelineno-32-20">20</a></span>
+<span class="normal"><a href="#__codelineno-32-21">21</a></span>
+<span class="normal"><a href="#__codelineno-32-22">22</a></span>
+<span class="normal"><a href="#__codelineno-32-23">23</a></span>
+<span class="normal"><a href="#__codelineno-32-24">24</a></span>
+<span class="normal"><a href="#__codelineno-32-25">25</a></span>
+<span class="normal"><a href="#__codelineno-32-26">26</a></span>
+<span class="normal"><a href="#__codelineno-32-27">27</a></span>
+<span class="normal"><a href="#__codelineno-32-28">28</a></span>
+<span class="normal"><a href="#__codelineno-32-29">29</a></span>
+<span class="normal"><a href="#__codelineno-32-30">30</a></span>
+<span class="normal"><a href="#__codelineno-32-31">31</a></span>
+<span class="normal"><a href="#__codelineno-32-32">32</a></span>
+<span class="normal"><a href="#__codelineno-32-33">33</a></span>
+<span class="normal"><a href="#__codelineno-32-34">34</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">parse</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">rejected</span><span class="p">):</span>
+<a id="__codelineno-32-2" name="__codelineno-32-2"></a>    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+<a id="__codelineno-32-3" name="__codelineno-32-3"></a>        <span class="n">parts</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<a id="__codelineno-32-4" name="__codelineno-32-4"></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">4</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">parts</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+<a id="__codelineno-32-5" name="__codelineno-32-5"></a><span class="hll">            <span class="n">rejected</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</span><a id="__codelineno-32-6" name="__codelineno-32-6"></a>            <span class="k">continue</span>
+<a id="__codelineno-32-7" name="__codelineno-32-7"></a>        <span class="n">time</span><span class="p">,</span> <span class="n">courier</span><span class="p">,</span> <span class="n">order</span><span class="p">,</span> <span class="n">kind</span> <span class="o">=</span> <span class="n">parts</span>
+<a id="__codelineno-32-8" name="__codelineno-32-8"></a><span class="hll">        <span class="k">yield</span> <span class="p">{</span><span class="s2">"time"</span><span class="p">:</span> <span class="n">minutes</span><span class="p">(</span><span class="n">time</span><span class="p">),</span> <span class="s2">"courier"</span><span class="p">:</span> <span class="n">courier</span><span class="p">,</span> <span class="s2">"order"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">order</span><span class="p">),</span> <span class="s2">"kind"</span><span class="p">:</span> <span class="n">kind</span><span class="p">}</span>
+</span><a id="__codelineno-32-9" name="__codelineno-32-9"></a>
+<a id="__codelineno-32-10" name="__codelineno-32-10"></a>
+<a id="__codelineno-32-11" name="__codelineno-32-11"></a><span class="k">def</span><span class="w"> </span><span class="nf">in_shift</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">start</span><span class="p">):</span>
+<a id="__codelineno-32-12" name="__codelineno-32-12"></a><span class="hll">    <span class="k">return</span> <span class="n">dropwhile</span><span class="p">(</span><span class="k">lambda</span> <span class="n">event</span><span class="p">:</span> <span class="n">event</span><span class="p">[</span><span class="s2">"time"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">start</span><span class="p">,</span> <span class="n">events</span><span class="p">)</span>
+</span><a id="__codelineno-32-13" name="__codelineno-32-13"></a>
+<a id="__codelineno-32-14" name="__codelineno-32-14"></a>
+<a id="__codelineno-32-15" name="__codelineno-32-15"></a><span class="k">def</span><span class="w"> </span><span class="nf">durations</span><span class="p">(</span><span class="n">events</span><span class="p">):</span>
+<a id="__codelineno-32-16" name="__codelineno-32-16"></a><span class="hll">    <span class="n">picked</span> <span class="o">=</span> <span class="p">{}</span>
+</span><a id="__codelineno-32-17" name="__codelineno-32-17"></a>    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+<a id="__codelineno-32-18" name="__codelineno-32-18"></a>        <span class="k">if</span> <span class="n">event</span><span class="p">[</span><span class="s2">"kind"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"picked"</span><span class="p">:</span>
+<a id="__codelineno-32-19" name="__codelineno-32-19"></a><span class="hll">            <span class="n">picked</span><span class="p">[</span><span class="n">event</span><span class="p">[</span><span class="s2">"order"</span><span class="p">]]</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="s2">"time"</span><span class="p">]</span>
+</span><a id="__codelineno-32-20" name="__codelineno-32-20"></a>        <span class="k">elif</span> <span class="n">event</span><span class="p">[</span><span class="s2">"kind"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"delivered"</span> <span class="ow">and</span> <span class="n">event</span><span class="p">[</span><span class="s2">"order"</span><span class="p">]</span> <span class="ow">in</span> <span class="n">picked</span><span class="p">:</span>
+<a id="__codelineno-32-21" name="__codelineno-32-21"></a><span class="hll">            <span class="k">yield</span> <span class="n">event</span><span class="p">[</span><span class="s2">"courier"</span><span class="p">],</span> <span class="n">event</span><span class="p">[</span><span class="s2">"time"</span><span class="p">]</span> <span class="o">-</span> <span class="n">picked</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="s2">"order"</span><span class="p">])</span>
+</span><a id="__codelineno-32-22" name="__codelineno-32-22"></a>
+<a id="__codelineno-32-23" name="__codelineno-32-23"></a>
+<a id="__codelineno-32-24" name="__codelineno-32-24"></a><span class="k">def</span><span class="w"> </span><span class="nf">report</span><span class="p">(</span><span class="n">pairs</span><span class="p">):</span>
+<a id="__codelineno-32-25" name="__codelineno-32-25"></a>    <span class="n">by_courier</span> <span class="o">=</span> <span class="p">{}</span>
+<a id="__codelineno-32-26" name="__codelineno-32-26"></a>    <span class="k">for</span> <span class="n">courier</span><span class="p">,</span> <span class="n">spent</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">:</span>
+<a id="__codelineno-32-27" name="__codelineno-32-27"></a>        <span class="n">by_courier</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">courier</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">spent</span><span class="p">)</span>
+<a id="__codelineno-32-28" name="__codelineno-32-28"></a><span class="hll">    <span class="k">return</span> <span class="p">{</span><span class="n">courier</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">spent</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">spent</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">courier</span><span class="p">,</span> <span class="n">spent</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">by_courier</span><span class="o">.</span><span class="n">items</span><span class="p">())}</span>
+</span><a id="__codelineno-32-29" name="__codelineno-32-29"></a>
+<a id="__codelineno-32-30" name="__codelineno-32-30"></a>
+<a id="__codelineno-32-31" name="__codelineno-32-31"></a><span class="n">rejected</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-32-32" name="__codelineno-32-32"></a><span class="hll"><span class="n">pipeline</span> <span class="o">=</span> <span class="n">durations</span><span class="p">(</span><span class="n">in_shift</span><span class="p">(</span><span class="n">parse</span><span class="p">(</span><span class="n">LOG</span><span class="p">,</span> <span class="n">rejected</span><span class="p">),</span> <span class="n">minutes</span><span class="p">(</span><span class="s2">"18:00"</span><span class="p">)))</span>
+</span><a id="__codelineno-32-33" name="__codelineno-32-33"></a><span class="nb">print</span><span class="p">(</span><span class="n">report</span><span class="p">(</span><span class="n">pipeline</span><span class="p">))</span>
+<a id="__codelineno-32-34" name="__codelineno-32-34"></a><span class="nb">print</span><span class="p">(</span><span class="n">rejected</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>{'D-1': 19.5, 'D-2': 24.0, 'D-3': 37.0}
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>['18:24 ?? зламаний рядок']
+</code></pre></div>
+<p>Що тут працює:</p>
+<ul>
+<li><code>parse</code> — генератор-стадія: перетворює рядок на словник-подію, биті рядки відкладає в <code>rejected</code>.</li>
+<li><code>in_shift</code> — одна <code>dropwhile</code>: події попередньої зміни (доставки 97 і 98) не потрапляють далі.</li>
+<li><code>durations</code> пам'ятає лише <strong>відкриті</strong> замовлення — ті, що забрали, але ще не доставили. Доставлене замовлення виходить зі словника через <code>pop</code>, тож пам'ять не росте разом з потоком.</li>
+<li><code>report</code> — єдине місце, де дані накопичуються, і лише як тривалості по кур'єрах.</li>
+<li>Рядок 32 нічого не обчислює: він лише з'єднує труби. Робота починається, коли <code>report</code> просить першу тривалість.</li>
+</ul>
+<p><code>D-1</code> доставив два замовлення: 101 за 18 хв і 104 за 21 хв — середнє 19.5.</p>
+<h3 id="_8">Зміни приклад: запізнення<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>Додай стадію <code>late(pairs, limit)</code>, що пропускає далі лише доставки, довші за <code>limit</code> хвилин, і виведи їх для <code>limit=30</code>. Стадію став між <code>durations</code> і <code>list</code>, не змінюючи інших функцій.</p>
+<details class="tip">
+<summary>Підказка</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">late</span><span class="p">(</span><span class="n">pairs</span><span class="p">,</span> <span class="n">limit</span><span class="p">):</span>
+<a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>    <span class="k">for</span> <span class="n">courier</span><span class="p">,</span> <span class="n">spent</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">:</span>
+<a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>        <span class="k">if</span> <span class="n">spent</span> <span class="o">&gt;</span> <span class="n">limit</span><span class="p">:</span>
+<a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a>            <span class="k">yield</span> <span class="n">courier</span><span class="p">,</span> <span class="n">spent</span>
+</code></pre></div>
+<p><code>list(late(durations(in_shift(parse(LOG, []), minutes("18:00"))), 30))</code> дасть <code>[('D-3', 37)]</code>.</p>
+</details>
+<h3 id="_9">Спробуй самостійно: пачки й ковзне середнє<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Напиши генератор <code>batched(iterable, n)</code>, що віддає кортежі по <code>n</code> елементів (останній може бути коротшим): <code>list(batched(range(7), 3))</code> → <code>[(0, 1, 2), (3, 4, 5), (6,)]</code>. Він має працювати з <strong>нескінченним</strong> потоком: <code>next(batched(count(), 2))</code> → <code>(0, 1)</code>.</li>
+<li>Напиши генератор <code>moving_average(values, k)</code> — середнє останніх <code>k</code> значень для кожної позиції, починаючи з <code>k</code>-ї: <code>list(moving_average([18, 24, 37, 21], 2))</code> → <code>[21.0, 30.5, 29.0]</code>. Не перераховуй суму вікна щоразу — ковзне вікно з уроку 12.</li>
+</ol>
+<details class="tip">
+<summary>Підказка</summary>
+<ol>
+<li>Бери пачку через <code>tuple(islice(iterator, n))</code> з <strong>одного</strong> ітератора <code>it = iter(iterable)</code>; порожня пачка — сигнал зупинитися.</li>
+<li>Тримай <code>window_sum</code>: додай нове значення, відніми те, що випало з вікна (<code>values[i - k]</code>), або тримай вікно в <code>collections.deque(maxlen=k)</code>.</li>
+</ol>
+</details>
+<h3 id="_10">Знайди помилку<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="c1"># 1 — звіт по кур'єрах</span>
+<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">itertools</span><span class="w"> </span><span class="kn">import</span> <span class="n">groupby</span>
+<a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>
+<a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="n">counts</span> <span class="o">=</span> <span class="p">{</span><span class="n">courier</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">group</span><span class="p">))</span> <span class="k">for</span> <span class="n">courier</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">groupby</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">event</span><span class="p">:</span> <span class="n">event</span><span class="p">[</span><span class="mi">1</span><span class="p">])}</span>
+<a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a>
+<a id="__codelineno-35-6" name="__codelineno-35-6" href="#__codelineno-35-6"></a><span class="c1"># 2 — дві цифри з одного розбору</span>
+<a id="__codelineno-35-7" name="__codelineno-35-7" href="#__codelineno-35-7"></a><span class="n">parsed</span> <span class="o">=</span> <span class="n">parse</span><span class="p">(</span><span class="n">LOG</span><span class="p">,</span> <span class="p">[])</span>
+<a id="__codelineno-35-8" name="__codelineno-35-8" href="#__codelineno-35-8"></a><span class="n">total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">parsed</span><span class="p">)</span>
+<a id="__codelineno-35-9" name="__codelineno-35-9" href="#__codelineno-35-9"></a><span class="n">result</span> <span class="o">=</span> <span class="n">report</span><span class="p">(</span><span class="n">durations</span><span class="p">(</span><span class="n">parsed</span><span class="p">))</span>
+<a id="__codelineno-35-10" name="__codelineno-35-10" href="#__codelineno-35-10"></a>
+<a id="__codelineno-35-11" name="__codelineno-35-11" href="#__codelineno-35-11"></a><span class="c1"># 3 — середнє на льоту</span>
+<a id="__codelineno-35-12" name="__codelineno-35-12" href="#__codelineno-35-12"></a><span class="k">def</span><span class="w"> </span><span class="nf">running_average</span><span class="p">():</span>
+<a id="__codelineno-35-13" name="__codelineno-35-13" href="#__codelineno-35-13"></a>    <span class="n">total</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">average</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">None</span>
+<a id="__codelineno-35-14" name="__codelineno-35-14" href="#__codelineno-35-14"></a>    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<a id="__codelineno-35-15" name="__codelineno-35-15" href="#__codelineno-35-15"></a>        <span class="n">minutes</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">average</span>
+<a id="__codelineno-35-16" name="__codelineno-35-16" href="#__codelineno-35-16"></a>        <span class="n">total</span> <span class="o">+=</span> <span class="n">minutes</span>
+<a id="__codelineno-35-17" name="__codelineno-35-17" href="#__codelineno-35-17"></a>        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="__codelineno-35-18" name="__codelineno-35-18" href="#__codelineno-35-18"></a>        <span class="n">average</span> <span class="o">=</span> <span class="n">total</span> <span class="o">/</span> <span class="n">count</span>
+<a id="__codelineno-35-19" name="__codelineno-35-19" href="#__codelineno-35-19"></a>
+<a id="__codelineno-35-20" name="__codelineno-35-20" href="#__codelineno-35-20"></a><span class="n">avg</span> <span class="o">=</span> <span class="n">running_average</span><span class="p">()</span>
+<a id="__codelineno-35-21" name="__codelineno-35-21" href="#__codelineno-35-21"></a><span class="nb">print</span><span class="p">(</span><span class="n">avg</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="mi">18</span><span class="p">))</span>
+</code></pre></div>
+<details class="success">
+<summary>Відповіді</summary>
+<ol>
+<li>Дані не відсортовані за кур'єром: <code>groupby</code> дає кілька груп на одного кур'єра, і в словнику лишиться лише <strong>остання</strong> група кожного. Треба спершу <code>sorted(events, key=…)</code> — або рахувати <code>Counter(event[1] for event in events)</code>.</li>
+<li><code>sum</code> вичерпав генератор <code>parsed</code>; <code>report</code> отримає порожній потік і поверне <code>{}</code>. Або створити конвеєр заново, або — якщо даних мало — один раз зробити <code>list(parse(…))</code>.</li>
+<li>Генератор не запущено: <code>send(18)</code> падає з <code>TypeError: can't send non-None value to a just-started generator</code>. Треба спершу <code>next(avg)</code> або декоратор <code>@primed</code>.</li>
+</ol>
+</details>
+<h2 id="_11">Підсумок<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Поняття</th>
+<th>Що запам'ятати</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Клас-ітератор</td>
+<td><code>__next__</code> віддає елемент або <code>StopIteration</code>; <code>__iter__</code> повертає <code>self</code></td>
+</tr>
+<tr>
+<td>Ітерабельне й ітератор</td>
+<td>ітерабельне на кожен <code>iter()</code> дає <strong>новий</strong> курсор; найпростіше — генератор у <code>__iter__</code></td>
+</tr>
+<tr>
+<td>Стани генератора</td>
+<td><code>GEN_CREATED</code> → <code>GEN_SUSPENDED</code> ⇄ <code>GEN_RUNNING</code> → <code>GEN_CLOSED</code></td>
+</tr>
+<tr>
+<td><code>return</code> у генераторі</td>
+<td>значення йде в <code>StopIteration.value</code>; забирає його <code>yield from</code></td>
+</tr>
+<tr>
+<td><code>close()</code> і <code>finally</code></td>
+<td>прибирання ресурсів, навіть якщо споживач зупинився раніше</td>
+</tr>
+<tr>
+<td><code>.send()</code></td>
+<td>значення стає результатом <code>yield</code>; спершу запустити <code>next()</code> або <code>@primed</code></td>
+</tr>
+<tr>
+<td>Генератор-автомат</td>
+<td>стан у локальній змінній; добре для «подія → стан»</td>
+</tr>
+<tr>
+<td><code>dropwhile</code> / <code>takewhile</code></td>
+<td>межі впорядкованого потоку; <code>takewhile</code> зупиняє і нескінченний потік</td>
+</tr>
+<tr>
+<td><code>groupby</code></td>
+<td>групує лише <strong>сусідів</strong> — спершу сортувати за тим самим ключем</td>
+</tr>
+<tr>
+<td><code>pairwise</code>, <code>accumulate</code></td>
+<td>сусідні пари; наростаючий підсумок</td>
+</tr>
+<tr>
+<td><code>combinations</code></td>
+<td>повний перебір наборів фіксованого розміру, без відсікання</td>
+</tr>
+<tr>
+<td>ETL-конвеєр</td>
+<td>стадії «ітерабельне → ітерабельне», биті записи — окремо, кожна стадія тестується окремо</td>
+</tr>
+<tr>
+<td>Pull і push</td>
+<td>генератори тягнуть дані, сопрограми отримують їх через <code>send</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_12">Самоперевірка<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Чому другий <code>list(log)</code> для першої версії <code>ShiftLog</code> порожній? Як це виправити двома способами?</li>
+<li>Що друкує генератор <code>shift()</code> між першим і другим <code>next()</code> і чому саме тоді?</li>
+<li>Куди потрапляє значення <code>return</code> генератора? Хто його може отримати?</li>
+<li>Навіщо в <code>read_events</code> блок <code>finally</code>?</li>
+<li>Що робить рядок <code>minutes = yield average</code>? Чому перед першим <code>send</code> потрібен <code>next</code>?</li>
+<li>Коли автомат краще писати генератором, а коли — класом?</li>
+<li>Чим <code>takewhile</code> відрізняється від <code>filter</code> на нескінченному потоці?</li>
+<li>Чому <code>groupby</code> дав 9 груп на трьох кур'єрів?</li>
+<li>Чому <code>durations</code> не накопичує всі події зміни в пам'яті?</li>
+</ol>
+<details class="success">
+<summary>Відповіді</summary>
+<ol>
+<li>Курсор <code>position</code> живе в самому журналі й після першого проходу стоїть у кінці. Виправлення: окремий клас-курсор, який <code>__iter__</code> створює щоразу, або генератор у <code>__iter__</code>.</li>
+<li>«між подіями» — бо кожен <code>next()</code> виконує тіло від попереднього <code>yield</code> до наступного.</li>
+<li>У <code>StopIteration.value</code>. Його отримує <code>yield from</code> як значення виразу, або код, що сам ловить <code>StopIteration</code>.</li>
+<li>Щоб з'єднання закрилося, навіть коли споживач не дочитав до кінця й викликав <code>close()</code>.</li>
+<li>Віддає <code>average</code> назовні й чекає; значення з <code>send</code> стає результатом <code>yield</code>. До першого <code>next</code> генератор ще не дійшов до <code>yield</code>, тож приймати значення нікому.</li>
+<li>Генератор — коли вхід один (подія) і вихід один (стан). Клас — коли стан читає багато коду, є кілька дій з іменами чи історія.</li>
+<li><code>takewhile</code> зупиняє потік на першому хибному елементі; <code>filter</code> перевіряє всі елементи й на нескінченному потоці не закінчиться.</li>
+<li>Він групує лише сусідні елементи, а кур'єри в журналі йдуть упереміш.</li>
+<li>Він тримає лише відкриті замовлення й видаляє кожне через <code>pop</code>, щойно воно доставлене.</li>
+</ol>
+</details>
+<h3 id="_13">Що далі<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Ноутбук заняття: <a class="md-button md-button--primary" href="https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_25_iterators_advanced/note_lesson_25_iterators_advanced_student.ipynb">Відкрити вправи в Colab</a> <a class="solutions-link" href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_25_iterators_advanced/note_lesson_25_iterators_advanced.ipynb">Переглянути розв’язки</a> — прогнози й вправи з перевірками: курсор з <code>peek</code>, сопрограма-лічильник, <code>batched</code>, ковзне середнє, звіт по кур'єрах.</li>
+<li>Наступне заняття — урок 26 «Тестування з pytest»: стадії нашого конвеєра — ідеальні кандидати на перші тести.</li>
+<li>Урок 28 — потоки, <code>multiprocessing</code> і <code>asyncio</code>: <code>async</code> / <code>await</code> — нащадки <code>.send()</code> і <code>yield from</code>.</li>
+</ul>
+<h2 id="_14">Документація і джерела<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Туторіал: <a href="https://docs.python.org/3/tutorial/classes.html#iterators">Iterators</a>, <a href="https://docs.python.org/3/tutorial/classes.html#generators">Generators</a></li>
+<li>Довідник мови: <a href="https://docs.python.org/3/reference/expressions.html#generator-iterator-methods">Generator-iterator methods</a> — <code>__next__</code>, <code>send</code>, <code>throw</code>, <code>close</code></li>
+<li><a href="https://docs.python.org/3/library/itertools.html"><code>itertools</code></a> — усі цеглинки й «рецепти» з прикладами; <a href="https://docs.python.org/3/library/inspect.html#inspect.getgeneratorstate"><code>inspect.getgeneratorstate</code></a></li>
+<li><a href="https://peps.python.org/pep-0342/">PEP 342 — Coroutines via Enhanced Generators</a> (<code>send</code>, <code>close</code>); <a href="https://peps.python.org/pep-0380/">PEP 380 — Syntax for Delegating to a Subgenerator</a> (<code>yield from</code>)</li>
+<li>Для охочих: Dave Beazley, <a href="https://www.dabeaz.com/coroutines/">«A Curious Course on Coroutines and Concurrency»</a> — сопрограми на генераторах, конвеєри з <code>send</code>, від простого до власного планувальника задач.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Футер" >
+        
+          
+          <a href="../lesson_24/" class="md-footer__link md-footer__link--prev" aria-label="Назад: 24. @property, декоратори класів, dunder">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Назад
+              </span>
+              <div class="md-ellipsis">
+                24. @property, декоратори класів, dunder
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../lesson_26/" class="md-footer__link md-footer__link--next" aria-label="Вперед: 26. Тестування з pytest (+ валідація AI-коду)">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Вперед
+              </span>
+              <div class="md-ellipsis">
+                26. Тестування з pytest (+ валідація AI-коду)
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.footer", "toc.follow", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0456\u0439\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u0421\u043a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438 \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0429\u0435 1 \u0437\u0431\u0456\u0433 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.more.other": "\u0429\u0435 # \u0437\u0431\u0456\u0433\u0456\u0432 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.none": "\u0417\u0431\u0456\u0433\u0456\u0432 \u043d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0437\u0431\u0456\u0433", "search.result.other": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e # \u0437\u0431\u0456\u0433\u0456\u0432", "search.result.placeholder": "\u0420\u043e\u0437\u043f\u043e\u0447\u043d\u0456\u0442\u044c \u043f\u0438\u0441\u0430\u0442\u0438 \u0434\u043b\u044f \u043f\u043e\u0448\u0443\u043a\u0443", "search.result.term.missing": "\u041d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e \u0437\u0430\u043f\u0438\u0442\u0443", "select.version": "\u041e\u0431\u0440\u0430\u0442\u0438 \u0432\u0435\u0440\u0441\u0456\u044e"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/sidebars.js"></script>
+      
+    
+  </body>
+</html>

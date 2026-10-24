@@ -1,0 +1,4402 @@
+
+<!doctype html>
+<html lang="uk" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Курс Python українською — від основ до просунутих тем, у форматі книги">
+      
+      
+      
+        <link rel="canonical" href="https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m4/ai/claude_code/">
+      
+      
+        <link rel="prev" href="../../lesson_43/">
+      
+      
+        <link rel="next" href="../../lesson_44/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Довідник: Claude Code - PY Course — Viktor Nikoriak</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#claude-code" class="md-skip">
+          Перейти до змісту
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Хедер">
+    <a href="../../../.." title="PY Course — Viktor Nikoriak" class="md-header__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PY Course — Viktor Nikoriak
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Довідник: Claude Code
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Пошук" placeholder="Пошук" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Шукати">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистити" aria-label="Очистити" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Пошук розпочато
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Вкладки" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Головна
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../00_getting_started/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Як користуватися
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Модулі курсу (в розробці)
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../00_python_mental_model/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Довідник
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Навігація" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="PY Course — Viktor Nikoriak" class="md-nav__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    PY Course — Viktor Nikoriak
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Головна
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../../00_getting_started/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Як користуватися
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Модулі курсу (в розробці)
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Модулі курсу (в розробці)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../m1/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М1. Основи Python
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М1. Основи Python
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m1/lesson_01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Вступ: формат курсу, AI-політика
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m1/lesson_02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Перші кроки
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m1/lesson_03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Змінні та базові типи даних
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m1/lesson_04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Умови та цикли
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m1/lesson_05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Списки, кортежі, множини
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m1/lesson_06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Словники, for, comprehensions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m1/lesson_08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Функції
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m1/lesson_09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. П1. Big O + базові задачі
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m1/lesson_10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Декоратори
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m1/lesson_11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Ітератори й генератори
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m1/lesson_12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. П2. Пошук
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m1/lesson_13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Модулі та стандартна бібліотека
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m1/lesson_14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Винятки та обробка помилок
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m1/lesson_15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Файли I/O, JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m1/lesson_16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Git & GitHub: система
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m1/lesson_17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. П3. Хеш-структури
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m1/lesson_18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Узагальнення + фінальний проєкт
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М2. Python Advanced
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М2. Python Advanced
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m2_python_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m2/lesson_19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Функції як об'єкти першого класу
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m2/lesson_20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Класи, простір імен
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m2/lesson_21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    21. Наслідування, поліморфізм
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m2/lesson_22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    22. Інкапсуляція, область видимості
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m2/lesson_23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    23. П4. Рекурсія, divide & conquer, backtracking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m2/lesson_24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    24. @property, декоратори класів, dunder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m2/lesson_25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    25. Ітератори advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m2/lesson_26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    26. Тестування з pytest (+ валідація AI-коду)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m2/lesson_27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    27. П5. Динамічне програмування + greedy (вступ)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m2/lesson_28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    28. Потоки, multiprocessing, asyncio: вступ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m2/lesson_29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    29. П6. Stack, Queue, Heap, Trie + LRU → ООП-пакет
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М3. Бази даних
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М3. Бази даних
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m3_databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../m3/bonus_pandas/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. Pandas: аналіз даних, графіки і Dash
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m3/lesson_30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    30. Основи SQL (PostgreSQL)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m3/lesson_31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    31. Redis overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М4. Web (+ Web Advanced)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М4. Web (+ Web Advanced)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m4_web/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lesson_32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    32. HTTP: requests, httpx, aiohttp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lesson_33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    33. REST: принципи дизайну API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lesson_34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    34. Django intro: MVT, ORM, admin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lesson_35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    35. Django: forms, HTML practice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lesson_36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    36. DRF overview + Django vs FastAPI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lesson_37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    37. Typing + Pydantic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../lesson_38/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    38. FastAPI basics + Postman + OpenAPI
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lesson_39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    39. FastAPI + SQLAlchemy: повний CRUD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lesson_40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    40. Middlewares і кешування (Redis на практиці)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lesson_41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    41. Автентифікація та security basics (JWT, hashing, OWASP)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lesson_42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    42. Тестування API (pytest + httpx)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_13" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_13" id="__nav_3_5_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    43. AI-інструменти розробника + ризики й валідація
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_13_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_5_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    43. AI-інструменти розробника + ризики й валідація
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lesson_43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Урок
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Довідник: Claude Code
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Довідник: Claude Code
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-claude-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Що таке Claude Code
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Встановлення
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Перший запуск
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. CLI — команди й прапорці
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Як ставити задачу
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-claudemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. CLAUDE.md — інструкції проєкту
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-auto-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Auto memory — нотатки агента
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skills" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Slash-команди та skills
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-mcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. MCP — зовнішні інструменти
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Hooks — автоматизація подій
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Налаштування, дозволи, sandbox
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-p-ci-agent-sdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Автоматизація: -p, CI, Agent SDK
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Безпека: чекліст
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Посилання
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lesson_44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    44. Інтеграція LLM API (Gemini / Anthropic)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lesson_45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    45. Архітектура застосунків і патерни
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lesson_46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    46. WebSockets + практика: чат
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lesson_47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    47. Security advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lesson_48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    48. Telegram Bot API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М5. Production
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М5. Production
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m5_production/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../m5/bonus_linux/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. Linux для розробника
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m5/lesson_49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    49. Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m5/lesson_50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    50. Docker Compose + деплой
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m5/lesson_51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    51. CI/CD (GitHub Actions)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М6. Капстоун
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М6. Капстоун
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m6_capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m6/lesson_52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    52. Робота над фінальним проєктом
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../m6/lesson_53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    53. Випускний: питч фінального проєкту
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../m6/bonus_cv/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. CV розробника
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../bonus_ai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Self-paced. AI для розробників (бонус)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../../00_python_mental_model/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Довідник
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-claude-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Що таке Claude Code
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Встановлення
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Перший запуск
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. CLI — команди й прапорці
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Як ставити задачу
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-claudemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. CLAUDE.md — інструкції проєкту
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-auto-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Auto memory — нотатки агента
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skills" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Slash-команди та skills
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-mcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. MCP — зовнішні інструменти
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Hooks — автоматизація подій
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Налаштування, дозволи, sandbox
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-p-ci-agent-sdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Автоматизація: -p, CI, Agent SDK
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Безпека: чекліст
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Посилання
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Навігація" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Головна
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Модулі курсу (в розробці)
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../../m4_web/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    М4. Web (+ Web Advanced)
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../lesson_43/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    43. AI-інструменти розробника + ризики й валідація
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="claude-code">Довідник: Claude Code<a class="headerlink" href="#claude-code" title="Permanent link">&para;</a></h1>
+<p>Довідник до <a href="../../lesson_43/">уроку 43</a>. Кожне твердження звірено з установленим <code>claude</code> (версія 2.1.283, <code>claude --help</code>) і з <a href="https://code.claude.com/docs/en/overview">офіційною документацією</a> станом на 27.09.2026.</p>
+<p>Інструмент змінюється щомісяця. Якщо команда з цієї сторінки не працює, джерело правди — <code>claude --help</code>, <code>/help</code> і документація.</p>
+<h2 id="1-claude-code">1. Що таке Claude Code<a class="headerlink" href="#1-claude-code" title="Permanent link">&para;</a></h2>
+<p><strong>Claude Code</strong> — AI-агент для розробки. Він читає код проєкту, редагує файли, запускає команди (тести, лінтер, git) і сам вирішує, що робити далі, доки задачу не виконано. Від чату він відрізняється тим, що <strong>діє</strong> у твоєму репозиторії, а не лише пише текст.</p>
+<table>
+<thead>
+<tr>
+<th>Де</th>
+<th>Як</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Термінал</td>
+<td><code>claude</code> у папці проєкту</td>
+</tr>
+<tr>
+<td>VS Code, JetBrains</td>
+<td>розширення (PyCharm, IntelliJ …)</td>
+</tr>
+<tr>
+<td>Desktop</td>
+<td>застосунок для macOS, Windows, Linux (beta)</td>
+</tr>
+<tr>
+<td>Браузер</td>
+<td><a href="https://claude.ai/code">claude.ai/code</a> — сесії в хмарі, з доступом до GitHub-репозиторію</td>
+</tr>
+<tr>
+<td>Телефон</td>
+<td>застосунок Claude (iOS, Android): керувати хмарними сесіями</td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid"><code>flowchart TD
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    P["запит&lt;br&gt;«додай джерело новин»"] --&gt; C["контекст: CLAUDE.md,&lt;br&gt;файли, які агент прочитав"]
+    C --&gt; A["дія: Read / Edit / Bash"]
+    A --&gt; PERM{"дозволено?&lt;br&gt;permissions, режим"}
+    PERM -- ні --&gt; ASK["запит людині&lt;br&gt;або відмова"]
+    PERM -- так --&gt; H["hooks: PreToolUse /&lt;br&gt;PostToolUse"]
+    H --&gt; R["результат інструменту&lt;br&gt;(вивід тестів, помилка)"]
+    R --&gt; D{"задачу виконано?"}
+    D -- ні --&gt; A
+    D -- так --&gt; OUT["відповідь + зміни у файлах"]
+
+    class P,C,A,R step
+    class PERM,D decision
+    class ASK,H warning
+    class OUT success</code></pre>
+<p>Головне в цій схемі — <strong>цикл</strong>: агент сам запускає тести, читає помилку й виправляє. Тому якість результату визначають не лише промпт, а й те, чим агент може себе перевірити: тести, типи, хуки.</p>
+<h2 id="2">2. Встановлення<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Що</th>
+<th>Вимога</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ОС</td>
+<td>macOS 13+, Windows 10 1809+ (або WSL), Ubuntu 20.04+, Debian 10+, Alpine 3.19+</td>
+</tr>
+<tr>
+<td>Залізо</td>
+<td>4 ГБ+ RAM, x64 або ARM64; інтернет</td>
+</tr>
+<tr>
+<td>Акаунт</td>
+<td>Pro, Max, Team, Enterprise або Console (ключ API); безкоштовний план claude.ai Claude Code не включає</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># macOS / Linux / WSL — рекомендовано: нативна збірка, оновлюється сама</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://claude.ai/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>bash
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c"># Windows PowerShell</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">irm </span><span class="n">https</span><span class="p">://</span><span class="n">claude</span><span class="p">.</span><span class="n">ai</span><span class="p">/</span><span class="n">install</span><span class="p">.</span><span class="n">ps1</span> <span class="p">|</span> <span class="nb">iex</span>
+</code></pre></div>
+<p>Інші способи: <code>brew install --cask claude-code</code>, <code>winget install Anthropic.ClaudeCode</code>, <code>npm install -g @anthropic-ai/claude-code</code> (Node.js 22+); apt, dnf, apk — після підключення репозиторію Anthropic (<a href="https://code.claude.com/docs/en/setup#install-with-linux-package-managers">інструкція</a>). Нативна збірка оновлюється сама (канал <code>latest</code>; <code>"autoUpdatesChannel": "stable"</code> — версія тижневої давності без регресій), Homebrew і WinGet — вручну. У Windows для інструмента Bash бажано встановити Git for Windows; без нього Claude Code виконує команди через PowerShell.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>claude<span class="w"> </span>--version<span class="w">     </span><span class="c1"># версія</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>claude<span class="w"> </span>doctor<span class="w">        </span><span class="c1"># діагностика встановлення й налаштувань</span>
+</code></pre></div>
+<h2 id="3">3. Перший запуск<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">cd</span><span class="w"> </span>news_hub<span class="w">          </span><span class="c1"># завжди з кореня проєкту: звідси агент бачить код і CLAUDE.md</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>claude<span class="w">               </span><span class="c1"># інтерактивна сесія; перший раз — вхід у акаунт</span>
+</code></pre></div>
+<p>Перший запуск у новій папці питає, чи <strong>довіряєш</strong> ти їй. Це не формальність: доки папку не довірено, <code>allow</code>-правила з її <code>.claude/settings.json</code> не діють (див. <a href="#settings">розділ 11</a>).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>claude<span class="w"> </span><span class="s2">"поясни структуру проєкту"</span><span class="w">   </span><span class="c1"># сесія з першим запитом</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>claude<span class="w"> </span>-p<span class="w"> </span><span class="s2">"знайди непротестовані функції"</span><span class="w">   </span><span class="c1"># один запит без інтерфейсу, вивід у stdout</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>claude<span class="w"> </span>-c<span class="w">                            </span><span class="c1"># продовжити останню розмову в цій папці</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>claude<span class="w"> </span>-r<span class="w">                            </span><span class="c1"># вибрати розмову зі списку</span>
+</code></pre></div>
+<p>У сесії:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/init      створити CLAUDE.md з опису проєкту
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>/help      усі команди
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>/memory    які CLAUDE.md і пам'ять завантажено
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>/model     обрати модель
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>/compact   стиснути довгу розмову
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>/clear     почати з чистого контексту
+</code></pre></div>
+<h2 id="4-cli">4. CLI — команди й прапорці<a class="headerlink" href="#4-cli" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Команда</th>
+<th>Що робить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>claude</code> / <code>claude "запит"</code></td>
+<td>інтерактивна сесія</td>
+</tr>
+<tr>
+<td><code>claude -p "запит"</code></td>
+<td>один запит, вивід у stdout (скрипти, CI)</td>
+</tr>
+<tr>
+<td><code>cat log.txt \| claude -p "поясни"</code></td>
+<td>вхід через pipe</td>
+</tr>
+<tr>
+<td><code>claude -c</code>, <code>claude -r [id]</code></td>
+<td>продовжити / відновити розмову</td>
+</tr>
+<tr>
+<td><code>claude --bg "запит"</code></td>
+<td>фонова сесія; <code>claude agents</code> — список, <code>attach</code>, <code>logs</code>, <code>stop</code>, <code>rm &lt;id&gt;</code></td>
+</tr>
+<tr>
+<td><code>claude -w назва</code></td>
+<td>сесія в окремому git worktree</td>
+</tr>
+<tr>
+<td><code>claude mcp …</code></td>
+<td>MCP-сервери (розділ 9)</td>
+</tr>
+<tr>
+<td><code>claude auth login</code> / <code>status</code> / <code>logout</code></td>
+<td>акаунт</td>
+</tr>
+<tr>
+<td><code>claude setup-token</code></td>
+<td>довготривалий токен підписки (для CI)</td>
+</tr>
+<tr>
+<td><code>claude update</code></td>
+<td>оновити</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Прапорець</th>
+<th>Для чого</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--model sonnet</code></td>
+<td>модель: аліас (<code>fable</code>, <code>opus</code>, <code>sonnet</code>, <code>haiku</code>) або повна назва; поточний список — <code>/model</code></td>
+</tr>
+<tr>
+<td><code>--effort high</code></td>
+<td>рівень зусиль: <code>low</code>, <code>medium</code>, <code>high</code>, <code>xhigh</code>, <code>max</code></td>
+</tr>
+<tr>
+<td><code>--permission-mode plan</code></td>
+<td>режим дозволів (розділ 11)</td>
+</tr>
+<tr>
+<td><code>--allowedTools "Bash(pytest *)" Edit</code></td>
+<td>дозволити інструменти без запиту на цю сесію</td>
+</tr>
+<tr>
+<td><code>--disallowedTools "Bash(git push *)"</code></td>
+<td>заборонити</td>
+</tr>
+<tr>
+<td><code>--add-dir ../shared</code></td>
+<td>дати доступ ще до однієї папки</td>
+</tr>
+<tr>
+<td><code>--output-format json</code></td>
+<td>з <code>-p</code>: JSON з результатом, вартістю, списком відмов (<code>permission_denials</code>)</td>
+</tr>
+<tr>
+<td><code>--json-schema '{…}'</code></td>
+<td>з <code>-p</code>: відповідь за JSON Schema</td>
+</tr>
+<tr>
+<td><code>--max-budget-usd 2</code></td>
+<td>з <code>-p</code>: ліміт витрат на запуск</td>
+</tr>
+<tr>
+<td><code>--append-system-prompt "…"</code></td>
+<td>додати інструкцію до системного промпту</td>
+</tr>
+<tr>
+<td><code>-n назва</code></td>
+<td>назва сесії</td>
+</tr>
+<tr>
+<td><code>--debug hooks</code></td>
+<td>журнал налагодження</td>
+</tr>
+</tbody>
+</table>
+<p>Моделі змінюються частіше, ніж цей довідник: у прикладах лише аліаси, конкретні назви — у <a href="https://code.claude.com/docs/en/model-config">Model configuration</a>.</p>
+<h2 id="5">5. Як ставити задачу<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<p>Агент не знає того, чого немає в репозиторії та в запиті. Найсильніший «промпт» — <strong>перевірний критерій готовності</strong>: тест, який має пройти, команда, яка має дати нуль помилок.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>❌ «Додай джерело новин Українська правда».
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>✅ «Додай джерело "Українська правда" (RSS). Специфікація — tests/unit/test_pravda.py,
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>   зразок стрічки — tests/fixtures/pravda_rss.xml. Зроби, щоб проходили pytest і
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>   mypy --strict news_hub, тести не змінюй. Наприкінці перелічи рішення, які ухвалив сам.»
+</code></pre></div>
+<p>Урок 43 порівнює саме ці два запити на одному проєкті — з реальним результатом.</p>
+<table>
+<thead>
+<tr>
+<th>Прийом</th>
+<th>Навіщо</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Спершу план: <code>--permission-mode plan</code> або «не пиши код, лише план»</td>
+<td>побачити підхід до того, як змінено 10 файлів</td>
+</tr>
+<tr>
+<td>Обмеж простір: «лише <code>news_hub/rss.py</code> і <code>models.py</code>»</td>
+<td>менший діф — легше рецензувати</td>
+</tr>
+<tr>
+<td>Встав помилку повністю (traceback)</td>
+<td>агент бачить те саме, що й ти</td>
+</tr>
+<tr>
+<td>«Перелічи рішення, які ухвалив сам»</td>
+<td>неявні рішення стають видимими для рецензії</td>
+</tr>
+<tr>
+<td>Великі задачі — частинами</td>
+<td>кожен крок перевіряєш тестами до наступного</td>
+</tr>
+</tbody>
+</table>
+<h2 id="6-claudemd">6. CLAUDE.md — інструкції проєкту<a class="headerlink" href="#6-claudemd" title="Permanent link">&para;</a></h2>
+<p><code>CLAUDE.md</code> — Markdown-файл, який Claude Code читає на початку <strong>кожної</strong> сесії: команди, структура, правила проєкту.</p>
+<table>
+<thead>
+<tr>
+<th>Файл</th>
+<th>Для кого</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/etc/claude-code/CLAUDE.md</code> (Linux), <code>/Library/Application Support/ClaudeCode/CLAUDE.md</code> (macOS)</td>
+<td>організація (адміністратор)</td>
+</tr>
+<tr>
+<td><code>~/.claude/CLAUDE.md</code></td>
+<td>ти, усі проєкти</td>
+</tr>
+<tr>
+<td><code>./CLAUDE.md</code> або <code>./.claude/CLAUDE.md</code></td>
+<td>команда, у git</td>
+</tr>
+<tr>
+<td><code>./CLAUDE.local.md</code></td>
+<td>ти, цей проєкт; додай у <code>.gitignore</code></td>
+</tr>
+</tbody>
+</table>
+<p>Файли не перекривають один одного, а <strong>додаються</strong> в контекст: від кореня файлової системи до папки, де запущено <code>claude</code>. <code>CLAUDE.md</code> у підпапках завантажуються, коли агент читає файли в них. Якщо в репозиторії є лише <code>AGENTS.md</code> (спільний формат кількох AI-інструментів), Claude Code прочитає його.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="gh"># news_hub — новинний агрегатор курсу</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="gu">## Команди</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="k">-</span><span class="w"> </span><span class="sb">`pytest -m unit`</span> — швидкі тести; запускати після кожної зміни
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="k">-</span><span class="w"> </span><span class="sb">`mypy --strict news_hub`</span> — має бути чисто
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="gu">## Правила</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="k">-</span><span class="w"> </span>Домени — лише точний збіг або піддомен, ніколи <span class="sb">`endswith(d)`</span>.
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="k">-</span><span class="w"> </span>Не змінюй наявні тести, щоб вони пройшли. Якщо тест здається хибним — зупинись і поясни.
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="k">-</span><span class="w"> </span>Нових залежностей не додавай без пояснення.
+</code></pre></div>
+<p>Повний файл проєкту — <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_43_ai_dev_tools/news_hub/CLAUDE.md"><code>news_hub/CLAUDE.md</code></a>.</p>
+<ul>
+<li><strong>Імпорти:</strong> <code>@README.md</code> або <code>@docs/deploy.md</code> у тексті CLAUDE.md підключає файл (до 4 рівнів вкладеності). У бектиках (<code>`@README`</code>) — просто текст.</li>
+<li><strong>Правила для частини файлів:</strong> <code>.claude/rules/*.md</code> з полем <code>paths:</code> у frontmatter — завантажуються, лише коли агент працює з відповідними файлами:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>---
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>paths:
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span>"news_hub/api.py"
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="gu">  - "tests/integration/**"</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="gu">---</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="k">-</span><span class="w"> </span>Кожен новий ендпоінт — тест у tests/integration/
+</code></pre></div>
+<ul>
+<li><strong>Розмір:</strong> до ~200 рядків. Конкретне («4 пробіли», «<code>pytest -m unit</code>») краще за загальне («пиши якісно»).</li>
+<li><strong>Це контекст, а не замок.</strong> Агент зазвичай виконує CLAUDE.md, але не гарантовано. Те, що <em>мусить</em> виконатися, — у <code>permissions</code> і hooks.</li>
+</ul>
+<p>Поглиблено: <a href="https://code.claude.com/docs/en/memory">Memory</a>.</p>
+<h2 id="7-auto-memory">7. Auto memory — нотатки агента<a class="headerlink" href="#7-auto-memory" title="Permanent link">&para;</a></h2>
+<p>Крім CLAUDE.md (пишеш ти), агент веде власні нотатки: твої виправлення, вподобання, команди збірки. Вони лежать у <code>~/.claude/projects/&lt;проєкт&gt;/memory/</code>, індекс — <code>MEMORY.md</code>; на старті сесії завантажуються перші 200 рядків (або 25 КБ).</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>CLAUDE.md</th>
+<th>Auto memory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Хто пише</td>
+<td>ти (і команда через git)</td>
+<td>агент</td>
+</tr>
+<tr>
+<td>Що</td>
+<td>правила, команди, архітектура</td>
+<td>навчене в роботі: «у цьому проєкті тести — через <code>pytest -m unit</code>»</td>
+</tr>
+<tr>
+<td>Видно команді</td>
+<td>так</td>
+<td>ні, лише тобі</td>
+</tr>
+</tbody>
+</table>
+<p><code>/memory</code> — переглянути й вимкнути. Вимкнути для проєкту — <code>"autoMemoryEnabled": false</code> у його <code>.claude/settings.json</code>; змінна середовища — <code>CLAUDE_CODE_DISABLE_AUTO_MEMORY=1</code>.</p>
+<h2 id="skills">8. Slash-команди та skills<a class="headerlink" href="#skills" title="Permanent link">&para;</a></h2>
+<p>Вбудовані: <code>/help</code>, <code>/init</code>, <code>/memory</code>, <code>/model</code>, <code>/effort</code>, <code>/config</code>, <code>/permissions</code>, <code>/hooks</code>, <code>/mcp</code>, <code>/skills</code>, <code>/compact</code>, <code>/clear</code>, <code>/review</code>, <code>/security-review</code>, <code>/rename</code>.</p>
+<p><strong>Skill</strong> — власна команда: папка з <code>SKILL.md</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Де</th>
+<th>Для кого</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>~/.claude/skills/&lt;назва&gt;/SKILL.md</code></td>
+<td>ти, усі проєкти</td>
+</tr>
+<tr>
+<td><code>.claude/skills/&lt;назва&gt;/SKILL.md</code></td>
+<td>проєкт, у git</td>
+</tr>
+<tr>
+<td>плагін</td>
+<td>там, де встановлено плагін</td>
+</tr>
+</tbody>
+</table>
+<p>Старий формат <code>.claude/commands/&lt;назва&gt;.md</code> працює так само, але skill може мати поруч допоміжні файли (скрипти, шаблони).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>---
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>name: add-news-source
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>description: Додати нове джерело новин у news_hub за правилами проєкту.
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>argument-hint: "[назва джерела] [URL стрічки]"
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="gu">disable-model-invocation: true</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="gu">---</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>Додаємо джерело новин $ARGUMENTS.
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="k">1.</span> Спершу збережи зразок стрічки у tests/fixtures/. Якщо зразка немає — зупинись і попроси.
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="k">2.</span> Тести-специфікація в tests/unit/test_&lt;джерело&gt;.py. Запусти — вони мають ВПАСТИ.
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="k">3.</span> …
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>Поточний стан:
+<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>!<span class="sb">`git status --short`</span>
+</code></pre></div>
+<p><code>$ARGUMENTS</code> — усе, що написано після <code>/add-news-source</code>; <code>$0</code>, <code>$1</code> — окремі аргументи. <code>!`команда`</code> виконується <strong>до</strong> того, як skill потрапить до агента: у текст підставляється її вивід.</p>
+<table>
+<thead>
+<tr>
+<th>Поле frontmatter</th>
+<th>Що робить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code>, <code>description</code></td>
+<td>назва в меню <code>/</code>; опис, за яким агент вирішує, коли skill доречний</td>
+</tr>
+<tr>
+<td><code>argument-hint</code>, <code>arguments</code></td>
+<td>підказка аргументів; іменовані аргументи (<code>$component</code>)</td>
+</tr>
+<tr>
+<td><code>disable-model-invocation: true</code></td>
+<td>лише ти викликаєш skill, агент — ні</td>
+</tr>
+<tr>
+<td><code>user-invocable: false</code></td>
+<td>навпаки: лише агент</td>
+</tr>
+<tr>
+<td><code>allowed-tools</code>, <code>disallowed-tools</code></td>
+<td>інструменти без запиту / заборонені, поки skill активний</td>
+</tr>
+<tr>
+<td><code>model</code>, <code>effort</code></td>
+<td>модель і зусилля для цього skill</td>
+</tr>
+<tr>
+<td><code>context: fork</code>, <code>agent</code></td>
+<td>виконати в окремому субагенті</td>
+</tr>
+<tr>
+<td><code>paths</code></td>
+<td>активувати лише для відповідних файлів</td>
+</tr>
+</tbody>
+</table>
+<p>Повний skill проєкту — <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_43_ai_dev_tools/news_hub/.claude/skills/add-news-source/SKILL.md"><code>.claude/skills/add-news-source/SKILL.md</code></a>. Поглиблено: <a href="https://code.claude.com/docs/en/skills">Skills</a>.</p>
+<h2 id="9-mcp">9. MCP — зовнішні інструменти<a class="headerlink" href="#9-mcp" title="Permanent link">&para;</a></h2>
+<p><strong>Model Context Protocol</strong> — відкритий стандарт, через який агент отримує інструменти й дані ззовні: GitHub, базу даних, Sentry, Figma, пошту.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># віддалений HTTP-сервер (авторизація OAuth — через /mcp у сесії)</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>claude<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>--transport<span class="w"> </span>http<span class="w"> </span>sentry<span class="w"> </span>https://mcp.sentry.dev/mcp
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># з заголовком</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>claude<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>--transport<span class="w"> </span>http<span class="w"> </span>corridor<span class="w"> </span>https://app.corridor.dev/api/mcp<span class="w"> </span>--header<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="nv">$TOKEN</span><span class="s2">"</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="c1"># локальний stdio-сервер; усе після -- — команда запуску</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>claude<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>postgres<span class="w"> </span>--<span class="w"> </span>npx<span class="w"> </span>-y<span class="w"> </span>@bytebase/dbhub<span class="w"> </span>--dsn<span class="w"> </span><span class="s2">"postgresql://readonly@localhost/news_hub"</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>claude<span class="w"> </span>mcp<span class="w"> </span>list<span class="w">          </span><span class="c1"># список і стан</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>claude<span class="w"> </span>mcp<span class="w"> </span>get<span class="w"> </span>sentry<span class="w">    </span><span class="c1"># деталі</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>claude<span class="w"> </span>mcp<span class="w"> </span>remove<span class="w"> </span>sentry
+</code></pre></div>
+<p>Прапорці (<code>--transport</code>, <code>--header</code>, <code>-e</code>, <code>--scope</code>) пишуться <strong>до</strong> назви сервера.</p>
+<table>
+<thead>
+<tr>
+<th><code>--scope</code></th>
+<th>Де діє</th>
+<th>Де записано</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>local</code> (за замовчуванням)</td>
+<td>ти, цей проєкт</td>
+<td><code>~/.claude.json</code></td>
+</tr>
+<tr>
+<td><code>project</code></td>
+<td>усі, хто клонував</td>
+<td><code>.mcp.json</code> у корені, у git</td>
+</tr>
+<tr>
+<td><code>user</code></td>
+<td>ти, усі проєкти</td>
+<td><code>~/.claude.json</code></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="p">{</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">  </span><span class="nt">"mcpServers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="nt">"sentry"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http"</span><span class="p">,</span><span class="w"> </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://mcp.sentry.dev/mcp"</span><span class="p">},</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="nt">"postgres"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"stdio"</span><span class="p">,</span><span class="w"> </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"npx"</span><span class="p">,</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">                 </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"-y"</span><span class="p">,</span><span class="w"> </span><span class="s2">"@bytebase/dbhub"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--dsn"</span><span class="p">,</span><span class="w"> </span><span class="s2">"${DATABASE_URL}"</span><span class="p">]}</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="p">}</span>
+</code></pre></div>
+<p>Сервери з <code>.mcp.json</code> чужого репозиторію не запускаються, доки ти їх не схвалиш (<code>claude mcp list</code> показує їх як «Pending approval»). Секрети — лише через <code>${ЗМІННА}</code>, не текстом у файлі. MCP-сервер виконує код на твоїй машині й бачить те, що йому передає агент: підключай лише ті, яким довіряєш.</p>
+<p>Поглиблено: <a href="https://code.claude.com/docs/en/mcp">MCP</a>.</p>
+<h2 id="hooks">10. Hooks — автоматизація подій<a class="headerlink" href="#hooks" title="Permanent link">&para;</a></h2>
+<p><strong>Hook</strong> — команда (або HTTP-запит, MCP-інструмент, промпт), яку Claude Code запускає сам у певний момент. На відміну від CLAUDE.md, hook виконується <strong>завжди</strong> — агент не може «забути» про нього.</p>
+<table>
+<thead>
+<tr>
+<th>Подія</th>
+<th>Коли</th>
+<th>Приклад</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PreToolUse</code></td>
+<td>перед інструментом; може <strong>заблокувати</strong></td>
+<td>не давати редагувати <code>migrations/versions/</code></td>
+</tr>
+<tr>
+<td><code>PostToolUse</code></td>
+<td>після інструменту</td>
+<td>тести / лінтер після кожної зміни файлу</td>
+</tr>
+<tr>
+<td><code>UserPromptSubmit</code></td>
+<td>користувач надіслав запит</td>
+<td>додати контекст</td>
+</tr>
+<tr>
+<td><code>Stop</code></td>
+<td>агент закінчив відповідь</td>
+<td>остаточна перевірка</td>
+</tr>
+<tr>
+<td><code>SessionStart</code>, <code>SessionEnd</code></td>
+<td>початок / кінець сесії</td>
+<td>підготувати середовище</td>
+</tr>
+</tbody>
+</table>
+<p>Подій понад 30 (<code>PermissionRequest</code>, <code>SubagentStop</code>, <code>PreCompact</code>, <code>FileChanged</code> …) — повний список у <a href="https://code.claude.com/docs/en/hooks">Hooks reference</a>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="p">{</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">  </span><span class="nt">"hooks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="nt">"PostToolUse"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">      </span><span class="p">{</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">        </span><span class="nt">"matcher"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Edit|Write"</span><span class="p">,</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">        </span><span class="nt">"hooks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">          </span><span class="p">{</span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"command"</span><span class="p">,</span><span class="w"> </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"python \"$CLAUDE_PROJECT_DIR/.claude/hooks/unit_tests.py\""</span><span class="p">}</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">        </span><span class="p">]</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="w">      </span><span class="p">}</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="w">    </span><span class="p">]</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="p">}</span>
+</code></pre></div>
+<p>Hook отримує на stdin JSON: <code>tool_name</code>, <code>tool_input</code> (для файлів — <code>tool_input.file_path</code>), <code>cwd</code> тощо.</p>
+<table>
+<thead>
+<tr>
+<th>Код виходу</th>
+<th><code>PreToolUse</code></th>
+<th><code>PostToolUse</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td>продовжити (stdout може містити JSON-рішення)</td>
+<td>продовжити</td>
+</tr>
+<tr>
+<td><code>2</code></td>
+<td><strong>заблокувати</strong> виклик; stderr — причина для агента</td>
+<td>дію вже виконано; stderr іде агенту як помилка, яку треба виправити</td>
+</tr>
+<tr>
+<td>інший</td>
+<td>некритична помилка, продовжуємо</td>
+<td>те саме</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><span class="filename">.claude/hooks/unit_tests.py (news_hub, урок 43)</span><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="n">event</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="p">)</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="n">path</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"tool_input"</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"file_path"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">".py"</span><span class="p">):</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">"-m"</span><span class="p">,</span> <span class="s2">"pytest"</span><span class="p">,</span> <span class="s2">"-m"</span><span class="p">,</span> <span class="s2">"unit"</span><span class="p">,</span> <span class="s2">"-q"</span><span class="p">,</span> <span class="s2">"-p"</span><span class="p">,</span> <span class="s2">"no:cacheprovider"</span><span class="p">,</span> <span class="s2">"-x"</span><span class="p">],</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>                        <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">returncode</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"pytest -m unit впав після зміни"</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()[</span><span class="o">-</span><span class="mi">25</span><span class="p">:]),</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a>    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Hook-«чорний список» — не захист</p>
+<p>Типовий приклад — hook, що блокує <code>rm -rf</code> регулярним виразом <code>^rm -rf</code>. Агент (або промпт-ін'єкція в прочитаному файлі) обходить його командою <code>cd / &amp;&amp; rm -rf …</code>, <code>/bin/rm -rf …</code> чи <code>python -c "…"</code>. Небезпечні дії закривають <code>permissions.deny</code> і sandbox (розділ 11). Hook — для перевірок якості, а не як межа безпеки.</p>
+</div>
+<h2 id="settings">11. Налаштування, дозволи, sandbox<a class="headerlink" href="#settings" title="Permanent link">&para;</a></h2>
+<p>Налаштування — JSON-файли; якщо один ключ задано в кількох, діє вищий рівень:</p>
+<ol>
+<li><strong>managed</strong> — організація (<code>managed-settings.json</code>, MDM); не перевизначається;</li>
+<li><strong>командний рядок</strong> — <code>--settings</code>, <code>--model</code>, <code>--permission-mode</code> …;</li>
+<li><strong><code>.claude/settings.local.json</code></strong> — ти, цей проєкт (не в git);</li>
+<li><strong><code>.claude/settings.json</code></strong> — проєкт, у git;</li>
+<li><strong><code>~/.claude/settings.json</code></strong> — ти, усі проєкти.</li>
+</ol>
+<div class="highlight"><span class="filename">news_hub/.claude/settings.json (урок 43)</span><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="p">{</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">  </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span><span class="nt">"allow"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Bash(pytest *)"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Bash(python -m pytest *)"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Bash(mypy *)"</span><span class="p">,</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">              </span><span class="s2">"Bash(git diff *)"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Bash(git status *)"</span><span class="p">],</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">    </span><span class="nt">"ask"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Edit(./tests/**)"</span><span class="p">],</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">    </span><span class="nt">"deny"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Read(./.env)"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Read(./.env.*)"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Bash(pip install *)"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Bash(git push *)"</span><span class="p">,</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="w">             </span><span class="s2">"Bash(alembic downgrade *)"</span><span class="p">,</span><span class="w"> </span><span class="s2">"WebFetch"</span><span class="p">]</span>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="p">}</span>
+</code></pre></div>
+<ul>
+<li><strong><code>deny</code> сильніший за <code>allow</code></strong>: широке <code>Bash(git *)</code> у <code>allow</code> не відкриє <code>git push</code>, якщо його заборонено.</li>
+<li><code>Bash(pytest *)</code> — <code>*</code> після пробілу покриває й саме <code>pytest</code>. Правило перевіряє <strong>кожну</strong> частину складеної команди (<code>&amp;&amp;</code>, <code>|</code>, <code>;</code>): <code>Bash(pytest *)</code> не дозволить <code>pytest &amp;&amp; rm -rf .</code>.</li>
+<li>Шляхи: <code>Read(./.env)</code> — відносно поточної папки; <code>Edit(/src/**)</code> — відносно кореня проєкту; <code>Read(~/…)</code> — домашня папка.</li>
+<li><strong>Довіра до папки.</strong> <code>allow</code>-правила з <code>.claude/settings.json</code> діють лише після того, як ти довірив папку (діалог при першому запуску). Інакше будь-який клонований репозиторій сам собі дозволив би команди. <code>deny</code> і <code>ask</code> діють одразу. <code>claude -p</code> діалог пропускає — і в недовіреній папці <code>allow</code> з файлу мовчки ігнорує (урок 43 на це натрапив).</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Режим (<code>--permission-mode</code>)</th>
+<th>Поведінка</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>default</code> (у CLI — Manual)</td>
+<td>питає перед першим використанням кожного інструменту</td>
+</tr>
+<tr>
+<td><code>acceptEdits</code></td>
+<td>правки файлів — без запиту; команди — як завжди</td>
+</tr>
+<tr>
+<td><code>plan</code></td>
+<td>лише читає й складає план, нічого не змінює</td>
+</tr>
+<tr>
+<td><code>auto</code></td>
+<td>виконує сам; окремий класифікатор перевіряє дії на відповідність запиту</td>
+</tr>
+<tr>
+<td><code>dontAsk</code></td>
+<td>усе, що вимагало б запиту, — відхиляє; працює лише дозволене правилами</td>
+</tr>
+<tr>
+<td><code>bypassPermissions</code></td>
+<td>без жодних перевірок — лише в ізольованому контейнері без доступу до секретів і мережі</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Sandbox</strong> (<code>/sandbox</code>; macOS, Linux, WSL2 — у «рідному» Windows його немає) обмежує команди Bash на рівні ОС — файли й мережеві домени, до яких вони мають доступ:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="p">{</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">  </span><span class="nt">"sandbox"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">    </span><span class="nt">"enabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">    </span><span class="nt">"filesystem"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"allowWrite"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"/tmp/build"</span><span class="p">],</span><span class="w"> </span><span class="nt">"denyRead"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"~/.aws"</span><span class="p">,</span><span class="w"> </span><span class="s2">"./.env"</span><span class="p">]},</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">    </span><span class="nt">"network"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"allowedDomains"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"github.com"</span><span class="p">,</span><span class="w"> </span><span class="s2">"pypi.org"</span><span class="p">,</span><span class="w"> </span><span class="s2">"files.pythonhosted.org"</span><span class="p">]}</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="p">}</span>
+</code></pre></div>
+<p>Змінні середовища: <code>ANTHROPIC_API_KEY</code> (ключ API для <code>-p</code> і CI), <code>ANTHROPIC_MODEL</code> (модель за замовчуванням), <code>CLAUDE_CODE_DISABLE_AUTO_MEMORY=1</code>, <code>MAX_MCP_OUTPUT_TOKENS</code>. У <code>settings.json</code> їх задають ключем <code>"env": {…}</code>.</p>
+<p>Поглиблено: <a href="https://code.claude.com/docs/en/settings">Settings</a>, <a href="https://code.claude.com/docs/en/permissions">Permissions</a>, <a href="https://code.claude.com/docs/en/permission-modes">Permission modes</a>, <a href="https://code.claude.com/docs/en/sandboxing">Sandboxing</a>.</p>
+<h2 id="12-p-ci-agent-sdk">12. Автоматизація: <code>-p</code>, CI, Agent SDK<a class="headerlink" href="#12-p-ci-agent-sdk" title="Permanent link">&para;</a></h2>
+<p><strong>Скрипти.</strong> <code>claude -p</code> — той самий агент без інтерфейсу:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>git<span class="w"> </span>diff<span class="w"> </span>main<span class="w"> </span><span class="p">|</span><span class="w"> </span>claude<span class="w"> </span>-p<span class="w"> </span><span class="s2">"рецензія діфу: баги й безпека, коротко"</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>claude<span class="w"> </span>-p<span class="w"> </span><span class="s2">"Додай джерело …"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">  </span>--permission-mode<span class="w"> </span>acceptEdits<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">  </span>--allowedTools<span class="w"> </span><span class="s2">"Bash(pytest *)"</span><span class="w"> </span><span class="s2">"Bash(mypy *)"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">  </span>--max-budget-usd<span class="w"> </span><span class="m">5</span><span class="w"> </span>--output-format<span class="w"> </span>json<span class="w"> </span>&gt;<span class="w"> </span>run.json
+</code></pre></div>
+<p><code>--output-format json</code> повертає результат, кількість кроків, вартість і <code>permission_denials</code> — перелік дій, які агентові не дозволили. Саме так проведено експеримент уроку 43.</p>
+<p><strong>GitHub Actions</strong> — офіційна дія <code>anthropics/claude-code-action@v1</code>. Найпростіше налаштувати командою <code>/install-github-app</code> у сесії:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Claude Code</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="nt">on</span><span class="p">:</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">  </span><span class="nt">issue_comment</span><span class="p">:</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="w">    </span><span class="nt">types</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">created</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="nt">jobs</span><span class="p">:</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="w">  </span><span class="nt">claude</span><span class="p">:</span>
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="w">    </span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">contains(github.event.comment.body, '@claude')</span>
+<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a><span class="w">    </span><span class="nt">permissions</span><span class="p">:</span>
+<a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a><span class="w">      </span><span class="nt">contents</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">write</span>
+<a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a><span class="w">      </span><span class="nt">pull-requests</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">write</span>
+<a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a><span class="w">      </span><span class="nt">issues</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">write</span>
+<a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a><span class="w">      </span><span class="nt">id-token</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">write</span>
+<a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a><span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v6</span>
+<a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a><span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+<a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a><span class="w">          </span><span class="nt">fetch-depth</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">anthropics/claude-code-action@v1</span>
+<a id="__codelineno-17-19" name="__codelineno-17-19" href="#__codelineno-17-19"></a><span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+<a id="__codelineno-17-20" name="__codelineno-17-20" href="#__codelineno-17-20"></a><span class="w">          </span><span class="nt">anthropic_api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.ANTHROPIC_API_KEY }}</span>
+</code></pre></div>
+<p>Дія сама перевіряє, що той, хто згадав <code>@claude</code>, має право запису в репозиторій. Ключ — лише в GitHub Secrets. Не запускай агента в режимі <code>bypassPermissions</code> на вмісті чужих PR: текст PR — це чужий промпт.</p>
+<p><strong>Agent SDK</strong> — той самий агент (інструменти, дозволи, хуки, CLAUDE.md) як бібліотека Python або TypeScript:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># pip install claude-agent-sdk</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">claude_agent_sdk</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClaudeAgentOptions</span><span class="p">,</span> <span class="n">query</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>    <span class="n">options</span> <span class="o">=</span> <span class="n">ClaudeAgentOptions</span><span class="p">(</span><span class="n">allowed_tools</span><span class="o">=</span><span class="p">[</span><span class="s2">"Read"</span><span class="p">,</span> <span class="s2">"Grep"</span><span class="p">,</span> <span class="s2">"Bash(pytest *)"</span><span class="p">],</span> <span class="n">permission_mode</span><span class="o">=</span><span class="s2">"acceptEdits"</span><span class="p">)</span>
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>    <span class="k">async</span> <span class="k">for</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">query</span><span class="p">(</span><span class="n">prompt</span><span class="o">=</span><span class="s2">"Знайди непротестовані функції в news_hub/"</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">):</span>
+<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+<a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a>
+<a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a><span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>Це не те саме, що <strong>Client SDK</strong> (<code>pip install anthropic</code>): там ти сам викликаєш модель і сам пишеш цикл інструментів — це тема уроку 44. Поглиблено: <a href="https://code.claude.com/docs/en/agent-sdk/overview">Agent SDK overview</a>.</p>
+<p><strong>Паралельна робота.</strong> <code>claude --bg "…"</code> — фонова сесія (<code>claude agents</code> — список, <code>claude attach &lt;id&gt;</code> — під'єднатися); <code>claude -w назва</code> — сесія в окремому git worktree, щоб дві задачі не заважали одна одній.</p>
+<h2 id="13">13. Безпека: чекліст<a class="headerlink" href="#13" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Ризик</th>
+<th>Що робити</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Агент прочитав <code>.env</code> і вставив ключ у код або лог</td>
+<td><code>deny: Read(./.env)</code>; секрети — лише в змінних середовища</td>
+</tr>
+<tr>
+<td>Промпт-ін'єкція: інструкції в прочитаному файлі, issue, вебсторінці</td>
+<td>не давати агенту одночасно чужий вміст, секрети й мережу; <code>WebFetch</code> — у <code>deny</code> або <code>ask</code></td>
+</tr>
+<tr>
+<td>Чужий репозиторій з <code>.claude/settings.json</code>, hooks, <code>.mcp.json</code></td>
+<td>не довіряй папці, доки не переглянув ці файли</td>
+</tr>
+<tr>
+<td>«Тести проходять», бо агент змінив тести</td>
+<td><code>ask: Edit(./tests/**)</code>; рецензія діфу тестів — окремо</td>
+</tr>
+<tr>
+<td>Вигадані залежності або API</td>
+<td><code>deny: Bash(pip install *)</code>; кожну нову залежність — перевірити на PyPI</td>
+</tr>
+<tr>
+<td>Повний автопілот</td>
+<td><code>bypassPermissions</code> лише в одноразовому контейнері</td>
+</tr>
+</tbody>
+</table>
+<p>Поглиблено: <a href="https://code.claude.com/docs/en/security">Security</a>, <a href="https://code.claude.com/docs/en/best-practices">Best practices</a>.</p>
+<h2 id="_1">Посилання<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://code.claude.com/docs/en/overview">Overview</a>, <a href="https://code.claude.com/docs/en/quickstart">Quickstart</a>, <a href="https://code.claude.com/docs/en/cli-reference">CLI reference</a>, <a href="https://code.claude.com/docs/en/common-workflows">Common workflows</a></li>
+<li><a href="https://code.claude.com/docs/en/memory">Memory (CLAUDE.md)</a>, <a href="https://code.claude.com/docs/en/skills">Skills</a>, <a href="https://code.claude.com/docs/en/hooks">Hooks</a>, <a href="https://code.claude.com/docs/en/mcp">MCP</a></li>
+<li><a href="https://code.claude.com/docs/en/settings">Settings</a>, <a href="https://code.claude.com/docs/en/permissions">Permissions</a>, <a href="https://code.claude.com/docs/en/sandboxing">Sandboxing</a>, <a href="https://code.claude.com/docs/en/security">Security</a></li>
+<li><a href="https://code.claude.com/docs/en/headless">Headless (<code>-p</code>)</a>, <a href="https://code.claude.com/docs/en/github-actions">GitHub Actions</a>, <a href="https://code.claude.com/docs/en/agent-sdk/overview">Agent SDK</a></li>
+<li><a href="https://modelcontextprotocol.io">Model Context Protocol</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Футер" >
+        
+          
+          <a href="../../lesson_43/" class="md-footer__link md-footer__link--prev" aria-label="Назад: Урок">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Назад
+              </span>
+              <div class="md-ellipsis">
+                Урок
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../lesson_44/" class="md-footer__link md-footer__link--next" aria-label="Вперед: 44. Інтеграція LLM API (Gemini / Anthropic)">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Вперед
+              </span>
+              <div class="md-ellipsis">
+                44. Інтеграція LLM API (Gemini / Anthropic)
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.footer", "toc.follow", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0456\u0439\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u0421\u043a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438 \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0429\u0435 1 \u0437\u0431\u0456\u0433 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.more.other": "\u0429\u0435 # \u0437\u0431\u0456\u0433\u0456\u0432 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.none": "\u0417\u0431\u0456\u0433\u0456\u0432 \u043d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0437\u0431\u0456\u0433", "search.result.other": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e # \u0437\u0431\u0456\u0433\u0456\u0432", "search.result.placeholder": "\u0420\u043e\u0437\u043f\u043e\u0447\u043d\u0456\u0442\u044c \u043f\u0438\u0441\u0430\u0442\u0438 \u0434\u043b\u044f \u043f\u043e\u0448\u0443\u043a\u0443", "search.result.term.missing": "\u041d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e \u0437\u0430\u043f\u0438\u0442\u0443", "select.version": "\u041e\u0431\u0440\u0430\u0442\u0438 \u0432\u0435\u0440\u0441\u0456\u044e"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../../javascripts/sidebars.js"></script>
+      
+    
+  </body>
+</html>

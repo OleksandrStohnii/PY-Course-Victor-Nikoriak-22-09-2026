@@ -1,0 +1,4564 @@
+
+<!doctype html>
+<html lang="uk" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Курс Python українською — від основ до просунутих тем, у форматі книги">
+      
+      
+      
+        <link rel="canonical" href="https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m4/lesson_41/">
+      
+      
+        <link rel="prev" href="../lesson_40/">
+      
+      
+        <link rel="next" href="../lesson_42/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>41. Автентифікація та security basics (JWT, hashing, OWASP) - PY Course — Viktor Nikoriak</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#41-security-basics-jwt-hashing-owasp" class="md-skip">
+          Перейти до змісту
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Хедер">
+    <a href="../../.." title="PY Course — Viktor Nikoriak" class="md-header__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PY Course — Viktor Nikoriak
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              41. Автентифікація та security basics (JWT, hashing, OWASP)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Пошук" placeholder="Пошук" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Шукати">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистити" aria-label="Очистити" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Пошук розпочато
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Вкладки" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Головна
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../00_getting_started/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Як користуватися
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Модулі курсу (в розробці)
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../00_python_mental_model/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Довідник
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Навігація" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="PY Course — Viktor Nikoriak" class="md-nav__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    PY Course — Viktor Nikoriak
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Головна
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../00_getting_started/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Як користуватися
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Модулі курсу (в розробці)
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Модулі курсу (в розробці)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../m1/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М1. Основи Python
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М1. Основи Python
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Вступ: формат курсу, AI-політика
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Перші кроки
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Змінні та базові типи даних
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Умови та цикли
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Списки, кортежі, множини
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Словники, for, comprehensions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Функції
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. П1. Big O + базові задачі
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Декоратори
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Ітератори й генератори
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. П2. Пошук
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Модулі та стандартна бібліотека
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Винятки та обробка помилок
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Файли I/O, JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Git & GitHub: система
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. П3. Хеш-структури
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Узагальнення + фінальний проєкт
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М2. Python Advanced
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М2. Python Advanced
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2_python_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Функції як об'єкти першого класу
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Класи, простір імен
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    21. Наслідування, поліморфізм
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    22. Інкапсуляція, область видимості
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    23. П4. Рекурсія, divide & conquer, backtracking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    24. @property, декоратори класів, dunder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    25. Ітератори advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    26. Тестування з pytest (+ валідація AI-коду)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    27. П5. Динамічне програмування + greedy (вступ)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    28. Потоки, multiprocessing, asyncio: вступ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    29. П6. Stack, Queue, Heap, Trie + LRU → ООП-пакет
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М3. Бази даних
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М3. Бази даних
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3_databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m3/bonus_pandas/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. Pandas: аналіз даних, графіки і Dash
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3/lesson_30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    30. Основи SQL (PostgreSQL)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3/lesson_31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    31. Redis overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М4. Web (+ Web Advanced)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М4. Web (+ Web Advanced)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4_web/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    32. HTTP: requests, httpx, aiohttp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    33. REST: принципи дизайну API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    34. Django intro: MVT, ORM, admin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    35. Django: forms, HTML practice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    36. DRF overview + Django vs FastAPI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    37. Typing + Pydantic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../lesson_38/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    38. FastAPI basics + Postman + OpenAPI
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    39. FastAPI + SQLAlchemy: повний CRUD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    40. Middlewares і кешування (Redis на практиці)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    41. Автентифікація та security basics (JWT, hashing, OWASP)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    41. Автентифікація та security basics (JWT, hashing, OWASP)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пригадай
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Старт: з якого коду починаємо
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 4a. Нотатки групи
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 4a. Нотатки групи">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#api-bypass" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Права в API: групи відкривають ще один вхід
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#passwords" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Паролі
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Паролі">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зміна й скидання пароля
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#jwt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 4b. JWT для API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 4b. JWT для API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Як сервер перевіряє токен — покроково
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#throttle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Перебір паролів: throttle
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Налаштування безпеки і check --deploy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#owasp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OWASP Top 10 на нашому коді
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Архітектура: два входи, одні правила
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Архітектура: два входи, одні правила">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Тести
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Практика
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Практика">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Розібраний приклад: правило автора в одному місці
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зміни приклад
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Спробуй самостійно: «вийти на всіх пристроях»
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#find-bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Знайди помилку
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Підсумок
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Підсумок">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Самоперевірка
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що далі
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Документація і джерела
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    42. Тестування API (pytest + httpx)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../lesson_43/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    43. AI-інструменти розробника + ризики й валідація
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    44. Інтеграція LLM API (Gemini / Anthropic)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    45. Архітектура застосунків і патерни
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    46. WebSockets + практика: чат
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    47. Security advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    48. Telegram Bot API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М5. Production
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М5. Production
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5_production/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m5/bonus_linux/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. Linux для розробника
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    49. Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    50. Docker Compose + деплой
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    51. CI/CD (GitHub Actions)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М6. Капстоун
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М6. Капстоун
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6_capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6/lesson_52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    52. Робота над фінальним проєктом
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6/lesson_53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    53. Випускний: питч фінального проєкту
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m6/bonus_cv/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. CV розробника
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bonus_ai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Self-paced. AI для розробників (бонус)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../00_python_mental_model/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Довідник
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пригадай
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Старт: з якого коду починаємо
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 4a. Нотатки групи
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 4a. Нотатки групи">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#api-bypass" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Права в API: групи відкривають ще один вхід
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#passwords" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Паролі
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Паролі">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зміна й скидання пароля
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#jwt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 4b. JWT для API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 4b. JWT для API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Як сервер перевіряє токен — покроково
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#throttle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Перебір паролів: throttle
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Налаштування безпеки і check --deploy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#owasp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OWASP Top 10 на нашому коді
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Архітектура: два входи, одні правила
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Архітектура: два входи, одні правила">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Тести
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Практика
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Практика">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Розібраний приклад: правило автора в одному місці
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зміни приклад
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Спробуй самостійно: «вийти на всіх пристроях»
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#find-bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Знайди помилку
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Підсумок
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Підсумок">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Самоперевірка
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що далі
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Документація і джерела
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Навігація" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Головна
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Модулі курсу (в розробці)
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../m4_web/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    М4. Web (+ Web Advanced)
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="41-security-basics-jwt-hashing-owasp">Урок 41. Автентифікація та security basics (JWT, hashing, OWASP)<a class="headerlink" href="#41-security-basics-jwt-hashing-owasp" title="Permanent link">&para;</a></h1>
+<p>Django-гілка курсу веде той самий застосунок нотаток з уроку 34: сторінки з формами (34), JSON API на DRF (35). Вхід на сайт і правило «кожен бачить лише свої нотатки» вже є — <code>login_required</code>, <code>user=request.user</code>, чужа нотатка → <code>404</code>. Сьогодні <strong>рефакторинг 4</strong> — безпека:</p>
+<ul>
+<li><strong>спільний доступ</strong>: нотатка належить групі («Сім'я», «Команда») — і тоді вже не можна просто писати <code>user=request.user</code>;</li>
+<li><strong>паролі</strong>: як Django їх зберігає, зміна й скидання пароля листом;</li>
+<li><strong>JWT</strong> для API — вхід для програм, яким не підходить cookie браузера;</li>
+<li><strong>налаштування безпеки</strong> і <code>check --deploy</code>; карта ризиків OWASP Top 10 на нашому коді.</li>
+</ul>
+<p>Стартовий код — той самий <code>crispy_notes_project</code>, до якого додано групи, скидання пароля й блок налаштувань безпеки. Теорія — <a href="https://nikoriakviktot.github.io/notes_chat_app/07_auth_and_security/">частина VII Django-книги</a>: тут лише зміни в коді й те, що знайшли, коли зібрали все разом.</p>
+<table>
+<thead>
+<tr>
+<th>Урок</th>
+<th>Django-гілка: застосунок нотаток</th>
+<th>Проєкт</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>33</td>
+<td>MVT, ORM, admin</td>
+<td><code>hello_project</code></td>
+</tr>
+<tr>
+<td>34</td>
+<td>форми, Bootstrap, crispy</td>
+<td><code>crispy_notes_project</code></td>
+</tr>
+<tr>
+<td>35</td>
+<td>REST API на DRF</td>
+<td>+ <code>api.py</code></td>
+</tr>
+<tr>
+<td><strong>40</strong></td>
+<td><strong>групи, паролі, JWT, налаштування безпеки</strong></td>
+<td><strong>+ групи, <code>/api/token/</code></strong></td>
+</tr>
+<tr>
+<td>44</td>
+<td>архітектура: services і selectors</td>
+<td>—</td>
+</tr>
+<tr>
+<td>45</td>
+<td>чат на WebSocket</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>Проєкт: <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_41_auth_security/crispy_notes_project"><code>crispy_notes_project</code></a>.</p>
+<p><strong>Що потрібно з попередніх уроків:</strong> застосунок нотаток і його <code>services</code>/<code>selectors</code> (33–35), DRF-серіалізатори й <code>ViewSet</code> (35), HTTP-заголовки й статус-коди (31–32), хеш-функції (урок 17).</p>
+<p><strong>Після уроку ти зможеш:</strong></p>
+<ul>
+<li>відрізнити автентифікацію («хто ти») від авторизації («що тобі можна») і перевірити обидві на кожному вході в застосунок;</li>
+<li>дати доступ до об'єкта групі користувачів і розділити права «читати» і «змінювати»;</li>
+<li>пояснити, як Django зберігає пароль і чому той самий пароль дає різні хеші;</li>
+<li>видати й перевірити JWT, пояснити, з чого складається токен і чому його не можна «підправити»;</li>
+<li>прочитати <code>manage.py check --deploy</code> і зв'язати знахідки з OWASP Top 10.</li>
+</ul>
+<p><strong>Ноутбук заняття:</strong> <a class="md-button md-button--primary" href="https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_41_auth_security/note_lesson_41_auth_student.ipynb">Відкрити вправи в Colab</a> <a class="solutions-link" href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_41_auth_security/note_lesson_41_auth.ipynb">Переглянути розв’язки</a> — хеші паролів, JWT по частинах, групи й права в API.</p>
+<h2 id="_1">Пригадай<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Що поверне API уроку 36 на запит чужої нотатки і чому не <code>403</code>?</li>
+<li>Хеш-функція з уроку 17: чи можна з хешу отримати вхідні дані?</li>
+<li>Де браузер зберігає «я увійшов» між запитами до Django?</li>
+</ol>
+<details class="success">
+<summary>Відповіді</summary>
+<ol>
+<li><code>404</code>: для чужого користувача нотатки «немає». <code>403</code> підтвердив би, що нотатка з таким id існує, — це вже витік.</li>
+<li>Ні: хеш — односторонній. Можна лише порахувати хеш іншого рядка й порівняти.</li>
+<li>У cookie <code>sessionid</code>: у ній лише випадковий ключ, а дані сесії (хто увійшов) — на сервері, в таблиці <code>django_session</code>. Детально — <a href="https://nikoriakviktot.github.io/notes_chat_app/07_auth_and_security/sessions_flow_full/">Сесії в Django-книзі</a>.</li>
+</ol>
+</details>
+<h2 id="_2">Старт: з якого коду починаємо<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>Стартовий <code>crispy_notes_project</code> — той самий проєкт, що в уроці 35, плюс:</p>
+<table>
+<thead>
+<tr>
+<th>Файл</th>
+<th>Що змінилось у стартовому коді</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>models.py</code>, міграція <code>0003</code></td>
+<td><code>Note.group</code>, <code>ShoppingList.group</code> → <code>ForeignKey(Group, SET_NULL, null=True)</code></td>
+</tr>
+<tr>
+<td><code>selectors.py</code></td>
+<td>нотатки й списки: <code>Q(user=user) \| Q(group__in=user.groups.all())</code>; вибір груп користувача</td>
+</tr>
+<tr>
+<td><code>views.py</code></td>
+<td>редагувати й видаляти — лише автор (повідомлення й redirect для учасника групи); сторінки груп</td>
+</tr>
+<tr>
+<td><code>forms.py</code></td>
+<td>поле <code>group</code> — лише <strong>свої</strong> групи (<code>user.groups.all()</code>); форми створення групи й додавання учасника</td>
+</tr>
+<tr>
+<td><code>services.py</code></td>
+<td><code>create_group</code>, <code>add_user_to_group</code>, <code>remove_user_from_group</code>; <code>group</code> у create/update</td>
+</tr>
+<tr>
+<td><code>templates/registration/</code></td>
+<td>7 шаблонів зміни й скидання пароля</td>
+</tr>
+<tr>
+<td><code>settings.py</code></td>
+<td><code>EMAIL_BACKEND</code> (console), <code>SESSION_COOKIE_HTTPONLY</code>, <code>SAMESITE</code>, <code>X_FRAME_OPTIONS</code>, <code>SECURE_CONTENT_TYPE_NOSNIFF</code></td>
+</tr>
+</tbody>
+</table>
+<p>Ці зміни перенесені на проєкт уроку 36 (з API) без змін логіки; конфлікт був лише в <code>create_note</code> — там наш параметр <code>is_pinned</code> з уроку 35.</p>
+<h2 id="groups">Рефакторинг 4a. Нотатки групи<a class="headerlink" href="#groups" title="Permanent link">&para;</a></h2>
+<p>Коли нотатку бачить не лише автор, правило «<code>user=request.user</code>» розпадається на два:</p>
+<table>
+<thead>
+<tr>
+<th>Хто</th>
+<th>Бачить</th>
+<th>Змінює й видаляє</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>автор</td>
+<td>так</td>
+<td>так</td>
+</tr>
+<tr>
+<td>учасник групи нотатки</td>
+<td>так</td>
+<td>ні</td>
+</tr>
+<tr>
+<td>інший користувач</td>
+<td>ні — <code>404</code></td>
+<td>ні — <code>404</code></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><span class="filename">hello_app/selectors.py (стартовий код)</span><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="w"> </span>def get_user_notes(user, archived=False, notebook=None, search=None):
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="gi">+    user_groups = user.groups.all()</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w"> </span>    qs = Note.objects.filter(
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="gd">-        user=user, is_archived=archived</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="gd">-    ).select_related('notebook').prefetch_related('tags')</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="gi">+        Q(user=user) | Q(group__in=user_groups), is_archived=archived</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="gi">+    ).select_related('notebook', 'group').prefetch_related('tags')</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">hello_app/views.py, note_edit і note_delete (стартовий код)</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="gd">-    note = get_object_or_404(Note, pk=pk, user=request.user)</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="gi">+    user_groups = request.user.groups.all()</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="gi">+    note = get_object_or_404(</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="gi">+        Note.objects.filter(Q(user=request.user) | Q(group__in=user_groups)),</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="gi">+        pk=pk,</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="gi">+    )</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="gi">+    if note.user != request.user:</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="gi">+        messages.error(request, 'Ти не можеш редагувати нотатку іншого користувача.')</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="gi">+        return redirect('hello_app:note_detail', pk=pk)</span>
+</code></pre></div>
+<p>Перевіримо в <code>manage.py shell</code> (у папці <code>crispy_notes_project</code>): Олена ділиться нотаткою з сім'єю, Тарас — у сім'ї, Іван — ні.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$ python manage.py migrate -v 0
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">django.contrib.auth.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">User</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">django.test.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup_test_environment</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rest_framework.test</span><span class="w"> </span><span class="kn">import</span> <span class="n">APIClient</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">hello_app</span><span class="w"> </span><span class="kn">import</span> <span class="n">services</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">hello_app.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Note</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="n">setup_test_environment</span><span class="p">()</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="n">olena</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create_user</span><span class="p">(</span><span class="s2">"olena"</span><span class="p">,</span> <span class="n">email</span><span class="o">=</span><span class="s2">"olena@example.com"</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s2">"Sup3r-secret!"</span><span class="p">)</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="n">taras</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create_user</span><span class="p">(</span><span class="s2">"taras"</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s2">"Sup3r-secret!"</span><span class="p">)</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="n">ivan</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create_user</span><span class="p">(</span><span class="s2">"ivan"</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s2">"Sup3r-secret!"</span><span class="p">)</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="n">family</span> <span class="o">=</span> <span class="n">services</span><span class="o">.</span><span class="n">create_group</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"Сім'я"</span><span class="p">,</span> <span class="n">creator</span><span class="o">=</span><span class="n">olena</span><span class="p">)</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="n">family</span><span class="o">.</span><span class="n">user_set</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">taras</span><span class="p">)</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="n">wifi</span> <span class="o">=</span> <span class="n">services</span><span class="o">.</span><span class="n">create_note</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">olena</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Пароль від Wi-Fi"</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">family</span><span class="p">)</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="n">services</span><span class="o">.</span><span class="n">create_note</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">olena</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Подарунок Тарасу"</span><span class="p">)</span>          <span class="c1"># особиста</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="kn">from</span><span class="w"> </span><span class="nn">django.test</span><span class="w"> </span><span class="kn">import</span> <span class="n">Client</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="p">(</span><span class="n">olena</span><span class="p">,</span> <span class="n">taras</span><span class="p">,</span> <span class="n">ivan</span><span class="p">):</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>    <span class="n">browser</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>    <span class="n">browser</span><span class="o">.</span><span class="n">force_login</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>    <span class="n">page</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/notes/"</span><span class="p">)</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>    <span class="n">visible</span> <span class="o">=</span> <span class="p">[</span><span class="n">title</span> <span class="k">for</span> <span class="n">title</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"Пароль від Wi-Fi"</span><span class="p">,</span> <span class="s2">"Подарунок Тарасу"</span><span class="p">)</span> <span class="k">if</span> <span class="n">title</span> <span class="ow">in</span> <span class="n">page</span><span class="p">]</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="si">:</span><span class="s2">6</span><span class="si">}</span><span class="s2"> бачить </span><span class="si">{</span><span class="n">visible</span><span class="si">}</span><span class="s2">; сторінка нотатки → </span><span class="si">{</span><span class="n">browser</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s1">'/notes/</span><span class="si">{</span><span class="n">wifi</span><span class="o">.</span><span class="n">pk</span><span class="si">}</span><span class="s1">/'</span><span class="p">)</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="n">browser</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="n">browser</span><span class="o">.</span><span class="n">force_login</span><span class="p">(</span><span class="n">taras</span><span class="p">)</span>
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="n">browser</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="sa">f</span><span class="s2">"/notes/</span><span class="si">{</span><span class="n">wifi</span><span class="o">.</span><span class="n">pk</span><span class="si">}</span><span class="s2">/delete/"</span><span class="p">)</span>
+<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Тарас видаляє на сайті → нотатка на місці:"</span><span class="p">,</span> <span class="n">Note</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">wifi</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">())</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>olena  бачить ['Пароль від Wi-Fi', 'Подарунок Тарасу']; сторінка нотатки → 200
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>taras  бачить ['Пароль від Wi-Fi']; сторінка нотатки → 200
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>Not Found: /notes/1/
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>ivan   бачить []; сторінка нотатки → 404
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>Тарас видаляє на сайті → нотатка на місці: True
+</code></pre></div>
+<h3 id="api-bypass">Права в API: групи відкривають ще один вхід<a class="headerlink" href="#api-bypass" title="Permanent link">&para;</a></h3>
+<p>Сторінки перевіряють <code>note.user != request.user</code>. А API уроку 36 бере нотатку тим самим селектором <code>get_note_detail</code>, який тепер <strong>віддає й нотатки групи</strong>. Якщо в API не додати перевірку автора, та сама спроба, що вище, через API дає:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Тарас через API: PATCH → 200, заголовок став «Зламано учасником групи»
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>Тарас через API: DELETE → 204, нотатки більше немає
+</code></pre></div>
+<p>Класична <strong>Broken Access Control</strong> (OWASP A01, перше місце в рейтингу): доступ розширили, а один із входів у застосунок забули оновити. HTML і API — два входи до тих самих даних, і перевіряти права треба на <strong>кожному</strong>.</p>
+<div class="highlight"><span class="filename">hello_app/api.py (фрагмент)</span><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_get_note</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">pk</span><span class="p">):</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">        </span><span class="sd">"""Читати: свою нотатку або нотатку своєї групи (урок 41). Чужа — 404, ніби її немає."""</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>        <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>            <span class="k">return</span> <span class="n">selectors</span><span class="o">.</span><span class="n">get_note_detail</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">,</span> <span class="n">pk</span><span class="p">)</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>        <span class="k">except</span> <span class="n">Note</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>            <span class="k">raise</span> <span class="n">NotFound</span><span class="p">(</span><span class="s2">"Нотатку не знайдено."</span><span class="p">)</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_get_own_note</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">pk</span><span class="p">):</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">        </span><span class="sd">"""Змінювати й видаляти: лише автор. Нотатка групи видима учаснику, але не його — 403."""</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>        <span class="n">note</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_note</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">pk</span><span class="p">)</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>        <span class="k">if</span> <span class="n">note</span><span class="o">.</span><span class="n">user_id</span> <span class="o">!=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="p">:</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>            <span class="k">raise</span> <span class="n">PermissionDenied</span><span class="p">(</span><span class="s2">"Змінювати й видаляти нотатку може лише її автор."</span><span class="p">)</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>        <span class="k">return</span> <span class="n">note</span>
+</code></pre></div>
+<p><code>partial_update</code>, <code>destroy</code> і <code>pin</code> тепер беруть <code>_get_own_note</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">api</span> <span class="o">=</span> <span class="n">APIClient</span><span class="p">()</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">api</span><span class="o">.</span><span class="n">force_authenticate</span><span class="p">(</span><span class="n">taras</span><span class="p">)</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Тарас читає       →"</span><span class="p">,</span> <span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">"/api/notes/</span><span class="si">{</span><span class="n">wifi</span><span class="o">.</span><span class="n">pk</span><span class="si">}</span><span class="s2">/"</span><span class="p">)</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Тарас змінює      →"</span><span class="p">,</span> <span class="n">api</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="sa">f</span><span class="s2">"/api/notes/</span><span class="si">{</span><span class="n">wifi</span><span class="o">.</span><span class="n">pk</span><span class="si">}</span><span class="s2">/"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Зламано учасником групи"</span><span class="p">},</span> <span class="nb">format</span><span class="o">=</span><span class="s2">"json"</span><span class="p">)</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Тарас видаляє     →"</span><span class="p">,</span> <span class="n">api</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="sa">f</span><span class="s2">"/api/notes/</span><span class="si">{</span><span class="n">wifi</span><span class="o">.</span><span class="n">pk</span><span class="si">}</span><span class="s2">/"</span><span class="p">)</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">api</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="sa">f</span><span class="s2">"/api/notes/</span><span class="si">{</span><span class="n">wifi</span><span class="o">.</span><span class="n">pk</span><span class="si">}</span><span class="s2">/"</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">"detail"</span><span class="p">])</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="n">api</span><span class="o">.</span><span class="n">force_authenticate</span><span class="p">(</span><span class="n">ivan</span><span class="p">)</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Іван читає        →"</span><span class="p">,</span> <span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">"/api/notes/</span><span class="si">{</span><span class="n">wifi</span><span class="o">.</span><span class="n">pk</span><span class="si">}</span><span class="s2">/"</span><span class="p">)</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="n">api</span><span class="o">.</span><span class="n">force_authenticate</span><span class="p">(</span><span class="n">olena</span><span class="p">)</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Олена змінює      →"</span><span class="p">,</span> <span class="n">api</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="sa">f</span><span class="s2">"/api/notes/</span><span class="si">{</span><span class="n">wifi</span><span class="o">.</span><span class="n">pk</span><span class="si">}</span><span class="s2">/"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Пароль від Wi-Fi (новий)"</span><span class="p">},</span> <span class="nb">format</span><span class="o">=</span><span class="s2">"json"</span><span class="p">)</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>Тарас читає       → 200
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>Forbidden: /api/notes/1/
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>Тарас змінює      → 403
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>Forbidden: /api/notes/1/
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>Forbidden: /api/notes/1/
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>Тарас видаляє     → 403 Змінювати й видаляти нотатку може лише її автор.
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>Not Found: /api/notes/1/
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>Іван читає        → 404
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>Олена змінює      → 200
+</code></pre></div>
+<p><code>403</code> для учасника групи чесний: нотатку він і так бачить, приховувати нічого. Для Івана — <code>404</code>, як і в уроці 36. Тест <code>test_api_member_reads_but_cannot_write</code> закріплює правило: без <code>_get_own_note</code> він падає.</p>
+<p>Поглиблено: <a href="https://nikoriakviktot.github.io/notes_chat_app/07_auth_and_security/permissions_full/">Права доступу</a>, <a href="https://nikoriakviktot.github.io/notes_chat_app/07_auth_and_security/auth_sessions_permissions/">Автентифікація, сесії й права: IDOR</a>.</p>
+<h2 id="passwords">Паролі<a class="headerlink" href="#passwords" title="Permanent link">&para;</a></h2>
+<p>Django <strong>ніколи не зберігає пароль</strong>. У полі <code>password</code> — рядок <code>алгоритм$ітерації$сіль$хеш</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">django.contrib.auth.hashers</span><span class="w"> </span><span class="kn">import</span> <span class="n">check_password</span><span class="p">,</span> <span class="n">make_password</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">olena</span><span class="o">.</span><span class="n">password</span><span class="p">)</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">taras</span><span class="o">.</span><span class="n">password</span><span class="p">)</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="n">make_password</span><span class="p">(</span><span class="s2">"Sup3r-secret!"</span><span class="p">)</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"один хеш: </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> с"</span><span class="p">)</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="nb">print</span><span class="p">(</span><span class="n">check_password</span><span class="p">(</span><span class="s2">"Sup3r-secret!"</span><span class="p">,</span> <span class="n">olena</span><span class="o">.</span><span class="n">password</span><span class="p">),</span> <span class="n">check_password</span><span class="p">(</span><span class="s2">"sup3r-secret!"</span><span class="p">,</span> <span class="n">olena</span><span class="o">.</span><span class="n">password</span><span class="p">))</span>
+</code></pre></div>
+<p>Приклад виводу (сіль і хеш — випадкові, час залежить від машини):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>pbkdf2_sha256$1000000$gr731R4wX4noyVbhCAb0FV$mFZOgLHmvZIKdBWR/2EiLKZJQglRYEYI14GH5U5w+XU=
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>pbkdf2_sha256$1000000$p5KcrASXd5UWpKxRZmsqbM$NLrWG1boJBX2fr7diWhStJRxl38NP2qG+zl5Mxez92Y=
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>один хеш: 0.79 с
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>True False
+</code></pre></div>
+<ul>
+<li><strong>Той самий пароль — різні рядки.</strong> Сіль — випадкова для кожного користувача, тож однакові паролі не видно з бази, а заздалегідь пораховані таблиці хешів (rainbow tables) марні.</li>
+<li><strong>Навмисно повільно.</strong> PBKDF2 повторює хеш-функцію мільйон разів (у Django 5.2 — <code>1000000</code>, число записане в рядку, тож його можна збільшувати з версіями). Для входу одна перевірка — непомітно, для перебору мільйонів паролів після витоку бази — роки.</li>
+<li><strong><code>check_password</code></strong> рахує хеш введеного пароля з тією ж сіллю й порівнює. Зворотного шляху немає.</li>
+</ul>
+<h3 id="_3">Зміна й скидання пароля<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p><code>path("accounts/", include("django.contrib.auth.urls"))</code> уже дає всі сторінки; стартовий код додав 7 шаблонів у <code>templates/registration/</code> і <code>EMAIL_BACKEND = "…console.EmailBackend"</code> — лист друкується в термінал <code>runserver</code> замість справжньої пошти.</p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant U as Користувач
+    participant D as Django
+    participant M as Пошта (console)
+
+    U-&gt;&gt;D: POST /accounts/password_reset/ email
+    D-&gt;&gt;D: є користувач з таким email?
+    D-&gt;&gt;M: так — лист з посиланням /accounts/reset/uid/token/
+    D--&gt;&gt;U: 302 → «лист надіслано» (однаково, є email чи ні)
+    U-&gt;&gt;D: GET посилання з листа
+    D-&gt;&gt;D: токен: підпис SECRET_KEY + хеш пароля + час
+    D--&gt;&gt;U: форма нового пароля
+    U-&gt;&gt;D: POST новий пароль
+    D-&gt;&gt;D: set_password → новий хеш → старий токен більше не діє</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">django.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">mail</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="k">for</span> <span class="n">email</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"olena@example.com"</span><span class="p">,</span> <span class="s2">"nobody@example.com"</span><span class="p">):</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/accounts/password_reset/"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"email"</span><span class="p">:</span> <span class="n">email</span><span class="p">})</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">email</span><span class="si">:</span><span class="s2">20</span><span class="si">}</span><span class="s2"> → </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">response</span><span class="p">[</span><span class="s1">'Location'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"листів:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">mail</span><span class="o">.</span><span class="n">outbox</span><span class="p">),</span> <span class="s2">"| кому:"</span><span class="p">,</span> <span class="n">mail</span><span class="o">.</span><span class="n">outbox</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">)</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="n">link</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">mail</span><span class="o">.</span><span class="n">outbox</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span> <span class="k">if</span> <span class="s2">"/accounts/reset/"</span> <span class="ow">in</span> <span class="n">line</span><span class="p">)</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"посилання:"</span><span class="p">,</span> <span class="n">link</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">"/"</span><span class="p">,</span> <span class="mi">3</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">"/…/"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>olena@example.com    → 302 /accounts/password_reset/done/
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>nobody@example.com   → 302 /accounts/password_reset/done/
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>листів: 1 | кому: ['olena@example.com']
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>посилання: http://testserver/accounts/reset/…/
+</code></pre></div>
+<p>Однакова відповідь для відомого й невідомого email — не випадковість: інакше форма скидання стала б способом <strong>перевіряти, хто зареєстрований</strong> (user enumeration, OWASP A07). Токен у посиланні одноразовий: він залежить від хешу пароля, тож після зміни пароля старе посилання не спрацює.</p>
+<p>Поглиблено: <a href="https://nikoriakviktot.github.io/notes_chat_app/07_auth_and_security/auth_basics_full/">Автентифікація</a>, <a href="https://nikoriakviktot.github.io/notes_chat_app/07_auth_and_security/security_foundations_full/">Основи безпеки</a>.</p>
+<h2 id="jwt">Рефакторинг 4b. JWT для API<a class="headerlink" href="#jwt" title="Permanent link">&para;</a></h2>
+<p>Сесія (cookie + CSRF) зручна браузеру на тому самому сайті. Мобільному застосунку, скрипту чи Telegram-боту (урок 48) потрібне інше: отримати <strong>токен</strong> і надсилати його в заголовку <code>Authorization: Bearer …</code>. У прототипі <code>production_bot</code> токени видавались вручну через PyJWT; у Django — готовий пакет <code>djangorestframework-simplejwt</code>.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Сесія (cookie)</th>
+<th>JWT (Bearer)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Де «я увійшов»</td>
+<td>ключ у cookie, дані — на сервері (<code>django_session</code>)</td>
+<td>усе в самому токені, підписаному <code>SECRET_KEY</code></td>
+</tr>
+<tr>
+<td>Хто надсилає</td>
+<td>браузер сам, з кожним запитом</td>
+<td>клієнт явно, в заголовку</td>
+</tr>
+<tr>
+<td>CSRF</td>
+<td>потрібен захист</td>
+<td>не потрібен (браузер сам заголовок не додає)</td>
+</tr>
+<tr>
+<td>Вийти / відкликати</td>
+<td>видалити сесію на сервері</td>
+<td>токен діє до <code>exp</code>; тому access-токен короткий</td>
+</tr>
+<tr>
+<td>Кому</td>
+<td>сайт</td>
+<td>мобільний застосунок, скрипт, бот, інший сервіс</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><span class="filename">hello_project/settings.py (урок 41)</span><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="w"> </span>REST_FRAMEWORK = {
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="gi">+    # Порядок важливий: без облікових даних DRF відповідає за ПЕРШИМ класом. JWT першим → 401 з</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="gi">+    # WWW-Authenticate: Bearer; сесія першою → 403 (у неї немає заголовка WWW-Authenticate).</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w"> </span>    "DEFAULT_AUTHENTICATION_CLASSES": [
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="gi">+        "rest_framework_simplejwt.authentication.JWTAuthentication",</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w"> </span>        "rest_framework.authentication.SessionAuthentication",
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="gd">-        "rest_framework.authentication.BasicAuthentication",</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="w"> </span>    ],
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="w"> </span>    ...
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="gi">+    "DEFAULT_THROTTLE_RATES": {"login": "5/min"},</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="w"> </span>}
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="gi">+</span>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="gi">+SIMPLE_JWT = {</span>
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="gi">+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),</span>
+<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="gi">+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),</span>
+<a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a><span class="gi">+    "ROTATE_REFRESH_TOKENS": True,</span>
+<a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a><span class="gi">+    "AUTH_HEADER_TYPES": ("Bearer",),</span>
+<a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a><span class="gi">+}</span>
+</code></pre></div>
+<ul>
+<li><code>BasicAuthentication</code> прибрано: вона надсилає логін і пароль <strong>з кожним</strong> запитом.</li>
+<li><strong>Access</strong> живе 5 хвилин — викрадений токен швидко «згорає»; <strong>refresh</strong> (доба) обмінюють на новий access без пароля.</li>
+<li><code>/api/token/</code> — видача пари токенів, з throttle 5 спроб за хвилину (<code>ScopedRateThrottle</code>, файл <code>hello_app/auth_api.py</code>); <code>/api/token/refresh/</code> — оновлення.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">base64</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="n">api</span> <span class="o">=</span> <span class="n">APIClient</span><span class="p">()</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="n">r</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/api/notes/"</span><span class="p">)</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"без токена        →"</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">r</span><span class="p">[</span><span class="s2">"WWW-Authenticate"</span><span class="p">])</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="n">tokens</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/api/token/"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"username"</span><span class="p">:</span> <span class="s2">"olena"</span><span class="p">,</span> <span class="s2">"password"</span><span class="p">:</span> <span class="s2">"Sup3r-secret!"</span><span class="p">},</span> <span class="nb">format</span><span class="o">=</span><span class="s2">"json"</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="n">access</span> <span class="o">=</span> <span class="n">tokens</span><span class="p">[</span><span class="s2">"access"</span><span class="p">]</span>
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"токен             →"</span><span class="p">,</span> <span class="n">access</span><span class="p">[:</span><span class="mi">40</span><span class="p">]</span> <span class="o">+</span> <span class="s2">"…"</span><span class="p">,</span> <span class="s2">"| частин:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">access</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"."</span><span class="p">)))</span>
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>
+<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="n">header</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">signature</span> <span class="o">=</span> <span class="n">access</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"."</span><span class="p">)</span>
+<a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a><span class="n">decode</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">part</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">base64</span><span class="o">.</span><span class="n">urlsafe_b64decode</span><span class="p">(</span><span class="n">part</span> <span class="o">+</span> <span class="s2">"="</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">part</span><span class="p">)</span> <span class="o">%</span> <span class="mi">4</span><span class="p">)))</span>
+<a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"header            →"</span><span class="p">,</span> <span class="n">decode</span><span class="p">(</span><span class="n">header</span><span class="p">))</span>
+<a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a><span class="n">claims</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+<a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"payload           →"</span><span class="p">,</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">claims</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"token_type"</span><span class="p">,</span> <span class="s2">"user_id"</span><span class="p">)},</span> <span class="s2">"| живе"</span><span class="p">,</span> <span class="n">claims</span><span class="p">[</span><span class="s2">"exp"</span><span class="p">]</span> <span class="o">-</span> <span class="n">claims</span><span class="p">[</span><span class="s2">"iat"</span><span class="p">],</span> <span class="s2">"с"</span><span class="p">)</span>
+<a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a>
+<a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a><span class="n">api</span><span class="o">.</span><span class="n">credentials</span><span class="p">(</span><span class="n">HTTP_AUTHORIZATION</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Bearer </span><span class="si">{</span><span class="n">access</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"з токеном         →"</span><span class="p">,</span> <span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/api/notes/"</span><span class="p">)</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="p">[</span><span class="n">n</span><span class="p">[</span><span class="s2">"title"</span><span class="p">]</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/api/notes/"</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()])</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>Unauthorized: /api/notes/
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>без токена        → 401 Bearer realm="api"
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>токен             → eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ… | частин: 3
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>header            → {'alg': 'HS256', 'typ': 'JWT'}
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>payload           → {'token_type': 'access', 'user_id': '1'} | живе 300 с
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>з токеном         → 200 ['Пароль від Wi-Fi (новий)', 'Подарунок Тарасу']
+</code></pre></div>
+<p>Payload <strong>не зашифрований</strong> — його прочитає будь-хто (ми щойно прочитали без жодного ключа). Тому в токен не кладуть нічого секретного. Захищає його <strong>підпис</strong>.</p>
+<h3 id="_4">Як сервер перевіряє токен — покроково<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>flowchart TD
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    subgraph S1 ["1. розібрати заголовок"]
+        direction LR
+        a1["Authorization: Bearer xxx.yyy.zzz"] --&gt; a2["header . payload . signature"]
+    end
+    subgraph S2 ["2. перевірити підпис"]
+        direction LR
+        b1["HMAC-SHA256(header.payload,&lt;br&gt;SECRET_KEY)"] --&gt; b2{"= signature?"}
+        b2 -- ні --&gt; b3["401: підправлений&lt;br&gt;або чужий ключ"]
+    end
+    subgraph S3 ["3. перевірити час"]
+        direction LR
+        c1{"exp &gt; зараз?"} -- ні --&gt; c2["401: токен&lt;br&gt;прострочений"]
+    end
+    subgraph S4 ["4. знайти користувача"]
+        direction LR
+        d1["user_id з payload"] --&gt; d2{"активний?"} -- так --&gt; d3["request.user = olena"]
+    end
+    S1 --&gt; S2 --&gt; S3 --&gt; S4
+
+    class a1,a2,b1,d1 step
+    class b2,c1,d2 decision
+    class b3,c2 error
+    class d3 success</code></pre>
+<p>Перевіримо кожну гілку: підправлений підпис, підпис чужим ключем, прострочений токен і оновлення через refresh:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">timedelta</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">jwt</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rest_framework_simplejwt.tokens</span><span class="w"> </span><span class="kn">import</span> <span class="n">AccessToken</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="n">tampered</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">header</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">payload</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">signature</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span><span class="si">}</span><span class="s2">AAAA"</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="n">foreign</span> <span class="o">=</span> <span class="n">jwt</span><span class="o">.</span><span class="n">encode</span><span class="p">({</span><span class="o">**</span><span class="n">claims</span><span class="p">,</span> <span class="s2">"user_id"</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">ivan</span><span class="o">.</span><span class="n">id</span><span class="p">)},</span> <span class="s2">"зовсім-інший-ключ-підпису-довжиною-понад-32-байти"</span><span class="p">,</span>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>                     <span class="n">algorithm</span><span class="o">=</span><span class="s2">"HS256"</span><span class="p">)</span>
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="n">expired</span> <span class="o">=</span> <span class="n">AccessToken</span><span class="o">.</span><span class="n">for_user</span><span class="p">(</span><span class="n">olena</span><span class="p">)</span>
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="n">expired</span><span class="o">.</span><span class="n">set_exp</span><span class="p">(</span><span class="n">lifetime</span><span class="o">=-</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">token</span> <span class="ow">in</span> <span class="p">((</span><span class="s2">"підправлений"</span><span class="p">,</span> <span class="n">tampered</span><span class="p">),</span> <span class="p">(</span><span class="s2">"чужий ключ"</span><span class="p">,</span> <span class="n">foreign</span><span class="p">),</span> <span class="p">(</span><span class="s2">"прострочений"</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">expired</span><span class="p">))):</span>
+<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a>    <span class="n">api</span><span class="o">.</span><span class="n">credentials</span><span class="p">(</span><span class="n">HTTP_AUTHORIZATION</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Bearer </span><span class="si">{</span><span class="n">token</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/api/notes/"</span><span class="p">)</span>
+<a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s2">13</span><span class="si">}</span><span class="s2"> → </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">'detail'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a>
+<a id="__codelineno-16-16" name="__codelineno-16-16" href="#__codelineno-16-16"></a><span class="n">api</span><span class="o">.</span><span class="n">credentials</span><span class="p">()</span>
+<a id="__codelineno-16-17" name="__codelineno-16-17" href="#__codelineno-16-17"></a><span class="n">fresh</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/api/token/refresh/"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"refresh"</span><span class="p">:</span> <span class="n">tokens</span><span class="p">[</span><span class="s2">"refresh"</span><span class="p">]},</span> <span class="nb">format</span><span class="o">=</span><span class="s2">"json"</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<a id="__codelineno-16-18" name="__codelineno-16-18" href="#__codelineno-16-18"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"refresh       →"</span><span class="p">,</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">fresh</span><span class="p">),</span> <span class="s2">"| новий refresh:"</span><span class="p">,</span> <span class="n">fresh</span><span class="p">[</span><span class="s2">"refresh"</span><span class="p">]</span> <span class="o">!=</span> <span class="n">tokens</span><span class="p">[</span><span class="s2">"refresh"</span><span class="p">])</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>Unauthorized: /api/notes/
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>підправлений  → 401 Given token not valid for any token type
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>Unauthorized: /api/notes/
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>чужий ключ    → 401 Given token not valid for any token type
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>Unauthorized: /api/notes/
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>прострочений  → 401 Given token not valid for any token type
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>refresh       → ['access', 'refresh'] | новий refresh: True
+</code></pre></div>
+<p>Усі три відмови — з тим самим повідомленням: сервер не підказує, яка саме перевірка не пройшла. <code>ROTATE_REFRESH_TOKENS</code> — з кожним оновленням новий refresh-токен. Відкликати вже видані токени (кнопка «вийти на всіх пристроях») дає додаток <code>token_blacklist</code> — див. «Спробуй самостійно».</p>
+<h3 id="throttle">Перебір паролів: throttle<a class="headerlink" href="#throttle" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">django.core.cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">cache</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="n">cache</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>                     <span class="c1"># лічильник спроб живе в кеші; вхід з попереднього кроку теж рахувався</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="n">api</span> <span class="o">=</span> <span class="n">APIClient</span><span class="p">()</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="n">statuses</span> <span class="o">=</span> <span class="p">[</span><span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/api/token/"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"username"</span><span class="p">:</span> <span class="s2">"olena"</span><span class="p">,</span> <span class="s2">"password"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"guess-</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">"</span><span class="p">},</span> <span class="nb">format</span><span class="o">=</span><span class="s2">"json"</span><span class="p">)</span><span class="o">.</span><span class="n">status_code</span>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>            <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">)]</span>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"6 невдалих спроб →"</span><span class="p">,</span> <span class="n">statuses</span><span class="p">)</span>
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="n">right</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/api/token/"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"username"</span><span class="p">:</span> <span class="s2">"olena"</span><span class="p">,</span> <span class="s2">"password"</span><span class="p">:</span> <span class="s2">"Sup3r-secret!"</span><span class="p">},</span> <span class="nb">format</span><span class="o">=</span><span class="s2">"json"</span><span class="p">)</span>
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"правильний пароль →"</span><span class="p">,</span> <span class="n">right</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">right</span><span class="p">[</span><span class="s2">"Retry-After"</span><span class="p">],</span> <span class="s2">"с"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>Unauthorized: /api/token/
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>Unauthorized: /api/token/
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>Unauthorized: /api/token/
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>Unauthorized: /api/token/
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>Unauthorized: /api/token/
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>Too Many Requests: /api/token/
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>6 невдалих спроб → [401, 401, 401, 401, 401, 429]
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>Too Many Requests: /api/token/
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>правильний пароль → 429 57 с
+</code></pre></div>
+<p>Після 5 спроб за хвилину — <code>429</code>, навіть з правильним паролем: зловмисник не може перебирати швидко, а справжній користувач чекає хвилину. Той самий принцип, що rate limit агрегатора в уроці 40, — тут готовий <code>ScopedRateThrottle</code> DRF.</p>
+<p>Поглиблено: <a href="https://nikoriakviktot.github.io/notes_chat_app/06_application_architecture/drf_rest_api_full/">DRF: автентифікація й permissions у Django-книзі</a>.</p>
+<h2 id="settings">Налаштування безпеки і <code>check --deploy</code><a class="headerlink" href="#settings" title="Permanent link">&para;</a></h2>
+<p>Стартовий код додав блок налаштувань; урок 41 — <code>SECRET_KEY</code>, <code>DEBUG</code> і <code>ALLOWED_HOSTS</code> зі змінних середовища:</p>
+<div class="highlight"><span class="filename">hello_project/settings.py (фрагмент)</span><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1"># Цим ключем підписуються сесії, токени скидання пароля і JWT. Хто його знає — підробить будь-який токен.</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="n">SECRET_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"DJANGO_SECRET_KEY"</span><span class="p">,</span> <span class="s2">"django-insecure-crispy-notes-dev-key-change-in-production"</span><span class="p">)</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="n">DEBUG</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"DJANGO_DEBUG"</span><span class="p">,</span> <span class="s2">"1"</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"1"</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="n">ALLOWED_HOSTS</span> <span class="o">=</span> <span class="p">[</span><span class="n">host</span> <span class="k">for</span> <span class="n">host</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"DJANGO_ALLOWED_HOSTS"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">","</span><span class="p">)</span> <span class="k">if</span> <span class="n">host</span><span class="p">]</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="n">SESSION_COOKIE_HTTPONLY</span> <span class="o">=</span> <span class="kc">True</span>        <span class="c1"># JavaScript не прочитає cookie сесії (XSS не вкраде вхід)</span>
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="n">SESSION_COOKIE_SAMESITE</span> <span class="o">=</span> <span class="s2">"Lax"</span>       <span class="c1"># cookie не йде з чужих сайтів (частина захисту від CSRF)</span>
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="n">X_FRAME_OPTIONS</span> <span class="o">=</span> <span class="s2">"DENY"</span>              <span class="c1"># сторінку не вставиш в &lt;iframe&gt; (clickjacking)</span>
+<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a><span class="n">SECURE_CONTENT_TYPE_NOSNIFF</span> <span class="o">=</span> <span class="kc">True</span>    <span class="c1"># браузер не вгадує тип файлу</span>
+</code></pre></div>
+<p>Django сам перевіряє, що ще не готово до сервера:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>$ python manage.py check --deploy
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>System check identified some issues:
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>WARNINGS:
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>?: (security.W004) You have not set a value for the SECURE_HSTS_SECONDS setting. If your entire site is served only over SSL, you may want to consider setting a value and enabling HTTP Strict Transport Security. Be sure to read the documentation first; enabling HSTS carelessly can cause serious, irreversible problems.
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>?: (security.W008) Your SECURE_SSL_REDIRECT setting is not set to True. Unless your site should be available over both SSL and non-SSL connections, you may want to either set this setting True or configure a load balancer or reverse-proxy server to redirect all connections to HTTPS.
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>?: (security.W009) Your SECRET_KEY has less than 50 characters, less than 5 unique characters, or it's prefixed with 'django-insecure-' indicating that it was generated automatically by Django. Please generate a long and random value, otherwise many of Django's security-critical features will be vulnerable to attack.
+<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>?: (security.W012) SESSION_COOKIE_SECURE is not set to True. Using a secure-only session cookie makes it more difficult for network traffic sniffers to hijack user sessions.
+<a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>?: (security.W016) You have 'django.middleware.csrf.CsrfViewMiddleware' in your MIDDLEWARE, but you have not set CSRF_COOKIE_SECURE to True. Using a secure-only CSRF cookie makes it more difficult for network traffic sniffers to steal the CSRF token.
+<a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>?: (security.W018) You should not have DEBUG set to True in deployment.
+<a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>?: (security.W020) ALLOWED_HOSTS must not be empty in deployment.
+<a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a>
+<a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a>System check identified 7 issues (0 silenced).
+</code></pre></div>
+<p>Кожен рядок — готовий пункт списку перед деплоєм: <code>W009</code> — ключ з префіксом <code>django-insecure-</code>, <code>W018</code> — <code>DEBUG = True</code>, <code>W020</code> — порожній <code>ALLOWED_HOSTS</code>, решта — HTTPS (<code>SECURE_HSTS_SECONDS</code>, <code>SECURE_SSL_REDIRECT</code>, <code>*_COOKIE_SECURE</code>), які вмикають на сервері з сертифікатом (урок 50). Ті самі налаштування через змінні середовища:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>$ DJANGO_SECRET_KEY="$(python -c 'import secrets; print(secrets.token_urlsafe(50))')" DJANGO_DEBUG=0 DJANGO_ALLOWED_HOSTS=notes.example.com python manage.py check --deploy
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>System check identified some issues:
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>WARNINGS:
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>?: (security.W004) You have not set a value for the SECURE_HSTS_SECONDS setting. If your entire site is served only over SSL, you may want to consider setting a value and enabling HTTP Strict Transport Security. Be sure to read the documentation first; enabling HSTS carelessly can cause serious, irreversible problems.
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>?: (security.W008) Your SECURE_SSL_REDIRECT setting is not set to True. Unless your site should be available over both SSL and non-SSL connections, you may want to either set this setting True or configure a load balancer or reverse-proxy server to redirect all connections to HTTPS.
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>?: (security.W012) SESSION_COOKIE_SECURE is not set to True. Using a secure-only session cookie makes it more difficult for network traffic sniffers to hijack user sessions.
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>?: (security.W016) You have 'django.middleware.csrf.CsrfViewMiddleware' in your MIDDLEWARE, but you have not set CSRF_COOKIE_SECURE to True. Using a secure-only CSRF cookie makes it more difficult for network traffic sniffers to steal the CSRF token.
+<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>
+<a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>System check identified 4 issues (0 silenced).
+</code></pre></div>
+<p>Лишились лише попередження про HTTPS — їх закриває урок 50.</p>
+<h2 id="owasp">OWASP Top 10 на нашому коді<a class="headerlink" href="#owasp" title="Permanent link">&para;</a></h2>
+<p><a href="https://owasp.org/Top10/">OWASP Top 10</a> — рейтинг найпоширеніших ризиків вебзастосунків. Де вони в застосунку нотаток:</p>
+<table>
+<thead>
+<tr>
+<th>Ризик</th>
+<th>Де в проєкті</th>
+<th>Що захищає</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A01</strong> Broken Access Control</td>
+<td>чужа нотатка; нотатка групи в API</td>
+<td><code>404</code> для чужих (35), <code>_get_own_note</code> → <code>403</code> для учасників (40), групи у формі — лише свої</td>
+</tr>
+<tr>
+<td><strong>A02</strong> Cryptographic Failures</td>
+<td>паролі, <code>SECRET_KEY</code></td>
+<td>PBKDF2 з сіллю; ключ зі змінної середовища</td>
+</tr>
+<tr>
+<td><strong>A03</strong> Injection</td>
+<td>фільтри й пошук</td>
+<td>ORM передає значення параметрами (урок 30); автоекранування шаблонів</td>
+</tr>
+<tr>
+<td><strong>A05</strong> Security Misconfiguration</td>
+<td><code>DEBUG</code>, <code>ALLOWED_HOSTS</code>, заголовки</td>
+<td><code>check --deploy</code>, блок налаштувань безпеки</td>
+</tr>
+<tr>
+<td><strong>A07</strong> Identification and Authentication Failures</td>
+<td>вхід, скидання пароля, API</td>
+<td>throttle на <code>/api/token/</code>, однакова відповідь для невідомого email, короткий access-токен, валідатори пароля</td>
+</tr>
+</tbody>
+</table>
+<p>Решта пунктів (A04, A06, A08–A10) і розбір кожного — <a href="https://nikoriakviktot.github.io/notes_chat_app/07_auth_and_security/owasp_top_10_full/">OWASP Top 10 у Django-книзі</a>, а поглиблено — урок 47.</p>
+<h2 id="architecture">Архітектура: два входи, одні правила<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    B["браузер&lt;br&gt;cookie sessionid + CSRF"] --&gt; V["views.py&lt;br&gt;login_required"]
+    C["застосунок, скрипт, бот&lt;br&gt;Authorization: Bearer"] --&gt; A["api.py&lt;br&gt;JWT, потім сесія"]
+    T["POST /api/token/&lt;br&gt;throttle 5/хв"] -. "access + refresh" .-&gt; C
+    V --&gt; R["selectors&lt;br&gt;свої + нотатки груп"]
+    A --&gt; R
+    V --&gt; W{"змінює?&lt;br&gt;автор?"}
+    A --&gt; W
+    W -- ні --&gt; X["сайт: повідомлення&lt;br&gt;API: 403"]
+    W -- так --&gt; S["services&lt;br&gt;update / delete"]
+    S --&gt; DB[("база")]
+    R --&gt; DB
+
+    class B,C,V,A,R step
+    class T,W warning
+    class X error
+    class S,DB success</code></pre>
+<ul>
+<li><strong>Автентифікація ≠ авторизація.</strong> Сесія чи JWT відповідають лише на «хто ти». «Що тобі можна» вирішує код: selectors (що бачиш) і перевірка автора (що змінюєш).</li>
+<li><strong>Правила — на кожному вході.</strong> Сайт і API читають тими самими selectors, тож перевірка автора потрібна на обох. Правило, яке треба пам'ятати у двох місцях, колись забудуть — у практиці його винесемо в один DRF-permission.</li>
+<li><strong>Секрет — один.</strong> <code>SECRET_KEY</code> підписує сесії, токени скидання й JWT. Він — у змінній середовища, не в git.</li>
+</ul>
+<h3 id="_5">Тести<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>Приклад виводу (час залежить від машини; хешування паролів навмисно повільне):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>$ python manage.py test
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>Found 29 test(s).
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>System check identified no issues (0 silenced).
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>Creating test database for alias 'default'...
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>.............................
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>----------------------------------------------------------------------
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>Ran 29 tests in 51.170s
+<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>
+<a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>OK
+<a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>Destroying test database for alias 'default'...
+</code></pre></div>
+<p><code>hello_app/tests_auth.py</code> — 13 тестів: видимість нотаток групи на сайті, заборона змін для учасника на сайті й в API (<code>403</code>) і <code>404</code> для стороннього, групи у формі — лише свої; JWT: видача, <code>401</code> + <code>WWW-Authenticate</code> без токена, неправильний пароль, refresh, підправлений / чужий / прострочений токен, токен, підписаний <code>SECRET_KEY</code>, приймається (тому ключ — секрет), throttle <code>429</code>; хеш з сіллю, скидання пароля без розкриття акаунтів.</p>
+<h2 id="practice">Практика<a class="headerlink" href="#practice" title="Permanent link">&para;</a></h2>
+<h3 id="_6">Розібраний приклад: правило автора в одному місці<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>Правило «змінює лише автор», записане в кількох місцях, легко забути в одному з них. У DRF для цього є <strong>permission-клас</strong> з методом <code>has_object_permission</code>:</p>
+<ol>
+<li><strong>Безпечні методи</strong> (<code>GET</code>, <code>HEAD</code>, <code>OPTIONS</code> — <code>permissions.SAFE_METHODS</code>) дозволено всім, хто бачить об'єкт: видимість уже вирішили selectors.</li>
+<li><strong>Решта</strong> — лише якщо <code>obj.user_id == request.user.id</code>.</li>
+<li><strong>У ViewSet</strong> — <code>permission_classes = [IsAuthenticated, IsAuthorOrReadOnly]</code> і виклик <code>self.check_object_permissions(request, note)</code> після того, як нотатку знайдено: у <code>ViewSet</code> без <code>get_object()</code> DRF сам його не викликає.</li>
+</ol>
+<div class="highlight"><span class="filename">hello_app/permissions.py (розв&#x27;язок)</span><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rest_framework</span><span class="w"> </span><span class="kn">import</span> <span class="n">permissions</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="k">class</span><span class="w"> </span><span class="nc">IsAuthorOrReadOnly</span><span class="p">(</span><span class="n">permissions</span><span class="o">.</span><span class="n">BasePermission</span><span class="p">):</span>
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>    <span class="n">message</span> <span class="o">=</span> <span class="s2">"Змінювати й видаляти нотатку може лише її автор."</span>
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">has_object_permission</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="ow">in</span> <span class="n">permissions</span><span class="o">.</span><span class="n">SAFE_METHODS</span><span class="p">:</span>
+<a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>            <span class="k">return</span> <span class="kc">True</span>
+<a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a>        <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">user_id</span> <span class="o">==</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">id</span>
+</code></pre></div>
+<p>Тоді <code>_get_own_note</code> не потрібен: <code>_get_note</code> + <code>self.check_object_permissions(request, note)</code> у кожній дії. Той самий клас можна повісити на майбутній API списків покупок — правило одне.</p>
+<h3 id="_7">Зміни приклад<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Дозволь учасникам групи <strong>закріплювати</strong> нотатку групи (<code>pin</code>), але не змінювати й не видаляти.</li>
+<li>Зменш <code>ACCESS_TOKEN_LIFETIME</code> до 1 хвилини й переконайся (тестом із <code>set_exp</code>), що клієнт отримує <code>401</code> і має використати refresh.</li>
+</ol>
+<h3 id="_8">Спробуй самостійно: «вийти на всіх пристроях»<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>Додай <code>rest_framework_simplejwt.token_blacklist</code> в <code>INSTALLED_APPS</code>, <code>"BLACKLIST_AFTER_ROTATION": True</code> у <code>SIMPLE_JWT</code> і ендпоінт <code>POST /api/token/logout/</code> (<code>TokenBlacklistView</code>).</p>
+<p><strong>Критерії перевірки:</strong> після logout той самий refresh-токен на <code>/api/token/refresh/</code> дає <code>401</code>; <code>migrate</code> створює таблиці чорного списку; тест у <code>tests_auth.py</code>.</p>
+<h3 id="find-bug">Знайди помилку<a class="headerlink" href="#find-bug" title="Permanent link">&para;</a></h3>
+<p>Проєкт уроку лежить у публічному репозиторії на GitHub, а на сервері його запустили як є — без <code>DJANGO_SECRET_KEY</code>. Хтось прочитав <code>settings.py</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">jwt</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">django.conf</span><span class="w"> </span><span class="kn">import</span> <span class="n">settings</span>
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"ключ з репозиторію:"</span><span class="p">,</span> <span class="n">settings</span><span class="o">.</span><span class="n">SECRET_KEY</span><span class="p">[:</span><span class="mi">20</span><span class="p">]</span> <span class="o">+</span> <span class="s2">"…"</span><span class="p">)</span>
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="n">forged</span> <span class="o">=</span> <span class="n">jwt</span><span class="o">.</span><span class="n">encode</span><span class="p">({</span><span class="s2">"token_type"</span><span class="p">:</span> <span class="s2">"access"</span><span class="p">,</span> <span class="s2">"user_id"</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">olena</span><span class="o">.</span><span class="n">id</span><span class="p">),</span> <span class="s2">"exp"</span><span class="p">:</span> <span class="mi">4102444800</span><span class="p">,</span> <span class="s2">"jti"</span><span class="p">:</span> <span class="s2">"x"</span><span class="p">},</span>
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>                    <span class="n">settings</span><span class="o">.</span><span class="n">SECRET_KEY</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="s2">"HS256"</span><span class="p">)</span>
+<a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a><span class="n">api</span> <span class="o">=</span> <span class="n">APIClient</span><span class="p">()</span>
+<a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a><span class="n">api</span><span class="o">.</span><span class="n">credentials</span><span class="p">(</span><span class="n">HTTP_AUTHORIZATION</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Bearer </span><span class="si">{</span><span class="n">forged</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a><span class="n">response</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/api/notes/"</span><span class="p">)</span>
+<a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"підроблений токен →"</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="p">[</span><span class="n">note</span><span class="p">[</span><span class="s2">"title"</span><span class="p">]</span> <span class="k">for</span> <span class="n">note</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()])</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>ключ з репозиторію: django-insecure-cris…
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>підроблений токен → 200 ['Пароль від Wi-Fi (новий)', 'Подарунок Тарасу']
+</code></pre></div>
+<p>Жодного пароля, жодного виклику <code>/api/token/</code> — а доступ до всіх нотаток Олени до 2100 року. Що пішло не так і що робити, якщо це вже сталося?</p>
+<details class="success">
+<summary>Відповідь</summary>
+<p><code>SECRET_KEY</code> — єдиний секрет, яким підписано JWT (а ще сесії й посилання скидання пароля). Хто його знає, той <strong>сам випускає</strong> «справжні» токени для будь-якого <code>user_id</code> з будь-яким <code>exp</code>: перевірка підпису на сервері пройде, бо підпис правильний. Тому ключ не можна тримати в коді, який бачать інші.</p>
+<p>Що робити:</p>
+<ol>
+<li><strong>Зараз</strong> — новий ключ (<code>secrets.token_urlsafe(50)</code>) у змінну середовища <code>DJANGO_SECRET_KEY</code> на сервері й перезапуск: усі токени, сесії й посилання скидання, підписані старим ключем, стають недійсними — користувачі входять знову.</li>
+<li><strong>Назавжди</strong> — ключ лише в оточенні сервера (урок 50); <code>check --deploy</code> попереджає про ключ з префіксом <code>django-insecure-</code>; у репозиторій — лише значення для навчання.</li>
+<li>Ключ, що потрапив у git, вважається <strong>скомпрометованим назавжди</strong>: видалення коміту не допомагає, історію вже могли скопіювати.</li>
+</ol>
+</details>
+<h2 id="_9">Підсумок<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Поняття</th>
+<th>Що запам'ятати</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Автентифікація / авторизація</td>
+<td>«хто ти» (сесія, JWT) / «що тобі можна» (selectors, перевірка автора, permissions)</td>
+</tr>
+<tr>
+<td>Нотатки групи</td>
+<td><code>Q(user=…) \| Q(group__in=user.groups.all())</code>; читати — учасникам, змінювати — автору</td>
+</tr>
+<tr>
+<td><code>404</code> / <code>403</code></td>
+<td>не бачиш об'єкт — <code>404</code>; бачиш, але дія заборонена — <code>403</code></td>
+</tr>
+<tr>
+<td>Хеш пароля</td>
+<td><code>pbkdf2_sha256$ітерації$сіль$хеш</code>; сіль — випадкова, хешування — навмисно повільне</td>
+</tr>
+<tr>
+<td>Скидання пароля</td>
+<td>однакова відповідь для будь-якого email; токен залежить від хешу пароля — одноразовий</td>
+</tr>
+<tr>
+<td>JWT</td>
+<td><code>header.payload.signature</code>; payload читає будь-хто, підробити без <code>SECRET_KEY</code> не можна</td>
+</tr>
+<tr>
+<td>Access / refresh</td>
+<td>короткий для запитів / довгий для оновлення; <code>401</code> — оновити токен</td>
+</tr>
+<tr>
+<td>Порядок автентифікаторів DRF</td>
+<td>перший визначає <code>401</code> (+ <code>WWW-Authenticate</code>) чи <code>403</code></td>
+</tr>
+<tr>
+<td>Throttle</td>
+<td>обмеження спроб входу: <code>429</code>, <code>Retry-After</code></td>
+</tr>
+<tr>
+<td><code>check --deploy</code></td>
+<td>список того, що змінити в налаштуваннях перед сервером</td>
+</tr>
+<tr>
+<td>OWASP Top 10</td>
+<td>A01 доступ, A02 криптографія, A03 ін'єкції, A05 налаштування, A07 автентифікація</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_10">Самоперевірка<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Чому після додавання груп не можна просто залишити <code>user=request.user</code> у selectors?</li>
+<li>Чому учасник групи на <code>DELETE</code> отримує <code>403</code>, а сторонній — <code>404</code>?</li>
+<li>Що буде в базі, якщо двоє користувачів мають однаковий пароль?</li>
+<li>Що можна прочитати з JWT без ключа і що без ключа зробити неможливо?</li>
+<li>Навіщо access-токен живе лише 5 хвилин, якщо є refresh?</li>
+<li>Чому неавтентифікований запит до API тепер отримує <code>401</code>, а в уроці 36 отримував <code>403</code>?</li>
+<li>Що робити, якщо <code>SECRET_KEY</code> потрапив у публічний репозиторій?</li>
+</ol>
+<details class="success">
+<summary>Відповіді</summary>
+<ol>
+<li>Учасники групи мають бачити її нотатки; фільтр лише за автором їх сховає. Видимість — <code>Q(user) | Q(group__in=…)</code>, а зміни — окрема перевірка автора.</li>
+<li>Учасник і так бачить нотатку — приховувати нічого, чесна відповідь «заборонено». Сторонньому <code>403</code> підтвердив би, що нотатка з таким id існує.</li>
+<li>Два різні рядки: сіль випадкова, тож хеші різні. З бази не видно, що паролі однакові.</li>
+<li>Прочитати — header і payload (це base64). Змінити їх і отримати правильний підпис без <code>SECRET_KEY</code> — неможливо; сервер відхилить з <code>401</code>.</li>
+<li>Викрадений access діє максимум 5 хвилин. Refresh використовується рідко й лише на одному ендпоінті, тож його важче перехопити; з ротацією він ще й змінюється щоразу.</li>
+<li>Першим тепер <code>JWTAuthentication</code>, у нього є <code>WWW-Authenticate: Bearer</code> — DRF відповідає <code>401</code>. У уроці 36 першою була сесія без такого заголовка — <code>403</code>.</li>
+<li>Негайно згенерувати новий ключ у змінну середовища й перезапустити сервер (усі токени й сесії стануть недійсними); ключ з git вважати скомпрометованим назавжди.</li>
+</ol>
+</details>
+<h3 id="_11">Що далі<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Ноутбук заняття: <a class="md-button md-button--primary" href="https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_41_auth_security/note_lesson_41_auth_student.ipynb">Відкрити вправи в Colab</a> <a class="solutions-link" href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_41_auth_security/note_lesson_41_auth.ipynb">Переглянути розв’язки</a>.</li>
+<li>Урок 42 — тестування API на агрегаторі новин: тестова база, підміна мережі, моки.</li>
+<li>Урок 47 — security advanced: SSRF, секрети, заголовки, JWT для адмін-ендпоінтів агрегатора.</li>
+</ul>
+<h2 id="_12">Документація і джерела<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Код: <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_41_auth_security/crispy_notes_project"><code>crispy_notes_project</code></a> — проєкт уроку 36 + групи, скидання пароля й налаштування безпеки зі стартового <code>crispy_notes_project</code>.</li>
+<li>Django-книга, частина VII: <a href="https://nikoriakviktot.github.io/notes_chat_app/07_auth_and_security/">огляд</a>, <a href="https://nikoriakviktot.github.io/notes_chat_app/07_auth_and_security/auth_basics_full/">автентифікація</a>, <a href="https://nikoriakviktot.github.io/notes_chat_app/07_auth_and_security/sessions_flow_full/">сесії</a>, <a href="https://nikoriakviktot.github.io/notes_chat_app/07_auth_and_security/permissions_full/">права доступу</a>, <a href="https://nikoriakviktot.github.io/notes_chat_app/07_auth_and_security/django_security_architecture_full/">архітектура безпеки Django</a>, <a href="https://nikoriakviktot.github.io/notes_chat_app/07_auth_and_security/security_misconceptions_full/">типові помилки</a>, <a href="https://nikoriakviktot.github.io/notes_chat_app/07_auth_and_security/owasp_top_10_full/">OWASP Top 10</a>.</li>
+<li>Django: <a href="https://docs.djangoproject.com/en/5.2/topics/auth/passwords/">Password management</a>, <a href="https://docs.djangoproject.com/en/5.2/topics/auth/default/">Using the authentication system</a>, <a href="https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/">Deployment checklist</a>, <a href="https://docs.djangoproject.com/en/5.2/topics/security/">Security in Django</a></li>
+<li>DRF: <a href="https://www.django-rest-framework.org/api-guide/authentication/">Authentication</a>, <a href="https://www.django-rest-framework.org/api-guide/permissions/">Permissions</a>, <a href="https://www.django-rest-framework.org/api-guide/throttling/">Throttling</a>; <a href="https://django-rest-framework-simplejwt.readthedocs.io/">Simple JWT</a></li>
+<li><a href="https://datatracker.ietf.org/doc/html/rfc7519">RFC 7519 — JSON Web Token</a>, <a href="https://jwt.io/">jwt.io</a> — розібрати токен</li>
+<li><a href="https://owasp.org/Top10/">OWASP Top 10</a>, <a href="https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html">OWASP Password Storage Cheat Sheet</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Футер" >
+        
+          
+          <a href="../lesson_40/" class="md-footer__link md-footer__link--prev" aria-label="Назад: 40. Middlewares і кешування (Redis на практиці)">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Назад
+              </span>
+              <div class="md-ellipsis">
+                40. Middlewares і кешування (Redis на практиці)
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../lesson_42/" class="md-footer__link md-footer__link--next" aria-label="Вперед: 42. Тестування API (pytest + httpx)">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Вперед
+              </span>
+              <div class="md-ellipsis">
+                42. Тестування API (pytest + httpx)
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.footer", "toc.follow", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0456\u0439\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u0421\u043a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438 \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0429\u0435 1 \u0437\u0431\u0456\u0433 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.more.other": "\u0429\u0435 # \u0437\u0431\u0456\u0433\u0456\u0432 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.none": "\u0417\u0431\u0456\u0433\u0456\u0432 \u043d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0437\u0431\u0456\u0433", "search.result.other": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e # \u0437\u0431\u0456\u0433\u0456\u0432", "search.result.placeholder": "\u0420\u043e\u0437\u043f\u043e\u0447\u043d\u0456\u0442\u044c \u043f\u0438\u0441\u0430\u0442\u0438 \u0434\u043b\u044f \u043f\u043e\u0448\u0443\u043a\u0443", "search.result.term.missing": "\u041d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e \u0437\u0430\u043f\u0438\u0442\u0443", "select.version": "\u041e\u0431\u0440\u0430\u0442\u0438 \u0432\u0435\u0440\u0441\u0456\u044e"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/sidebars.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,4708 @@
+
+<!doctype html>
+<html lang="uk" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Курс Python українською — від основ до просунутих тем, у форматі книги">
+      
+      
+      
+        <link rel="canonical" href="https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m4/lesson_47/">
+      
+      
+        <link rel="prev" href="../lesson_46/">
+      
+      
+        <link rel="next" href="../lesson_48/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>47. Security advanced - PY Course — Viktor Nikoriak</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#47-security-advanced" class="md-skip">
+          Перейти до змісту
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Хедер">
+    <a href="../../.." title="PY Course — Viktor Nikoriak" class="md-header__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PY Course — Viktor Nikoriak
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              47. Security advanced
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Пошук" placeholder="Пошук" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Шукати">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистити" aria-label="Очистити" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Пошук розпочато
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Вкладки" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Головна
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../00_getting_started/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Як користуватися
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Модулі курсу (в розробці)
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../00_python_mental_model/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Довідник
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Навігація" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="PY Course — Viktor Nikoriak" class="md-nav__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    PY Course — Viktor Nikoriak
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Головна
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../00_getting_started/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Як користуватися
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Модулі курсу (в розробці)
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Модулі курсу (в розробці)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../m1/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М1. Основи Python
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М1. Основи Python
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Вступ: формат курсу, AI-політика
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Перші кроки
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Змінні та базові типи даних
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Умови та цикли
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Списки, кортежі, множини
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Словники, for, comprehensions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Функції
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. П1. Big O + базові задачі
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Декоратори
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Ітератори й генератори
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. П2. Пошук
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Модулі та стандартна бібліотека
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Винятки та обробка помилок
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Файли I/O, JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Git & GitHub: система
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. П3. Хеш-структури
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Узагальнення + фінальний проєкт
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М2. Python Advanced
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М2. Python Advanced
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2_python_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Функції як об'єкти першого класу
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Класи, простір імен
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    21. Наслідування, поліморфізм
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    22. Інкапсуляція, область видимості
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    23. П4. Рекурсія, divide & conquer, backtracking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    24. @property, декоратори класів, dunder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    25. Ітератори advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    26. Тестування з pytest (+ валідація AI-коду)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    27. П5. Динамічне програмування + greedy (вступ)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    28. Потоки, multiprocessing, asyncio: вступ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    29. П6. Stack, Queue, Heap, Trie + LRU → ООП-пакет
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М3. Бази даних
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М3. Бази даних
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3_databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m3/bonus_pandas/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. Pandas: аналіз даних, графіки і Dash
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3/lesson_30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    30. Основи SQL (PostgreSQL)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3/lesson_31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    31. Redis overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М4. Web (+ Web Advanced)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М4. Web (+ Web Advanced)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4_web/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    32. HTTP: requests, httpx, aiohttp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    33. REST: принципи дизайну API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    34. Django intro: MVT, ORM, admin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    35. Django: forms, HTML practice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    36. DRF overview + Django vs FastAPI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    37. Typing + Pydantic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../lesson_38/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    38. FastAPI basics + Postman + OpenAPI
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    39. FastAPI + SQLAlchemy: повний CRUD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    40. Middlewares і кешування (Redis на практиці)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    41. Автентифікація та security basics (JWT, hashing, OWASP)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    42. Тестування API (pytest + httpx)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../lesson_43/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    43. AI-інструменти розробника + ризики й валідація
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    44. Інтеграція LLM API (Gemini / Anthropic)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    45. Архітектура застосунків і патерни
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    46. WebSockets + практика: чат
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    47. Security advanced
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    47. Security advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пригадай
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Старт: з якого коду починаємо
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 1. Адмін і JWT
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 1. Адмін і JWT">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bcrypt-passlib" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Хеш пароля: bcrypt без passlib
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#change-me" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Налаштування: без «change-me»
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Токен і перевірка
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Хто може писати — і тест, що нічого не забули
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 2. SSRF: куди ходить сервер
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 2. SSRF: куди ходить сервер">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Старий захист: перевірити рядок
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Нова перевірка: адреса з'єднання
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 3. Підписані webhook
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 3. Підписані webhook">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Було: секрет у шляху і в заголовку
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hmac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Стало: підпис HMAC, час і захист від повтору
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Архітектура
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Тести
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#min-versions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Мінімальні версії залежностей
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Практика
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Практика">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Розібраний приклад: «хто я?»
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зміни приклад
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scraper-fetchpolicy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Спробуй самостійно: scraper через FetchPolicy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#find-bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Знайди помилку
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Підсумок
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Підсумок">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Самоперевірка
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що далі
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Документація і джерела
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    48. Telegram Bot API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М5. Production
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М5. Production
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5_production/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m5/bonus_linux/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. Linux для розробника
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    49. Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    50. Docker Compose + деплой
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    51. CI/CD (GitHub Actions)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М6. Капстоун
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М6. Капстоун
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6_capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6/lesson_52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    52. Робота над фінальним проєктом
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6/lesson_53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    53. Випускний: питч фінального проєкту
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m6/bonus_cv/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. CV розробника
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bonus_ai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Self-paced. AI для розробників (бонус)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../00_python_mental_model/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Довідник
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пригадай
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Старт: з якого коду починаємо
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 1. Адмін і JWT
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 1. Адмін і JWT">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bcrypt-passlib" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Хеш пароля: bcrypt без passlib
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#change-me" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Налаштування: без «change-me»
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Токен і перевірка
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Хто може писати — і тест, що нічого не забули
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 2. SSRF: куди ходить сервер
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 2. SSRF: куди ходить сервер">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Старий захист: перевірити рядок
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Нова перевірка: адреса з'єднання
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 3. Підписані webhook
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 3. Підписані webhook">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Було: секрет у шляху і в заголовку
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hmac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Стало: підпис HMAC, час і захист від повтору
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Архітектура
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Тести
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#min-versions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Мінімальні версії залежностей
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Практика
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Практика">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Розібраний приклад: «хто я?»
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зміни приклад
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scraper-fetchpolicy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Спробуй самостійно: scraper через FetchPolicy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#find-bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Знайди помилку
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Підсумок
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Підсумок">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Самоперевірка
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що далі
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Документація і джерела
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Навігація" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Головна
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Модулі курсу (в розробці)
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../m4_web/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    М4. Web (+ Web Advanced)
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="47-security-advanced">Урок 47. Security advanced<a class="headerlink" href="#47-security-advanced" title="Permanent link">&para;</a></h1>
+<p>Агрегатор уроку 44 уміє багато: збирає новини, аналізує їх платною моделлю, дає повний CRUD. Але <strong>хто завгодно</strong> може зробити це за нього. Справжній запуск проєкту уроку 44:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$ curl -X POST http://127.0.0.1:8000/api/scrape -d '{"source": "snapshot"}'      → news_saved: 168
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>$ curl -X DELETE http://127.0.0.1:8000/api/news
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>{"deleted":168}
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>$ curl -X POST http://127.0.0.1:8000/api/analyze/jobs -d '{"limit": 200}'        → HTTP 202
+</code></pre></div>
+<p>Жодного пароля. Один запит стер базу, інший запустив аналіз 200 новин за наш рахунок.</p>
+<p>В уроці 41 ми вже закрили вхід у Django-застосунок: сесії, CSRF, JWT для API, групи. Сьогодні — три загрози, які з'являються, коли API <strong>живе в мережі серед інших систем</strong>:</p>
+<ol>
+<li><strong>Хто може писати.</strong> Адмін отримує JWT за паролем. Кожен ендпоінт запису без токена відповідає <code>401</code>, а тест стежить, щоб новий ендпоінт не «забув» захист.</li>
+<li><strong>Куди ходить сервер (SSRF).</strong> Адмін додає RSS-джерело за URL, і сервер його завантажує. Але сервер стоїть <strong>усередині</strong> мережі: він бачить localhost, Redis, базу й адресу метаданих хмари <code>169.254.169.254</code>. URL — це прохання до сервера сходити туди від свого імені.</li>
+<li><strong>Хто нам пише (webhook).</strong> Зовнішній планувальник запускає збір запитом до нас. Адреса публічна, тож відрізнити справжній запит від підробленого можна лише за підписом.</li>
+</ol>
+<p>Стартовий код: адмін-JWT і webhook Telegram з <code>production_bot</code>, захист від SSRF — з <code>OWASP_TOP_10.md</code>. Кожен шматок переносимо і перевіряємо тестом на атаку.</p>
+<table>
+<thead>
+<tr>
+<th>Урок</th>
+<th>Крок агрегатора</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>36–39</td>
+<td>парсер і модель, FastAPI, база, Redis</td>
+</tr>
+<tr>
+<td>41–43</td>
+<td>тести; Claude Code і RSS-джерело; аналіз LLM</td>
+</tr>
+<tr>
+<td><strong>46</strong></td>
+<td><strong>безпека: запис лише адміну з JWT, RSS-джерела за URL без SSRF, підписані webhook</strong></td>
+</tr>
+<tr>
+<td>47</td>
+<td>Telegram-бот: <code>/news</code>, <code>/digest</code>, webhook Telegram</td>
+</tr>
+<tr>
+<td>48–50</td>
+<td>Docker, Compose, CI/CD</td>
+</tr>
+</tbody>
+</table>
+<p>Проєкт: <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_47_security_advanced/news_hub"><code>news_hub</code></a>.</p>
+<p><strong>Що потрібно з попередніх уроків:</strong> JWT — будова, підпис, <code>exp</code> (урок 41); <code>Depends</code> і <code>dependency_overrides</code> (37); Alembic (38); Redis, <code>SET NX</code>, rate limit (39); тести API й локальний aiohttp-сервер замість мережі (41); HTTP-перенаправлення й DNS (31).</p>
+<p><strong>Після уроку ти зможеш:</strong></p>
+<ul>
+<li>закрити ендпоінти запису JWT-адміна і довести тестом, що жоден не лишився відкритим;</li>
+<li>зберігати пароль як bcrypt-хеш і не підказувати атакувальнику, що саме не так;</li>
+<li>завантажувати URL від користувача без SSRF: перевірка IP після DNS, кожного перенаправлення, розміру й типу;</li>
+<li>приймати webhook з підписом HMAC, вікном часу й захистом від повтору;</li>
+<li>відрізняти, які перевірки ловлять тести, а які — лише рецензія (порівняння секретів за сталий час).</li>
+</ul>
+<p><strong>Ноутбук заняття:</strong> <a class="md-button md-button--primary" href="https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_47_security_advanced/note_lesson_47_security_student.ipynb">Відкрити вправи в Colab</a> <a class="solutions-link" href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_47_security_advanced/note_lesson_47_security.ipynb">Переглянути розв’язки</a> — підробка токенів, SSRF на локальних серверах, підпис webhook; мережа не потрібна.</p>
+<h2 id="_1">Пригадай<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ol>
+<li>З чого складається JWT і що саме перевіряє сервер, коли його отримує (урок 41)?</li>
+<li>Чим <code>SET key value NX EX 60</code> у Redis відрізняється від <code>GET</code>, а потім <code>SET</code> (урок 40)?</li>
+<li>Що робить браузер чи <code>requests</code>, коли сервер відповідає <code>302</code> з <code>Location</code> (урок 32)?</li>
+</ol>
+<details class="success">
+<summary>Відповіді</summary>
+<ol>
+<li><code>header.payload.signature</code>, кожна частина — base64. Сервер рахує HMAC від <code>header.payload</code> своїм секретом і порівнює з підписом, потім дивиться <code>exp</code>. Payload <strong>не зашифрований</strong>: прочитати може будь-хто, змінити без секрету — ні.</li>
+<li><code>SET NX</code> — одна атомарна команда «запиши, якщо ключа ще немає»; відповідь каже, чи вийшло. <code>GET</code> + <code>SET</code> — два кроки, між якими встигне інший запит.</li>
+<li>Робить новий запит на адресу з <code>Location</code> — сам, без питань. Ця адреса може вести куди завгодно, зокрема на інший хост.</li>
+</ol>
+</details>
+<h2 id="_2">Старт: з якого коду починаємо<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Звідки</th>
+<th>Що там</th>
+<th>Куди в <code>news_hub</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>production_bot/backend/core/security.py</code></td>
+<td>хеш пароля, <code>create_access_token</code>, <code>decode_token</code></td>
+<td><code>news_hub/security.py</code></td>
+</tr>
+<tr>
+<td><code>production_bot/backend/api/deps.py</code>, <code>api/admin/auth.py</code></td>
+<td><code>get_current_admin</code> (401 / 403), <code>POST /admin/auth/token</code></td>
+<td><code>require_admin</code>, <code>POST /api/admin/token</code></td>
+</tr>
+<tr>
+<td><code>production_bot/backend/core/config.py</code></td>
+<td><code>JWT_SECRET</code>, <code>ADMIN_PASSWORD</code>, <code>WEBHOOK_SECRET</code> зі змінних середовища</td>
+<td><code>load_admin_settings</code>, <code>load_webhook_secret</code></td>
+</tr>
+<tr>
+<td><code>production_bot/backend/api/webhook.py</code></td>
+<td>webhook Telegram: секретний шлях + заголовок</td>
+<td><code>news_hub/webhooks.py</code></td>
+</tr>
+<tr>
+<td><code>OWASP_TOP_10.md</code></td>
+<td>A10 SSRF: «небезпечне завантаження аватара з URL» і захист</td>
+<td><code>news_hub/safe_fetch.py</code></td>
+</tr>
+</tbody>
+</table>
+<p>Теорію — що таке JWT, bcrypt, OWASP Top 10 — урок 41 уже пояснив. Тут — як ці шматки поводяться в <strong>нашому</strong> проєкті і які атаки їх обходять.</p>
+<h2 id="refactor-1">Рефакторинг 1. Адмін і JWT<a class="headerlink" href="#refactor-1" title="Permanent link">&para;</a></h2>
+<h3 id="bcrypt-passlib">Хеш пароля: bcrypt без passlib<a class="headerlink" href="#bcrypt-passlib" title="Permanent link">&para;</a></h3>
+<p>Старий <code>security.py</code> хешує через <code>passlib</code>, а <code>admin/auth.py</code> робить це <strong>при імпорті модуля</strong>:</p>
+<div class="highlight"><span class="filename">production_bot/backend/api/admin/auth.py (стартовий код)</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">_ADMIN_PASSWORD_HASH</span> <span class="o">=</span> <span class="n">hash_password</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">ADMIN_PASSWORD</span><span class="p">)</span>
+</code></pre></div>
+<p><code>passlib</code> не оновлювався з 2020 року, а <code>bcrypt</code> 5 змінив поведінку. Справжній вивід на чистій установці (<code>passlib 1.7.4</code>, <code>bcrypt 5.0.0</code>):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>(trapped) error reading bcrypt version
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>ValueError: password cannot be longer than 72 bytes, truncate manually if necessary (e.g. my_password[:72])
+</code></pre></div>
+<p>Помилка — при імпорті, тож застосунок не стартує взагалі. Тепер <code>bcrypt</code> напряму:</p>
+<div class="highlight"><span class="filename">news_hub/security.py</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">hash_password</span><span class="p">(</span><span class="n">password</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">rounds</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">12</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="sd">"""bcrypt: сіль у самому хеші, 2^rounds ітерацій — навмисно повільно (~0,2 с при 12)."""</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">password</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">BCRYPT_MAX_BYTES</span><span class="p">:</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"пароль довший за </span><span class="si">{</span><span class="n">BCRYPT_MAX_BYTES</span><span class="si">}</span><span class="s2"> байти: bcrypt його не прийме"</span><span class="p">)</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="k">return</span> <span class="n">bcrypt</span><span class="o">.</span><span class="n">hashpw</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">bcrypt</span><span class="o">.</span><span class="n">gensalt</span><span class="p">(</span><span class="n">rounds</span><span class="p">))</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="k">def</span><span class="w"> </span><span class="nf">verify_password</span><span class="p">(</span><span class="n">password</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">password_hash</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">password</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">BCRYPT_MAX_BYTES</span><span class="p">:</span>        <span class="c1"># bcrypt ≥ 5 кидає ValueError — для нас це просто «не той пароль»</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>        <span class="k">return</span> <span class="kc">False</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>    <span class="k">return</span> <span class="n">bcrypt</span><span class="o">.</span><span class="n">checkpw</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">password_hash</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+</code></pre></div>
+<p>Межа 72 байти — властивість самого алгоритму bcrypt. Старші версії мовчки обрізали довший пароль, <code>bcrypt</code> 5 кидає <code>ValueError</code> і в <code>checkpw</code>. Без перевірки довжини запит на вхід з довгим паролем закінчувався б <code>500</code>. Тест <code>test_bad_login_is_one_answer</code> надсилає 100 літер «я» (200 байт) і чекає <code>401</code>.</p>
+<p>У середовищі — <strong>хеш</strong>, а не пароль: <code>python -m news_hub.security</code> питає пароль і друкує рядки для <code>.env</code>.</p>
+<h3 id="change-me">Налаштування: без «change-me»<a class="headerlink" href="#change-me" title="Permanent link">&para;</a></h3>
+<div class="highlight"><span class="filename">production_bot/backend/core/config.py (стартовий код)</span><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">JWT_SECRET</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"JWT_SECRET"</span><span class="p">,</span> <span class="s2">"change-me-in-production"</span><span class="p">)</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">ADMIN_PASSWORD</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"ADMIN_PASSWORD"</span><span class="p">,</span> <span class="s2">"change-me"</span><span class="p">)</span>
+</code></pre></div>
+<p><code>validate()</code> перевіряє лише «не порожній», тож значення за замовчуванням проходить. Хто прочитав код (а він публічний), той підпише токен сам. Справжній вивід:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>validate() пропускає: True
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>підроблений токен приймається: {'sub': 'admin', 'role': 'admin', 'exp': 1790577575}
+</code></pre></div>
+<p>PyJWT сам попереджає: <code>InsecureKeyLengthWarning: The HMAC key is 23 bytes long, which is below the minimum recommended length of 32 bytes</code>.</p>
+<div class="highlight"><span class="filename">news_hub/security.py</span><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">load_admin_settings</span><span class="p">(</span><span class="n">env</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AdminSettings</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="sd">"""None — адмінку не налаштовано (ендпоінти запису → 503). Налаштовано погано — RuntimeError при старті."""</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="n">secret</span><span class="p">,</span> <span class="n">password_hash</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"JWT_SECRET"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span> <span class="n">env</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"ADMIN_PASSWORD_HASH"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">secret</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">password_hash</span><span class="p">:</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>        <span class="k">return</span> <span class="kc">None</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">secret</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">MIN_SECRET_LENGTH</span><span class="p">:</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"JWT_SECRET має бути не коротшим за </span><span class="si">{</span><span class="n">MIN_SECRET_LENGTH</span><span class="si">}</span><span class="s2"> символи; "</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>                           <span class="s2">"згенеруй: python -m news_hub.security"</span><span class="p">)</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>    <span class="o">...</span>
+</code></pre></div>
+<p>Три стани, і жоден не «працює з дефолтним секретом»:</p>
+<ul>
+<li><strong>нічого не задано</strong> — читати можна, запис відповідає <code>503 адмін-доступ не налаштовано</code>;</li>
+<li><strong>задано погано</strong> — застосунок не стартує;</li>
+<li><strong>задано добре</strong> — працює.</li>
+</ul>
+<p>Справжній запуск з секретом зі стартового конфігу:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>$ JWT_SECRET=change-me-in-production uvicorn news_hub.api:app
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>RuntimeError: JWT_SECRET має бути не коротшим за 32 символи; згенеруй: python -m news_hub.security
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>ERROR:    Application startup failed. Exiting.
+</code></pre></div>
+<h3 id="_3">Токен і перевірка<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Було (<code>production_bot</code>)</th>
+<th>Стало (<code>news_hub/security.py</code>)</th>
+<th>Чому</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>JWT_ALGORITHM</code> зі змінної середовища</td>
+<td><code>JWT_ALGORITHM = "HS256"</code> у коді</td>
+<td>алгоритм — не налаштування; <code>decode</code> приймає лише його</td>
+</tr>
+<tr>
+<td><code>jwt.decode(token, secret, algorithms=[...])</code></td>
+<td>+ <code>options={"require": ["exp", "sub", "role"]}</code></td>
+<td>токен без <code>exp</code> жив би вічно</td>
+</tr>
+<tr>
+<td><code>if body.username != settings.ADMIN_USERNAME: raise 401</code> — пароль уже не перевіряється</td>
+<td><code>hmac.compare_digest</code> для імені, bcrypt — <strong>завжди</strong></td>
+<td>інакше чуже ім'я відповідає за мілісекунду, а своє — за 200 мс: за часом видно, що ім'я вгадали</td>
+</tr>
+<tr>
+<td><code>HTTPBearer()</code> — кидає сам</td>
+<td><code>HTTPBearer(auto_error=False)</code> + свої 401 з <code>WWW-Authenticate: Bearer</code></td>
+<td>зрозумілі причини: «потрібен токен», «прострочений», «недійсний»</td>
+</tr>
+<tr>
+<td>без обмеження спроб</td>
+<td>5 спроб входу за 5 хв з адреси → <code>429</code></td>
+<td>bcrypt сповільнює кожну спробу, ліміт — їхню кількість</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><span class="filename">news_hub/security.py</span><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">require_admin</span><span class="p">(</span><span class="n">settings</span><span class="p">:</span> <span class="n">AdminSettingsDep</span><span class="p">,</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>                  <span class="n">credentials</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">HTTPAuthorizationCredentials</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="n">bearer_scheme</span><span class="p">)])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="sd">"""401 — немає токена, підроблений чи прострочений; 403 — токен справжній, але не адміна."""</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    <span class="k">if</span> <span class="n">credentials</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>        <span class="k">raise</span> <span class="n">_unauthorized</span><span class="p">(</span><span class="s2">"потрібен токен: Authorization: Bearer &lt;access_token&gt;"</span><span class="p">)</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>        <span class="n">payload</span> <span class="o">=</span> <span class="n">decode_token</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">credentials</span><span class="o">.</span><span class="n">credentials</span><span class="p">)</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>    <span class="k">except</span> <span class="n">jwt</span><span class="o">.</span><span class="n">ExpiredSignatureError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>        <span class="k">raise</span> <span class="n">_unauthorized</span><span class="p">(</span><span class="s2">"токен прострочений"</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">error</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>    <span class="k">except</span> <span class="n">jwt</span><span class="o">.</span><span class="n">InvalidTokenError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>        <span class="k">raise</span> <span class="n">_unauthorized</span><span class="p">(</span><span class="s2">"недійсний токен"</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">error</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>    <span class="k">if</span> <span class="n">payload</span><span class="p">[</span><span class="s2">"role"</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">"admin"</span><span class="p">:</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_403_FORBIDDEN</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">"потрібні права адміністратора"</span><span class="p">)</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>    <span class="k">return</span> <span class="n">payload</span><span class="p">[</span><span class="s2">"sub"</span><span class="p">]</span>
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="n">AdminDep</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">require_admin</span><span class="p">)</span>
+</code></pre></div>
+<p>Шлях запиту <code>DELETE /api/news</code> через цю залежність — покроково, на трьох запитах:</p>
+<pre class="mermaid"><code>flowchart TD
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    subgraph A["запит 1: curl без заголовка"]
+        direction LR
+        a1{"Authorization&lt;br&gt;є?"} -- ні --&gt; a2["401 потрібен токен&lt;br&gt;WWW-Authenticate: Bearer"]
+    end
+    subgraph B["запит 2: токен з alg none"]
+        direction LR
+        b1{"Authorization&lt;br&gt;є?"} -- так --&gt; b2{"HS256 і підпис&lt;br&gt;збігається?"} -- ні --&gt; b3["401 недійсний токен"]
+    end
+    subgraph C["запит 3: токен з POST /api/admin/token"]
+        direction LR
+        c1{"підпис HS256?"} -- так --&gt; c2{"exp у майбутньому?"} -- так --&gt; c3{"role = admin?"} -- так --&gt; c4["delete_all_news()&lt;br&gt;200 deleted: 168"]
+    end
+    A --&gt; B --&gt; C
+
+    class a1,b1,b2,c1,c2,c3 decision
+    class a2,b3 error
+    class c4 success</code></pre>
+<h3 id="_4">Хто може писати — і тест, що нічого не забули<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>Захист — <code>dependencies=[AdminDep]</code> у декораторі: 10 наявних ендпоінтів (запис, збір, аналіз і статуси задач) і 4 нові <code>/api/sources</code> — разом 14:</p>
+<div class="highlight"><span class="filename">news_hub/api.py (фрагмент)</span><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nd">@app</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s2">"/api/news"</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s2">"news"</span><span class="p">],</span> <span class="n">dependencies</span><span class="o">=</span><span class="p">[</span><span class="n">AdminDep</span><span class="p">])</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">delete_all_news</span><span class="p">(</span><span class="n">repo</span><span class="p">:</span> <span class="n">RepoDep</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">"deleted"</span><span class="p">:</span> <span class="k">await</span> <span class="n">repo</span><span class="o">.</span><span class="n">clear</span><span class="p">()}</span>
+</code></pre></div>
+<p>Небезпека такого захисту — <strong>забути</strong> його на новому ендпоінті. Тому тест не перебирає ендпоінти вручну. Він обходить усі маршрути застосунку і шукає <code>require_admin</code> у дереві залежностей кожного:</p>
+<div class="highlight"><span class="filename">tests/integration/test_admin_api.py</span><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Єдині ендпоінти без токена адміна. Новий ендпоінт сюди не потрапить сам: або AdminDep, або рішення тут.</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">PUBLIC</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    <span class="p">(</span><span class="s2">"GET"</span><span class="p">,</span> <span class="s2">"/health"</span><span class="p">),</span> <span class="p">(</span><span class="s2">"GET"</span><span class="p">,</span> <span class="s2">"/api/news"</span><span class="p">),</span> <span class="p">(</span><span class="s2">"GET"</span><span class="p">,</span> <span class="s2">"/api/news/search"</span><span class="p">),</span> <span class="p">(</span><span class="s2">"GET"</span><span class="p">,</span> <span class="s2">"/api/news/count"</span><span class="p">),</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>    <span class="p">(</span><span class="s2">"GET"</span><span class="p">,</span> <span class="s2">"/api/news/stats"</span><span class="p">),</span> <span class="p">(</span><span class="s2">"GET"</span><span class="p">,</span> <span class="s2">"/api/news/</span><span class="si">{news_id}</span><span class="s2">"</span><span class="p">),</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>    <span class="p">(</span><span class="s2">"POST"</span><span class="p">,</span> <span class="s2">"/api/admin/token"</span><span class="p">),</span>                   <span class="c1"># вхід — пароль</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>    <span class="p">(</span><span class="s2">"POST"</span><span class="p">,</span> <span class="s2">"/api/webhooks/scrape"</span><span class="p">),</span>               <span class="c1"># свій захист — підпис HMAC (test_webhooks_api.py)</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="p">}</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_every_other_endpoint_requires_admin</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>    <span class="n">unprotected</span> <span class="o">=</span> <span class="p">{(</span><span class="n">method</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span> <span class="k">for</span> <span class="n">method</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">route</span> <span class="ow">in</span> <span class="n">endpoints</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">admin_protected</span><span class="p">(</span><span class="n">route</span><span class="p">)}</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>    <span class="k">assert</span> <span class="n">unprotected</span> <span class="o">==</span> <span class="n">PUBLIC</span>
+</code></pre></div>
+<p>А параметризований <code>test_anonymous_gets_401</code> сам надсилає анонімний запит на кожен закритий маршрут і чекає <code>401</code>. Додав ендпоінт без <code>AdminDep</code> — червоний тест, і в повідомленні про падіння видно, який саме.</p>
+<p>Наживо (uvicorn, <code>LLM_PROVIDER=fake</code>):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>$ curl -X DELETE http://127.0.0.1:8000/api/news
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>HTTP/1.1 401 Unauthorized
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>www-authenticate: Bearer
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>{"detail":"потрібен токен: Authorization: Bearer &lt;access_token&gt;"}
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>$ curl -X POST .../api/admin/token -d '{"username":"admin","password":"guess"}'
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>{"detail":"неправильне ім'я або пароль"}
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>$ curl -X POST .../api/scrape -H "Authorization: Bearer $TOKEN" -d '{"source":"snapshot"}'
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>→ news_saved: 168, news_total: 168
+</code></pre></div>
+<p>У Swagger (<code>/docs</code>) з'явилась кнопка <strong>Authorize</strong>: <code>HTTPBearer</code> описує схему в OpenAPI, і закриті ендпоінти позначено замком. Колекція Postman отримала запит «Вхід адміна», який зберігає <code>token</code> у змінну. <code>newman run … --env-var adminPassword=…</code> дає 19 запитів і 27 перевірок, 0 падінь.</p>
+<p>Поглиблено: урок 41 курсу — <a href="../lesson_41/">JWT для API</a>; FastAPI — <a href="https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/">OAuth2 з JWT</a>.</p>
+<h2 id="refactor-2">Рефакторинг 2. SSRF: куди ходить сервер<a class="headerlink" href="#refactor-2" title="Permanent link">&para;</a></h2>
+<p>Нова можливість: адмін додає RSS-джерело за адресою (<code>POST /api/sources</code>), сервер завантажує стрічку (<code>POST /api/sources/{id}/fetch</code>) і пропускає її через той самий <code>parse_pravda_rss</code> → <code>NewsItem</code>. Таблиця <code>sources</code> — міграція <code>0003</code>.</p>
+<p><strong>SSRF</strong> (Server-Side Request Forgery, OWASP A10): атакувальник не може дістатися внутрішньої мережі сам, але може попросити сервер. Що ховається за «внутрішніми» адресами:</p>
+<table>
+<thead>
+<tr>
+<th>Адреса</th>
+<th>Що там буває</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>127.0.0.1</code>, <code>localhost</code>, <code>[::1]</code></td>
+<td>сам сервер: Redis без пароля, адмінки, debug-панелі</td>
+</tr>
+<tr>
+<td><code>10.x</code>, <code>172.16–31.x</code>, <code>192.168.x</code></td>
+<td>інші сервіси компанії</td>
+</tr>
+<tr>
+<td><code>169.254.169.254</code></td>
+<td><strong>метадані хмари</strong> (AWS, GCP, Azure): тимчасові ключі доступу до всього акаунта</td>
+</tr>
+<tr>
+<td><code>0.0.0.0</code>, <code>100.64.x</code></td>
+<td>«цей хост», мережа провайдера</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_5">Старий захист: перевірити рядок<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<div class="highlight"><span class="filename">OWASP_TOP_10.md, A10 (стартовий код)</span><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">ALLOWED_HOSTS_FOR_FETCH</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'i.imgur.com'</span><span class="p">,</span> <span class="s1">'avatars.githubusercontent.com'</span><span class="p">]</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">is_safe_url</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>    <span class="n">parsed</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>    <span class="k">return</span> <span class="n">parsed</span><span class="o">.</span><span class="n">hostname</span> <span class="ow">in</span> <span class="n">ALLOWED_HOSTS_FOR_FETCH</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="k">def</span><span class="w"> </span><span class="nf">upload_avatar</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>    <span class="n">url</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'avatar_url'</span><span class="p">)</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_safe_url</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>        <span class="k">raise</span> <span class="n">PermissionDenied</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</code></pre></div>
+<p>Перевірено <strong>рядок</strong> URL, а з'єднання йде туди, куди скаже мережа. Хто керує дозволеним сайтом (чи знайшов у ньому «відкрите перенаправлення»), відповідає <code>302</code> на внутрішню адресу, а <code>requests.get</code> іде за перенаправленням сам. Справжній вивід цього коду на двох локальних серверах («дозволений» і «внутрішній»):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>is_safe_url: True
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>фінальна адреса: http://localhost:39855/latest/meta-data/
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>відповідь: INTERNAL: aws_secret_access_key=...
+</code></pre></div>
+<p>Для нашого випадку allowlist ще й не підходить: адмін має додавати будь-яке RSS, а не три наперед відомі сайти.</p>
+<h3 id="_6">Нова перевірка: адреса з'єднання<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p><code>safe_fetch</code> перевіряє не рядок, а <strong>IP, до якого з'єднується</strong>:</p>
+<div class="highlight"><span class="filename">news_hub/safe_fetch.py (фрагмент)</span><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">is_public_ip</span><span class="p">(</span><span class="n">ip</span><span class="p">:</span> <span class="n">IPAddress</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">    </span><span class="sd">"""is_global: не приватна, не loopback, не link-local, не 0.0.0.0, не зарезервована, не 100.64/10."""</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>    <span class="n">ip</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>                        <span class="c1"># ::ffff:127.0.0.1 → 127.0.0.1</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>    <span class="k">return</span> <span class="n">ip</span><span class="o">.</span><span class="n">is_global</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">ip</span><span class="o">.</span><span class="n">is_multicast</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="k">class</span><span class="w"> </span><span class="nc">PolicyResolver</span><span class="p">(</span><span class="n">ThreadedResolver</span><span class="p">):</span>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="w">    </span><span class="sd">"""DNS + перевірка: aiohttp під'єднується лише до адрес, які повернув цей resolver."""</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">resolve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">):</span>
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>        <span class="n">results</span> <span class="o">=</span> <span class="k">await</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">family</span><span class="p">)</span>
+<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>        <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>           <span class="c1"># «0x7f.1», «localhost» — getaddrinfo дає 127.0.0.1</span>
+<a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>            <span class="n">check_ip</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">"host"</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_policy</span><span class="p">)</span>
+<a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>        <span class="k">return</span> <span class="n">results</span>
+</code></pre></div>
+<p>Чому перевірка <strong>в resolver</strong>, а не окремо перед запитом. Якщо спершу запитати DNS «чи публічна адреса?», а потім з'єднатися, DNS-сервер атакувальника може відповісти двічі по-різному: перший раз — публічна IP, другий — <code>127.0.0.1</code> (<strong>DNS rebinding</strong>). Resolver з'єднання повертає aiohttp саме ті адреси, які перевірив, і між перевіркою та з'єднанням нічого не змінюється.</p>
+<p>Решта — у <code>check_url</code> і циклі <code>safe_fetch</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Перевірка</th>
+<th>Навіщо</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>схема лише <code>http</code>/<code>https</code></td>
+<td><code>file:///etc/passwd</code>, <code>gopher://</code> — інші протоколи</td>
+</tr>
+<tr>
+<td>порт лише 80/443</td>
+<td><code>http://example.com:6379/</code> — Redis, <code>:22</code> — SSH</td>
+</tr>
+<tr>
+<td>без <code>user:pass@</code> в URL</td>
+<td>облікові дані чужого сервісу в нашому запиті</td>
+</tr>
+<tr>
+<td>IP-літерал в адресі — перевірити одразу</td>
+<td>для <code>http://169.254.169.254/</code> aiohttp <strong>не викликає</strong> resolver</td>
+</tr>
+<tr>
+<td>перенаправлення вручну, кожне — знову через <code>check_url</code> і resolver, максимум 3</td>
+<td>захист до рефакторингу обходили саме так</td>
+</tr>
+<tr>
+<td>тайм-аут 10 с, до 2 МБ (читаємо частинами), тип <code>application/rss+xml</code> / <code>xml</code></td>
+<td>повільний чи безкінечний сервер не тримає нас; відповідь — лише стрічка</td>
+</tr>
+<tr>
+<td><code>trust_env=False</code></td>
+<td>з <code>HTTP_PROXY</code> у середовищі з'єднання пішло б через проксі — повз наш resolver</td>
+</tr>
+</tbody>
+</table>
+<p>Покроково: <code>feed</code> — «зовнішній» сайт, <code>/to-metadata</code> відповідає <code>302</code> на адресу метаданих (тест <code>test_redirect_is_checked_again</code>):</p>
+<pre class="mermaid"><code>flowchart TD
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    subgraph H0["перенаправлення 0: http://feed/to-metadata"]
+        direction LR
+        h1{"check_url:&lt;br&gt;схема, порт"} -- ок --&gt; h2["PolicyResolver:&lt;br&gt;DNS → IP"] --&gt; h3{"IP публічна?"} -- так --&gt; h4["GET → 302&lt;br&gt;Location: 169.254.169.254"]
+    end
+    subgraph H1["перенаправлення 1: http://169.254.169.254/latest/meta-data/"]
+        direction LR
+        k1{"check_url:&lt;br&gt;схема, порт"} -- ок --&gt; k2{"IP-літерал:&lt;br&gt;публічна?"} -- ні, link-local --&gt; k3["UnsafeURL →&lt;br&gt;400 заборонена адреса"]
+    end
+    subgraph R["результат"]
+        direction LR
+        r1["внутрішній сервер:&lt;br&gt;0 запитів"] ~~~ r2["у базі:&lt;br&gt;нічого нового"]
+    end
+    H0 --&gt; H1 --&gt; R
+
+    class h1,h3,k1,k2 decision
+    class h2 step
+    class h4 warning
+    class k3 error
+    class r1,r2 success</code></pre>
+<p>Справжні відповіді API (uvicorn, адмін з токеном):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>POST /api/sources  http://169.254.169.254/latest/meta-data/
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>{"detail":"заборонена адреса: адреса 169.254.169.254 — link-local: сервер туди не звертається"}
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>POST /api/sources  http://localhost:6379/
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>{"detail":"заборонена адреса: порт 6379: дозволено [80, 443]"}
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>POST /api/sources  file:///etc/passwd
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>{"detail":"заборонена адреса: схема file: дозволено лише http і https"}
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>POST /api/sources  http://localhost/admin
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>{"id":1,"url":"http://localhost/admin","name":"test","created_at":"2026-09-28T05:42:00"}
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>POST /api/sources/1/fetch
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>{"detail":"заборонена адреса: адреса 127.0.0.1 — loopback: сервер туди не звертається"}
+</code></pre></div>
+<p><code>http://localhost/admin</code> при додаванні проходить: схема й порт у нормі, а ім'я без DNS не перевірити. Зупиняє resolver при завантаженні. Так і задумано: DNS міг змінитись між «додали» і «завантажили», тож перевірка — при <strong>кожному</strong> з'єднанні.</p>
+<p>Правило читання вмісту: у відповідь ендпоінт повертає <strong>підсумок</strong> (скільки новин знайдено, збережено, відхилено), а не тіло відповіді. Навіть якщо щось пройде, атакувальник не побачить, що там було. Такий SSRF називають «сліпим».</p>
+<p>Дві межі, які варто знати:</p>
+<ul>
+<li><strong>Allowlist доменів новин</strong> (<code>NewsItem.only_allowed</code>: rbc.ua, pravda.com.ua, epravda.com.ua) — правило <strong>вмісту</strong>: чиї новини ми зберігаємо. <code>safe_fetch</code> — правило <strong>мережі</strong>: куди сервер з'єднується. Одне не замінює іншого.</li>
+<li><strong><code>scraper.py</code></strong> (урок 38) ходить лише на сторінки rbc.ua (<code>is_rbc_host</code>), але перенаправлення за ним aiohttp виконує сам. Це завдання «Спробуй самостійно» нижче.</li>
+</ul>
+<p>Як обрати захист, коли сервер завантажує URL:</p>
+<pre class="mermaid"><code>flowchart TD
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    Q1{"URL задає&lt;br&gt;людина чи інша система?"} -- ні, лише код --&gt; A1["константа в коді&lt;br&gt;(PAGES у scraper.py)"]
+    Q1 -- так --&gt; Q2{"набір сайтів&lt;br&gt;відомий наперед?"}
+    Q2 -- так --&gt; A2["allowlist хостів&lt;br&gt;+ перевірка кожного перенаправлення"]
+    Q2 -- ні --&gt; A3["safe_fetch: IP після DNS,&lt;br&gt;порти, розмір, тип"]
+    A2 --&gt; W["у будь-якому разі:&lt;br&gt;відповідь не віддавати як є"]
+    A3 --&gt; W
+
+    class Q1,Q2 decision
+    class A1,A2,A3 success
+    class W warning</code></pre>
+<p>Поглиблено: <a href="https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html">OWASP — SSRF Prevention Cheat Sheet</a>; Python — <a href="https://docs.python.org/3/library/ipaddress.html"><code>ipaddress</code></a>; aiohttp — <a href="https://docs.aiohttp.org/en/stable/client_reference.html#resolvers">Resolvers</a>.</p>
+<h2 id="refactor-3">Рефакторинг 3. Підписані webhook<a class="headerlink" href="#refactor-3" title="Permanent link">&para;</a></h2>
+<p><code>POST /api/webhooks/scrape</code> — зовнішній планувальник (cron на іншому сервері, GitHub Actions за розкладом) запускає збір. JWT йому не видаємо: токен живе 30 хвилин, а cron працює роками. Натомість обидві сторони знають <strong>спільний секрет</strong>.</p>
+<h3 id="_7">Було: секрет у шляху і в заголовку<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<div class="highlight"><span class="filename">production_bot/backend/api/webhook.py (стартовий код)</span><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nd">@router</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">WEBHOOK_PATH</span><span class="p">)</span>                       <span class="c1"># "/webhook/{WEBHOOK_SECRET}"</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">handle_webhook</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>    <span class="n">secret_header</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"X-Telegram-Bot-Api-Secret-Token"</span><span class="p">)</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>    <span class="k">if</span> <span class="n">secret_header</span> <span class="o">!=</span> <span class="n">settings</span><span class="o">.</span><span class="n">WEBHOOK_SECRET</span><span class="p">:</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">403</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">"Invalid webhook secret"</span><span class="p">)</span>
+</code></pre></div>
+<p>Секрет <strong>у шляху</strong> URL потрапляє туди, куди потрапляють шляхи: журнали сервера, проксі, балансувальника. Справжній рядок журналу uvicorn:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>INFO:     127.0.0.1:40018 - "POST /webhook/s3cr3t-from-env HTTP/1.1" 200 OK
+</code></pre></div>
+<p>Заголовок з секретом кращий, але він ходить у <strong>кожному</strong> запиті: хто перехопив один запит, той знає секрет назавжди і може надсилати будь-що.</p>
+<h3 id="hmac">Стало: підпис HMAC, час і захист від повтору<a class="headerlink" href="#hmac" title="Permanent link">&para;</a></h3>
+<p>Відправник рахує підпис:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">X</span><span class="o">-</span><span class="n">Webhook</span><span class="o">-</span><span class="n">Timestamp</span><span class="p">:</span> <span class="mi">1790574152</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="n">X</span><span class="o">-</span><span class="n">Webhook</span><span class="o">-</span><span class="n">Signature</span><span class="p">:</span> <span class="n">sha256</span><span class="o">=</span><span class="nb">hex</span><span class="p">(</span><span class="n">HMAC</span><span class="o">-</span><span class="n">SHA256</span><span class="p">(</span><span class="n">WEBHOOK_SECRET</span><span class="p">,</span> <span class="s2">"1790574152."</span> <span class="o">+</span> <span class="n">тіло</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">news_hub/webhooks.py</span><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">verify_signature</span><span class="p">(</span><span class="n">secret</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">headers</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">body</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">now</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">    </span><span class="sd">"""Перевіряє час і підпис; повертає підпис (для захисту від повтору). WebhookRejected — ні."""</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>    <span class="n">signature</span><span class="p">,</span> <span class="n">timestamp</span> <span class="o">=</span> <span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">SIGNATURE_HEADER</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span> <span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">TIMESTAMP_HEADER</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">signature</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">timestamp</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>        <span class="k">raise</span> <span class="n">WebhookRejected</span><span class="p">(</span><span class="sa">f</span><span class="s2">"потрібні заголовки </span><span class="si">{</span><span class="n">SIGNATURE_HEADER</span><span class="si">}</span><span class="s2"> і </span><span class="si">{</span><span class="n">TIMESTAMP_HEADER</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>    <span class="n">now</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="k">if</span> <span class="n">now</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">now</span>
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">now</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">timestamp</span><span class="p">))</span> <span class="o">&gt;</span> <span class="n">TOLERANCE_SECONDS</span><span class="p">:</span>
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>        <span class="k">raise</span> <span class="n">WebhookRejected</span><span class="p">(</span><span class="sa">f</span><span class="s2">"запит старший за </span><span class="si">{</span><span class="n">TOLERANCE_SECONDS</span><span class="si">}</span><span class="s2"> с (або годинник відправника не той)"</span><span class="p">)</span>
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">hmac</span><span class="o">.</span><span class="n">compare_digest</span><span class="p">(</span><span class="n">signature</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span> <span class="n">sign</span><span class="p">(</span><span class="n">secret</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">timestamp</span><span class="p">),</span> <span class="n">body</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">()):</span>
+<a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>        <span class="k">raise</span> <span class="n">WebhookRejected</span><span class="p">(</span><span class="s2">"підпис не збігається"</span><span class="p">)</span>
+<a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a>    <span class="k">return</span> <span class="n">signature</span>
+<a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a>
+<a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a>
+<a id="__codelineno-19-14" name="__codelineno-19-14" href="#__codelineno-19-14"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">remember_delivery</span><span class="p">(</span><span class="n">redis</span><span class="p">:</span> <span class="n">Redis</span><span class="p">,</span> <span class="n">signature</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-19-15" name="__codelineno-19-15" href="#__codelineno-19-15"></a><span class="w">    </span><span class="sd">"""Той самий підпис удруге за вікно — повтор. Ключ живе вдвічі довше за вікно часу."""</span>
+<a id="__codelineno-19-16" name="__codelineno-19-16" href="#__codelineno-19-16"></a>    <span class="n">fresh</span> <span class="o">=</span> <span class="k">await</span> <span class="n">redis</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="sa">f</span><span class="s2">"webhook:seen:</span><span class="si">{</span><span class="n">signature</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="s2">"1"</span><span class="p">,</span> <span class="n">nx</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ex</span><span class="o">=</span><span class="mi">2</span> <span class="o">*</span> <span class="n">TOLERANCE_SECONDS</span><span class="p">)</span>
+<a id="__codelineno-19-17" name="__codelineno-19-17" href="#__codelineno-19-17"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">fresh</span><span class="p">:</span>
+<a id="__codelineno-19-18" name="__codelineno-19-18" href="#__codelineno-19-18"></a>        <span class="k">raise</span> <span class="n">WebhookRejected</span><span class="p">(</span><span class="s2">"цей запит уже отримано (повтор)"</span><span class="p">,</span> <span class="n">status_code</span><span class="o">=</span><span class="mi">409</span><span class="p">)</span>
+</code></pre></div>
+<p>Що дає кожна частина:</p>
+<table>
+<thead>
+<tr>
+<th>Частина</th>
+<th>Без неї</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>підпис від <strong>тіла</strong></td>
+<td>перехоплений запит можна переслати зі зміненим тілом (<code>"source": "live"</code> замість <code>"snapshot"</code>)</td>
+</tr>
+<tr>
+<td>підпис від <strong>сирих байтів</strong>, до розбору JSON</td>
+<td><code>{"a":1}</code> і <code>{"a": 1}</code> — той самий JSON, але інші байти й інший підпис; розбирати чужий JSON до перевірки — зайвий ризик</td>
+</tr>
+<tr>
+<td><strong>час</strong> у підписі + вікно 5 хв</td>
+<td>перехоплений запит можна повторити завтра</td>
+</tr>
+<tr>
+<td><strong><code>SET NX</code></strong> на підпис</td>
+<td>усередині 5 хвилин той самий запит можна повторити багато разів</td>
+</tr>
+<tr>
+<td><code>hmac.compare_digest</code></td>
+<td><code>==</code> порівнює до першої розбіжності, тож за часом відповіді підпис можна підбирати по символу</td>
+</tr>
+<tr>
+<td>секрет <strong>не передається</strong></td>
+<td>хто перехопив запит, секрету не знає</td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid"><code>sequenceDiagram
+    participant C as cron (знає секрет)
+    participant A as атакувальник
+    participant S as news_hub
+    participant R as Redis
+
+    C-&gt;&gt;S: POST /api/webhooks/scrape&lt;br/&gt;X-Webhook-Timestamp, X-Webhook-Signature
+    S-&gt;&gt;S: час у вікні 5 хв? HMAC(час + тіло) збігається?
+    S-&gt;&gt;R: SET webhook:seen:«підпис» NX EX 600
+    R--&gt;&gt;S: OK (вперше)
+    S--&gt;&gt;C: 202 job_id — збір у фоні
+    A-&gt;&gt;S: той самий запит (перехоплений)
+    S-&gt;&gt;R: SET … NX
+    R--&gt;&gt;S: nil (уже був)
+    S--&gt;&gt;A: 409 повтор
+    A-&gt;&gt;S: те саме, тіло змінено
+    S--&gt;&gt;A: 401 підпис не збігається</code></pre>
+<p>Справжній запуск (відправник підписує <code>news_hub.webhooks.sign</code>, як це зробив би cron):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>підписаний        → 202 queued
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>той самий ще раз  → 409 цей запит уже отримано (повтор)
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>змінене тіло      → 401 підпис не збігається
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>без підпису       → 401 потрібні заголовки X-Webhook-Signature і X-Webhook-Timestamp
+</code></pre></div>
+<p>Telegram (урок 48) так не підписує: він надсилає лише заголовок <code>X-Telegram-Bot-Api-Secret-Token</code>. Для нього в <code>webhooks.py</code> є <code>verify_secret_token</code> — теж з <code>compare_digest</code>, і теж без секрету в URL.</p>
+<p>Поглиблено: <a href="https://docs.github.com/en/webhooks/using-webhooks/validating-webhook-deliveries">GitHub — Validating webhook deliveries</a>; Python — <a href="https://docs.python.org/3/library/hmac.html#hmac.compare_digest"><code>hmac.compare_digest</code></a>.</p>
+<h2 id="architecture">Архітектура<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>graph LR
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    subgraph IN["хто приходить"]
+        U["будь-хто"]
+        AD["адмін&lt;br&gt;(пароль → JWT)"]
+        CR["cron&lt;br&gt;(секрет HMAC)"]
+    end
+    subgraph API["news_hub API"]
+        RL["rate limit&lt;br&gt;login / scrape / analyze"]
+        RD["GET /api/news*&lt;br&gt;публічно"]
+        WR["запис, збір, аналіз,&lt;br&gt;/api/sources — AdminDep"]
+        WH["/api/webhooks/scrape&lt;br&gt;verify_signature + SET NX"]
+    end
+    subgraph OUT["куди ходить сервер"]
+        SF["safe_fetch&lt;br&gt;IP після DNS, перенаправлення"]
+        NET["публічний інтернет&lt;br&gt;RSS"]
+        INT["внутрішня мережа&lt;br&gt;Redis, 169.254.169.254"]
+    end
+    U --&gt; RD
+    U -. "401" .-&gt; WR
+    AD --&gt; RL --&gt; WR
+    CR --&gt; WH
+    WR --&gt; SF --&gt; NET
+    SF -. "400" .-x INT
+
+    class RD,NET success
+    class WR,WH,RL warning
+    class SF decision
+    class INT error
+    class U,AD,CR step</code></pre>
+<table>
+<thead>
+<tr>
+<th>Модуль</th>
+<th>Відповідає за</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>security.py</code></td>
+<td>пароль (bcrypt), JWT, <code>require_admin</code>; налаштування з env з трьома станами</td>
+</tr>
+<tr>
+<td><code>safe_fetch.py</code></td>
+<td>один вихід у мережу для URL ззовні: <code>FetchPolicy</code>, <code>check_url</code>, <code>PolicyResolver</code></td>
+</tr>
+<tr>
+<td><code>webhooks.py</code></td>
+<td>підпис, вікно часу, повтор; <code>verify_secret_token</code> для Telegram</td>
+</tr>
+<tr>
+<td><code>middleware.py</code></td>
+<td>+ ліміт спроб входу</td>
+</tr>
+<tr>
+<td><code>api.py</code></td>
+<td>лише підключає: <code>dependencies=[AdminDep]</code>, <code>Depends(get_fetch_policy)</code>, <code>Depends(get_webhook_secret)</code></td>
+</tr>
+</tbody>
+</table>
+<p>Кожна перевірка — окрема функція без HTTP, тож її тестують unit-тести. А тести API перевіряють, що кожен ендпоінт її справді викликає.</p>
+<h2 id="tests">Тести<a class="headerlink" href="#tests" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Файл</th>
+<th>Що перевіряє</th>
+<th>Тестів</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tests/unit/test_security.py</code></td>
+<td>хеш і сіль, 72 байти, вхід, строк дії; 7 підроблених токенів (інший секрет, <code>alg: none</code>, HS512 тим самим секретом, змінений payload, без <code>role</code>, без <code>exp</code>, не JWT); налаштування з env</td>
+<td>16</td>
+</tr>
+<tr>
+<td><code>tests/unit/test_safe_fetch.py</code></td>
+<td>16 адрес <code>is_public_ip</code>; 14 заборонених URL; дозволені; явна політика; IPv4 всередині IPv6</td>
+<td>35</td>
+</tr>
+<tr>
+<td><code>tests/unit/test_webhooks.py</code></td>
+<td>підпис; 8 способів підробити (змінене тіло, інший порядок байтів, чужий секрет, старий і майбутній час, …); повтор; секрет Telegram</td>
+<td>11</td>
+</tr>
+<tr>
+<td><code>tests/integration/test_admin_api.py</code></td>
+<td><code>PUBLIC</code> = усі незахищені маршрути; кожен закритий без токена → 401; вхід, brute-force → 429, прострочений, <code>alg: none</code>, роль → 403, не налаштовано → 503, Swagger</td>
+<td>27</td>
+</tr>
+<tr>
+<td><code>tests/integration/test_sources_ssrf.py</code></td>
+<td>справжній aiohttp проти двох локальних серверів: стрічка через перенаправлення; перенаправлення на внутрішній сервіс, метадані, <code>file://</code> → 400 (внутрішній сервер — 0 запитів); HTML, 2,6 МБ, петля → 502; <code>localhost</code> за DNS → 400</td>
+<td>14</td>
+</tr>
+<tr>
+<td><code>tests/integration/test_webhooks_api.py</code></td>
+<td>202 без JWT; 4 × 401; повтор 409; непідписане сміття — 401, а не 422; без секрету — 503</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+<p>Тести уроків 38–44 не змінились: фікстура <code>client</code> тепер надсилає токен адміна, а для «будь-кого» є нова фікстура <code>anon</code>. Змінились два тести: <code>test_openapi_lists_endpoints</code> — нові ендпоінти в переліку; <code>test_failed_commit_is_500_not_200</code> — його власний клієнт тепер з токеном.</p>
+<p>Політика <code>safe_fetch</code> у тестах розширюється <strong>явно</strong>, параметром, а не змінною середовища: змінну можна забути на сервері, а параметр видно в коді тесту.</p>
+<div class="highlight"><span class="filename">tests/integration/test_sources_ssrf.py (фрагмент)</span><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">local_policy</span><span class="p">(</span><span class="n">feed</span><span class="p">:</span> <span class="n">TestServer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FetchPolicy</span><span class="p">:</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>    <span class="n">policy</span> <span class="o">=</span> <span class="n">FetchPolicy</span><span class="p">(</span><span class="n">allow_ip</span><span class="o">=</span><span class="k">lambda</span> <span class="n">ip</span><span class="p">:</span> <span class="n">ip</span><span class="o">.</span><span class="n">is_loopback</span><span class="p">,</span> <span class="n">allowed_ports</span><span class="o">=</span><span class="nb">frozenset</span><span class="p">({</span><span class="n">feed</span><span class="o">.</span><span class="n">port</span><span class="p">}),</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>                         <span class="n">max_bytes</span><span class="o">=</span><span class="mi">1_000_000</span><span class="p">)</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>    <span class="n">app</span><span class="o">.</span><span class="n">dependency_overrides</span><span class="p">[</span><span class="n">get_fetch_policy</span><span class="p">]</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">policy</span>
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>    <span class="k">return</span> <span class="n">policy</span>
+</code></pre></div>
+<p>Обидва сервери на <code>127.0.0.1</code>. «Внутрішній» недосяжний, бо дозволено лише порт <code>feed</code> — як у справжній мережі, де до внутрішнього сервісу немає маршруту.</p>
+<p>Справжній запуск:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>$ pytest
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>====================== 279 passed, 2 deselected in 14.73s ======================
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>$ TEST_DATABASE_URL=postgresql+asyncpg://… TEST_REDIS_URL=redis://localhost:6380/15 pytest
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>279 passed, 2 deselected in 19.16s
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>$ mypy --strict news_hub
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>Success: no issues found in 18 source files
+</code></pre></div>
+<p>19 навмисних поломок захисту ловить хоча б один тест кожну. Серед них: прибрати <code>require</code> з <code>decode</code>, прийняти HS512, пропустити перевірку ролі, перевіряти IP лише до DNS, не перевіряти перенаправлення, прибрати <code>nx=True</code>, розбирати JSON до підпису.</p>
+<p>Одна поломка, яку тести <strong>не</strong> ловлять: замінити <code>hmac.compare_digest</code> на <code>!=</code> (див. «Зміни приклад» нижче). Функціонально обидва порівняння дають той самий результат, різниця — лише в часі. Такі речі перевіряє рецензія, а правило записано в <code>CLAUDE.md</code> проєкту для AI-асистента.</p>
+<h2 id="min-versions">Мінімальні версії залежностей<a class="headerlink" href="#min-versions" title="Permanent link">&para;</a></h2>
+<div class="highlight"><span class="filename">requirements.txt (нове)</span><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>PyJWT&gt;=2.4             # урок 47: JWT адміна (2.4 — виправлено підміну алгоритму, CVE-2022-29217)
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>bcrypt&gt;=4.0            # урок 47: хеш пароля адміна — напряму, без passlib (passlib 1.7.4 не працює з bcrypt 5)
+</code></pre></div>
+<p>Усі 279 тестів проходять на трьох наборах: Python 3.10 з <code>PyJWT 2.4.0</code>, <code>bcrypt 4.0.0</code> і мінімальними версіями решти залежностей з уроку 44; Python 3.13 з найновішими; PostgreSQL 16 + Redis 7. Міграція <code>0003</code> застосовується на SQLite і PostgreSQL, <code>alembic check</code> не бачить розбіжностей з моделями.</p>
+<h2 id="practice">Практика<a class="headerlink" href="#practice" title="Permanent link">&para;</a></h2>
+<h3 id="_8">Розібраний приклад: «хто я?»<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>Адмін-панелі потрібно знати, чий токен і коли він закінчиться, — щоб попередити «сесія закінчується». Ендпоінт <code>GET /api/admin/me</code>:</p>
+<div class="highlight"><span class="filename">news_hub/api.py (розв&#x27;язок)</span><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">AdminMe</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>    <span class="n">username</span><span class="p">:</span> <span class="nb">str</span>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>    <span class="n">expires_at</span><span class="p">:</span> <span class="n">datetime</span>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/api/admin/me"</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">AdminMe</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s2">"admin"</span><span class="p">])</span>
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">admin_me</span><span class="p">(</span><span class="n">settings</span><span class="p">:</span> <span class="n">AdminSettingsDep</span><span class="p">,</span>
+<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>                   <span class="n">credentials</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">HTTPAuthorizationCredentials</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="n">bearer_scheme</span><span class="p">)],</span>
+<a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>                   <span class="n">username</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">AdminDep</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">AdminMe</span><span class="p">:</span>
+<a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a><span class="w">    </span><span class="sd">"""Хто я і до коли діє токен — для кнопки «Вийти» і попередження «сесія закінчується»."""</span>
+<a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a>    <span class="k">assert</span> <span class="n">credentials</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>                      <span class="c1"># require_admin уже перевірив</span>
+<a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a>    <span class="n">payload</span> <span class="o">=</span> <span class="n">decode_token</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">credentials</span><span class="o">.</span><span class="n">credentials</span><span class="p">)</span>
+<a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a>    <span class="k">return</span> <span class="n">AdminMe</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">,</span> <span class="n">expires_at</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">payload</span><span class="p">[</span><span class="s2">"exp"</span><span class="p">],</span> <span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">tests/integration/test_admin_api.py (розв&#x27;язок)</span><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_admin_me</span><span class="p">(</span><span class="n">anon</span><span class="p">:</span> <span class="n">TestClient</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>    <span class="n">token</span> <span class="o">=</span> <span class="n">create_access_token</span><span class="p">(</span><span class="n">_settings</span><span class="p">(),</span> <span class="s2">"admin"</span><span class="p">)</span>
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>    <span class="n">me</span> <span class="o">=</span> <span class="n">anon</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/api/admin/me"</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">_token_headers</span><span class="p">(</span><span class="n">token</span><span class="p">))</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>    <span class="k">assert</span> <span class="n">me</span><span class="p">[</span><span class="s2">"username"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"admin"</span>
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>    <span class="k">assert</span> <span class="n">anon</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/api/admin/me"</span><span class="p">)</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">401</span>
+</code></pre></div>
+<p>Тест захисту нічого не дописує: <code>test_every_other_endpoint_requires_admin</code> знаходить <code>require_admin</code> у залежностях нового маршруту, а <code>test_anonymous_gets_401</code> сам додає для нього випадок. Було 27 тестів у файлі — стало 29. Якби <code>AdminDep</code> забули, перший тест впав би з різницею множин і показав <code>('GET', '/api/admin/me')</code>.</p>
+<h3 id="_9">Зміни приклад<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<ol>
+<li>У фікстурі <code>local_policy</code> додай <code>max_redirects=0</code> і запусти <code>pytest tests/integration/test_sources_ssrf.py</code>. Який тест впав і з яким повідомленням? Чому тести перенаправлень на внутрішній сервіс досі зелені?</li>
+<li>У <code>verify_signature</code> заміни <code>hmac.compare_digest(...)</code> на <code>signature != sign(...)</code>. Скільки тестів впало?</li>
+</ol>
+<details class="success">
+<summary>Що покаже запуск</summary>
+<ol>
+<li>Червоний один — <code>test_fetch_rss_source</code>: <code>{'detail': 'джерело недоступне: більше 0 перенаправлень'}</code>. Стрічка доступна лише через <code>/moved → /rss</code>. Решта 13 зелені. Перенаправлення на внутрішній сервіс, метадані й <code>file://</code> зупиняє <code>check_url</code> <strong>ще до</strong> того, як цикл дійде до ліміту: адресу з <code>Location</code> перевіряють першою.</li>
+<li>Жодного: <code>279 passed</code>. Результат порівняння той самий, різниться лише <strong>час</strong>: <code>!=</code> зупиняється на першому неспівпадінні. Функціональний тест такого не бачить. Тому правило записане в <code>CLAUDE.md</code> і перевіряється на рецензії, а не тестом.</li>
+</ol>
+</details>
+<h3 id="scraper-fetchpolicy">Спробуй самостійно: scraper через <code>FetchPolicy</code><a class="headerlink" href="#scraper-fetchpolicy" title="Permanent link">&para;</a></h3>
+<p><code>scraper.py</code> (урок 38) завантажує сторінки rbc.ua через <code>aiohttp.ClientSession()</code> без resolver-перевірки й з автоматичними перенаправленнями. <code>ScrapeRequest.pages</code> приймає лише <code>is_rbc_host</code>, але якщо rbc.ua перенаправить на внутрішню адресу, aiohttp піде туди.</p>
+<p>Зроби так, щоб <code>scrape_all_async</code> і <code>scrape_sequential</code> приймали <code>policy: FetchPolicy = DEFAULT_POLICY</code> і з'єднувались через <code>PolicyResolver</code>, а перенаправлення перевіряли так само, як <code>safe_fetch</code>.</p>
+<p><strong>Критерії перевірки:</strong></p>
+<ul>
+<li>тести <code>tests/integration/test_scraper_server.py</code> проходять з явною локальною політикою;</li>
+<li>новий тест: сторінка <code>302 → http://169.254.169.254/</code> дає <code>PageResult.error</code>, а не новини;</li>
+<li>запит до внутрішнього сервера — 0 (як <code>HITS</code> у <code>test_sources_ssrf.py</code>).</li>
+</ul>
+<h3 id="find-bug">Знайди помилку<a class="headerlink" href="#find-bug" title="Permanent link">&para;</a></h3>
+<p>Функція із захистом від SSRF і тест до неї (з <code>OWASP_TOP_10.md</code>, тест зелений):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="n">ALLOWED_HOSTS_FOR_FETCH</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'i.imgur.com'</span><span class="p">,</span> <span class="s1">'avatars.githubusercontent.com'</span><span class="p">]</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">is_safe_url</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>    <span class="n">parsed</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>    <span class="k">return</span> <span class="n">parsed</span><span class="o">.</span><span class="n">hostname</span> <span class="ow">in</span> <span class="n">ALLOWED_HOSTS_FOR_FETCH</span>
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>
+<a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a><span class="k">def</span><span class="w"> </span><span class="nf">upload_avatar</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a>    <span class="n">url</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'avatar_url'</span><span class="p">)</span>
+<a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_safe_url</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+<a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a>        <span class="k">raise</span> <span class="n">PermissionDenied</span>
+<a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<a id="__codelineno-26-12" name="__codelineno-26-12" href="#__codelineno-26-12"></a>    <span class="o">...</span>
+<a id="__codelineno-26-13" name="__codelineno-26-13" href="#__codelineno-26-13"></a>
+<a id="__codelineno-26-14" name="__codelineno-26-14" href="#__codelineno-26-14"></a>
+<a id="__codelineno-26-15" name="__codelineno-26-15" href="#__codelineno-26-15"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_internal_url_rejected</span><span class="p">():</span>
+<a id="__codelineno-26-16" name="__codelineno-26-16" href="#__codelineno-26-16"></a>    <span class="k">assert</span> <span class="ow">not</span> <span class="n">is_safe_url</span><span class="p">(</span><span class="s2">"http://169.254.169.254/latest/meta-data/"</span><span class="p">)</span>
+<a id="__codelineno-26-17" name="__codelineno-26-17" href="#__codelineno-26-17"></a>    <span class="k">assert</span> <span class="ow">not</span> <span class="n">is_safe_url</span><span class="p">(</span><span class="s2">"http://localhost:6379/"</span><span class="p">)</span>
+<a id="__codelineno-26-18" name="__codelineno-26-18" href="#__codelineno-26-18"></a>    <span class="k">assert</span> <span class="n">is_safe_url</span><span class="p">(</span><span class="s2">"https://i.imgur.com/cat.png"</span><span class="p">)</span>
+</code></pre></div>
+<p>Як отримати відповідь внутрішнього сервісу через <code>upload_avatar</code>? Справжній вивід атаки на локальних серверах:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>is_safe_url: True
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>фінальна адреса: http://localhost:39855/latest/meta-data/
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>відповідь: INTERNAL: aws_secret_access_key=...
+</code></pre></div>
+<details class="success">
+<summary>Відповідь</summary>
+<p><code>is_safe_url</code> перевіряє <strong>першу</strong> адресу, а <code>requests.get</code> за замовчуванням іде за перенаправленнями: <code>302</code> з дозволеного хоста веде куди завгодно. Вистачить одного «відкритого перенаправлення» на дозволеному сайті, тобто сторінки на кшталт <code>/redirect?to=…</code>, і захист обійдено. Тест перевіряв саму функцію на рядках, а не шлях запиту, тож був зелений.</p>
+<p>Виправлення в <code>safe_fetch</code>: <code>allow_redirects=False</code> і кожен <code>Location</code> — знову через <code>check_url</code> і resolver, який перевіряє IP <strong>з'єднання</strong>. Тест на це — <code>test_redirect_is_checked_again</code>: справжній aiohttp проти локального сервера, що перенаправляє, і лічильник запитів «внутрішнього» сервісу, який має лишитися нулем.</p>
+</details>
+<h2 id="_10">Підсумок<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Поняття</th>
+<th>Що запам'ятати</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JWT адміна</td>
+<td>HS256 у коді, <code>require: exp, sub, role</code>; 401 — не автентифікований, 403 — не має прав</td>
+</tr>
+<tr>
+<td>Пароль</td>
+<td>bcrypt-хеш в env; &gt; 72 байт — «не той пароль»; одна відповідь на чуже ім'я і чужий пароль; ліміт спроб</td>
+</tr>
+<tr>
+<td>Налаштування</td>
+<td>без значень за замовчуванням: не задано → 503, задано погано → не стартує</td>
+</tr>
+<tr>
+<td>Хто може писати</td>
+<td><code>dependencies=[AdminDep]</code> + тест, що обходить усі маршрути і порівнює з <code>PUBLIC</code></td>
+</tr>
+<tr>
+<td>SSRF</td>
+<td>перевіряти IP <strong>з'єднання</strong> (resolver), а не рядок URL; кожне перенаправлення; порти, розмір, тип; відповідь не віддавати</td>
+</tr>
+<tr>
+<td>Webhook</td>
+<td>HMAC(час + сирі байти тіла), вікно 5 хв, <code>SET NX</code> проти повтору, <code>compare_digest</code>, секрет не в URL</td>
+</tr>
+<tr>
+<td>Що ловлять тести</td>
+<td>атаки — так (підроблені токени, адреси, повтори); витік часу — ні: це рецензія</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_11">Самоперевірка<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Чим <code>401</code> відрізняється від <code>403</code> у <code>require_admin</code>? Наведи запит для кожного.</li>
+<li>Навіщо перевіряти пароль, коли ім'я вже неправильне?</li>
+<li>Чому <code>http://localhost/admin</code> пройшов <code>POST /api/sources</code>, але не пройшов <code>/fetch</code>? Чи не краще перевіряти DNS при додаванні?</li>
+<li>Навіщо в підписі webhook час, якщо є <code>SET NX</code>? І навпаки?</li>
+<li>Чому підпис рахують від сирих байтів, а не від <code>json.loads(body)</code>?</li>
+<li>Який захист уроку жоден тест не перевіряє і чому?</li>
+</ol>
+<details class="success">
+<summary>Відповіді</summary>
+<ol>
+<li><code>401</code> — ми не знаємо, хто це: токена немає, підпис не збігається, строк минув (<code>DELETE /api/news</code> без заголовка). <code>403</code> — знаємо, хто, але прав немає: справжній токен з <code>role: user</code>.</li>
+<li>Інакше чуже ім'я відповідає миттєво, а своє — після bcrypt (~0,2 с). Різниця в часі підказує, що ім'я вгадано, і далі треба перебирати лише паролі.</li>
+<li>Ім'я без DNS не перевірити, а DNS можна змінити будь-коли після додавання. Перевірка при додаванні дала б хибну впевненість, тому IP перевіряє resolver при <strong>кожному</strong> з'єднанні.</li>
+<li><code>SET NX</code> без часу мусив би пам'ятати підписи вічно. Час без <code>SET NX</code> дозволяє повторити запит багато разів за 5 хвилин. Разом: старе відкидає час, свіже повторення — Redis, а ключі живуть лише 10 хвилин.</li>
+<li>Відправник підписує байти, які надсилає. <code>json.loads</code> + <code>json.dumps</code> дає інші байти (пробіли, порядок ключів), і підписи не збігалися б навіть для справжнього запиту. До того ж розбирати JSON до перевірки — означає обробляти дані невідомо від кого.</li>
+<li>Порівняння секрету за сталий час (<code>compare_digest</code>): результат той самий, що в <code>==</code>, різниця лише в часі. Це правило в <code>CLAUDE.md</code> проєкту і пункт рецензії.</li>
+</ol>
+</details>
+<h3 id="_12">Що далі<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Ноутбук заняття: <a class="md-button md-button--primary" href="https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_47_security_advanced/note_lesson_47_security_student.ipynb">Відкрити вправи в Colab</a> <a class="solutions-link" href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_47_security_advanced/note_lesson_47_security.ipynb">Переглянути розв’язки</a>.</li>
+<li>Урок 48 — Telegram-бот: webhook Telegram приходить на <code>news_hub</code> і перевіряється <code>verify_secret_token</code>; команди адміна в боті — лише для дозволених <code>user_id</code>.</li>
+<li>Уроки 49–51 — Docker і CI: секрети (<code>JWT_SECRET</code>, <code>ADMIN_PASSWORD_HASH</code>, <code>WEBHOOK_SECRET</code>) — у змінних середовища контейнера і секретах CI, не в образі й не в git.</li>
+</ul>
+<h2 id="_13">Документація і джерела<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Код: <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_47_security_advanced/news_hub"><code>news_hub</code></a> — <code>security.py</code> з <code>production_bot/backend/core/security.py</code>, <code>api/deps.py</code>, <code>api/admin/auth.py</code>; <code>webhooks.py</code> з <code>api/webhook.py</code>; <code>safe_fetch.py</code> — розділ A10 <code>OWASP_TOP_10.md</code>.</li>
+<li>OWASP: <a href="https://owasp.org/Top10/">Top 10</a>, <a href="https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html">SSRF Prevention Cheat Sheet</a>, <a href="https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html">Password Storage Cheat Sheet</a>, <a href="https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.html">JSON Web Token for Java Cheat Sheet</a> (атаки на JWT — не лише для Java).</li>
+<li>Бібліотеки: <a href="https://pyjwt.readthedocs.io/en/stable/usage.html">PyJWT</a>, <a href="https://github.com/pyca/bcrypt">bcrypt</a>, <a href="https://docs.aiohttp.org/en/stable/client_reference.html">aiohttp — client reference</a>, Python — <a href="https://docs.python.org/3/library/hmac.html"><code>hmac</code></a>, <a href="https://docs.python.org/3/library/ipaddress.html"><code>ipaddress</code></a>, <a href="https://docs.python.org/3/library/secrets.html"><code>secrets</code></a>.</li>
+<li>FastAPI: <a href="https://fastapi.tiangolo.com/tutorial/security/">Security</a>, <a href="https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/">OAuth2 з JWT</a>.</li>
+<li>Webhook: <a href="https://docs.github.com/en/webhooks/using-webhooks/validating-webhook-deliveries">GitHub — Validating webhook deliveries</a>, <a href="https://core.telegram.org/bots/api#setwebhook">Telegram Bot API — setWebhook (<code>secret_token</code>)</a>.</li>
+<li>Уроки курсу: <a href="../lesson_41/">40 — автентифікація та security basics</a>, <a href="../lesson_40/">39 — Redis і rate limit</a>, <a href="../lesson_42/">41 — тести, мок і фейк</a>, <a href="../lesson_44/">43 — LLM API</a>.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Футер" >
+        
+          
+          <a href="../lesson_46/" class="md-footer__link md-footer__link--prev" aria-label="Назад: 46. WebSockets + практика: чат">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Назад
+              </span>
+              <div class="md-ellipsis">
+                46. WebSockets + практика: чат
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../lesson_48/" class="md-footer__link md-footer__link--next" aria-label="Вперед: 48. Telegram Bot API">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Вперед
+              </span>
+              <div class="md-ellipsis">
+                48. Telegram Bot API
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.footer", "toc.follow", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0456\u0439\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u0421\u043a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438 \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0429\u0435 1 \u0437\u0431\u0456\u0433 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.more.other": "\u0429\u0435 # \u0437\u0431\u0456\u0433\u0456\u0432 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.none": "\u0417\u0431\u0456\u0433\u0456\u0432 \u043d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0437\u0431\u0456\u0433", "search.result.other": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e # \u0437\u0431\u0456\u0433\u0456\u0432", "search.result.placeholder": "\u0420\u043e\u0437\u043f\u043e\u0447\u043d\u0456\u0442\u044c \u043f\u0438\u0441\u0430\u0442\u0438 \u0434\u043b\u044f \u043f\u043e\u0448\u0443\u043a\u0443", "search.result.term.missing": "\u041d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e \u0437\u0430\u043f\u0438\u0442\u0443", "select.version": "\u041e\u0431\u0440\u0430\u0442\u0438 \u0432\u0435\u0440\u0441\u0456\u044e"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/sidebars.js"></script>
+      
+    
+  </body>
+</html>

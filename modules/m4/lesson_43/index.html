@@ -1,0 +1,4685 @@
+
+<!doctype html>
+<html lang="uk" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Курс Python українською — від основ до просунутих тем, у форматі книги">
+      
+      
+      
+        <link rel="canonical" href="https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m4/lesson_43/">
+      
+      
+        <link rel="prev" href="../lesson_42/">
+      
+      
+        <link rel="next" href="../ai/claude_code/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Урок - PY Course — Viktor Nikoriak</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#43-ai-" class="md-skip">
+          Перейти до змісту
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Хедер">
+    <a href="../../.." title="PY Course — Viktor Nikoriak" class="md-header__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PY Course — Viktor Nikoriak
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Урок
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Пошук" placeholder="Пошук" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Шукати">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистити" aria-label="Очистити" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Пошук розпочато
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Вкладки" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Головна
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../00_getting_started/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Як користуватися
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Модулі курсу (в розробці)
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../00_python_mental_model/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Довідник
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Навігація" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="PY Course — Viktor Nikoriak" class="md-nav__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    PY Course — Viktor Nikoriak
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Головна
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../00_getting_started/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Як користуватися
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Модулі курсу (в розробці)
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Модулі курсу (в розробці)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../m1/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М1. Основи Python
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М1. Основи Python
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Вступ: формат курсу, AI-політика
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Перші кроки
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Змінні та базові типи даних
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Умови та цикли
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Списки, кортежі, множини
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Словники, for, comprehensions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Функції
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. П1. Big O + базові задачі
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Декоратори
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Ітератори й генератори
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. П2. Пошук
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Модулі та стандартна бібліотека
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Винятки та обробка помилок
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Файли I/O, JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Git & GitHub: система
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. П3. Хеш-структури
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Узагальнення + фінальний проєкт
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М2. Python Advanced
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М2. Python Advanced
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2_python_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Функції як об'єкти першого класу
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Класи, простір імен
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    21. Наслідування, поліморфізм
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    22. Інкапсуляція, область видимості
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    23. П4. Рекурсія, divide & conquer, backtracking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    24. @property, декоратори класів, dunder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    25. Ітератори advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    26. Тестування з pytest (+ валідація AI-коду)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    27. П5. Динамічне програмування + greedy (вступ)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    28. Потоки, multiprocessing, asyncio: вступ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    29. П6. Stack, Queue, Heap, Trie + LRU → ООП-пакет
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М3. Бази даних
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М3. Бази даних
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3_databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m3/bonus_pandas/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. Pandas: аналіз даних, графіки і Dash
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3/lesson_30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    30. Основи SQL (PostgreSQL)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3/lesson_31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    31. Redis overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М4. Web (+ Web Advanced)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М4. Web (+ Web Advanced)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4_web/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    32. HTTP: requests, httpx, aiohttp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    33. REST: принципи дизайну API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    34. Django intro: MVT, ORM, admin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    35. Django: forms, HTML practice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    36. DRF overview + Django vs FastAPI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    37. Typing + Pydantic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../lesson_38/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    38. FastAPI basics + Postman + OpenAPI
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    39. FastAPI + SQLAlchemy: повний CRUD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    40. Middlewares і кешування (Redis на практиці)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    41. Автентифікація та security basics (JWT, hashing, OWASP)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    42. Тестування API (pytest + httpx)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_13" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_13" id="__nav_3_5_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    43. AI-інструменти розробника + ризики й валідація
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_13_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_5_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    43. AI-інструменти розробника + ризики й валідація
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Урок
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Урок
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пригадай
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Старт: з якого коду починаємо
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 1. Проєкт, у якому AI може працювати
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 1. Проєкт, у якому AI може працювати">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#claudemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLAUDE.md
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hook-skill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Дозволи, hook, skill
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#allow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Знахідка: allow з репозиторію не діє без довіри
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 2. Експеримент: одне завдання — два запити
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 2. Експеримент: одне завдання — два запити">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Запуск A: зелений на власних тестах
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Запуск B: специфікація, яку не можна обійти
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рецензія запуску B: три випадки поза специфікацією
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що показав експеримент
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 3. Рецензія AI-проєкту тестами: depression_dashboard
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 3. Рецензія AI-проєкту тестами: depression_dashboard">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Вада, яку не видно на скриншоті: порядок ключів JSON
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Усі знахідки
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Архітектура: де людина, де агент, де перевірки
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Архітектура: де людина, де агент, де перевірки">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ai-26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Чекліст рецензії AI-коду (доповнення до уроку 26)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Практика
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Практика">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#html-rss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Розібраний приклад: HTML-сторінка замість RSS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зміни приклад
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Спробуй самостійно: третє джерело через skill
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#find-bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Знайди помилку
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Підсумок
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Підсумок">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Самоперевірка
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що далі
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Документація і джерела
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ai/claude_code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Довідник: Claude Code
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    44. Інтеграція LLM API (Gemini / Anthropic)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    45. Архітектура застосунків і патерни
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    46. WebSockets + практика: чат
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    47. Security advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    48. Telegram Bot API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М5. Production
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М5. Production
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5_production/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m5/bonus_linux/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. Linux для розробника
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    49. Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    50. Docker Compose + деплой
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    51. CI/CD (GitHub Actions)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М6. Капстоун
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М6. Капстоун
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6_capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6/lesson_52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    52. Робота над фінальним проєктом
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6/lesson_53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    53. Випускний: питч фінального проєкту
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m6/bonus_cv/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. CV розробника
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bonus_ai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Self-paced. AI для розробників (бонус)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../00_python_mental_model/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Довідник
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пригадай
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Старт: з якого коду починаємо
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 1. Проєкт, у якому AI може працювати
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 1. Проєкт, у якому AI може працювати">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#claudemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLAUDE.md
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hook-skill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Дозволи, hook, skill
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#allow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Знахідка: allow з репозиторію не діє без довіри
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 2. Експеримент: одне завдання — два запити
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 2. Експеримент: одне завдання — два запити">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Запуск A: зелений на власних тестах
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Запуск B: специфікація, яку не можна обійти
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рецензія запуску B: три випадки поза специфікацією
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що показав експеримент
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 3. Рецензія AI-проєкту тестами: depression_dashboard
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 3. Рецензія AI-проєкту тестами: depression_dashboard">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Вада, яку не видно на скриншоті: порядок ключів JSON
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Усі знахідки
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Архітектура: де людина, де агент, де перевірки
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Архітектура: де людина, де агент, де перевірки">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ai-26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Чекліст рецензії AI-коду (доповнення до уроку 26)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Практика
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Практика">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#html-rss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Розібраний приклад: HTML-сторінка замість RSS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зміни приклад
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Спробуй самостійно: третє джерело через skill
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#find-bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Знайди помилку
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Підсумок
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Підсумок">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Самоперевірка
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що далі
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Документація і джерела
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Навігація" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Головна
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Модулі курсу (в розробці)
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../m4_web/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    М4. Web (+ Web Advanced)
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    43. AI-інструменти розробника + ризики й валідація
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="43-ai-">Урок 43. AI-інструменти розробника: ризики й валідація<a class="headerlink" href="#43-ai-" title="Permanent link">&para;</a></h1>
+<p>Урок 26 дав чекліст: код від AI приймаємо лише після перевірки. Урок 42 дав агрегатору <code>news_hub</code> 86 тестів. Сьогодні в проєкт приходить <strong>AI-агент</strong> — Claude Code, який сам редагує файли й запускає команди. Два питання уроку:</p>
+<ul>
+<li>як налаштувати проєкт, щоб агент працював за його правилами, а не за своїми здогадками;</li>
+<li>як перевірити те, що агент написав, — навіть коли всі його тести зелені.</li>
+</ul>
+<p>Відповіді — на двох справжніх експериментах. Перший: Claude Code <strong>двічі</strong> додає в <code>news_hub</code> нове джерело новин — з голим запитом і з налаштованим проєктом та тестами-специфікацією; обидва результати перевіряємо. Другий: проєкт <code>depression_dashboard</code>, який згенерував AI, рецензуємо тестами — і знаходимо десять вад у застосунку, що «працював».</p>
+<table>
+<thead>
+<tr>
+<th>Урок</th>
+<th>Крок агрегатора</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>36–39</td>
+<td>парсер і модель, FastAPI, база, Redis</td>
+</tr>
+<tr>
+<td>41</td>
+<td>тести: unit / integration, мок і фейк мережі, покриття</td>
+</tr>
+<tr>
+<td><strong>42</strong></td>
+<td><strong>Claude Code у проєкті: CLAUDE.md, дозволи, hook; друге джерело (RSS) — написане AI за тестами</strong></td>
+</tr>
+<tr>
+<td>43</td>
+<td>Gemini: підсумок, категорія, тональність</td>
+</tr>
+<tr>
+<td>47</td>
+<td>Telegram-бот</td>
+</tr>
+</tbody>
+</table>
+<p>Проєкти: <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_43_ai_dev_tools/news_hub"><code>news_hub</code></a>, <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_43_ai_dev_tools/depression_dashboard"><code>depression_dashboard</code></a>. Довідник: <a href="../ai/claude_code/">Claude Code</a> — встановлення, CLAUDE.md, skills, MCP, hooks, дозволи.</p>
+<p><strong>Що потрібно з попередніх уроків:</strong> чекліст валідації AI-коду й тести властивостей (урок 26); тест конвеєра, мок і фейк, покриття, мінімальні версії (41); Pydantic (36); FastAPI, <code>Depends</code> (37).</p>
+<p><strong>Після уроку ти зможеш:</strong></p>
+<ul>
+<li>налаштувати проєкт для AI-агента: <code>CLAUDE.md</code>, дозволи, hook, skill;</li>
+<li>ставити агентові задачу як специфікацію, яку можна перевірити;</li>
+<li>рецензувати результат агента: діф, тести, які він змінив, рішення, які він ухвалив сам;</li>
+<li>знаходити в «робочому» AI-коді вади, яких не видно на скриншоті.</li>
+</ul>
+<p><strong>Ноутбук заняття:</strong> <a class="md-button md-button--primary" href="https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_43_ai_dev_tools/note_lesson_43_ai_review_student.ipynb">Відкрити вправи в Colab</a> <a class="solutions-link" href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_43_ai_dev_tools/note_lesson_43_ai_review.ipynb">Переглянути розв’язки</a> — ключ AI не потрібен: вправи на справжньому результаті агента.</p>
+<h2 id="_1">Пригадай<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Чому тест, що повторює формулу реалізації, нічого не перевіряє (урок 26)?</li>
+<li>Тести парсера й тести моделі зелені — чому це ще не означає, що новини зберігаються (урок 42)?</li>
+<li>Що перевіряє прогін тестів на мінімальних версіях залежностей?</li>
+</ol>
+<details class="success">
+<summary>Відповіді</summary>
+<ol>
+<li>Якщо формула хибна, очікуване значення хибне так само — тест проходить. Очікування беруть з вимог, а не з коду.</li>
+<li>Кожен перевіряв свою половину на своїх даних. Контракт між ними (формат часу) перевіряє лише тест конвеєра на спільній фікстурі.</li>
+<li>Що <code>requirements.txt</code> каже правду: проєкт працює з найстарішими версіями, які він дозволяє. В уроці 42 так знайшли падіння парсера з beautifulsoup4 4.12.</li>
+</ol>
+</details>
+<h2 id="_2">Старт: з якого коду починаємо<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Що є</th>
+<th>Що там</th>
+<th>Куди</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CLAUDE_DOC.md</code></td>
+<td>довідник Claude Code (2025-05, 1153 рядки)</td>
+<td><a href="../ai/claude_code/">довідник книги</a>: звірено з документацією</td>
+</tr>
+<tr>
+<td><code>IDEA.md</code>, <code>ROADMAP.md</code>, <code>Prompts_Roadmap.md</code> + <code>depression_dashboard/</code></td>
+<td>промпти й проєкт Flask + Streamlit + scikit-learn, який AI за ними згенерував</td>
+<td><code>lesson_43_ai_dev_tools/depression_dashboard/</code> — кейс рецензії (рефакторинг 3)</td>
+</tr>
+<tr>
+<td>скрипт аналізу тональності <code>analysis_tonality_2.py</code></td>
+<td>розбір RSS «Української правди» через <code>feedparser</code></td>
+<td>нове джерело <code>news_hub</code> — його пише AI (рефакторинг 2)</td>
+</tr>
+<tr>
+<td>урок 26 курсу</td>
+<td>чекліст валідації AI-коду</td>
+<td>розширюємо для агентів</td>
+</tr>
+</tbody>
+</table>
+<h2 id="refactor-1">Рефакторинг 1. Проєкт, у якому AI може працювати<a class="headerlink" href="#refactor-1" title="Permanent link">&para;</a></h2>
+<p>Агент бачить лише те, що є в репозиторії та в запиті. Він не знає, що в <code>news_hub</code> домени перевіряють без <code>endswith</code>, що тести не ходять у мережу, що <code>pytest -m unit</code> треба запускати після кожної зміни. Усе це треба <strong>записати</strong>.</p>
+<h3 id="claudemd">CLAUDE.md<a class="headerlink" href="#claudemd" title="Permanent link">&para;</a></h3>
+<p>Довідник <code>CLAUDE_DOC.md</code> мав приклад <code>CLAUDE.md</code> саме для нашого агрегатора — ще з тих часів, коли проєкт був <code>news_dashboard</code>:</p>
+<div class="highlight"><span class="filename">CLAUDE.md: стартовий приклад → news_hub (урок 43)</span><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gd">-# Проект: News Dashboard API</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="gd">-## Технологічний стек</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="gd">-- Python 3.12, FastAPI 0.115, MongoDB (motor 3.7)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="gd">-## Команди розробки</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="gd">-- `docker compose up --build` — запустити всі сервіси</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="gd">-- `pytest tests/ -v` — запустити тести</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="gd">-## Структура проекту</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="gd">-- `app/main.py` — FastAPI ендпоінти</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="gd">-- `app/nlp.py` — NLP pipeline (pymorphy3 + spaCy)</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="gd">-## Важливі правила</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="gd">-- Завжди використовуй async/await для MongoDB (motor)</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="gi">+# news_hub — новинний агрегатор курсу</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="gi">+## Команди</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="gi">+- `pytest -m unit` — швидкі тести без бази, Redis і мережі; запускати після кожної зміни</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="gi">+- `mypy --strict news_hub` — типи; має бути чисто</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="gi">+## Структура</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="gi">+- `news_hub/parser.py` — HTML rbc.ua → `list[RawNews]` (лише рядки, без перевірок)</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="gi">+- `news_hub/models.py` — `NewsItem`, `validate_news`, перевірка доменів</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="gi">+## Правила</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="gi">+- Будь-яке джерело новин повертає `list[RawNews]`; перевіряє лише `NewsItem`.</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="gi">+- Домени — лише точний збіг або піддомен, ніколи `endswith(d)`.</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="gi">+- Тести не ходять у мережу: нова розмітка → файл у `tests/fixtures/` + тест конвеєра.</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="gi">+- Не змінюй наявні тести, щоб вони пройшли. Якщо тест здається хибним — зупинись і поясни.</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="gi">+- Нових залежностей не додавай; якщо без неї ніяк — зупинись і поясни.</span>
+</code></pre></div>
+<p>Цей приклад описує MongoDB, <code>app/nlp.py</code> і Streamlit — нічого з цього в <code>news_hub</code> немає. Застарілий <code>CLAUDE.md</code> гірший за відсутній: агент упевнено піде шукати <code>motor</code>. Новий файл містить <strong>команди перевірки</strong> і <strong>правила, яких не видно з коду</strong>: кожне з них — урок попередніх занять (<code>endswith</code> — урок 42, мережа в тестах — урок 42, «не змінюй тести» — урок 26). Повний файл — <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_43_ai_dev_tools/news_hub/CLAUDE.md"><code>news_hub/CLAUDE.md</code></a>.</p>
+<h3 id="hook-skill">Дозволи, hook, skill<a class="headerlink" href="#hook-skill" title="Permanent link">&para;</a></h3>
+<p><code>CLAUDE.md</code> — <strong>контекст</strong>: агент зазвичай його виконує, але не гарантовано. Те, що мусить виконатися, живе в <code>.claude/settings.json</code>:</p>
+<div class="highlight"><span class="filename">news_hub/.claude/settings.json</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nt">"allow"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Bash(pytest *)"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Bash(python -m pytest *)"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Bash(mypy *)"</span><span class="p">,</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">              </span><span class="s2">"Bash(git diff *)"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Bash(git status *)"</span><span class="p">],</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="nt">"ask"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Edit(./tests/**)"</span><span class="p">],</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="nt">"deny"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Read(./.env)"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Read(./.env.*)"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Bash(pip install *)"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Bash(git push *)"</span><span class="p">,</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">             </span><span class="s2">"Bash(alembic downgrade *)"</span><span class="p">,</span><span class="w"> </span><span class="s2">"WebFetch"</span><span class="p">]</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span><span class="p">},</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">  </span><span class="nt">"hooks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="nt">"PostToolUse"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">      </span><span class="p">{</span><span class="nt">"matcher"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Edit|Write"</span><span class="p">,</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">       </span><span class="nt">"hooks"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"command"</span><span class="p">,</span><span class="w"> </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"python \"$CLAUDE_PROJECT_DIR/.claude/hooks/unit_tests.py\""</span><span class="p">}]}</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="p">]</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="p">}</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Рядок</th>
+<th>Навіщо</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>allow: pytest, mypy</code></td>
+<td>агент сам перевіряє себе без запиту до людини</td>
+</tr>
+<tr>
+<td><code>ask: Edit(./tests/**)</code></td>
+<td>зміна тестів — лише з твого дозволу: «тести проходять, бо їх змінили» — найчастіший обман</td>
+</tr>
+<tr>
+<td><code>deny: Read(./.env)</code></td>
+<td>секрети не потрапляють у контекст, а отже й у код чи журнал</td>
+</tr>
+<tr>
+<td><code>deny: pip install</code></td>
+<td>жодних нових (або вигаданих) пакетів без людини</td>
+</tr>
+<tr>
+<td><code>deny: WebFetch</code></td>
+<td>чужі сторінки — джерело промпт-ін'єкцій</td>
+</tr>
+<tr>
+<td>hook <code>PostToolUse</code></td>
+<td>після <strong>кожної</strong> правки <code>.py</code> — <code>pytest -m unit</code>; впав → код 2, агент бачить помилку й мусить виправити</td>
+</tr>
+</tbody>
+</table>
+<p>Hook — <code>.claude/hooks/unit_tests.py</code>, 20 рядків Python: читає з stdin JSON події, запускає тести, а при падінні пише хвіст виводу в stderr і завершується з кодом 2. Skill <code>/add-news-source</code> записує порядок роботи з новим джерелом (фікстура → тести, що падають → парсер → домени → перевірка). Обидва — у довіднику: <a href="../ai/claude_code/#hooks">hooks</a>, <a href="../ai/claude_code/#skills">skills</a>.</p>
+<pre class="mermaid"><code>flowchart TD
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    subgraph L1["CLAUDE.md, skill — контекст"]
+        direction LR
+        C1["правила й команди&lt;br&gt;на старті сесії"] --&gt; C2["агент зазвичай виконує,&lt;br&gt;але може не виконати"]
+    end
+    subgraph L2["permissions — межа"]
+        direction LR
+        P1["deny / ask / allow&lt;br&gt;перед кожним інструментом"] --&gt; P2["заборонене не станеться,&lt;br&gt;хоч би що вирішив агент"]
+    end
+    subgraph L3["hook — автоматична перевірка"]
+        direction LR
+        H1["після кожної правки:&lt;br&gt;pytest -m unit"] --&gt; H2["впало → код 2 →&lt;br&gt;агент виправляє"]
+    end
+    subgraph L4["тести-специфікація + рецензія людини"]
+        direction LR
+        T1["що саме має працювати"] --&gt; T2["що агент вирішив сам&lt;br&gt;і чого тести не бачать"]
+    end
+    L1 --&gt; L2 --&gt; L3 --&gt; L4
+
+    class C1,P1,H1,T1 step
+    class C2 warning
+    class P2,H2 success
+    class T2 decision</code></pre>
+<h3 id="allow">Знахідка: <code>allow</code> з репозиторію не діє без довіри<a class="headerlink" href="#allow" title="Permanent link">&para;</a></h3>
+<p>Перший запуск агента в налаштованій папці закінчився несподівано: жодного разу не вдалося запустити <code>pytest</code> — «This command requires approval», хоча <code>Bash(pytest *)</code> стоїть в <code>allow</code>. Hook при цьому працював. Причина — у повідомленні Claude Code, яке видно в stderr запуску:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Ignoring 5 permissions.allow entries from .claude/settings.json: this workspace has not been trusted.
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>Run Claude Code interactively here once and accept the trust dialog, …
+</code></pre></div>
+<p>Так і задумано: <code>allow</code>-правила з <code>.claude/settings.json</code> діють лише після того, як ти <strong>довірив папку</strong> (діалог при першому інтерактивному запуску). Інакше будь-який клонований репозиторій сам собі дозволив би команди. <code>deny</code> і <code>ask</code> діють одразу. <code>claude -p</code> діалог пропускає, тому в недовіреній папці «мовчки» ігнорує <code>allow</code> з файлу. Для чесного порівняння обидва експериментальні запуски нижче отримали однакові дозволи прапорцем <code>--allowedTools</code>. Поглиблено: <a href="../ai/claude_code/#settings">довідник, розділ 11</a>.</p>
+<h2 id="refactor-2">Рефакторинг 2. Експеримент: одне завдання — два запити<a class="headerlink" href="#refactor-2" title="Permanent link">&para;</a></h2>
+<p>Задача: додати друге джерело — RSS «Української правди». Ідея — зі скрипта аналізу тональності <code>analysis_tonality_2.py</code> (<code>feedparser</code>). Сама стрічка з середовища, де писався урок, недоступна (мережева політика). Тому зразок — <code>tests/fixtures/pravda_rss.xml</code>, <strong>навчальний знімок у форматі RSS 2.0</strong> з вигаданими заголовками. У ньому навмисно є те, що буває в справжніх стрічках: <code>pubDate</code> з <code>+0300</code> і в GMT, <code>&amp;quot;</code> у заголовку, <code>&lt;p&gt;</code> в описі, дубль, закороткий заголовок, новина з сестринського сайту <code>epravda.com.ua</code>.</p>
+<p>Два запуски Claude Code в режимі <code>claude -p</code> на двох копіях проєкту зі станом уроку 42:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Запуск A</th>
+<th>Запуск B</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Запит</td>
+<td>«Додай у news_hub нове джерело новин — Українська правда, RSS https://www.pravda.com.ua/rss/view_news/. Новини з нього мають зберігатися так само, як з rbc.ua.»</td>
+<td>«Додай у news_hub джерело «Українська правда» (RSS). Специфікація — <code>tests/unit/test_pravda.py</code>, зразок стрічки — <code>tests/fixtures/pravda_rss.xml</code>. Зроби так, щоб проходили всі тести (pytest) і <code>mypy --strict news_hub</code>, не змінюючи тестів. Наприкінці коротко перелічи рішення, які ти ухвалив сам.»</td>
+</tr>
+<tr>
+<td>У проєкті</td>
+<td>стан уроку 42</td>
+<td>+ <code>CLAUDE.md</code>, <code>.claude/</code> (hook), фікстура, 18 тестів-специфікація (падають: коду ще немає)</td>
+</tr>
+<tr>
+<td>Дозволи</td>
+<td><code>--allowedTools "Bash(pytest *)" "Bash(python -m pytest *)" "Bash(mypy *)" "Bash(git diff *)" "Bash(git status *)"</code> — однакові</td>
+<td></td>
+</tr>
+<tr>
+<td>Кроків агента</td>
+<td>54</td>
+<td>29</td>
+</tr>
+<tr>
+<td>Час</td>
+<td>9 хв</td>
+<td>5 хв</td>
+</tr>
+<tr>
+<td>Вартість (з JSON запуску)</td>
+<td>1,54 $</td>
+<td>0,75 $</td>
+</tr>
+<tr>
+<td>Змінено файлів</td>
+<td>10, з них 6 — наявні тести</td>
+<td>2 (<code>models.py</code>) + новий <code>rss.py</code>; тести не змінено</td>
+</tr>
+<tr>
+<td>Звіт агента</td>
+<td>«Test suite passes (101/101)»</td>
+<td>«усі тести (pytest — 104 passed) і mypy --strict проходять»</td>
+</tr>
+</tbody>
+</table>
+<p>Обидва звіти правдиві: тести справді зелені. Питання в тому, <strong>чиї</strong> тести.</p>
+<h3 id="a">Запуск A: зелений на власних тестах<a class="headerlink" href="#a" title="Permanent link">&para;</a></h3>
+<p>Стрічка недоступна — агент спробував <code>curl</code> і <code>WebFetch</code>, отримав відмову, <strong>вигадав</strong> власний зразок RSS і написав тести на ньому. У його фікстурі — правдоподібні заголовки на кшталт «Зеленський підписав новий закон про бюджет», без позначки, що це вигадка, і лише час з <code>+0300</code>. Прогін коду A на нашій специфікаційній стрічці (якої агент не бачив):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>21:40:00 www.pravda.com.ua/news/2026/09/2 Уряд оновив правила вступу до університе
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>17:05:00 www.epravda.com.ua/news/2026/09/ НБУ залишив облікову ставку без змін
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>20:15:00 www.pravda.com.ua/news/2026/09/2 Синоптики: "Перші заморозки прийдуть у ж
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>valid [('pravda.com.ua', 'Суспільство', '21:40:00'), ('pravda.com.ua', 'Новини', '20:15:00')]
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>rejected [('www.epravda.com.ua/new', ['url: Value error, очікуємо новину з rbc.ua або pravda.com.ua', 'lang: Field required'])]
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>broken xml -&gt; []
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>html error page -&gt; []
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Знахідка</th>
+<th>Чому тести агента її не бачили</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>17:05</code> для <code>pubDate</code> у GMT — час Лондона, а не Києва (має бути <code>20:05</code>)</td>
+<td>у його фікстурі всі дати з <code>+0300</code></td>
+</tr>
+<tr>
+<td>новину з <code>epravda.com.ua</code> відхилено</td>
+<td>стрічки не бачив — не знав, що там бувають сестринські сайти</td>
+</tr>
+<tr>
+<td>битий XML і HTML-сторінка помилки замість RSS → <code>[]</code>, без жодної помилки</td>
+<td><strong>тест агента закріплює це як правильну поведінку</strong>: <code>assert parse_pravda_rss("не xml") == []</code></td>
+</tr>
+<tr>
+<td>вигадані «новини» реального видання у фікстурі без позначки</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>pravda.com.ua</code> дописано в список сторінок для <code>POST /api/scrape</code> і в стандартний збір</td>
+<td>запит «зберігати так само» агент прочитав як «збирати так само»</td>
+</tr>
+<tr>
+<td>змінено 6 файлів наявних тестів</td>
+<td>— (нічого не послаблено, але рецензувати треба кожен рядок)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="b">Запуск B: специфікація, яку не можна обійти<a class="headerlink" href="#b" title="Permanent link">&para;</a></h3>
+<p>Специфікація — <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_43_ai_dev_tools/news_hub/tests/unit/test_pravda.py"><code>tests/unit/test_pravda.py</code></a>. Написано <strong>до</strong> коду, 18 тестів: порядок і дублікати, чисті поля, київський час для обох форматів <code>pubDate</code>, конвеєр «RSS → <code>validate_news</code>» з очікуваним <code>rejected</code>, межові домени (<code>fakepravda.com.ua</code>, <code>pravda.com.ua.evil.com</code>), <code>POST /api/scrape</code> лишається лише для rbc.ua, заборона мережі, битий XML → <code>ValueError</code>.</p>
+<p>Агент B прочитав специфікацію, <code>CLAUDE.md</code>, наявні <code>parser.py</code> і <code>models.py</code>. Написав <code>rss.py</code> лише на стандартній бібліотеці (<code>xml.etree</code>, <code>email.utils</code>, <code>zoneinfo</code>) і додав <code>is_allowed_host</code> з правилом «точний збіг або піддомен». <code>is_rbc_host</code> лишив окремо — для <code>POST /api/scrape</code>. Наприкінці перелічив свої рішення: нових залежностей немає, битий XML → <code>ValueError</code>, <code>lang = "uk"</code> для доменів без <code>/ukr/</code> у шляху, категорія — з <code>&lt;category&gt;</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">news_hub.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate_news</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">news_hub.rss</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse_pravda_rss</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">feed</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"tests/fixtures/pravda_rss.xml"</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="n">valid</span><span class="p">,</span> <span class="n">rejected</span> <span class="o">=</span> <span class="n">validate_news</span><span class="p">(</span><span class="n">parse_pravda_rss</span><span class="p">(</span><span class="n">feed</span><span class="p">))</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">valid</span><span class="p">:</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">source</span><span class="p">,</span> <span class="n">item</span><span class="o">.</span><span class="n">lang</span><span class="p">,</span> <span class="n">item</span><span class="o">.</span><span class="n">category</span><span class="p">,</span> <span class="n">item</span><span class="o">.</span><span class="n">published_time</span><span class="p">,</span> <span class="s2">"|"</span><span class="p">,</span> <span class="n">item</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"відхилено:"</span><span class="p">,</span> <span class="p">[(</span><span class="n">r</span><span class="o">.</span><span class="n">raw</span><span class="p">[</span><span class="s2">"title"</span><span class="p">],</span> <span class="n">r</span><span class="o">.</span><span class="n">errors</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rejected</span><span class="p">])</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>pravda.com.ua uk Суспільство 21:40:00 | Уряд оновив правила вступу до університетів
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>epravda.com.ua uk Економіка 20:05:00 | НБУ залишив облікову ставку без змін
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>pravda.com.ua uk Новини 20:15:00 | Синоптики: "Перші заморозки прийдуть у жовтні"
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>відхилено: [('Відео дня', ['title: String should have at least 10 characters'])]
+</code></pre></div>
+<h3 id="b_1">Рецензія запуску B: три випадки поза специфікацією<a class="headerlink" href="#b_1" title="Permanent link">&para;</a></h3>
+<p>Зелена специфікація — не кінець роботи. Рецензія коду B, рядок за рядком, з питанням «що буде, якщо…»:</p>
+<table>
+<thead>
+<tr>
+<th>Що буде, якщо…</th>
+<th>Код агента</th>
+<th>Має бути</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>у новини немає <code>&lt;category&gt;</code></td>
+<td>категорія з URL: <code>/news/2026/09/26/…</code> → <strong>«2026»</strong> (для rbc.ua розділ — другий сегмент шляху, для правди — перший)</td>
+<td>«Новини»</td>
+</tr>
+<tr>
+<td>у новини немає <code>&lt;pubDate&gt;</code> або він битий</td>
+<td><code>ValueError</code> — і <strong>вся стрічка</strong> губиться через одну новину</td>
+<td>ця новина без часу, решта — як є</td>
+</tr>
+<tr>
+<td>Windows без пакета <code>tzdata</code></td>
+<td><code>ZoneInfoNotFoundError</code> під час <code>import news_hub.rss</code>: у Windows немає системної бази часових поясів</td>
+<td><code>tzdata</code> у <code>requirements.txt</code></td>
+</tr>
+</tbody>
+</table>
+<p>Кожен випадок — тест у <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_43_ai_dev_tools/news_hub/tests/unit/test_pravda_review.py"><code>tests/unit/test_pravda_review.py</code></a>. На коді агента всі три падали:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>FAILED tests/unit/test_pravda_review.py::test_item_without_category_is_not_named_after_year
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>FAILED tests/unit/test_pravda_review.py::test_item_without_pub_date_does_not_break_feed
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>FAILED tests/unit/test_pravda_review.py::test_rss_module_imports_without_system_tz_database
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>3 failed, 18 passed in 0.34s
+</code></pre></div>
+<p>Правильний варіант — кілька рядків, позначених у коді «Рецензія»:</p>
+<div class="highlight"><span class="filename">news_hub/rss.py і models.py: код агента → після рецензії</span><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="w"> </span>def _kyiv_datetime(pub_date: str) -&gt; str:
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="gd">-    parsed = parsedate_to_datetime(pub_date)</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="gi">+    try:</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="gi">+        parsed = parsedate_to_datetime(pub_date)</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="gi">+    except (TypeError, ValueError):</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="gi">+        return ""                                   # новина без часу, а не втрачена стрічка</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="gi">+    if parsed.tzinfo is None:</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="gi">+        parsed = parsed.replace(tzinfo=timezone.utc)  # «-0000» — це UTC, а не час сервера</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w"> </span>    return parsed.astimezone(KYIV).replace(tzinfo=None).isoformat()
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w"> </span>...
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="gd">-        if len(path) &gt; 1:</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="gd">-            derived["category"] = CATEGORIES.get(path[1], path[1].capitalize())</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="gi">+        section = path[1] if is_rbc_host(parts.hostname) and len(path) &gt; 1 else (path[0] if path else "")</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="gi">+        if section:</span>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="gi">+            derived["category"] = CATEGORIES.get(section, section.capitalize())</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">requirements.txt</span><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>tzdata&gt;=2024.1          # урок 43: ZoneInfo("Europe/Kyiv") у Windows (немає системної бази поясів)
+</code></pre></div>
+<p>Після рецензії:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>$ pytest -q -p no:cacheprovider
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>............................................................................................ [ 85%]
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>...............                                                                              [100%]
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>107 passed in 3.98s
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>$ mypy --strict news_hub
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>Success: no issues found in 13 source files
+</code></pre></div>
+<p>Ті самі 107 тестів проходять на Python 3.10 з мінімальними версіями залежностей і на PostgreSQL 16 + Redis 7 (<code>TEST_DATABASE_URL</code>, <code>TEST_REDIS_URL</code>).</p>
+<pre class="mermaid"><code>flowchart TD
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    subgraph S1["до агента: специфікація"]
+        direction LR
+        A1["test_pravda.py&lt;br&gt;18 тестів"] --&gt; A2["pytest: ImportError&lt;br&gt;rss.py ще немає"]
+    end
+    subgraph S2["агент: 29 кроків"]
+        direction LR
+        B1["Write rss.py,&lt;br&gt;Edit models.py"] --&gt; B2["hook після кожної правки:&lt;br&gt;pytest -m unit"]
+        B2 --&gt; B3["pytest: 104 passed&lt;br&gt;mypy: чисто"]
+    end
+    subgraph S3["рецензія людини"]
+        direction LR
+        R1["«що буде, якщо…»:&lt;br&gt;3 нові тести"] --&gt; R2["3 failed&lt;br&gt;на коді агента"]
+    end
+    subgraph S4["виправлення"]
+        direction LR
+        F1["rss.py, models.py,&lt;br&gt;requirements.txt"] --&gt; F2["107 passed&lt;br&gt;3.10, 3.13, мін. версії, PostgreSQL"]
+    end
+    S1 --&gt; S2 --&gt; S3 --&gt; S4
+
+    class A1,B1,R1,F1 step
+    class A2,R2 error
+    class B2 warning
+    class B3 decision
+    class F2 success</code></pre>
+<h3 id="_3">Що показав експеримент<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Без специфікації агент пише тести під свій код.</strong> Запуск A — 101 зелений тест, помилка з часовим поясом і тест, що закріплює «тиху» відмову. Тести, що їх агент написав сам, перевіряють його ж припущення.</li>
+<li><strong>Специфікація робить результат перевірним.</strong> Запуск B — удвічі швидше, 2 файли замість 10, тести не змінено. Кожне рішення агента або перевірене тестом, або назване у звіті.</li>
+<li><strong>Специфікація не замінює рецензію.</strong> Три вади B — саме там, де специфікація мовчала. Рецензент шукає не «чи проходять тести», а «що тести не питали».</li>
+<li><strong>Однаковий запит не дає однакового коду.</strong> Інший запуск може помилитися інакше. Тому перевіряємо кожен результат, а не «модель загалом».</li>
+</ul>
+<p>Поглиблено: <a href="https://code.claude.com/docs/en/best-practices">Best practices</a>, <a href="https://code.claude.com/docs/en/common-workflows">Common workflows</a>.</p>
+<h2 id="refactor-3">Рефакторинг 3. Рецензія AI-проєкту тестами: <code>depression_dashboard</code><a class="headerlink" href="#refactor-3" title="Permanent link">&para;</a></h2>
+<p>AI отримав рольові промпти («You are a Senior Python Architect and Data Scientist…», 12 етапів від EDA до Docker) і згенерував <strong>Depression Analytics Platform</strong>: Flask API, Streamlit-дашборд, RandomForest, KMeans, IsolationForest, 57-мегабайтний pickle моделі. Застосунок запускався, усі ендпоінти відповідали <code>200</code>, дашборд малював графіки. У промптах жодного разу не попрошено тестів чи критеріїв прийняття; про витік даних сказано одним рядком — і він у коді є.</p>
+<div class="admonition warning">
+<p class="admonition-title">Чутлива тема</p>
+<p>Застосунок оцінює ризик депресії й питає про суїцидальні думки. У курсі це <strong>кейс рецензії коду</strong>, а не інструмент. Застосунок показує застереження й номер лінії підтримки. Модель на відкритому датасеті не є діагнозом.</p>
+</div>
+<p>Рецензія — тестами на синтетичних даних з колонками справжнього датасету (сам датасет у репозиторій не входить). Кожен тест — одна знахідка. На згенерованому коді:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>FAILED tests/test_review.py::test_feature_importance_keeps_descending_order
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>FAILED tests/test_review.py::test_correlations_keep_order_by_strength
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>FAILED tests/test_review.py::test_cluster_names_agree_with_profiles
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>FAILED tests/test_review.py::test_predict_accepts_raw_profile
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>FAILED tests/test_review.py::test_predict_rejects_bad_input[change0-age]
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>FAILED tests/test_review.py::test_predict_rejects_bad_input[change1-financial_stress]
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>FAILED tests/test_review.py::test_predict_rejects_bad_input[change2-sleep_duration]
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>FAILED tests/test_review.py::test_predict_rejects_bad_input[change3-Risk_Score]
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>FAILED tests/test_review.py::test_predict_rejects_bad_input[change4-CGPA]
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>FAILED tests/test_review.py::test_predict_missing_field_is_422_without_internals
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>FAILED tests/test_review.py::test_predict_list_body_is_422
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>FAILED tests/test_review.py::test_train_requires_admin_token
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>FAILED tests/test_review.py::test_train_disabled_without_configured_token
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>FAILED tests/test_review.py::test_imputer_fitted_on_train_split_only
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>FAILED tests/test_review.py::test_model_loaded_from_disk_once
+<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>FAILED tests/test_review.py::test_groups_does_not_change_cached_data
+<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>FAILED tests/test_review.py::test_unknown_sleep_values_give_valid_json
+<a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>17 failed in 12.88s
+</code></pre></div>
+<p>У копії уроку:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>$ cd ../depression_dashboard &amp;&amp; pytest -q -p no:cacheprovider -p no:logging
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>.................                                                                            [100%]
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>17 passed in 6.80s
+</code></pre></div>
+<h3 id="json">Вада, яку не видно на скриншоті: порядок ключів JSON<a class="headerlink" href="#json" title="Permanent link">&para;</a></h3>
+<p>Сервіс повертав важливість ознак, відсортовану за спаданням, а дашборд брав перші 12. Але <code>jsonify</code> у Flask за замовчуванням <strong>сортує ключі за алфавітом</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">flask</span><span class="w"> </span><span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">jsonify</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="n">importance</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"Suicidal_enc"</span><span class="p">:</span> <span class="mf">0.27</span><span class="p">,</span> <span class="s2">"Risk_Score"</span><span class="p">:</span> <span class="mf">0.14</span><span class="p">,</span> <span class="s2">"Academic Pressure"</span><span class="p">:</span> <span class="mf">0.11</span><span class="p">,</span> <span class="s2">"Age"</span><span class="p">:</span> <span class="mf">0.03</span><span class="p">}</span>   <span class="c1"># як віддає сервіс</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="s2">"demo"</span><span class="p">)</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="k">with</span> <span class="n">app</span><span class="o">.</span><span class="n">app_context</span><span class="p">():</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"Flask за замовчуванням:"</span><span class="p">,</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">importance</span><span class="p">)</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">as_text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>    <span class="n">app</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">sort_keys</span> <span class="o">=</span> <span class="kc">False</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"sort_keys = False:     "</span><span class="p">,</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">importance</span><span class="p">)</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">as_text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>Flask за замовчуванням: {"Academic Pressure":0.11,"Age":0.03,"Risk_Score":0.14,"Suicidal_enc":0.27}
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>sort_keys = False:      {"Suicidal_enc":0.27,"Risk_Score":0.14,"Academic Pressure":0.11,"Age":0.03}
+</code></pre></div>
+<p>Графік «Top Feature Importances» показував перші 12 ознак <strong>за абеткою</strong>. Блок «Strongest positive predictors» — <code>Academic Pressure</code>, <code>Age</code>, <code>CGPA</code>. Жодної помилки, жодного попередження, гарний графік. Правильно — <code>sort_keys = False</code> у власному JSON-провайдері, а UI сортує сам, не покладаючись на порядок ключів.</p>
+<h3 id="_4">Усі знахідки<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Знахідка</th>
+<th>Як доведено</th>
+<th>Як правильно</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>«топ-ознаки» й «найсильніші предиктори» — за абеткою</td>
+<td>тест порядку після <code>jsonify</code></td>
+<td><code>StrictJSONProvider(sort_keys=False)</code>, сортування в UI</td>
+</tr>
+<tr>
+<td>2</td>
+<td>назви кластерів вшиті в UI: «Sleep Deprived» — кластер, що спить <strong>найбільше</strong> (8,15 год), «Financially Stressed» — кластер з 2 людей</td>
+<td>центроїди згенерованої моделі; тест «назва відповідає профілю»</td>
+<td>назву дає профіль кластера порівняно з середнім</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>/api/predict</code> приймав похідні ознаки від клієнта: <code>Risk_Score=-100</code> змінював прогноз; <code>Age=-500</code> → <code>200</code>; пропущене поле → <code>500</code> з текстом pandas</td>
+<td>тести з поганими даними</td>
+<td><code>StudentProfile</code> (Pydantic, <code>extra="forbid"</code>) → <code>422</code>; похідні ознаки — <code>add_features</code> на сервері, одна функція для навчання й прогнозу</td>
+</tr>
+<tr>
+<td>4</td>
+<td>повзунок CGPA ні на що не впливав: CGPA немає в ознаках моделі</td>
+<td>прогноз з CGPA 0,1 і 10 однаковий</td>
+<td>повзунок прибрано; невідоме поле → <code>422</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>POST /api/train</code> без захисту перезаписував модель</td>
+<td>тест: без токена → <code>403</code></td>
+<td><code>X-Admin-Token</code> = <code>ADMIN_TOKEN</code> (<code>hmac.compare_digest</code>); без змінної — вимкнено</td>
+</tr>
+<tr>
+<td>6</td>
+<td>витік даних: імпутер і скейлер навчались на всіх рядках до <code>train_test_split</code></td>
+<td>тест: медіани імпутера = медіани навчальної вибірки</td>
+<td><code>Pipeline</code>, навчений лише на навчальній частині; скейлер для лісу прибрано</td>
+</tr>
+<tr>
+<td>7</td>
+<td>pickle на 57 МБ читався з диска на кожен запит; перезапис на місці</td>
+<td>тест: 3 прогнози — 0 читань з диска</td>
+<td>кеш у пам'яті, атомарна заміна файлу, версія scikit-learn у файлі</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>/api/groups</code> дописував колонку в кешований DataFrame</td>
+<td>тест: після <code>/api/groups</code> у <code>/api/summary</code> є чужа колонка</td>
+<td><code>.copy()</code></td>
+</tr>
+<tr>
+<td>9</td>
+<td>невідоме значення у стовпці → <code>NaN</code> у відповіді — невалідний JSON</td>
+<td>тест зі строгим парсером JSON</td>
+<td><code>null</code>, <code>allow_nan=False</code></td>
+</tr>
+<tr>
+<td>10</td>
+<td>папка <code>ui/pages/</code> — Streamlit автоматично додає 5 порожніх сторінок у меню</td>
+<td>Streamlit AppTest</td>
+<td><code>ui/views/</code></td>
+</tr>
+</tbody>
+</table>
+<p>А ще: пороги ризику в UI (0,3 / 0,5) не збігались з бекендом (0,5 / 0,75); <code>delta="vs overall"</code> — підпис без порівняння; <code>requirements.txt</code> з <code>==</code> під Python 3.11, без колес для 3.13. Streamlit-дашборд після змін пройдено через <code>streamlit.testing.AppTest</code> проти живого бекенду: 5 розділів, форма прогнозу, жодного винятку.</p>
+<p>Жодна з десяти вад не падає з помилкою. Кожна дає <strong>правдоподібну неправду</strong>: відсортований не за тим графік, упевнену назву кластера, прогноз, що реагує на підроблене поле. Це головний ризик AI-коду.</p>
+<h2 id="architecture">Архітектура: де людина, де агент, де перевірки<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Л as Людина
+    participant A as Claude Code
+    participant P as permissions
+    participant H as hook
+    participant T as тести / mypy
+
+    Л-&gt;&gt;Л: специфікація: фікстура + тести, що падають
+    Л-&gt;&gt;A: задача з критерієм готовності
+    loop кожна дія
+        A-&gt;&gt;P: Edit / Bash / Read
+        P--&gt;&gt;A: allow · ask (людині) · deny
+        A-&gt;&gt;H: правка .py
+        H-&gt;&gt;T: pytest -m unit
+        T--&gt;&gt;A: код 2 + хвіст виводу, якщо впало
+    end
+    A-&gt;&gt;T: pytest, mypy --strict
+    A--&gt;&gt;Л: діф + «рішення, які ухвалив сам»
+    Л-&gt;&gt;Л: рецензія: діф тестів, «що буде, якщо…», мін. версії
+    Л-&gt;&gt;T: тести рецензента</code></pre>
+<p>Агент працює всередині циклу «дія → перевірка», але <strong>на вході</strong> (що вважати готовим) і <strong>на виході</strong> (що тести не питали) стоїть людина. Жоден шар не замінює інший: <code>CLAUDE.md</code> агент може не виконати, <code>deny</code> не знає про логіку, тести не бачать того, про що їх не питали.</p>
+<h3 id="ai-26">Чекліст рецензії AI-коду (доповнення до уроку 26)<a class="headerlink" href="#ai-26" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Спершу специфікація</strong> — тести й фікстура до коду. Запусти: вони мають впасти.</li>
+<li><strong>Діф тестів окремо.</strong> Чи змінено наявні тести? Чи не закріплює новий тест «тиху» помилку (<code>== []</code> на битих даних)?</li>
+<li><strong>Дані агента — під підозрою.</strong> Фікстури, яких ти не давав, — вигадані. Чи позначено це?</li>
+<li><strong>«Рішення, які ухвалив сам»</strong> — кожне перевір: чи не розширено доступ (домени, ендпоінти), чи не додано залежність.</li>
+<li><strong>«Що буде, якщо…»</strong> — порожнє, відсутнє, битий формат, інший часовий пояс, інша ОС.</li>
+<li><strong>Мінімальні версії й інші платформи</strong> — <code>requirements.txt</code> мусить казати правду.</li>
+<li><strong>Нічого не пропадає мовчки</strong> — кожна відмова видна: <code>rejected</code>, <code>422</code>, запис у журналі.</li>
+</ol>
+<h2 id="practice">Практика<a class="headerlink" href="#practice" title="Permanent link">&para;</a></h2>
+<h3 id="html-rss">Розібраний приклад: HTML-сторінка замість RSS<a class="headerlink" href="#html-rss" title="Permanent link">&para;</a></h3>
+<p>Сайт іноді віддає замість стрічки сторінку помилки чи капчі — з кодом 200. Що зробить <code>parse_pravda_rss</code>?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">news_hub.rss</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse_pravda_rss</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">parse_pravda_rss</span><span class="p">(</span><span class="s2">"&lt;html&gt;&lt;body&gt;&lt;h1&gt;403 Forbidden&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;"</span><span class="p">))</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">parse_pravda_rss</span><span class="p">(</span><span class="s2">"&lt;rss&gt;&lt;channel&gt;&lt;/channel&gt;&lt;/rss&gt;"</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>[]
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>[]
+</code></pre></div>
+<p>Порожня стрічка й сторінка помилки дають однаковий результат — <code>[]</code>. Помилку ніхто не побачить: збір «успішний», новин 0. Правильна XML-сторінка — не обов'язково RSS. Специфікація й виправлення:</p>
+<ol>
+<li><strong>Тест:</strong> <code>parse_pravda_rss("&lt;html&gt;…&lt;/html&gt;")</code> → <code>ValueError</code>; <code>&lt;rss&gt;&lt;channel&gt;&lt;/channel&gt;&lt;/rss&gt;</code> → <code>[]</code> (порожня стрічка — легальний стан).</li>
+<li><strong>Код:</strong> після <code>ET.fromstring</code> перевірити корінь:</li>
+</ol>
+<div class="highlight"><span class="filename">news_hub/rss.py (розв&#x27;язок)</span><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>    <span class="k">if</span> <span class="n">root</span><span class="o">.</span><span class="n">tag</span> <span class="o">!=</span> <span class="s2">"rss"</span> <span class="ow">or</span> <span class="n">root</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">"channel"</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"очікуємо RSS (&lt;rss&gt;&lt;channel&gt;), а отримали &lt;</span><span class="si">{</span><span class="n">root</span><span class="o">.</span><span class="n">tag</span><span class="si">}</span><span class="s2">&gt;"</span><span class="p">)</span>
+</code></pre></div>
+<ol>
+<li><strong>Перевір, що тест ловить помилку:</strong> прибери перевірку — тест має впасти.</li>
+</ol>
+<h3 id="_5">Зміни приклад<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Додай до перевірки Atom-стрічки (<code>&lt;feed xmlns="http://www.w3.org/2005/Atom"&gt;</code>): зараз їх теж відхилено б — чи це правильно для «Української правди»?</li>
+<li>Додай у <code>CLAUDE.md</code> правило про такі випадки, щоб наступне джерело агент писав одразу з цією перевіркою.</li>
+</ol>
+<h3 id="skill">Спробуй самостійно: третє джерело через skill<a class="headerlink" href="#skill" title="Permanent link">&para;</a></h3>
+<p>Додай третє джерело RSS (наприклад, «Суспільне») за skill <code>/add-news-source</code>, з Claude Code або без нього:</p>
+<ul>
+<li>збережи зразок стрічки в <code>tests/fixtures/</code> (якщо стрічка недоступна — навчальний знімок з позначкою в коментарі, як <code>pravda_rss.xml</code>);</li>
+<li>спершу тести-специфікація: порядок, дублікати, час, конвеєр, межові домени; переконайся, що вони падають;</li>
+<li>якщо код пише агент — збережи його звіт «рішення, які ухвалив сам» і перевір кожне.</li>
+</ul>
+<p><strong>Критерії перевірки:</strong> <code>pytest</code> і <code>mypy --strict news_hub</code> чисті; жоден наявний тест не змінено; <code>POST /api/scrape</code> досі лише для rbc.ua; окремий тест рецензента на випадок, якого немає в специфікації.</p>
+<h3 id="find-bug">Знайди помилку<a class="headerlink" href="#find-bug" title="Permanent link">&para;</a></h3>
+<p>Код і тест із запуску A — агент написав їх разом, тест зелений:</p>
+<div class="highlight"><span class="filename">запуск A: parser.py і tests/unit/test_parser.py (фрагменти)</span><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">parse_pravda_rss</span><span class="p">(</span><span class="n">xml</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">RawNews</span><span class="p">]:</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">    </span><span class="sd">"""RSS-стрічка Української правди (`/rss/view_news/`) → список сирих новин у форматі RawNews."""</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>        <span class="n">root</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>    <span class="k">except</span> <span class="n">ET</span><span class="o">.</span><span class="n">ParseError</span><span class="p">:</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>        <span class="k">return</span> <span class="p">[]</span>
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>    <span class="o">...</span>
+<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>
+<a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>
+<a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_pravda_rss_broken_xml_is_empty_list</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a>    <span class="k">assert</span> <span class="n">parse_pravda_rss</span><span class="p">(</span><span class="s2">"не xml"</span><span class="p">)</span> <span class="o">==</span> <span class="p">[]</span>
+</code></pre></div>
+<p>Тест проходить і покриває гілку <code>except</code> — покриття 100%. Що не так і з кодом, і з тестом?</p>
+<details class="success">
+<summary>Відповідь</summary>
+<p>Код ковтає помилку: зламана стрічка, обрізана відповідь, HTML замість XML — усе стає «порожньою стрічкою». У <code>scraper.py</code> це <code>PageResult(count=0, error=None)</code>: сторінка нібито завантажилась, новин просто немає. Сигналу, що джерело зламалось, не буде ніколи. Це «Errors should never pass silently» з Zen of Python навпаки.</p>
+<p>Тест це <strong>закріплює</strong>: агент написав його з тим самим припущенням, що й код, тож тест перевіряє реалізацію, а не вимогу. Урок 26 про це й попереджав: очікуване значення має братися з вимог. Специфікація запуску B вимагала <code>ValueError</code> — і агент B зробив саме так. Висока цифра покриття тут нічого не означає: рядок виконано, але правильність не перевірено.</p>
+</details>
+<h2 id="_6">Підсумок<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Поняття</th>
+<th>Що запам'ятати</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AI-агент</td>
+<td>сам редагує й запускає команди в циклі «дія → перевірка»; якість залежить від того, чим він може себе перевірити</td>
+</tr>
+<tr>
+<td><code>CLAUDE.md</code></td>
+<td>команди перевірки й правила, яких не видно з коду; контекст, а не гарантія; застарілий — шкодить</td>
+</tr>
+<tr>
+<td>permissions</td>
+<td><code>deny</code> &gt; <code>ask</code> &gt; <code>allow</code>; <code>allow</code> з репозиторію — лише після довіри до папки</td>
+</tr>
+<tr>
+<td>hook</td>
+<td>перевірка, яку агент не може «забути»; код 2 — агент мусить виправити</td>
+</tr>
+<tr>
+<td>специфікація</td>
+<td>фікстура + тести до коду; «не змінюй тести»; «перелічи рішення, які ухвалив сам»</td>
+</tr>
+<tr>
+<td>рецензія</td>
+<td>діф тестів, дані агента, «що буде, якщо…», мінімальні версії й інші ОС</td>
+</tr>
+<tr>
+<td>ризик AI-коду</td>
+<td>не падіння, а правдоподібна неправда: зелені тести, гарний графік, неправильні дані</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_7">Самоперевірка<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Чим <code>CLAUDE.md</code> відрізняється від <code>permissions.deny</code>? Наведи правило, яке має бути в <code>deny</code>, а не лише в <code>CLAUDE.md</code>.</li>
+<li>Чому <code>allow</code> з <code>.claude/settings.json</code> не діяв у першому запуску, а <code>hook</code> — діяв?</li>
+<li>Запуск A — 101 зелений тест. Чому це не доводить, що код правильний?</li>
+<li>Що дала специфікація запуску B і чого вона не дала?</li>
+<li>Чому <code>jsonify</code> зіпсував «топ-ознаки» без жодної помилки?</li>
+<li>Що об'єднує всі десять вад <code>depression_dashboard</code>?</li>
+</ol>
+<details class="success">
+<summary>Відповіді</summary>
+<ol>
+<li><code>CLAUDE.md</code> — контекст: агент зазвичай виконує, але може не виконати. <code>deny</code> — межа: дію не буде виконано. <code>Read(./.env)</code>, <code>Bash(git push *)</code> — у <code>deny</code>.</li>
+<li><code>allow</code>-правила з файлу репозиторію діють лише після того, як людина довірила папку; <code>claude -p</code> діалог довіри пропускає. <code>deny</code>, <code>ask</code> і hooks діють без цього кроку.</li>
+<li>Тести написав той самий агент на вигаданих ним даних: вони перевіряють його припущення (лише <code>+0300</code>, <code>[]</code> на битих даних), а не вимоги.</li>
+<li>Дала: перевірний критерій готовності, 2 файли замість 10, незмінені тести, названі рішення. Не дала: випадків, про які специфікація мовчала, — їх знайшла рецензія.</li>
+<li>Flask за замовчуванням сортує ключі JSON за алфавітом; словник, відсортований за важливістю, приходив у клієнт за абеткою, а UI брав перші 12.</li>
+<li>Жодна не падає з помилкою: застосунок працює й показує правдоподібний, але неправильний результат.</li>
+</ol>
+</details>
+<h3 id="_8">Що далі<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Ноутбук заняття: <a class="md-button md-button--primary" href="https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_43_ai_dev_tools/note_lesson_43_ai_review_student.ipynb">Відкрити вправи в Colab</a> <a class="solutions-link" href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_43_ai_dev_tools/note_lesson_43_ai_review.ipynb">Переглянути розв’язки</a>.</li>
+<li>Урок 44 — LLM усередині агрегатора: Gemini дає підсумок і категорію новини. Відповідь моделі — теж «дані від AI»: її перевірятиме Pydantic, а виклик API мокатимемо за правилами уроку 42.</li>
+</ul>
+<h2 id="_9">Документація і джерела<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Код: <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_43_ai_dev_tools/news_hub"><code>news_hub</code></a> — <code>rss.py</code> і зміни <code>models.py</code> написав Claude Code за специфікацією, правки рецензента позначено; ідея RSS-джерела — скрипт аналізу тональності <code>analysis_tonality_2.py</code>. <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_43_ai_dev_tools/depression_dashboard"><code>depression_dashboard</code></a> — проєкт, який згенерував AI, разом з промптами (<code>prompts/</code>).</li>
+<li><a href="../ai/claude_code/">Довідник: Claude Code</a> — звірений з установленим <code>claude</code> і з документацією.</li>
+<li>Урок 26 — <a href="../../m2/lesson_26/">валідація AI-коду</a>; урок 42 — <a href="../lesson_42/">тест конвеєра, мок і фейк, мінімальні версії</a>.</li>
+<li>Claude Code: <a href="https://code.claude.com/docs/en/best-practices">Best practices</a>, <a href="https://code.claude.com/docs/en/memory">Memory (CLAUDE.md)</a>, <a href="https://code.claude.com/docs/en/permissions">Permissions</a>, <a href="https://code.claude.com/docs/en/hooks">Hooks</a>, <a href="https://code.claude.com/docs/en/headless">Headless (<code>-p</code>)</a>, <a href="https://code.claude.com/docs/en/security">Security</a>.</li>
+<li>Flask: <a href="https://flask.palletsprojects.com/en/stable/api/#flask.json.provider.DefaultJSONProvider.sort_keys">JSON provider, <code>sort_keys</code></a>; scikit-learn: <a href="https://scikit-learn.org/stable/common_pitfalls.html#data-leakage">Common pitfalls — data leakage</a>; Python: <a href="https://docs.python.org/3/library/zoneinfo.html#data-sources"><code>zoneinfo</code> і пакет <code>tzdata</code></a>; Streamlit: <a href="https://docs.streamlit.io/develop/api-reference/app-testing">AppTest</a>.</li>
+<li>OWASP: <a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/">Top 10 for LLM Applications</a> — промпт-ін'єкції, надмірні повноваження агента.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Футер" >
+        
+          
+          <a href="../lesson_42/" class="md-footer__link md-footer__link--prev" aria-label="Назад: 42. Тестування API (pytest + httpx)">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Назад
+              </span>
+              <div class="md-ellipsis">
+                42. Тестування API (pytest + httpx)
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../ai/claude_code/" class="md-footer__link md-footer__link--next" aria-label="Вперед: Довідник: Claude Code">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Вперед
+              </span>
+              <div class="md-ellipsis">
+                Довідник: Claude Code
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.footer", "toc.follow", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0456\u0439\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u0421\u043a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438 \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0429\u0435 1 \u0437\u0431\u0456\u0433 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.more.other": "\u0429\u0435 # \u0437\u0431\u0456\u0433\u0456\u0432 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.none": "\u0417\u0431\u0456\u0433\u0456\u0432 \u043d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0437\u0431\u0456\u0433", "search.result.other": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e # \u0437\u0431\u0456\u0433\u0456\u0432", "search.result.placeholder": "\u0420\u043e\u0437\u043f\u043e\u0447\u043d\u0456\u0442\u044c \u043f\u0438\u0441\u0430\u0442\u0438 \u0434\u043b\u044f \u043f\u043e\u0448\u0443\u043a\u0443", "search.result.term.missing": "\u041d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e \u0437\u0430\u043f\u0438\u0442\u0443", "select.version": "\u041e\u0431\u0440\u0430\u0442\u0438 \u0432\u0435\u0440\u0441\u0456\u044e"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/sidebars.js"></script>
+      
+    
+  </body>
+</html>

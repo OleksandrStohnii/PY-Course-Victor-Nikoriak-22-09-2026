@@ -1,0 +1,1957 @@
+
+<!doctype html>
+<html lang="uk" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Курс Python українською — від основ до просунутих тем, у форматі книги">
+      
+      
+      
+        <link rel="canonical" href="https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/00_getting_started/jupyter/">
+      
+      
+        <link rel="prev" href="../colab/">
+      
+      
+        <link rel="next" href="../pycharm/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Jupyter локально - PY Course — Viktor Nikoriak</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#jupyter-notebook-jupyterlab" class="md-skip">
+          Перейти до змісту
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Хедер">
+    <a href="../.." title="PY Course — Viktor Nikoriak" class="md-header__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PY Course — Viktor Nikoriak
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Jupyter локально
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Пошук" placeholder="Пошук" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Шукати">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистити" aria-label="Очистити" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Пошук розпочато
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Вкладки" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Головна
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Як користуватися
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../modules/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Модулі курсу (в розробці)
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../00_python_mental_model/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Довідник
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Навігація" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="PY Course — Viktor Nikoriak" class="md-nav__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    PY Course — Viktor Nikoriak
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Головна
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Як користуватися
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Як користуватися
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../git_setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Встановлення Git
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../environment_setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Налаштування середовища
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../colab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ноутбуки в Google Colab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jupyter локально
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jupyter локально
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Як це влаштовано: браузер, сервер, кернел
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#jupyterlab-jupyter-notebook" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JupyterLab чи Jupyter Notebook
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Встановлення (один раз на проєкт)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Запуск і зупинка
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#jupyterlab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Інтерфейс JupyterLab
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#venv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Кернели: як підключити venv
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Встановлення бібліотек з ноутбука: %pip
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Порядок виконання і перезапуск
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Режими й гарячі клавіші
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#magic-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Корисні magic-команди
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#jupyterlab_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Файли й термінал у JupyterLab
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ноутбуки і Git
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Типові проблеми
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Джерела
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pycharm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PyCharm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vscode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VS Code
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homework_workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Здача домашніх робіт
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Часті проблеми
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_10" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../github/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GitHub
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_10" id="__nav_2_10_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    GitHub
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../github/ssh_keys/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSH-ключі
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../github/fork_and_clone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fork і Clone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../github/pull_request/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pull Request
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../github/create_repository/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Як створити свій репозиторій
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../modules/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Модулі курсу (в розробці)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../00_python_mental_model/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Довідник
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Як це влаштовано: браузер, сервер, кернел
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#jupyterlab-jupyter-notebook" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JupyterLab чи Jupyter Notebook
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Встановлення (один раз на проєкт)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Запуск і зупинка
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#jupyterlab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Інтерфейс JupyterLab
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#venv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Кернели: як підключити venv
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Встановлення бібліотек з ноутбука: %pip
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Порядок виконання і перезапуск
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Режими й гарячі клавіші
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#magic-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Корисні magic-команди
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#jupyterlab_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Файли й термінал у JupyterLab
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ноутбуки і Git
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Типові проблеми
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Джерела
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Навігація" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Головна
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Як користуватися
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="jupyter-notebook-jupyterlab">Jupyter на своєму комп'ютері: Notebook і JupyterLab<a class="headerlink" href="#jupyter-notebook-jupyterlab" title="Permanent link">&para;</a></h1>
+<p>Google Colab (див. <a href="../colab/">Ноутбуки в Google Colab</a>) — це Jupyter у хмарі Google. Той самий ноутбук <code>.ipynb</code> можна відкрити й <strong>на своєму комп'ютері</strong>: без ліміту часу, з доступом до своїх файлів і з тим самим середовищем, що й у <code>.py</code>-проєктах курсу.</p>
+<p>Ця сторінка — покрокова інструкція: що таке сервер і кернел, як встановити й запустити Jupyter, як підключити віртуальне середовище, як ставити бібліотеки, як працювати з терміналом і клавіатурою.</p>
+<div class="admonition note">
+<p class="admonition-title">Перед початком</p>
+<p>Потрібен встановлений Python 3.10+ і вміння створювати та активувати venv — див. <a href="../environment_setup/">Налаштування середовища</a>.</p>
+</div>
+<h2 id="_1">Як це влаштовано: браузер, сервер, кернел<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>Jupyter складається з трьох частин. Розуміти їх корисно: більшість «загадкових» помилок — це плутанина між ними.</p>
+<pre class="mermaid"><code>flowchart LR
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    B["браузер&lt;br&gt;інтерфейс Lab / Notebook"] &lt;--&gt; S["Jupyter Server&lt;br&gt;localhost:8888"]
+    S &lt;--&gt; K["кернел (kernel)&lt;br&gt;процес Python з venv"]
+    S &lt;--&gt; F["файли .ipynb&lt;br&gt;папка, звідки запустили"]
+
+    class B decision
+    class S step
+    class K success
+    class F warning</code></pre>
+<ul>
+<li><strong>Інтерфейс</strong> у браузері — лише «пульт керування»: показує клітинки й результати.</li>
+<li><strong>Jupyter Server</strong> — програма, яку ти запускаєш командою в терміналі. Вона відкриває й зберігає файли <code>.ipynb</code> і керує кернелами.</li>
+<li><strong>Кернел (kernel)</strong> — окремий процес Python, який <strong>справді виконує</strong> код клітинок і тримає в пам'яті всі змінні. Від кернела залежить, <strong>який саме Python</strong> і <strong>які бібліотеки</strong> бачить ноутбук.</li>
+</ul>
+<p>Звідси два важливі наслідки:</p>
+<ul>
+<li>змінні живуть у кернелі, а не у файлі: закрив ноутбук чи перезапустив кернел — змінні зникли, код треба виконати знову;</li>
+<li><code>pip install</code> має потрапити в той Python, <strong>на якому працює кернел</strong>, — інакше буде <code>ModuleNotFoundError</code>, хоча «я ж встановлював».</li>
+</ul>
+<h2 id="jupyterlab-jupyter-notebook">JupyterLab чи Jupyter Notebook<a class="headerlink" href="#jupyterlab-jupyter-notebook" title="Permanent link">&para;</a></h2>
+<p>Обидва — інтерфейси до того самого сервера, і обидва відкривають ті самі <code>.ipynb</code>.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Jupyter Notebook 7</th>
+<th>JupyterLab</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Вигляд</td>
+<td>один ноутбук на вкладку, простий інтерфейс</td>
+<td>робоче середовище: кілька ноутбуків, файли, термінал, консоль у вкладках і панелях</td>
+</tr>
+<tr>
+<td>Коли</td>
+<td>перші уроки, коли важлива простота</td>
+<td>коли працюєш з кількома файлами одночасно</td>
+</tr>
+<tr>
+<td>Команда</td>
+<td><code>jupyter notebook</code></td>
+<td><code>jupyter lab</code></td>
+</tr>
+</tbody>
+</table>
+<p>З версії 7 Jupyter Notebook побудований на компонентах JupyterLab, тому вони мають спільну основу й однакові гарячі клавіші. Для курсу рекомендуємо <strong>JupyterLab</strong>.</p>
+<h2 id="_2">Встановлення (один раз на проєкт)<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>Встановлюй Jupyter <strong>у віртуальне середовище проєкту</strong>, а не в системний Python.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Windows (PowerShell)</label><label for="__tabbed_1_2">macOS / Linux</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">cd</span><span class="w"> </span>шлях<span class="se">\д</span>о<span class="se">\P</span>Y-Course-Victor-Nikoriak-22-09-2026
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>.venv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>pip<span class="w"> </span>install<span class="w"> </span>jupyterlab<span class="w"> </span>notebook
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">cd</span><span class="w"> </span>шлях/до/PY-Course-Victor-Nikoriak-22-09-2026
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>pip<span class="w"> </span>install<span class="w"> </span>jupyterlab<span class="w"> </span>notebook
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Перевір:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>jupyter<span class="w"> </span>lab<span class="w"> </span>--version
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>jupyter<span class="w"> </span>notebook<span class="w"> </span>--version
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>4.6.4
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>7.6.3
+</code></pre></div>
+<p>Номери версій у тебе можуть бути новішими.</p>
+<div class="admonition note">
+<p class="admonition-title">Інші способи встановлення</p>
+<ul>
+<li><strong>conda / mamba</strong>: <code>conda install -c conda-forge jupyterlab</code> (або <code>mamba install -c conda-forge jupyterlab</code>) — якщо ти користуєшся Anaconda/Miniconda замість venv.</li>
+<li><strong><code>pip install --user jupyterlab</code></strong> (без venv) ставить команду <code>jupyter</code> у папку користувача, якої може не бути в <code>PATH</code>. Тоді <code>jupyter lab</code> не знайдеться — див. «Типові проблеми». Для курсу краще venv.</li>
+</ul>
+</div>
+<p>JupyterLab офіційно перевірений в останніх версіях <strong>Firefox</strong>, <strong>Chrome</strong> і <strong>Safari</strong>.</p>
+<h2 id="_3">Запуск і зупинка<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Відкрий термінал і <strong>перейди в папку</strong>, де лежать ноутбуки (наприклад, корінь репозиторію курсу). Сервер показує файли саме з цієї папки.</li>
+<li>Активуй venv (<code>(.venv)</code> має з'явитися на початку рядка).</li>
+<li>
+<p>Запусти:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>jupyter<span class="w"> </span>lab
+</code></pre></div>
+<p>Браузер відкриється сам. У терміналі з'являться рядки на кшталт:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>[I ServerApp] Jupyter Server 2.21.1 is running at:
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>[I ServerApp] http://localhost:8888/lab?token=…
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>[I ServerApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+</code></pre></div>
+<p>Якщо браузер не відкрився, скопіюй адресу з <code>token=…</code> і встав у браузер. <strong>Токен</strong> — пароль для входу, щоб до твого сервера не підключився ніхто інший; не пересилай цю адресу.</p>
+</li>
+<li>
+<p><strong>Не закривай термінал</strong>, поки працюєш: саме в ньому живе сервер. Закрив термінал — ноутбуки перестали виконуватися.</p>
+</li>
+<li>Щоб зупинити: у терміналі натисни <strong>Ctrl+C</strong> і підтверди <code>y</code> (або Ctrl+C двічі). Збережи ноутбуки перед цим.</li>
+</ol>
+<p>Якщо порт 8888 уже зайнятий (запущений інший Jupyter), сервер візьме наступний вільний — 8889, 8890… Дивись адресу в терміналі.</p>
+<h2 id="jupyterlab">Інтерфейс JupyterLab<a class="headerlink" href="#jupyterlab" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>┌ меню: File  Edit  View  Run  Kernel  Tabs  Settings  Help ────────────┐
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>│ ліва     │ робоча область: вкладки ноутбуків,        │ права          │
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>│ панель:  │ файлів, терміналів — можна ділити         │ панель:        │
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>│ файли,   │ на кілька панелей                         │ властивості,   │
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>│ запущені │                                           │ дебагер        │
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>│ кернели… │                                           │                │
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>└ рядок стану: перемикач Simple, кернел, повідомлення ───────────────────┘
+</code></pre></div>
+<ul>
+<li><strong>Меню</strong> угорі. Кожен пункт показує свою гарячу клавішу:<ul>
+<li><strong>File</strong> — файли й папки;</li>
+<li><strong>Edit</strong> — редагування (зокрема очищення виводів);</li>
+<li><strong>View</strong> — вигляд;</li>
+<li><strong>Run</strong> — виконання клітинок;</li>
+<li><strong>Kernel</strong> — керування кернелами;</li>
+<li><strong>Tabs</strong> — відкриті вкладки;</li>
+<li><strong>Settings</strong> — налаштування;</li>
+<li><strong>Help</strong> — довідка.</li>
+</ul>
+</li>
+<li><strong>Ліва бічна панель</strong>: файловий браузер, список вкладок і <strong>запущених кернелів і терміналів</strong> (там же їх можна зупинити), <strong>зміст</strong> (table of contents) ноутбука, менеджер розширень.</li>
+<li><strong>Права бічна панель</strong>: інспектор властивостей клітинки й <strong>дебагер</strong>.</li>
+<li><strong>Робоча область</strong>: ноутбуки, текстові файли, термінали й консолі відкриваються у вкладках. Перетягни вкладку до краю іншої панелі — і область поділиться, наприклад ноутбук ліворуч, а термінал праворуч. Активна вкладка має кольорову (синю) смужку згори.</li>
+<li><strong>Simple Interface</strong> — показати лише одну вкладку, не закриваючи решту. Вмикається перемикачем <strong>Simple</strong> у рядку стану внизу ліворуч або <strong>View → Appearance → Simple Interface</strong>. Коли вимкнеш, повернеться попереднє розташування.</li>
+<li><strong>Пошук у ноутбуці</strong> — <strong>Ctrl+F</strong> (macOS <strong>⌘F</strong>). Це вбудований пошук JupyterLab: пошук браузера може не бачити весь ноутбук.</li>
+<li><strong>Контекстне меню</strong> — правий клік на клітинці, файлі чи вкладці. Звичайне меню браузера — <strong>Shift</strong> + правий клік.</li>
+</ul>
+<h2 id="venv">Кернели: як підключити venv<a class="headerlink" href="#venv" title="Permanent link">&para;</a></h2>
+<p>Коли Jupyter встановлено <strong>в той самий venv</strong>, у списку кернелів є кернел <code>Python 3</code> — це Python цього venv. Для більшості задач цього досить.</p>
+<p>Але буває інакше: Jupyter встановлено один раз (наприклад, глобально), а проєктів із різними venv кілька. Тоді кожен venv треба <strong>зареєструвати як кернел</strong>. Ноутбуки курсу використовують кернел з ім'ям <code>python-course</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># у терміналі з АКТИВОВАНИМ venv проєкту</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>pip<span class="w"> </span>install<span class="w"> </span>ipykernel
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>python<span class="w"> </span>-m<span class="w"> </span>ipykernel<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>--name<span class="w"> </span>python-course<span class="w"> </span>--display-name<span class="w"> </span><span class="s2">"Python Course (.venv)"</span>
+</code></pre></div>
+<ul>
+<li><code>--name</code> — внутрішнє ім'я кернела (латиницею, без пробілів); у кожного venv має бути <strong>своє</strong>, бо реєстрація з тим самим ім'ям перезапише попередню;</li>
+<li><code>--display-name</code> — назва, яку видно в меню Jupyter;</li>
+<li><code>--user</code> — реєстрація для поточного користувача, без прав адміністратора.</li>
+</ul>
+<p>Керування зареєстрованими кернелами:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>jupyter<span class="w"> </span>kernelspec<span class="w"> </span>list<span class="w">                        </span><span class="c1"># усі кернели і де вони лежать</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>jupyter<span class="w"> </span>kernelspec<span class="w"> </span>uninstall<span class="w"> </span>python-course<span class="w">     </span><span class="c1"># видалити непотрібний</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>Available kernels:
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>  python3          …/.venv/share/jupyter/kernels/python3
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>  python-course    …/.local/share/jupyter/kernels/python-course
+</code></pre></div>
+<p><strong>Обрати кернел для ноутбука:</strong> у JupyterLab — клікни назву кернела у верхньому правому куті ноутбука (або меню <strong>Kernel → Change Kernel…</strong>) і вибери <code>Python Course (.venv)</code>.</p>
+<p><strong>Перевірити, який Python виконує код</strong>, — найнадійніший тест, коли щось «не бачить» бібліотеку:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">)</span>
+</code></pre></div>
+<p>Шлях має вести в <code>.venv</code> твого проєкту.</p>
+<h2 id="pip">Встановлення бібліотек з ноутбука: <code>%pip</code><a class="headerlink" href="#pip" title="Permanent link">&para;</a></h2>
+<p>Бібліотеки можна ставити в терміналі з активованим venv (<code>pip install pandas</code>) — або прямо з клітинки ноутбука:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="n">pandas</span>
+</code></pre></div>
+<p><code>%pip</code> — <strong>magic-команда</strong> IPython: вона встановлює пакет у той Python, <strong>на якому працює поточний кернел</strong>. Тому <code>%pip</code> надійніший за <code>!pip</code>: <code>!</code> запускає звичайну команду оболонки, а в оболонці <code>pip</code> може належати іншому Python.</p>
+<p>Після встановлення <code>%pip</code> нагадує:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>Note: you may need to restart the kernel to use updated packages.
+</code></pre></div>
+<p>Перезапуск потрібен, якщо бібліотеку вже імпортували в цьому кернелі (наприклад, оновлюєш версію): кернел пам'ятає старий імпорт. Меню <strong>Kernel → Restart Kernel…</strong> (у командному режимі — <strong>0, 0</strong>).</p>
+<p>Для проєкту зі списком залежностей:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+</code></pre></div>
+<h2 id="_4">Порядок виконання і перезапуск<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>Кернел виконує клітинки <strong>в тому порядку, в якому ти їх запускаєш</strong>, а не згори донизу. Число в дужках зліва, <code>[5]</code>, — порядковий номер запуску. Якщо ти змінив клітинку вгорі й не перезапустив ті, що нижче, результати внизу — від старого коду.</p>
+<p>Перед здачею домашки і коли «щось дивне» — <strong>Kernel → Restart Kernel and Run All Cells…</strong>: кернел почне з чистої пам'яті й виконає все згори донизу. Якщо ноутбук після цього працює — він справді працює.</p>
+<h2 id="_5">Режими й гарячі клавіші<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>У ноутбука два режими:</p>
+<ul>
+<li><strong>режим редагування</strong> (edit mode) — курсор у клітинці, пишеш код. Увійти: <strong>Enter</strong> або клік у клітинку;</li>
+<li><strong>командний режим</strong> (command mode) — клітинку виділено рамкою, клавіші керують клітинками. Увійти: <strong>Esc</strong> (або <strong>Ctrl+M</strong>).</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Клавіші</th>
+<th>Режим</th>
+<th>Дія</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Shift+Enter</strong></td>
+<td>будь-який</td>
+<td>виконати клітинку й перейти до наступної</td>
+</tr>
+<tr>
+<td><strong>Ctrl+Enter</strong></td>
+<td>будь-який</td>
+<td>виконати клітинку й лишитися на ній</td>
+</tr>
+<tr>
+<td><strong>A</strong> / <strong>B</strong></td>
+<td>командний</td>
+<td>нова клітинка вище / нижче</td>
+</tr>
+<tr>
+<td><strong>D, D</strong> (двічі)</td>
+<td>командний</td>
+<td>видалити клітинку</td>
+</tr>
+<tr>
+<td><strong>M</strong> / <strong>Y</strong></td>
+<td>командний</td>
+<td>зробити клітинку Markdown / кодом</td>
+</tr>
+<tr>
+<td><strong>Z</strong></td>
+<td>командний</td>
+<td>скасувати видалення клітинки</td>
+</tr>
+<tr>
+<td><strong>I, I</strong> (двічі)</td>
+<td>командний</td>
+<td>перервати виконання (Interrupt Kernel)</td>
+</tr>
+<tr>
+<td><strong>0, 0</strong> (двічі)</td>
+<td>командний</td>
+<td>перезапустити кернел (Restart Kernel)</td>
+</tr>
+<tr>
+<td><strong>Ctrl+F</strong> (⌘F)</td>
+<td>будь-який</td>
+<td>пошук у ноутбуці</td>
+</tr>
+<tr>
+<td><strong>Ctrl+Shift+C</strong> (⌘⇧C)</td>
+<td>будь-який</td>
+<td>палітра команд: пошук будь-якої дії за назвою</td>
+</tr>
+<tr>
+<td><strong>Ctrl+S</strong> (⌘S)</td>
+<td>будь-який</td>
+<td>зберегти</td>
+</tr>
+</tbody>
+</table>
+<p>Список клавіш для поточної вкладки — <strong>Help → Show Keyboard Shortcuts…</strong> (<strong>Ctrl+Shift+H</strong>). Переглянути всі й змінити — <strong>Settings → Advanced Settings Editor → Keyboard Shortcuts</strong>. Гарячі клавіші в меню показано поруч із кожним пунктом.</p>
+<h2 id="magic-">Корисні magic-команди<a class="headerlink" href="#magic-" title="Permanent link">&para;</a></h2>
+<p>Рядки, що починаються з <code>%</code> (для рядка) або <code>%%</code> (для всієї клітинки), — це команди IPython, а не Python.</p>
+<table>
+<thead>
+<tr>
+<th>Команда</th>
+<th>Що робить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>%pip install назва</code></td>
+<td>встановити пакет у Python кернела</td>
+</tr>
+<tr>
+<td><code>!команда</code></td>
+<td>виконати команду оболонки: <code>!ls</code>, <code>!dir</code>, <code>!python --version</code></td>
+</tr>
+<tr>
+<td><code>%%writefile hello.py</code></td>
+<td>записати вміст клітинки у файл</td>
+</tr>
+<tr>
+<td><code>%run hello.py</code></td>
+<td>виконати <code>.py</code>-файл у кернелі</td>
+</tr>
+<tr>
+<td><code>%timeit вираз</code></td>
+<td>виміряти час виконання, повторивши вираз багато разів</td>
+</tr>
+<tr>
+<td><code>%pwd</code> / <code>%cd папка</code></td>
+<td>показати / змінити поточну папку кернела</td>
+</tr>
+</tbody>
+</table>
+<p>Приклад:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="o">%%</span><span class="n">writefile</span> <span class="n">hello</span><span class="o">.</span><span class="n">py</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Привіт з файлу!"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="o">%</span><span class="n">run</span> <span class="n">hello</span><span class="o">.</span><span class="n">py</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="o">%</span><span class="n">timeit</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">))</span>
+</code></pre></div>
+<h2 id="jupyterlab_1">Файли й термінал у JupyterLab<a class="headerlink" href="#jupyterlab_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Файловий браузер</strong> (ліва панель): відкрити, перейменувати, створити папку, завантажити файл перетягуванням.</li>
+<li><strong>Термінал</strong>: кнопка <strong>+</strong> над файловим браузером → у Launcher вибери <strong>Terminal</strong> (або <strong>File → New → Terminal</strong>). Це повноцінний термінал (bash на macOS/Linux, PowerShell на Windows), що відкривається в папці сервера. Venv у ньому може бути <strong>не активований</strong> — перевір <code>(.venv)</code> на початку рядка й за потреби активуй.</li>
+<li><strong>Console</strong> у Launcher — інтерактивний Python, зручно швидко щось перевірити.</li>
+</ul>
+<h2 id="git">Ноутбуки і Git<a class="headerlink" href="#git" title="Permanent link">&para;</a></h2>
+<p>Файл <code>.ipynb</code> — це JSON, у якому зберігаються і код, і <strong>результати виконання</strong> (виводи, картинки). Через це:</p>
+<ul>
+<li>diff у Git показує зміни виводів, а не лише коду;</li>
+<li>перед комітом домашки корисно виконати <strong>Restart Kernel and Run All</strong> — щоб збережені виводи відповідали коду;</li>
+<li>якщо виводи не потрібні, очисти їх: <strong>Edit → Clear Outputs of All Cells</strong>.</li>
+</ul>
+<p>Як здавати ноутбук через Pull Request — у розділі <a href="../homework_workflow/">Здача домашніх робіт</a>.</p>
+<h2 id="_6">Типові проблеми<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Симптом</th>
+<th>Причина</th>
+<th>Що робити</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>jupyter: command not found</code> / «не є внутрішньою командою»</td>
+<td>venv не активовано, Jupyter не встановлено в нього, або (після <code>pip install --user</code>) папка з командою не в <code>PATH</code></td>
+<td>активуй venv; або запусти <code>python -m jupyter lab</code>; на macOS/Linux після <code>--user</code> — <code>~/.local/bin/jupyter lab</code></td>
+</tr>
+<tr>
+<td><code>ModuleNotFoundError</code>, хоча пакет встановлено</td>
+<td>кернел працює на іншому Python</td>
+<td><code>import sys; print(sys.executable)</code>; постав пакет через <code>%pip install</code>; або зміни кернел</td>
+</tr>
+<tr>
+<td>У меню немає кернела <code>Python Course (.venv)</code></td>
+<td>venv не зареєстровано</td>
+<td><code>python -m ipykernel install --user --name python-course --display-name "Python Course (.venv)"</code> з активованим venv</td>
+</tr>
+<tr>
+<td>Після <code>%pip install</code> імпортується стара версія</td>
+<td>кернел пам'ятає старий імпорт</td>
+<td>Kernel → Restart Kernel…</td>
+</tr>
+<tr>
+<td>Змінна «не визначена», хоча клітинка з нею є</td>
+<td>клітинку не виконано в цьому сеансі кернела</td>
+<td>виконай її або Restart Kernel and Run All</td>
+</tr>
+<tr>
+<td>Ноутбук «завис», зірочка <code>[*]</code> не зникає</td>
+<td>довгий чи нескінченний код</td>
+<td><strong>Kernel → Interrupt Kernel</strong> (у командному режимі — <strong>I, I</strong>)</td>
+</tr>
+<tr>
+<td>Забагато відкритих ноутбуків, комп'ютер гальмує</td>
+<td>кожен відкритий ноутбук тримає свій кернел</td>
+<td>ліва панель → запущені кернели й термінали → зупини непотрібні</td>
+</tr>
+<tr>
+<td>PowerShell: «виконання сценаріїв вимкнено» при активації venv</td>
+<td>політика виконання Windows</td>
+<td>див. <a href="../environment_setup/">Налаштування середовища</a>, розділ «Активація»</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_7">Джерела<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/jupyterlab/jupyterlab">JupyterLab на GitHub</a> — README: встановлення (pip, conda, mamba), запуск, <code>PATH</code>, підтримувані браузери</li>
+<li>JupyterLab: <a href="https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html">Installation</a>, <a href="https://jupyterlab.readthedocs.io/en/stable/user/interface.html">The JupyterLab Interface</a> — меню, бічні панелі, робоча область, Simple Interface, пошук, гарячі клавіші; <a href="https://jupyterlab.readthedocs.io/en/stable/user/terminal.html">Terminals</a></li>
+<li>Назви пунктів меню й гарячі клавіші додатково звірено з налаштуваннями (schemas) встановленого JupyterLab 4.6</li>
+<li>Jupyter Notebook: <a href="https://jupyter-notebook.readthedocs.io/en/stable/examples/Notebook/Notebook%20Basics.html">Notebook Basics</a> — режими й гарячі клавіші; <a href="https://blog.jupyter.org/announcing-jupyter-notebook-7-8d6d66126dcf">Announcing Jupyter Notebook 7</a></li>
+<li>IPython: <a href="https://ipython.readthedocs.io/en/stable/install/kernel_install.html">Installing the IPython kernel</a> — кернели для різних середовищ</li>
+<li>Jake VanderPlas, <a href="https://jakevdp.github.io/blog/2017/12/05/installing-python-packages-from-jupyter/">Installing Python Packages from a Jupyter Notebook</a> — чому <code>!pip</code> іноді ставить пакет «не туди» і звідки взявся <code>%pip</code></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Футер" >
+        
+          
+          <a href="../colab/" class="md-footer__link md-footer__link--prev" aria-label="Назад: Ноутбуки в Google Colab">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Назад
+              </span>
+              <div class="md-ellipsis">
+                Ноутбуки в Google Colab
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../pycharm/" class="md-footer__link md-footer__link--next" aria-label="Вперед: PyCharm">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Вперед
+              </span>
+              <div class="md-ellipsis">
+                PyCharm
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.footer", "toc.follow", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0456\u0439\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u0421\u043a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438 \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0429\u0435 1 \u0437\u0431\u0456\u0433 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.more.other": "\u0429\u0435 # \u0437\u0431\u0456\u0433\u0456\u0432 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.none": "\u0417\u0431\u0456\u0433\u0456\u0432 \u043d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0437\u0431\u0456\u0433", "search.result.other": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e # \u0437\u0431\u0456\u0433\u0456\u0432", "search.result.placeholder": "\u0420\u043e\u0437\u043f\u043e\u0447\u043d\u0456\u0442\u044c \u043f\u0438\u0441\u0430\u0442\u0438 \u0434\u043b\u044f \u043f\u043e\u0448\u0443\u043a\u0443", "search.result.term.missing": "\u041d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e \u0437\u0430\u043f\u0438\u0442\u0443", "select.version": "\u041e\u0431\u0440\u0430\u0442\u0438 \u0432\u0435\u0440\u0441\u0456\u044e"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/sidebars.js"></script>
+      
+    
+  </body>
+</html>

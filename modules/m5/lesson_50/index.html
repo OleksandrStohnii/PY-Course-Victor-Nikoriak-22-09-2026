@@ -1,0 +1,4735 @@
+
+<!doctype html>
+<html lang="uk" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Курс Python українською — від основ до просунутих тем, у форматі книги">
+      
+      
+      
+        <link rel="canonical" href="https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m5/lesson_50/">
+      
+      
+        <link rel="prev" href="../lesson_49/">
+      
+      
+        <link rel="next" href="../lesson_51/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>50. Docker Compose + деплой - PY Course — Viktor Nikoriak</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#50-docker-compose" class="md-skip">
+          Перейти до змісту
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Хедер">
+    <a href="../../.." title="PY Course — Viktor Nikoriak" class="md-header__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PY Course — Viktor Nikoriak
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              50. Docker Compose + деплой
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Пошук" placeholder="Пошук" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Шукати">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистити" aria-label="Очистити" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Пошук розпочато
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Вкладки" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Головна
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../00_getting_started/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Як користуватися
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Модулі курсу (в розробці)
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../00_python_mental_model/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Довідник
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Навігація" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="PY Course — Viktor Nikoriak" class="md-nav__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    PY Course — Viktor Nikoriak
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Головна
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../00_getting_started/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Як користуватися
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Модулі курсу (в розробці)
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Модулі курсу (в розробці)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../m1/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М1. Основи Python
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М1. Основи Python
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Вступ: формат курсу, AI-політика
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Перші кроки
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Змінні та базові типи даних
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Умови та цикли
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Списки, кортежі, множини
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Словники, for, comprehensions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Функції
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. П1. Big O + базові задачі
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Декоратори
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Ітератори й генератори
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. П2. Пошук
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Модулі та стандартна бібліотека
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Винятки та обробка помилок
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Файли I/O, JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Git & GitHub: система
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. П3. Хеш-структури
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Узагальнення + фінальний проєкт
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М2. Python Advanced
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М2. Python Advanced
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2_python_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Функції як об'єкти першого класу
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Класи, простір імен
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    21. Наслідування, поліморфізм
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    22. Інкапсуляція, область видимості
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    23. П4. Рекурсія, divide & conquer, backtracking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    24. @property, декоратори класів, dunder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    25. Ітератори advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    26. Тестування з pytest (+ валідація AI-коду)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    27. П5. Динамічне програмування + greedy (вступ)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    28. Потоки, multiprocessing, asyncio: вступ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    29. П6. Stack, Queue, Heap, Trie + LRU → ООП-пакет
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М3. Бази даних
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М3. Бази даних
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3_databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m3/bonus_pandas/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. Pandas: аналіз даних, графіки і Dash
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3/lesson_30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    30. Основи SQL (PostgreSQL)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3/lesson_31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    31. Redis overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М4. Web (+ Web Advanced)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М4. Web (+ Web Advanced)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4_web/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    32. HTTP: requests, httpx, aiohttp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    33. REST: принципи дизайну API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    34. Django intro: MVT, ORM, admin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    35. Django: forms, HTML practice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    36. DRF overview + Django vs FastAPI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    37. Typing + Pydantic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m4/lesson_38/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    38. FastAPI basics + Postman + OpenAPI
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    39. FastAPI + SQLAlchemy: повний CRUD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    40. Middlewares і кешування (Redis на практиці)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    41. Автентифікація та security basics (JWT, hashing, OWASP)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    42. Тестування API (pytest + httpx)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m4/lesson_43/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    43. AI-інструменти розробника + ризики й валідація
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    44. Інтеграція LLM API (Gemini / Anthropic)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    45. Архітектура застосунків і патерни
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    46. WebSockets + практика: чат
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    47. Security advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    48. Telegram Bot API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М5. Production
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М5. Production
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5_production/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../bonus_linux/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. Linux для розробника
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    49. Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    50. Docker Compose + деплой
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    50. Docker Compose + деплой
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пригадай
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Старт: з якого коду починаємо
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Старт: з якого коду починаємо">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compose за хвилину
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compose-news_hub" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Старий compose над news_hub
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 1. Порядок запуску: healthy, а не «запущено»
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 2. nginx і справжній IP клієнта
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 3. Секрети в .env: $ і лапки
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 4. Зовнішній сервіс не зупиняє старт
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 5. Django: випуск окремо від роботи
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 5. Django: випуск окремо від роботи">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Дві репліки і чат
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Деплой на сервер
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Архітектура
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Тести
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-choose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Як обрати, де запускати
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Практика
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Практика">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Розібраний приклад: дві репліки API
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зміни приклад
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compose_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Спробуй самостійно: бекап за розкладом у Compose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#find-bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Знайди помилку
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Підсумок
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Підсумок">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Самоперевірка
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що далі
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Документація і джерела
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    51. CI/CD (GitHub Actions)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М6. Капстоун
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М6. Капстоун
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6_capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6/lesson_52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    52. Робота над фінальним проєктом
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6/lesson_53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    53. Випускний: питч фінального проєкту
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m6/bonus_cv/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. CV розробника
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bonus_ai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Self-paced. AI для розробників (бонус)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../00_python_mental_model/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Довідник
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пригадай
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Старт: з якого коду починаємо
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Старт: з якого коду починаємо">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compose за хвилину
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compose-news_hub" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Старий compose над news_hub
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 1. Порядок запуску: healthy, а не «запущено»
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 2. nginx і справжній IP клієнта
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 3. Секрети в .env: $ і лапки
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 4. Зовнішній сервіс не зупиняє старт
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 5. Django: випуск окремо від роботи
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 5. Django: випуск окремо від роботи">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Дві репліки і чат
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Деплой на сервер
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Архітектура
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Тести
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-choose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Як обрати, де запускати
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Практика
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Практика">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Розібраний приклад: дві репліки API
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зміни приклад
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compose_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Спробуй самостійно: бекап за розкладом у Compose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#find-bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Знайди помилку
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Підсумок
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Підсумок">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Самоперевірка
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що далі
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Документація і джерела
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Навігація" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Головна
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Модулі курсу (в розробці)
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../m5_production/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    М5. Production
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="50-docker-compose">Урок 50. Docker Compose + деплой<a class="headerlink" href="#50-docker-compose" title="Permanent link">&para;</a></h1>
+<p>В уроці 49 <code>news_hub</code> став образом. Але щоб він запрацював, довелося руками створити мережу, запустити Redis, окремим контейнером прогнати міграції, передати десяток змінних і не переплутати порядок. На сервері цього ніхто не повторюватиме вручну.</p>
+<p><strong>Docker Compose</strong> описує всю систему одним файлом <code>docker-compose.yml</code>: які контейнери, з яких образів, у якій мережі, з якими томами й змінними, у якому порядку запускаються. Одна команда — <code>docker compose up -d --wait</code> — і вона або повністю працює, або каже, що саме не так.</p>
+<p>Сьогодні так запускаються обидва проєкти курсу:</p>
+<ul>
+<li><strong><code>news_hub</code></strong>: nginx → API → PostgreSQL + Redis; міграції — окремим кроком; Telegram-бот. Основа — <code>docker-compose.yml</code> зі стартового <code>production_bot</code>;</li>
+<li><strong><code>crispy_notes_project</code></strong> (Django, чат на WebSocket): nginx → daphne → PostgreSQL + Redis. Основа — <code>Dockerfile</code>, <code>entrypoint.sh</code>, <code>nginx.conf</code> і <code>docker-compose.yml</code> з <a href="https://nikoriakviktot.github.io/notes_chat_app/">Django-книги</a> (кроки 8–9).</li>
+</ul>
+<p>Як і раніше, спершу запускаємо старі файли <strong>без змін</strong> і дивимось, що ламається. Потім виправляємо — і показуємо, як це все переноситься на сервер.</p>
+<table>
+<thead>
+<tr>
+<th>Урок</th>
+<th>Крок</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>48</td>
+<td>образ <code>news_hub</code>: <code>Dockerfile</code>, <code>.dockerignore</code>, <code>/health/ready</code>, тести образу</td>
+</tr>
+<tr>
+<td><strong>49</strong></td>
+<td><strong>Compose для обох проєктів; nginx; реальний IP клієнта; деплой і бекап</strong></td>
+</tr>
+<tr>
+<td>50</td>
+<td>CI/CD: тести й збірка образу на кожен PR</td>
+</tr>
+</tbody>
+</table>
+<p>Проєкти: <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_5/lessons/lesson_50_compose_deploy/news_hub"><code>news_hub</code></a>, <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_5/lessons/lesson_50_compose_deploy/crispy_notes_project"><code>crispy_notes_project</code></a>.</p>
+<p><strong>Що потрібно з попередніх уроків:</strong> образ, том, мережа, <code>/health</code> і <code>/health/ready</code> (48); rate limit входу (39, 46); webhook Telegram (47); чат на WebSocket і channel layer (45); <code>set -euo pipefail</code> (<a href="../bonus_linux/#pipes">бонус Linux</a>).</p>
+<p><strong>Після уроку ти зможеш:</strong></p>
+<ul>
+<li>описати систему з кількох сервісів у <code>docker-compose.yml</code> і запускати її в правильному порядку;</li>
+<li>поставити nginx перед застосунком і не загубити реальний IP клієнта;</li>
+<li>тримати секрети в <code>.env</code>, не зіпсувавши значення з <code>$</code>;</li>
+<li>розділити «випуск» (міграції, статика) і «роботу» (сервер) — щоб масштабувати без гонок;</li>
+<li>розгорнути стек на сервері, оновити його, зробити бекап і відновитись з нього.</li>
+</ul>
+<p><strong>Ноутбук заняття:</strong> <a class="md-button md-button--primary" href="https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_5/lessons/lesson_50_compose_deploy/note_lesson_50_compose_student.ipynb">Відкрити вправи в Colab</a> <a class="solutions-link" href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_5/lessons/lesson_50_compose_deploy/note_lesson_50_compose.ipynb">Переглянути розв’язки</a> — читаємо <code>docker-compose.yml</code> як дані: порядок запуску за <code>depends_on</code> (топологічне сортування), підстановка <code>${VAR}</code>, IP клієнта за <code>X-Forwarded-For</code>. Docker для ноутбука не потрібен.</p>
+<h2 id="_1">Пригадай<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Що означає <code>localhost</code> усередині контейнера (урок 49)?</li>
+<li>Чим <code>/health</code> відрізняється від <code>/health/ready</code>?</li>
+<li>Як працює rate limit входу адміна і за чим він рахує спроби (уроки 40, 47)?</li>
+</ol>
+<details class="success">
+<summary>Відповіді</summary>
+<ol>
+<li>Сам контейнер. Інші контейнери — за іменем у спільній мережі.</li>
+<li><code>/health</code> — процес відповідає (його питає HEALTHCHECK образу); <code>/health/ready</code> — ще й база й Redis доступні, інакше 503.</li>
+<li>Лічильник у Redis за ключем <code>rate:login:&lt;IP клієнта&gt;</code>: 5 спроб за 300 с, далі 429. IP береться з <code>request.client.host</code>.</li>
+</ol>
+</details>
+<h2 id="_2">Старт: з якого коду починаємо<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Звідки</th>
+<th>Що там</th>
+<th>Куди</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>production_bot/docker-compose.yml</code></td>
+<td>сервіси <code>bot</code> (FastAPI + aiogram), <code>nginx</code>, <code>postgres</code>, <code>redis</code>, <code>migrate</code>; healthchecks, томи</td>
+<td><code>news_hub/docker-compose.yml</code></td>
+</tr>
+<tr>
+<td><code>production_bot/nginx/default.conf</code></td>
+<td>upstream, <code>proxy_set_header</code>, таймаут для webhook</td>
+<td><code>news_hub/nginx/nginx.conf</code></td>
+</tr>
+<tr>
+<td>Django-книга <code>notes_chat_app</code>: <code>Dockerfile</code>, <code>entrypoint.sh</code>, <code>docker-compose.yml</code>, <code>nginx/nginx.conf</code></td>
+<td><code>migrate</code> + <code>collectstatic</code> + uvicorn при старті, статика з тому, WebSocket через nginx</td>
+<td><code>crispy_notes_project/</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="compose">Compose за хвилину<a class="headerlink" href="#compose" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">services</span><span class="p">:</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">api</span><span class="p">:</span><span class="w">                                  </span><span class="c1"># ім'я сервісу = ім'я в мережі (redis://redis:6379)</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.</span><span class="w">                            </span><span class="c1"># або image: nginx:1.27-alpine</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="nt">env_file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.env</span><span class="w">                      </span><span class="c1"># змінні для процесу в контейнері</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">      </span><span class="nt">REDIS_URL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis://redis:6379/0</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">      </span><span class="nt">redis</span><span class="p">:</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">        </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">service_healthy</span><span class="w">      </span><span class="c1"># чекати не «запущено», а «здоровий»</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="nt">healthcheck</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">test</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">],</span><span class="nt"> interval</span><span class="p">:</span><span class="w"> </span><span class="nv">10s</span><span class="p p-Indicator">}</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">pgdata</span><span class="p p-Indicator">:</span><span class="nv">/var/lib/postgresql/data</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"80:80"</span><span class="p p-Indicator">]</span><span class="w">                    </span><span class="c1"># відкрити назовні (лише те, що треба)</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="nt">profiles</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">polling</span><span class="p p-Indicator">]</span><span class="w">                 </span><span class="c1"># запускати лише з --profile polling</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="nt">volumes</span><span class="p">:</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">  </span><span class="nt">pgdata</span><span class="p">:</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Команда</th>
+<th>Що робить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>docker compose up -d --build --wait</code></td>
+<td>зібрати образи, запустити все у фоні й чекати, доки всі стануть healthy (або впасти з причиною)</td>
+</tr>
+<tr>
+<td><code>docker compose ps</code>, <code>logs -f api</code></td>
+<td>стан сервісів; журнал одного</td>
+</tr>
+<tr>
+<td><code>docker compose exec api sh</code></td>
+<td>команда в запущеному контейнері</td>
+</tr>
+<tr>
+<td><code>docker compose down</code> / <code>down -v</code></td>
+<td>зупинити й видалити контейнери / і томи (дані!)</td>
+</tr>
+<tr>
+<td><code>docker compose config</code></td>
+<td>показати файл після підстановки змінних — перша перевірка при будь-якій помилці</td>
+</tr>
+</tbody>
+</table>
+<h3 id="compose-news_hub">Старий compose над <code>news_hub</code><a class="headerlink" href="#compose-news_hub" title="Permanent link">&para;</a></h3>
+<p>Беремо <code>docker-compose.yml</code> і <code>default.conf</code> з <code>production_bot</code>: міняємо лише шлях збірки й порт (8080 замість 80, без SSL-блоку — сертифікатів тут немає). Запускаємо й кожні 2 секунди питаємо API через nginx:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$ docker compose up -d --build
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>t=2s: 000
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>t=4s: 502
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>t=6s: 502
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>t=8s: 502
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>t=10s: 502
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>t=12s: 200
+</code></pre></div>
+<p>Через півтори хвилини:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$ docker compose ps
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>SERVICE    STATUS
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>bot        Up About a minute (unhealthy)
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>migrate    Exited (0) About a minute ago
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>nginx      Up About a minute
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>postgres   Up About a minute (healthy)
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>redis      Up About a minute (healthy)
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>$ docker inspect old49-bot-1 -f '{{range .State.Health.Log}}{{.Output}}{{end}}'
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>OCI runtime exec failed: exec failed: unable to start container process: exec: "curl": executable file not found in $PATH
+</code></pre></div>
+<p>Що бачимо:</p>
+<ul>
+<li><strong>nginx віддає 502 перші ~10 секунд</strong>: <code>depends_on: [bot]</code> чекає лише, поки контейнер <em>запуститься</em>, а не поки API буде готовий;</li>
+<li><strong>бот «unhealthy», хоча працює</strong>: healthcheck викликає <code>curl</code>, якого в <code>python:3.12-slim</code> немає. Будь-який сервіс з <code>condition: service_healthy</code> на бот не запустився б ніколи;</li>
+<li><strong>пароль бази</strong> (<code>POSTGRES_PASSWORD: password</code>) — у самому <code>docker-compose.yml</code>, тобто в git.</li>
+</ul>
+<h2 id="refactor-1">Рефакторинг 1. Порядок запуску: healthy, а не «запущено»<a class="headerlink" href="#refactor-1" title="Permanent link">&para;</a></h2>
+<div class="highlight"><span class="filename">news_hub/docker-compose.yml (скорочено)</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">news_hub</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nt">x-app</span><span class="p">:</span><span class="w"> </span><span class="nl">&amp;app</span><span class="w">                                  </span><span class="c1"># спільне для migrate, api, bot — YAML-якір</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">news_hub:49</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span><span class="nt">env_file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.env</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">  </span><span class="nt">environment</span><span class="p">:</span><span class="w"> </span><span class="nl">&amp;app-env</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="nt">DATABASE_URL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgresql+asyncpg://${POSTGRES_USER:-news}:${POSTGRES_PASSWORD:?задай POSTGRES_PASSWORD у .env}@postgres:5432/${POSTGRES_DB:-news_hub}</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="nt">REDIS_URL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis://redis:6379/0</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">  </span><span class="nt">networks</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">backend</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="nt">services</span><span class="p">:</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">  </span><span class="nt">postgres</span><span class="p">:</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres:16-alpine</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">    </span><span class="nt">healthcheck</span><span class="p">:</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">      </span><span class="nt">test</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"CMD-SHELL"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"pg_isready</span><span class="nv"> </span><span class="s">-U</span><span class="nv"> </span><span class="s">$${POSTGRES_USER}</span><span class="nv"> </span><span class="s">-d</span><span class="nv"> </span><span class="s">$${POSTGRES_DB}"</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">  </span><span class="nt">migrate</span><span class="p">:</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">    </span><span class="nt">&lt;&lt;</span><span class="p">:</span><span class="w"> </span><span class="nv">*app</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"alembic"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"upgrade"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"head"</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">    </span><span class="nt">healthcheck</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">disable</span><span class="p">:</span><span class="w"> </span><span class="nv">true</span><span class="p p-Indicator">}</span><span class="w">             </span><span class="c1"># HEALTHCHECK образу питає :8000 — у міграцій сервера немає</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="w">      </span><span class="nt">postgres</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="nv">service_healthy</span><span class="p p-Indicator">}</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="w">  </span><span class="nt">api</span><span class="p">:</span>
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="w">    </span><span class="nt">&lt;&lt;</span><span class="p">:</span><span class="w"> </span><span class="nv">*app</span>
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="w">      </span><span class="nt">migrate</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="nv">service_completed_successfully</span><span class="p p-Indicator">}</span>
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="w">      </span><span class="nt">redis</span><span class="p">:</span><span class="w">   </span><span class="p p-Indicator">{</span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="nv">service_healthy</span><span class="p p-Indicator">}</span>
+<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="w">    </span><span class="nt">healthcheck</span><span class="p">:</span>
+<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="w">      </span><span class="nt">test</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"CMD"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"python"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"-c"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"import</span><span class="nv"> </span><span class="s">urllib.request;</span><span class="nv"> </span><span class="s">urllib.request.urlopen('http://127.0.0.1:8000/health/ready',</span><span class="nv"> </span><span class="s">timeout=4)"</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a><span class="w">      </span><span class="nt">start_period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60s</span>
+<a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a><span class="w">      </span><span class="nt">start_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2s</span>
+<a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a><span class="w">  </span><span class="nt">nginx</span><span class="p">:</span>
+<a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
+<a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a><span class="w">      </span><span class="nt">api</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="nv">service_healthy</span><span class="p p-Indicator">}</span>
+</code></pre></div>
+<p>Як це запускається:</p>
+<pre class="mermaid"><code>flowchart TD
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    subgraph T1["t ≈ 0 с: без залежностей"]
+        direction LR
+        P1["postgres: starting"] --&gt; R1["redis: starting"]
+    end
+    subgraph T2["t ≈ 8 с: pg_isready і redis-cli ping"]
+        direction LR
+        P2["postgres: healthy"] --&gt; R2["redis: healthy"] --&gt; M2["migrate стартує"]
+    end
+    subgraph T3["t ≈ 12 с: alembic upgrade head"]
+        direction LR
+        M3["migrate: exit 0"] --&gt; A3["api стартує"]
+    end
+    subgraph T4["t ≈ 21 с: /health/ready → 200"]
+        direction LR
+        A4["api: healthy"] --&gt; N4["nginx стартує"]
+    end
+    subgraph T5["t ≈ 32 с: curl /nginx-health"]
+        direction LR
+        N5["nginx: healthy"] --&gt; W5["up --wait повертає 0"]
+    end
+    T1 --&gt; T2 --&gt; T3 --&gt; T4 --&gt; T5
+
+    class P1,R1,M2,A3,N4 step
+    class P2,R2,M3,A4,N5 success
+    class W5 success</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>$ time docker compose up -d --build --wait
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a> Container news_hub-redis-1 Healthy
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a> Container news_hub-api-1 Healthy
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a> Container news_hub-migrate-1 Exited
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a> Container news_hub-postgres-1 Healthy
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a> Container news_hub-nginx-1 Healthy
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>real    0m31.680s
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>$ curl localhost/health/ready
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>{"status":"ok","checks":{"database":"ok","redis":"ok"}}
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Було</th>
+<th>Стало</th>
+<th>Чому</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>depends_on: [bot]</code></td>
+<td><code>condition: service_healthy</code></td>
+<td>nginx не віддає 502, поки API стартує</td>
+</tr>
+<tr>
+<td>bot не чекав <code>migrate</code></td>
+<td><code>service_completed_successfully</code></td>
+<td>API не приймає запити, доки таблиць немає; впали міграції — API не стартує зовсім</td>
+</tr>
+<tr>
+<td><code>curl</code> у healthcheck</td>
+<td><code>python -c urllib…</code> (у slim є лише python)</td>
+<td>перевірка, що справді може спрацювати</td>
+</tr>
+<tr>
+<td>healthcheck <code>/health</code></td>
+<td><code>/health/ready</code> для api в Compose</td>
+<td>nginx стартує, коли API <strong>готовий</strong> (база й Redis), а не лише «живий»</td>
+</tr>
+<tr>
+<td>—</td>
+<td><code>healthcheck: {disable: true}</code> для <code>migrate</code>, <code>bot</code>, <code>twin</code></td>
+<td>HEALTHCHECK образу успадковують усі ролі; бот не слухає :8000 і завжди був би «unhealthy»</td>
+</tr>
+<tr>
+<td><code>POSTGRES_PASSWORD: password</code></td>
+<td><code>${POSTGRES_PASSWORD:?…}</code> з <code>.env</code></td>
+<td>пароля в git немає; без нього <code>docker compose config</code> падає з поясненням</td>
+</tr>
+</tbody>
+</table>
+<p><code>$$POSTGRES_USER</code> — подвійний <code>$</code>: Compose підставляє <code>${…}</code> сам, ще до запуску. <code>$$</code> означає «залиш <code>$</code> як є» — і змінну розкриє вже shell усередині контейнера postgres, де вона задана.</p>
+<h2 id="refactor-2">Рефакторинг 2. nginx і справжній IP клієнта<a class="headerlink" href="#refactor-2" title="Permanent link">&para;</a></h2>
+<p>Перед API стоїть nginx: він приймає з'єднання ззовні, а API назовні взагалі не відкритий. Але тоді кожен запит до API приходить <strong>від nginx</strong>. Що це означає для rate limit входу (урок 47)?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a># старий nginx + uvicorn за замовчуванням: 5 невдалих спроб, потім адмін з правильним паролем
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>401 401 401 401 401
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>{"detail":"забагато запитів: 5 за 300 с; спробуй через 298 с"} 429
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>$ docker compose exec redis redis-cli --scan --pattern 'rate:*'
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>rate:login:172.19.0.6                  ← це IP контейнера nginx
+</code></pre></div>
+<p>Один зловмисник, п'ять неправильних паролів — і <strong>ніхто</strong> на сайті не може увійти п'ять хвилин. Для застосунку всі клієнти — один і той самий nginx.</p>
+<p>Реальний IP клієнта nginx передає в заголовку <code>X-Forwarded-For</code>, а uvicorn уміє його прочитати, але довіряє лише адресам із <code>FORWARDED_ALLOW_IPS</code> (за замовчуванням — <code>127.0.0.1</code>). Перше, що спадає на думку, — «довіряти всім»:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a># FORWARDED_ALLOW_IPS=*  + старий nginx ($proxy_add_x_forwarded_for — ДОПИСАТИ до того, що надіслав клієнт)
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>$ for i in 1..8: curl -X POST /api/admin/token -H "X-Forwarded-For: 10.66.0.$i" …
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>401 401 401 401 401 401 401 401
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>rate:login:10.66.0.1
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>rate:login:10.66.0.2
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>rate:login:10.66.0.3 …
+</code></pre></div>
+<p>Тепер <strong>ліміту немає зовсім</strong>: клієнт сам пише собі будь-яку «адресу», і кожна спроба — з «нового IP». Захист від перебору пароля обійдено одним заголовком.</p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant C as клієнт 203.0.113.7
+    participant N as nginx 172.28.0.10
+    participant U as uvicorn (api)
+    participant R as Redis
+    Note over C,R: було: $proxy_add_x_forwarded_for + FORWARDED_ALLOW_IPS=*
+    C-&gt;&gt;N: X-Forwarded-For: 10.66.0.1 (вигадано)
+    N-&gt;&gt;U: X-Forwarded-For: 10.66.0.1, 203.0.113.7
+    U-&gt;&gt;R: INCR rate:login:10.66.0.1
+    Note over U: клієнт = крайній лівий — те, що написав сам клієнт
+    Note over C,R: стало: nginx перезаписує, uvicorn вірить лише nginx
+    C-&gt;&gt;N: X-Forwarded-For: 10.66.0.1 (вигадано)
+    N-&gt;&gt;U: X-Forwarded-For: 203.0.113.7 ($remote_addr)
+    U-&gt;&gt;U: з'єднання від 172.28.0.10 — у FORWARDED_ALLOW_IPS
+    U-&gt;&gt;R: INCR rate:login:203.0.113.7</code></pre>
+<p>Правильно — дві речі разом:</p>
+<div class="highlight"><span class="filename">news_hub/nginx/nginx.conf</span><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-For</span><span class="w">   </span><span class="nv">$remote_addr</span><span class="p">;</span><span class="w">      </span><span class="c1"># перезаписати, а не дописати</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="k">proxy_set_header</span><span class="w"> </span><span class="s">Host</span><span class="w">              </span><span class="nv">$http_host</span><span class="p">;</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-Proto</span><span class="w"> </span><span class="nv">$scheme</span><span class="p">;</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">news_hub/docker-compose.yml</span><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="w">  </span><span class="nt">api</span><span class="p">:</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">      </span><span class="nt">FORWARDED_ALLOW_IPS</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">172.28.0.10</span><span class="w">       </span><span class="c1"># вірити заголовку лише від nginx</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">backend</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">edge</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">  </span><span class="nt">nginx</span><span class="p">:</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">    </span><span class="nt">networks</span><span class="p">:</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">      </span><span class="nt">edge</span><span class="p">:</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">        </span><span class="nt">ipv4_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">172.28.0.10</span><span class="w">            </span><span class="c1"># фіксована адреса nginx у мережі edge</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="nt">networks</span><span class="p">:</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w">  </span><span class="nt">backend</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w">                                </span><span class="c1"># api, база, Redis, міграції, бот</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="w">  </span><span class="nt">edge</span><span class="p">:</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="w">    </span><span class="nt">ipam</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">config</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[{</span><span class="nt">subnet</span><span class="p">:</span><span class="w"> </span><span class="nv">172.28.0.0/24</span><span class="p p-Indicator">}]}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>$ for i in 1..7: curl -X POST /api/admin/token -H "X-Forwarded-For: 10.66.0.$i" …
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>401 401 401 401 401 429 429
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>rate:login:172.28.0.1                  ← справжня адреса клієнта (з цього комп'ютера — шлюз Docker)
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a># інший клієнт (контейнер у мережі edge) з правильним паролем — входить:
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>{"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9…
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>rate:login:172.28.0.3
+</code></pre></div>
+<p>Дві мережі — теж захист: база й Redis у <code>backend</code>, куди nginx не має доступу, а портів назовні в них немає зовсім.</p>
+<h2 id="refactor-3">Рефакторинг 3. Секрети в <code>.env</code>: <code>$</code> і лапки<a class="headerlink" href="#refactor-3" title="Permanent link">&para;</a></h2>
+<p>Compose читає файл <code>.env</code> поруч із <code>docker-compose.yml</code> двічі: для <code>${ЗМІННИХ}</code> у самому файлі і як <code>env_file</code> для контейнерів. І в обох випадках <strong>підставляє <code>$змінні</code></strong> у значеннях без лапок. bcrypt-хеш пароля адміна (урок 47) — <code>$2b$12$eBDJ…</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>$ cat .env
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>ADMIN_PASSWORD_HASH=$2b$12$eBDJbnUjhmlfS7yVErP6f…
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>$ docker compose up -d
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>level=warning msg="The \"eBDJbnUjhmlfS7yVErP6f\" variable is not set. Defaulting to a blank string."
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>…
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>$ curl -X POST localhost:8080/api/admin/token -d '{"username":"admin","password":"…"}'
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>500
+</code></pre></div>
+<p><code>$eBDJ…</code> — «змінна», її немає, отже порожньо: від хешу лишилось <code>$2b$12</code>. Перевірка з уроку 47 («починається з <code>$2</code>») це пропустила, і вхід падав з 500 <strong>під час роботи</strong>, а не при старті. Два виправлення:</p>
+<ul>
+<li><code>.env.example</code> каже: значення з <code>$</code> — <strong>в одинарних лапках</strong> (так їх і друкує <code>python -m news_hub.security</code>). В одинарних лапках Compose нічого не підставляє;</li>
+<li><code>load_admin_settings</code> перевіряє повний формат bcrypt — обрізаний хеш зупиняє старт з поясненням:</li>
+</ul>
+<div class="highlight"><span class="filename">news_hub/security.py</span><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">BCRYPT_HASH</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\$2[aby]\$\d</span><span class="si">{2}</span><span class="s2">\$[./A-Za-z0-9]</span><span class="si">{53}</span><span class="s2">"</span><span class="p">)</span>     <span class="c1"># $2b$12$ + сіль і хеш (22 + 31)</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="o">...</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">BCRYPT_HASH</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">password_hash</span><span class="p">):</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">"ADMIN_PASSWORD_HASH — bcrypt-хеш ($2b$12$ + 53 символи), а не пароль і не обрізаний "</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>                           <span class="s2">"рядок; у .env для Compose — в одинарних лапках; згенеруй: python -m news_hub.security"</span><span class="p">)</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Інструмент</th>
+<th>Лапки</th>
+<th><code>$змінна</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>export X='…'</code> у bash</td>
+<td>знімає</td>
+<td>в одинарних — ні, у подвійних і без лапок — підставляє</td>
+</tr>
+<tr>
+<td><code>.env</code> для Compose</td>
+<td>знімає</td>
+<td>в одинарних — ні, у подвійних і без лапок — підставляє</td>
+</tr>
+<tr>
+<td><code>docker run --env-file</code> (урок 49)</td>
+<td><strong>лишає</strong></td>
+<td>не підставляє</td>
+</tr>
+</tbody>
+</table>
+<p>Django-ключ з <code>get_random_secret_key()</code> теж буває з <code>$</code> і <code>#</code> — тому в <code>.env.example</code> нотаток він теж в одинарних лапках.</p>
+<h2 id="refactor-4">Рефакторинг 4. Зовнішній сервіс не зупиняє старт<a class="headerlink" href="#refactor-4" title="Permanent link">&para;</a></h2>
+<p>У <code>.env</code> задано бота (<code>BOT_TOKEN</code>, <code>TELEGRAM_WEBHOOK_URL</code>), а Telegram у цю мить недоступний (мережа, збій, у нас — двійник ще не запущений):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>$ docker compose up -d --wait
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>dependency failed to start: container news_hub-api-1 is unhealthy
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>$ docker compose logs api
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>aiogram.exceptions.TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host twin:8081 …
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>ERROR:    Application startup failed. Exiting.
+</code></pre></div>
+<p>API новин лежить через те, що недоступний Telegram. Причина — <code>set_webhook</code> у lifespan (так само в <code>production_bot/backend/app.py</code>): виняток у lifespan — старт не вдався, контейнер перезапускається по колу. Реєстрація бота переїхала у фонову задачу з повторами:</p>
+<div class="highlight"><span class="filename">news_hub/api.py</span><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">start_bot</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">FastAPI</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>    <span class="o">...</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>    <span class="n">app</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">bot_setup</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">register_bot</span><span class="p">(</span><span class="n">bot</span><span class="p">,</span> <span class="n">settings</span><span class="p">))</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="n">TELEGRAM_RETRY_DELAYS</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>       <span class="c1"># секунд між спробами; далі — кожні 30 с</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">register_bot</span><span class="p">(</span><span class="n">bot</span><span class="p">:</span> <span class="n">Bot</span><span class="p">,</span> <span class="n">settings</span><span class="p">:</span> <span class="n">BotSettings</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>    <span class="k">for</span> <span class="n">attempt</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">count</span><span class="p">():</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>        <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>            <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">webhook_url</span><span class="p">:</span>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>                <span class="k">await</span> <span class="n">bot</span><span class="o">.</span><span class="n">set_webhook</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">webhook_url</span><span class="p">,</span> <span class="n">secret_token</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">webhook_secret</span><span class="p">,</span>
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>                                      <span class="n">allowed_updates</span><span class="o">=</span><span class="p">[</span><span class="s2">"message"</span><span class="p">])</span>
+<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a>            <span class="k">await</span> <span class="n">set_commands</span><span class="p">(</span><span class="n">bot</span><span class="p">)</span>
+<a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a>            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Telegram: бот зареєстрований (спроба </span><span class="si">%s</span><span class="s2">)"</span><span class="p">,</span> <span class="n">attempt</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a>            <span class="k">return</span> <span class="kc">True</span>
+<a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a>        <span class="k">except</span> <span class="n">TelegramUnauthorizedError</span><span class="p">:</span>
+<a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a>            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">"Telegram: BOT_TOKEN не прийнято (401) — бот не працюватиме, API працює"</span><span class="p">)</span>
+<a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a>            <span class="k">return</span> <span class="kc">False</span>
+<a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a>        <span class="k">except</span> <span class="p">(</span><span class="n">TelegramAPIError</span><span class="p">,</span> <span class="ne">OSError</span><span class="p">)</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+<a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a>            <span class="n">delay</span> <span class="o">=</span> <span class="n">TELEGRAM_RETRY_DELAYS</span><span class="p">[</span><span class="nb">min</span><span class="p">(</span><span class="n">attempt</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">TELEGRAM_RETRY_DELAYS</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)]</span>
+<a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a>            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">"Telegram недоступний (</span><span class="si">%s</span><span class="s2">): повтор через </span><span class="si">%s</span><span class="s2"> с"</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="n">delay</span><span class="p">)</span>
+<a id="__codelineno-13-24" name="__codelineno-13-24" href="#__codelineno-13-24"></a>            <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">delay</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>$ docker compose up -d --wait
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a> Container news_hub-api-1 Healthy
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a> Container news_hub-nginx-1 Healthy
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>api-1  | 10:01:02 WARNING news_hub: Telegram недоступний (… Cannot connect to host twin:8081 …): повтор через 1 с
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>api-1  | 10:01:03 WARNING news_hub: Telegram недоступний (…): повтор через 2 с
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>api-1  | 10:01:05 WARNING news_hub: Telegram недоступний (…): повтор через 5 с
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>$ docker compose --profile twin up -d twin
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>api-1  | 10:01:20 INFO news_hub: Telegram: бот зареєстрований (спроба 5)
+</code></pre></div>
+<p>Повний шлях webhook — теж через nginx, як від справжнього Telegram:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>$ curl -X POST localhost:8081/_twin/say -d '{"text": "/subscribe бюджет", "chat_id": 2002}'
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>{"mode": "webhook", "status": 200}
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>$ curl 'localhost:8081/_twin/sent?chat_id=2002'
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>['✅ Підписка на «бюджет»']
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>nginx-1  | 172.28.0.3 - - [28/Sep/2026:09:53:05 +0000] "POST /api/telegram/webhook HTTP/1.1" 200 11
+</code></pre></div>
+<p>Той самий принцип для LLM (урок 44): без ключа чи з лежачим провайдером API стартує, а аналіз відповідає 503.</p>
+<h2 id="refactor-5">Рефакторинг 5. Django: випуск окремо від роботи<a class="headerlink" href="#refactor-5" title="Permanent link">&para;</a></h2>
+<p>Файли Django-книги над <code>crispy_notes_project</code>:</p>
+<div class="highlight"><span class="filename">entrypoint.sh (Django-книга)</span><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>python<span class="w"> </span>manage.py<span class="w"> </span>migrate<span class="w"> </span>--noinput
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>python<span class="w"> </span>manage.py<span class="w"> </span>collectstatic<span class="w"> </span>--noinput
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="nb">exec</span><span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>uvicorn<span class="w"> </span>notes_project.asgi:application<span class="w"> </span>--host<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span>--port<span class="w"> </span><span class="m">8001</span><span class="w"> </span>--reload
+</code></pre></div>
+<p>Що показав запуск:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a># 1. compose книги монтує папку проєкту в контейнер (.:/app), і chmod +x з Dockerfile зникає:
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>Error: exec: "./entrypoint.sh": permission denied
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>$ git ls-files -s entrypoint.sh
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>100644 … entrypoint.sh                       ← у git файл не виконуваний (на Windows Docker Desktop цього не видно)
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a># 2. дві репліки web на чистій базі, три запуски — друга падає щоразу:
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>web-2  | psycopg.errors.UniqueViolation: duplicate key value violates unique constraint "pg_type_typname_nsp_index"
+<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>web-2  | DETAIL:  Key (typname, typnamespace)=(auth_permission, 2200) already exists.
+<a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>web-2  | django.db.utils.ProgrammingError: column "name" of relation "django_content_type" does not exist
+<a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a>
+<a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a># 3. nginx на порту 8080 — вхід формою:
+<a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a>http://localhost:8080 403  Origin checking failed - http://localhost:8080 does not match any trusted origins.
+<a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a>http://localhost:8001 302 /notes/                ← напряму, минаючи nginx, — працює
+</code></pre></div>
+<ul>
+<li><strong>Міграції при старті кожного контейнера</strong> — гонка: дві репліки одночасно створюють ті самі таблиці. Міграції — це крок <strong>випуску</strong> нової версії, він має виконатись один раз;</li>
+<li><strong><code>$host</code> у nginx відкидає порт.</strong> Django порівнює <code>Origin: http://localhost:8080</code> з адресою сайту, яку бачить у <code>Host</code> (<code>localhost</code>) — не збігається, форма відхилена. У книзі nginx слухає порт 80, тому там цього не видно; але на сервері, де 80 зайнятий, чи локально на 8080 — кожна форма дає 403;</li>
+<li><strong><code>--reload</code></strong> — для розробки: стежить за файлами й перезапускає процес. У контейнері продакшну змін файлів немає;</li>
+<li>у самому проєкті нотаток не було <code>STATIC_ROOT</code> (<code>collectstatic</code> → <code>ImproperlyConfigured</code>), а <code>DEBUG</code> за замовчуванням — <code>1</code>: через nginx віддавалась сторінка помилки з <code>DEBUG = True</code>.</li>
+</ul>
+<div class="highlight"><span class="filename">crispy_notes_project/docker-compose.yml (скорочено)</span><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="w">  </span><span class="nt">release</span><span class="p">:</span><span class="w">                                   </span><span class="c1"># випуск: один раз на запуск стеку</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">    </span><span class="nt">&lt;&lt;</span><span class="p">:</span><span class="w"> </span><span class="nv">*app</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"sh"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"-c"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"python</span><span class="nv"> </span><span class="s">manage.py</span><span class="nv"> </span><span class="s">migrate</span><span class="nv"> </span><span class="s">--noinput</span><span class="nv"> </span><span class="s">&amp;&amp;</span><span class="nv"> </span><span class="s">python</span><span class="nv"> </span><span class="s">manage.py</span><span class="nv"> </span><span class="s">collectstatic</span><span class="nv"> </span><span class="s">--noinput</span><span class="nv"> </span><span class="s">--clear"</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">staticfiles</span><span class="p p-Indicator">:</span><span class="nv">/app/staticfiles</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">db</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="nv">service_healthy</span><span class="p p-Indicator">}}</span>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="w">  </span><span class="nt">web</span><span class="p">:</span><span class="w">                                       </span><span class="c1"># робота: скільки завгодно реплік</span>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="w">    </span><span class="nt">&lt;&lt;</span><span class="p">:</span><span class="w"> </span><span class="nv">*app</span>
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a><span class="w">      </span><span class="nt">release</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="nv">service_completed_successfully</span><span class="p p-Indicator">}</span>
+<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a><span class="w">      </span><span class="nt">redis</span><span class="p">:</span><span class="w">   </span><span class="p p-Indicator">{</span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="nv">service_healthy</span><span class="p p-Indicator">}</span>
+<a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a><span class="w">  </span><span class="nt">nginx</span><span class="p">:</span>
+<a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro</span>
+<a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">staticfiles:/staticfiles:ro</span><span class="w">          </span><span class="c1"># статику віддає nginx, не Django</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">crispy_notes_project/Dockerfile (кінець)</span><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">USER</span><span class="w"> </span><span class="s">app</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="k">HEALTHCHECK</span><span class="w"> </span>…<span class="w"> </span>CMD<span class="w"> </span><span class="o">[</span><span class="s2">"python"</span>,<span class="w"> </span><span class="s2">"-c"</span>,<span class="w"> </span><span class="s2">"import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/', timeout=4)"</span><span class="o">]</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">"daphne"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--bind"</span><span class="p">,</span><span class="w"> </span><span class="s2">"0.0.0.0"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--port"</span><span class="p">,</span><span class="w"> </span><span class="s2">"8000"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--proxy-headers"</span><span class="p">,</span><span class="w"> </span><span class="s2">"hello_project.asgi:application"</span><span class="p">]</span>
+</code></pre></div>
+<p>У налаштуваннях — те, що на сервері вмикається змінними, а не правкою коду:</p>
+<div class="highlight"><span class="filename">hello_project/settings.py</span><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="k">if</span> <span class="ow">not</span> <span class="n">DEBUG</span> <span class="ow">and</span> <span class="n">SECRET_KEY</span> <span class="o">==</span> <span class="n">DEV_SECRET_KEY</span><span class="p">:</span>          <span class="c1"># ключ з git на сервері — не стартуємо</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>    <span class="k">raise</span> <span class="n">ImproperlyConfigured</span><span class="p">(</span><span class="s2">"DJANGO_DEBUG=0: задай DJANGO_SECRET_KEY …"</span><span class="p">)</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="n">STATIC_ROOT</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"DJANGO_STATIC_ROOT"</span><span class="p">,</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">"staticfiles"</span><span class="p">))</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"DJANGO_HTTPS"</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"1"</span><span class="p">:</span>                <span class="c1"># TLS знімає nginx перед Django</span>
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>    <span class="n">SESSION_COOKIE_SECURE</span> <span class="o">=</span> <span class="kc">True</span>
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>    <span class="n">CSRF_COOKIE_SECURE</span> <span class="o">=</span> <span class="kc">True</span>
+<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>    <span class="n">SECURE_HSTS_SECONDS</span> <span class="o">=</span> <span class="mi">31536000</span>
+<a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>    <span class="n">SECURE_PROXY_SSL_HEADER</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"HTTP_X_FORWARDED_PROTO"</span><span class="p">,</span> <span class="s2">"https"</span><span class="p">)</span>
+<a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a><span class="n">CSRF_TRUSTED_ORIGINS</span> <span class="o">=</span> <span class="p">[</span><span class="n">o</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"DJANGO_CSRF_TRUSTED_ORIGINS"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">","</span><span class="p">)</span> <span class="k">if</span> <span class="n">o</span><span class="p">]</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>$ docker compose up -d --build --wait
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>$ docker compose ps
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>db        Up 26 seconds (healthy)
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>nginx     Up 10 seconds (healthy)
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>redis     Up 26 seconds (healthy)
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>release   Exited (0) 14 seconds ago
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>web       Up 14 seconds (healthy)
+<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>$ curl localhost:8080/health/
+<a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>{"status": "ok", "checks": {"database": "ok", "redis": "ok"}}
+<a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>$ python csrf_login.py http://localhost:8080
+<a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>http://localhost:8080 302 /notes/
+<a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a>$ curl -o /dev/null -w '%{http_code}' localhost:8080/static/admin/css/base.css
+<a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a>200
+<a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a>$ docker compose exec web python manage.py check --deploy        # скорочено: лише коди попереджень
+<a id="__codelineno-21-15" name="__codelineno-21-15" href="#__codelineno-21-15"></a>W004 SECURE_HSTS_SECONDS · W008 SECURE_SSL_REDIRECT · W012 SESSION_COOKIE_SECURE · W016 CSRF_COOKIE_SECURE
+<a id="__codelineno-21-16" name="__codelineno-21-16" href="#__codelineno-21-16"></a>System check identified 4 issues (0 silenced).
+<a id="__codelineno-21-17" name="__codelineno-21-17" href="#__codelineno-21-17"></a>$ docker compose exec -e DJANGO_HTTPS=1 web python manage.py check --deploy
+<a id="__codelineno-21-18" name="__codelineno-21-18" href="#__codelineno-21-18"></a>W005 SECURE_HSTS_INCLUDE_SUBDOMAINS · W008 SECURE_SSL_REDIRECT · W021 SECURE_HSTS_PRELOAD
+<a id="__codelineno-21-19" name="__codelineno-21-19" href="#__codelineno-21-19"></a>System check identified 3 issues (0 silenced).
+</code></pre></div>
+<p>Без HTTPS чотири попередження — очікувані: сайт на http. З <code>DJANGO_HTTPS=1</code> лишаються три свідомі рішення: HSTS для піддоменів і preload вмикають, лише коли <strong>всі</strong> піддомени на https, а перенаправлення http → https робить nginx.</p>
+<h3 id="_3">Дві репліки і чат<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>$ docker compose up -d --scale web=2 --wait
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>до перезапуску nginx:     web-1: 10 запитів, web-2: 0
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>$ docker compose exec nginx nginx -s reload
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>після nginx -s reload:    web-1: 7,  web-2: 3
+</code></pre></div>
+<p>nginx визначає адреси <code>web</code> <strong>один раз, при старті</strong>: нову репліку він не бачить до <code>nginx -s reload</code>. Далі чат (урок 46): Олена й Тарас підключаються через nginx, кожен може потрапити на іншу репліку.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a># REDIS_URL задано — RedisChannelLayer
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>Redis, run 1: [з'єднань на web-1 / web-2: 2 / 3] taras отримав: {'type': 'message', …, 'content': 'Привіт з першої вкладки'}
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>… 4 з 4 доставлено
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a># REDIS_URL порожній — InMemoryChannelLayer
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>InMemory: доставлено 1, не доставлено 5 з 6
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>чужий Origin: handshake 403
+</code></pre></div>
+<p>У пам'яті процесу канал бачить лише своя репліка: повідомлення доходить, тільки якщо обоє випадково на одній. Саме тому channel layer — у Redis (урок 46), і тепер це видно на справжніх двох процесах.</p>
+<p>Те саме правило — для throttle входу (урок 41: 5 спроб за хвилину на <code>/api/token/</code>). DRF рахує спроби в <strong>кеші Django</strong>, а типовий кеш — пам'ять процесу. Тому в <code>settings.py</code> кеш теж у Redis, коли є <code>REDIS_URL</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1"># Кеш Django — у ньому DRF рахує спроби throttle («login»: 5/min). Типовий кеш — пам'ять ОДНОГО процесу:</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="c1"># з --scale web=2 кожна репліка рахувала б свої 5 спроб. REDIS_URL є → кеш спільний для всіх процесів.</span>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="k">if</span> <span class="n">REDIS_URL</span><span class="p">:</span>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>    <span class="n">CACHES</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"default"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"BACKEND"</span><span class="p">:</span> <span class="s2">"django.core.cache.backends.redis.RedisCache"</span><span class="p">,</span> <span class="s2">"LOCATION"</span><span class="p">:</span> <span class="n">REDIS_URL</span><span class="p">}}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>$ for i in $(seq 1 12); do curl -s -o /dev/null -w "%{http_code} " -X POST localhost:8080/api/token/ …; done
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>401 401 401 401 401 429 429 429 429 429 429 429
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>web-1: 4 запити, web-2: 8
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>$ docker compose exec redis redis-cli --scan --pattern '*throttle*'
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>:1:throttle_login_172.19.0.1
+</code></pre></div>
+<p>Запити розійшлися по двох репліках, а ліміт один: шоста спроба — 429.</p>
+<h2 id="deploy">Деплой на сервер<a class="headerlink" href="#deploy" title="Permanent link">&para;</a></h2>
+<p>Сервер — це звичайний Linux з Docker (VPS за кілька доларів на місяць). Кроки нижче — стандартні; у середовищі, де писався урок, справжнього сервера не було, тому все, що стосується самого стеку, перевірено локально тими самими командами, а кроки сервера (SSH, firewall, DNS, сертифікат) — ні.</p>
+<pre class="mermaid"><code>flowchart TD
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    S1["сервер: користувач deploy,&lt;br&gt;вхід лише за SSH-ключем"]
+    S2["Docker Engine + Compose&lt;br&gt;firewall: 22, 80, 443"]
+    S3["git clone у /srv/course"]
+    S4[".env з .env.example&lt;br&gt;chmod 600 .env"]
+    S5["docker compose up -d --build --wait"]
+    S6{"curl /health/ready&lt;br&gt;→ 200?"}
+    S7["DNS → IP сервера,&lt;br&gt;TLS: certbot чи Caddy"]
+    S8["cron: scripts/backup.sh&lt;br&gt;щоночі"]
+    S9["docker compose logs api"]
+    S1 --&gt; S2 --&gt; S3 --&gt; S4 --&gt; S5 --&gt; S6
+    S6 --&gt;|так| S7 --&gt; S8
+    S6 --&gt;|ні| S9 --&gt; S5
+
+    class S1,S2,S3,S5 step
+    class S4 warning
+    class S6 decision
+    class S7,S8 success
+    class S9 error</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="c1"># 1. на сервері (Ubuntu 24.04), від root один раз</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>adduser<span class="w"> </span>deploy<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>usermod<span class="w"> </span>-aG<span class="w"> </span>docker<span class="w"> </span>deploy<span class="w">      </span><span class="c1"># docker — фактично root: лише довіреним</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="c1"># вхід за ключем (довідник Linux, розділ 7), у /etc/ssh/sshd_config: PasswordAuthentication no</span>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>ufw<span class="w"> </span>allow<span class="w"> </span>OpenSSH<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">80</span>,443/tcp<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>ufw<span class="w"> </span><span class="nb">enable</span>
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="c1"># 2. від deploy</span>
+<a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026.git<span class="w"> </span>/srv/course
+<a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a><span class="nb">cd</span><span class="w"> </span>/srv/course/module_5/lessons/lesson_50_compose_deploy/news_hub
+<a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a>cp<span class="w"> </span>.env.example<span class="w"> </span>.env<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>.env<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>nano<span class="w"> </span>.env
+<a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--build<span class="w"> </span>--wait
+<a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a>curl<span class="w"> </span>localhost/health/ready
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Docker і firewall</p>
+<p><code>ports: ["5432:5432"]</code> відкриває порт <strong>в обхід ufw</strong>: Docker сам пише правила iptables. Тому в <code>docker-compose.yml</code> портів у бази й Redis немає зовсім, а для розробки — окремий <code>docker-compose.dev.yml</code> з <code>127.0.0.1:5432:5432</code>.</p>
+</div>
+<p><strong>HTTPS.</strong> Telegram надсилає webhook лише на https, браузери вимагають його для форм входу. Два типові шляхи: certbot на сервері отримує сертифікат Let's Encrypt, а в <code>nginx.conf</code> додається блок <code>listen 443 ssl</code> з <code>ssl_certificate</code> (як у <code>production_bot</code>); або перед стеком ставлять Caddy, який отримує й оновлює сертифікати сам. Для Django після цього — <code>DJANGO_HTTPS=1</code> і <code>DJANGO_CSRF_TRUSTED_ORIGINS=https://домен</code>.</p>
+<p><strong>Оновлення.</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>git<span class="w"> </span>pull<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--build<span class="w"> </span>--wait
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a> Image news_hub:49 Built
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a> Container news_hub-postgres-1 Running
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a> Container news_hub-redis-1 Running
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a> Container news_hub-migrate-1 Recreated        ← нова версія: міграції знову, один раз
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a> Container news_hub-api-1 Recreated
+<a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a> Container news_hub-nginx-1 Running
+</code></pre></div>
+<p>Перезапускається лише змінене. Але поки старий api зупинено, а новий стартує, — простій: запити кожні 0.5 с під час оновлення дали <code>200 ×38, 502 ×21, 000 ×1</code> (~10 с). Без простою — дві репліки й перезапуск по черзі, або новий стек поруч і перемикання nginx (blue-green); для навчального проєкту 10 секунд — прийнятна ціна простоти.</p>
+<p><strong>Бекап і відновлення.</strong> <code>scripts/backup.sh</code> — <code>pg_dump</code> з контейнера, <code>set -euo pipefail</code>, недописаний файл видаляється:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>$ ./scripts/backup.sh
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>бекап: backups/news_hub-20260928-094724.sql.gz (20K)
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>$ curl -X DELETE localhost/api/news -H "Authorization: Bearer …"      # «аварія»
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>$ curl localhost/api/news/count
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>{"count":0}
+<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>$ ./scripts/restore.sh backups/news_hub-20260928-094724.sql.gz
+<a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>відновлено з backups/news_hub-20260928-094724.sql.gz
+<a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a>$ curl localhost/api/news/count
+<a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a>{"count":168}
+<a id="__codelineno-29-10" name="__codelineno-29-10" href="#__codelineno-29-10"></a>
+<a id="__codelineno-29-11" name="__codelineno-29-11" href="#__codelineno-29-11"></a>$ docker compose stop postgres &amp;&amp; ./scripts/backup.sh; echo "код: $?"
+<a id="__codelineno-29-12" name="__codelineno-29-12" href="#__codelineno-29-12"></a>service "postgres" is not running
+<a id="__codelineno-29-13" name="__codelineno-29-13" href="#__codelineno-29-13"></a>код: 1                                   ← і жодного порожнього файлу в backups/
+</code></pre></div>
+<p>Бекап, з якого жодного разу не відновлювались, — не бекап. На сервері: <code>cron</code> щоночі + копія файлу <strong>на інший сервер</strong> (диск може вмерти разом з базою).</p>
+<h2 id="architecture">Архітектура<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>graph LR
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    U["користувачі,&lt;br&gt;Telegram"]
+    subgraph EDGE["мережа edge"]
+        NG["nginx :80&lt;br&gt;172.28.0.10"]
+    end
+    subgraph BACK["мережа backend"]
+        API["api ×N&lt;br&gt;uvicorn"]
+        MIG["migrate&lt;br&gt;один раз"]
+        BOT["bot&lt;br&gt;profile polling"]
+        PG[("postgres&lt;br&gt;том pgdata")]
+        RD[("redis")]
+    end
+    ENV[".env&lt;br&gt;секрети"]
+    U --&gt;|":80"| NG --&gt;|"X-Forwarded-For"| API
+    MIG --&gt; PG
+    API --&gt; PG
+    API --&gt; RD
+    BOT --&gt; PG
+    BOT --&gt; RD
+    ENV -.-&gt; API
+    ENV -.-&gt; BOT
+    ENV -.-&gt; PG
+
+    class NG decision
+    class API,BOT step
+    class MIG warning
+    class PG,RD success
+    class ENV warning
+    class U step</code></pre>
+<table>
+<thead>
+<tr>
+<th>Сервіс</th>
+<th>Образ</th>
+<th>Назовні</th>
+<th>Скільки</th>
+<th>Чекає</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nginx</td>
+<td><code>nginx:1.27-alpine</code></td>
+<td><code>:80</code></td>
+<td>1</td>
+<td>api healthy</td>
+</tr>
+<tr>
+<td>api</td>
+<td><code>news_hub:49</code></td>
+<td>—</td>
+<td>1…N</td>
+<td>migrate завершився, redis healthy</td>
+</tr>
+<tr>
+<td>migrate</td>
+<td><code>news_hub:49</code></td>
+<td>—</td>
+<td>один раз</td>
+<td>postgres healthy</td>
+</tr>
+<tr>
+<td>bot</td>
+<td><code>news_hub:49</code></td>
+<td>—</td>
+<td>1 (profile)</td>
+<td>migrate, redis</td>
+</tr>
+<tr>
+<td>postgres, redis</td>
+<td>офіційні</td>
+<td>—</td>
+<td>1</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>Проєкт нотаток влаштований так само: <code>nginx</code> → <code>web ×N</code> (daphne), <code>release</code> замість <code>migrate</code> (міграції + статика), <code>db</code>, <code>redis</code> (channel layer чату); статику nginx читає зі спільного тому <code>staticfiles</code>.</p>
+<h2 id="tests">Тести<a class="headerlink" href="#tests" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Де</th>
+<th>Що перевіряє</th>
+<th>Тестів</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>news_hub/tests/unit/test_security.py</code></td>
+<td>обрізаний хеш (як після підстановки Compose) → помилка при старті</td>
+<td>+1</td>
+</tr>
+<tr>
+<td><code>news_hub/tests/integration/test_telegram_webhook.py</code></td>
+<td>Telegram недоступний → API стартує, реєстрація повторюється й завершується, коли «Telegram» з'явився; неправильний токен (401) → бот вимкнено, API працює</td>
+<td>+2</td>
+</tr>
+<tr>
+<td><code>crispy_notes_project/hello_app/tests_deploy.py</code></td>
+<td><code>/health/</code> (ок і Redis недоступний → 503); <code>DEBUG=0</code> без ключа → <code>ImproperlyConfigured</code>; з ключем — старт; <code>DJANGO_HTTPS=1</code> → secure cookies, <code>SECURE_PROXY_SSL_HEADER</code>, trusted origins</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>news_hub:             343 passed (SQLite + fakeredis; PostgreSQL 16 + Redis 7; Python 3.10 з мінімальними версіями)
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>                      pytest -m docker: 6 passed
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>crispy_notes_project: Ran 81 tests … OK
+</code></pre></div>
+<p>Сам стек (порядок запуску, nginx, IP клієнта, webhook, бекап, репліки й чат) перевірено наживо командами вище. У уроці 51 частина цього переїде в CI: збірка образу й smoke-запуск на кожен PR.</p>
+<h2 id="how-to-choose">Як обрати, де запускати<a class="headerlink" href="#how-to-choose" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    Q0["застосунок готовий&lt;br&gt;до публікації"]
+    Q1{"хочеш сам керувати&lt;br&gt;сервером?"}
+    Q2{"потрібні десятки серверів,&lt;br&gt;автомасштаб, без простою?"}
+    P["PaaS: Render, Fly.io, Railway&lt;br&gt;образ + керована база"]
+    C["VPS + Docker Compose&lt;br&gt;цей урок"]
+    K["Kubernetes&lt;br&gt;довідник Linux, розділ 17"]
+    Q0 --&gt; Q1
+    Q1 --&gt;|ні| P
+    Q1 --&gt;|так| Q2
+    Q2 --&gt;|ні| C
+    Q2 --&gt;|так| K
+
+    class Q0 step
+    class Q1,Q2 decision
+    class C success
+    class P,K step</code></pre>
+<p>Той самий образ підходить для всіх трьох: PaaS і Kubernetes запускають контейнер з тими самими змінними середовища й перевірками здоров'я. Compose на одному сервері — найпростіший спосіб, де видно кожну частину системи.</p>
+<h2 id="practice">Практика<a class="headerlink" href="#practice" title="Permanent link">&para;</a></h2>
+<h3 id="api">Розібраний приклад: дві репліки API<a class="headerlink" href="#api" title="Permanent link">&para;</a></h3>
+<p>Rate limit, кеш і статуси задач <code>news_hub</code> зберігає в Redis (урок 40), а не в пам'яті процесу. Отже, API можна запустити в кількох копіях:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--scale<span class="w"> </span><span class="nv">api</span><span class="o">=</span><span class="m">2</span><span class="w"> </span>--wait
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>nginx<span class="w"> </span>nginx<span class="w"> </span>-s<span class="w"> </span>reload<span class="w">        </span><span class="c1"># nginx дізнається про нову репліку</span>
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">7</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-w<span class="w"> </span><span class="s2">"%{http_code} "</span><span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>localhost/api/admin/token<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="w">    </span>-H<span class="w"> </span><span class="s1">'content-type: application/json'</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">'{"username":"admin","password":"guess'</span><span class="nv">$i</span><span class="s1">'"}'</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a> Container news_hub-api-1 Healthy
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a> Container news_hub-api-2 Healthy
+<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>401 401 401 401 401 429 429
+<a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a>news_hub-api-1: 5 запитів
+<a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a>news_hub-api-2: 2 запити
+</code></pre></div>
+<p>Запити розійшлися по двох процесах, а ліміт спрацював на шостій спробі — лічильник один, у Redis. Якби rate limit жив у словнику Python, кожна репліка рахувала б свої п'ять — і з N репліками зловмисник мав би 5·N спроб.</p>
+<h3 id="_4">Зміни приклад<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Прибери з api <code>FORWARDED_ALLOW_IPS</code> (uvicorn повернеться до <code>127.0.0.1</code>). Який ключ з'явиться в Redis після спроби входу?</li>
+<li>У <code>nginx.conf</code> заміни <code>$http_host</code> на <code>$host</code> і відкрий стек нотаток на порту 8080. Що станеться з формою входу?</li>
+</ol>
+<details class="success">
+<summary>Що покаже запуск</summary>
+<ol>
+<li><code>rate:login:172.28.0.10</code> — адреса nginx: заголовку <code>X-Forwarded-For</code> від нього uvicorn більше не вірить, і всі клієнти знову «одна людина».</li>
+<li><code>403 Origin checking failed - http://localhost:8080 does not match any trusted origins.</code> — Django бачить <code>Host: localhost</code> без порту. На порту 80 різниці не видно, тому помилка «з'являється» лише на сервері з іншим портом чи за іншим проксі.</li>
+</ol>
+</details>
+<h3 id="compose_1">Спробуй самостійно: бекап за розкладом у Compose<a class="headerlink" href="#compose_1" title="Permanent link">&para;</a></h3>
+<p>Додай сервіс <code>backup</code> з профілем <code>backup</code>: образ <code>postgres:16-alpine</code>, щоночі (або кожні N секунд для перевірки) робить <code>pg_dump | gzip</code> у том <code>backups</code>, зберігає останні 7 файлів.</p>
+<p><strong>Критерії перевірки:</strong></p>
+<ul>
+<li>пароль — з <code>.env</code>, не в <code>docker-compose.yml</code>;</li>
+<li><code>set -euo pipefail</code>: недоступна база — жодного порожнього файлу;</li>
+<li><code>./scripts/restore.sh</code> відновлює базу з файлу, зробленого сервісом;</li>
+<li>без <code>--profile backup</code> сервіс не запускається.</li>
+</ul>
+<h3 id="find-bug">Знайди помилку<a class="headerlink" href="#find-bug" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="nt">services</span><span class="p">:</span>
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="w">  </span><span class="nt">db</span><span class="p">:</span>
+<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres:16-alpine</span>
+<a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a><span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a><span class="w">      </span><span class="nt">POSTGRES_DB</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">news_hub</span>
+<a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a><span class="w">      </span><span class="nt">POSTGRES_USER</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">news</span>
+<a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a><span class="w">      </span><span class="nt">POSTGRES_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${POSTGRES_PASSWORD}</span>
+<a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a><span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<a id="__codelineno-33-9" name="__codelineno-33-9" href="#__codelineno-33-9"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"5432:5432"</span>
+<a id="__codelineno-33-10" name="__codelineno-33-10" href="#__codelineno-33-10"></a><span class="w">  </span><span class="nt">api</span><span class="p">:</span>
+<a id="__codelineno-33-11" name="__codelineno-33-11" href="#__codelineno-33-11"></a><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">news_hub:49</span>
+<a id="__codelineno-33-12" name="__codelineno-33-12" href="#__codelineno-33-12"></a><span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<a id="__codelineno-33-13" name="__codelineno-33-13" href="#__codelineno-33-13"></a><span class="w">      </span><span class="nt">DATABASE_URL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgresql+asyncpg://news:${POSTGRES_PASSWORD}@localhost:5432/news_hub</span>
+<a id="__codelineno-33-14" name="__codelineno-33-14" href="#__codelineno-33-14"></a><span class="w">      </span><span class="nt">REDIS_URL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis://redis:6379/0</span>
+<a id="__codelineno-33-15" name="__codelineno-33-15" href="#__codelineno-33-15"></a><span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<a id="__codelineno-33-16" name="__codelineno-33-16" href="#__codelineno-33-16"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"8000:8000"</span>
+<a id="__codelineno-33-17" name="__codelineno-33-17" href="#__codelineno-33-17"></a><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">db</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">redis</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-33-18" name="__codelineno-33-18" href="#__codelineno-33-18"></a><span class="w">  </span><span class="nt">redis</span><span class="p">:</span>
+<a id="__codelineno-33-19" name="__codelineno-33-19" href="#__codelineno-33-19"></a><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis:7-alpine</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>$ docker compose up -d &amp;&amp; sleep 20 &amp;&amp; docker compose ps
+<a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>api     Up 22 seconds (healthy)   0.0.0.0:8000-&gt;8000/tcp
+<a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>db      Up 22 seconds             0.0.0.0:5432-&gt;5432/tcp
+<a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a>redis   Up 22 seconds             6379/tcp
+<a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a>$ curl localhost:8000/health/ready
+<a id="__codelineno-34-6" name="__codelineno-34-6" href="#__codelineno-34-6"></a>{"status":"unavailable","checks":{"database":"ConnectionRefusedError","redis":"ok"}}
+</code></pre></div>
+<p><code>docker compose ps</code> каже «healthy». Що не так? Знайди три проблеми.</p>
+<details class="success">
+<summary>Відповідь</summary>
+<ol>
+<li><strong><code>localhost</code> у <code>DATABASE_URL</code>.</strong> У контейнері api <code>localhost</code> — сам api, бази там немає: <code>ConnectionRefusedError</code>. Адреса — ім'я сервісу: <code>@db:5432</code>.</li>
+<li><strong>Порт бази відкритий усьому світу.</strong> <code>"5432:5432"</code> на сервері — це <code>0.0.0.0:5432</code>, і Docker пропускає його в обхід ufw. Для api цей порт не потрібен (вони в одній мережі). Для розробки — <code>127.0.0.1:5432:5432</code> в окремому файлі.</li>
+<li><strong><code>depends_on</code> без умов і без міграцій.</strong> api стартує, щойно контейнер db запущений, а не готовий, і таблиць ніхто не створює. Потрібні healthcheck у db, <code>condition: service_healthy</code> і окремий <code>migrate</code> з <code>service_completed_successfully</code>.</li>
+</ol>
+<p>А «healthy» — бо HEALTHCHECK образу питає <code>/health</code> (процес живий), і це правда. Готовність до роботи показує <code>/health/ready</code> — саме її Compose має чекати перед nginx.</p>
+</details>
+<h2 id="_5">Підсумок<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Поняття</th>
+<th>Що запам'ятати</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>depends_on</code></td>
+<td>лише з <code>condition</code>: <code>service_healthy</code>, <code>service_completed_successfully</code></td>
+</tr>
+<tr>
+<td>healthcheck</td>
+<td>інструментом, що є в образі; для API в Compose — готовність (<code>/health/ready</code>)</td>
+</tr>
+<tr>
+<td>випуск і робота</td>
+<td>міграції й статика — окремим one-shot сервісом; сервер — скільки завгодно реплік</td>
+</tr>
+<tr>
+<td>nginx</td>
+<td><code>X-Forwarded-For $remote_addr</code> + довіра лише адресі nginx; <code>Host $http_host</code></td>
+</tr>
+<tr>
+<td>мережі й порти</td>
+<td>назовні — лише nginx; база й Redis — без <code>ports</code>; Docker обходить ufw</td>
+</tr>
+<tr>
+<td><code>.env</code></td>
+<td>поза git; значення з <code>$</code> — в одинарних лапках; <code>${VAR:?…}</code> — обов'язкові</td>
+</tr>
+<tr>
+<td>зовнішні сервіси</td>
+<td>Telegram, LLM недоступні → API однаково стартує</td>
+</tr>
+<tr>
+<td>сервер</td>
+<td>ключ SSH, firewall, <code>.env</code> 600, <code>up -d --build --wait</code>, TLS, бекап + перевірка відновлення</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_6">Самоперевірка<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Чим <code>depends_on: [api]</code> відрізняється від <code>condition: service_healthy</code>?</li>
+<li>Чому міграції — окремий сервіс, а не перший рядок <code>entrypoint.sh</code>?</li>
+<li>Навіщо nginx перезаписує <code>X-Forwarded-For</code>, якщо uvicorn і так вірить лише nginx?</li>
+<li>У <code>.env</code> без лапок <code>ADMIN_PASSWORD_HASH=$2b$12$abc…</code>. Що отримає застосунок?</li>
+<li>Чому бот у Compose має <code>healthcheck: disable: true</code>?</li>
+<li>Що перевірити після кожного бекапу?</li>
+</ol>
+<details class="success">
+<summary>Відповіді</summary>
+<ol>
+<li>Перше чекає, поки контейнер <strong>запуститься</strong> (процес створено) — API ще не відповідає. Друге — поки його healthcheck поверне успіх.</li>
+<li>Кілька реплік одночасно запускають міграції й конфліктують (у Django-проєкті друга репліка падала 3 з 3 разів). Випуск — один раз, робота — у N копіях.</li>
+<li>Вірити лише nginx — щоб клієнт не міг звернутися до API напряму з вигаданим заголовком. Перезаписувати — щоб вигаданий клієнтом заголовок не дійшов до API навіть через nginx. Кожне окремо закриває одну дірку.</li>
+<li><code>$2b$12</code> — решту Compose сприйняв як змінні й підставив порожнечу (з попередженням). Тепер це помилка при старті; раніше — 500 на кожен вхід.</li>
+<li>HEALTHCHECK образу питає <code>:8000/health</code>, а бот не сервер — він був би «unhealthy» завжди, і <code>up --wait</code> падав би.</li>
+<li>Що з нього відновлюється: <code>restore.sh</code> на копії стеку й перевірка даних. Плюс копія на інший сервер.</li>
+</ol>
+</details>
+<h3 id="_7">Що далі<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Ноутбук заняття: <a class="md-button md-button--primary" href="https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_5/lessons/lesson_50_compose_deploy/note_lesson_50_compose_student.ipynb">Відкрити вправи в Colab</a> <a class="solutions-link" href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_5/lessons/lesson_50_compose_deploy/note_lesson_50_compose.ipynb">Переглянути розв’язки</a>.</li>
+<li>Урок 51: те, що тут перевіряли руками, — тести, типи, збірка образу, smoke-запуск — робить GitHub Actions на кожен PR.</li>
+</ul>
+<h2 id="_8">Документація і джерела<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Код: <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_5/lessons/lesson_50_compose_deploy/news_hub"><code>news_hub</code></a> — <code>docker-compose.yml</code> і <code>nginx.conf</code> зі стартового <code>production_bot</code>; <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_5/lessons/lesson_50_compose_deploy/crispy_notes_project"><code>crispy_notes_project</code></a> — Docker-файли з Django-книги <a href="https://nikoriakviktot.github.io/notes_chat_app/">notes_chat_app</a>.</li>
+<li>Поглиблено в Django-книзі: крок 8–9 — Docker Compose, entrypoint, nginx, PostgreSQL, Redis, production checklist (<a href="https://nikoriakviktot.github.io/notes_chat_app/">розділ «Деплой»</a>).</li>
+<li>Docker Compose: <a href="https://docs.docker.com/reference/compose-file/">Compose file reference</a>, <a href="https://docs.docker.com/reference/compose-file/services/">services: depends_on, healthcheck, profiles</a>, <a href="https://docs.docker.com/reference/compose-file/interpolation/">interpolation</a>, <a href="https://docs.docker.com/compose/how-tos/environment-variables/"><code>.env</code> і env_file</a>, <a href="https://docs.docker.com/reference/compose-file/networks/">networks</a>, <a href="https://docs.docker.com/compose/how-tos/startup-order/">startup order</a>.</li>
+<li>Docker і firewall: <a href="https://docs.docker.com/engine/network/packet-filtering-firewalls/">Packet filtering and firewalls</a>.</li>
+<li>nginx: <a href="https://nginx.org/en/docs/http/ngx_http_proxy_module.html">ngx_http_proxy_module</a>, <a href="https://nginx.org/en/docs/http/websocket.html">WebSocket proxying</a>, <a href="https://nginx.org/en/docs/varindex.html">variables</a>.</li>
+<li>uvicorn: <a href="https://www.uvicorn.org/settings/">settings — <code>--forwarded-allow-ips</code>, <code>--proxy-headers</code></a>. Django: <a href="https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/">deployment checklist</a>, <a href="https://docs.djangoproject.com/en/5.2/ref/settings/#secure-proxy-ssl-header"><code>SECURE_PROXY_SSL_HEADER</code></a>, <a href="https://docs.djangoproject.com/en/5.2/ref/settings/#csrf-trusted-origins"><code>CSRF_TRUSTED_ORIGINS</code></a>. Channels: <a href="https://channels.readthedocs.io/en/latest/topics/channel_layers.html">channel layers</a>.</li>
+<li>PostgreSQL: <a href="https://www.postgresql.org/docs/16/app-pgdump.html"><code>pg_dump</code></a>. Let's Encrypt: <a href="https://certbot.eff.org/">certbot</a>.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Футер" >
+        
+          
+          <a href="../lesson_49/" class="md-footer__link md-footer__link--prev" aria-label="Назад: 49. Docker">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Назад
+              </span>
+              <div class="md-ellipsis">
+                49. Docker
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../lesson_51/" class="md-footer__link md-footer__link--next" aria-label="Вперед: 51. CI/CD (GitHub Actions)">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Вперед
+              </span>
+              <div class="md-ellipsis">
+                51. CI/CD (GitHub Actions)
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.footer", "toc.follow", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0456\u0439\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u0421\u043a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438 \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0429\u0435 1 \u0437\u0431\u0456\u0433 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.more.other": "\u0429\u0435 # \u0437\u0431\u0456\u0433\u0456\u0432 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.none": "\u0417\u0431\u0456\u0433\u0456\u0432 \u043d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0437\u0431\u0456\u0433", "search.result.other": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e # \u0437\u0431\u0456\u0433\u0456\u0432", "search.result.placeholder": "\u0420\u043e\u0437\u043f\u043e\u0447\u043d\u0456\u0442\u044c \u043f\u0438\u0441\u0430\u0442\u0438 \u0434\u043b\u044f \u043f\u043e\u0448\u0443\u043a\u0443", "search.result.term.missing": "\u041d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e \u0437\u0430\u043f\u0438\u0442\u0443", "select.version": "\u041e\u0431\u0440\u0430\u0442\u0438 \u0432\u0435\u0440\u0441\u0456\u044e"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/sidebars.js"></script>
+      
+    
+  </body>
+</html>

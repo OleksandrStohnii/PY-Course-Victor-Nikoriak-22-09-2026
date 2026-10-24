@@ -1,0 +1,3396 @@
+
+<!doctype html>
+<html lang="uk" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Курс Python українською — від основ до просунутих тем, у форматі книги">
+      
+      
+      
+        <link rel="canonical" href="https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/reference/python_core/introspection_debug_tools/">
+      
+      
+        <link rel="prev" href="../file_io_json/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Python Helper Toolkit - PY Course — Viktor Nikoriak</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#python-helper-toolkit" class="md-skip">
+          Перейти до змісту
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Хедер">
+    <a href="../../.." title="PY Course — Viktor Nikoriak" class="md-header__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PY Course — Viktor Nikoriak
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Python Helper Toolkit
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Пошук" placeholder="Пошук" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Шукати">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистити" aria-label="Очистити" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Пошук розпочато
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Вкладки" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Головна
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../00_getting_started/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Як користуватися
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../modules/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Модулі курсу (в розробці)
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../00_python_mental_model/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Довідник
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Навігація" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="PY Course — Viktor Nikoriak" class="md-nav__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    PY Course — Viktor Nikoriak
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Головна
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../00_getting_started/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Як користуватися
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../modules/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Модулі курсу (в розробці)
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Довідник
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Довідник
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../00_python_mental_model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ментальна модель Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01_zen_of_python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zen of Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../git-cheatsheet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git шпаргалка
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python Core
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_4" id="__nav_4_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Python Core
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lists/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Списки (list)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tuples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Кортежі (tuple, namedtuple)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Множини (set)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dicts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Словники (dict)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../strings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Рядки (str)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Функції та ФП
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../namespaces_legb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Простори імен / LEGB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../eval_and_safe_alternatives/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    eval() та безпечні альтернативи
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exceptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exceptions & Error Handling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../file_io_json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File I/O та JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python Helper Toolkit
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python Helper Toolkit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Інтроспекція — дослідження Python зсередини
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Інтроспекція — дослідження Python зсередини">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dirobject" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dir(object) — усі атрибути та методи об'єкта
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helpobject" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        help(object) — вбудована документація
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typeobject" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        type(object) — тип об'єкта
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#isinstanceobject-classinfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        isinstance(object, classinfo) — правильний спосіб перевірки типу
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#idobject-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        id(object) і is — той самий об'єкт чи просто однакове значення?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Дебаг-інструменти
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Дебаг-інструменти">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#print" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        print() як базовий інструмент
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        f-string для читабельного дебагу
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assert" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        assert — швидка перевірка, що все працює правильно
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#repr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        repr() — технічне представлення
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#__repr__-repr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __repr__ — свій repr() для власних класів
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vars" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        vars() — внутрішні атрибути об'єкта
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#imutable-mutable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Модель пам'яті: imutable, mutable, копії
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Модель пам&#39;яті: imutable, mutable, копії">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#immutable-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Immutable-приклад
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mutable-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mutable-приклад
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        == проти is
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Поверхнева копія
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Глибока копія
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Експеримент з посиланнями
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Фінальна ментальна модель
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Часто вживані вбудовані функції
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Часто вживані вбудовані функції">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Математичні та агрегатні
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Математичні та агрегатні">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sumiterable-start0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sum(iterable, start=0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#miniterable-maxiterable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        min(iterable) та max(iterable)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#absx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        abs(x)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roundx-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        round(x, n)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Послідовності та цикли
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Послідовності та цикли">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lens" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        len(s)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rangestart-stop-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        range(start, stop, step)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zipiterables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        zip(*iterables)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enumerateiterable-start0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        enumerate(iterable, start=0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Функціональне програмування
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Функціональне програмування">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mapfunction-iterable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        map(function, iterable)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filterfunction-iterable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        filter(function, iterable)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#random" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Модуль random
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Модуль random">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#randomrandinta-b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        random.randint(a, b)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#randomchoiceseq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        random.choice(seq)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#randomrandom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        random.random()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#randomuniforma-b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        random.uniform(a, b)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#randomshuffleseq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        random.shuffle(seq)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#randomsamplepopulation-k" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        random.sample(population, k)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#randomrandrangestart-stop-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        random.randrange(start, stop, step)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#randomseedx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        random.seed(x)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sorted-any-all" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sorted(), any(), all()
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="sorted(), any(), all()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sortediterable-keynone-reversefalse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sorted(iterable, key=None, reverse=False)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#anyiterable-alliterable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        any(iterable) та all(iterable)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Практичні завдання
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Шпаргалка — швидка довідка
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Інтроспекція — дослідження Python зсередини
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Інтроспекція — дослідження Python зсередини">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dirobject" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dir(object) — усі атрибути та методи об'єкта
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helpobject" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        help(object) — вбудована документація
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typeobject" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        type(object) — тип об'єкта
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#isinstanceobject-classinfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        isinstance(object, classinfo) — правильний спосіб перевірки типу
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#idobject-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        id(object) і is — той самий об'єкт чи просто однакове значення?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Дебаг-інструменти
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Дебаг-інструменти">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#print" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        print() як базовий інструмент
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        f-string для читабельного дебагу
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assert" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        assert — швидка перевірка, що все працює правильно
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#repr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        repr() — технічне представлення
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#__repr__-repr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __repr__ — свій repr() для власних класів
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vars" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        vars() — внутрішні атрибути об'єкта
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#imutable-mutable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Модель пам'яті: imutable, mutable, копії
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Модель пам&#39;яті: imutable, mutable, копії">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#immutable-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Immutable-приклад
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mutable-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mutable-приклад
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        == проти is
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Поверхнева копія
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Глибока копія
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Експеримент з посиланнями
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Фінальна ментальна модель
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Часто вживані вбудовані функції
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Часто вживані вбудовані функції">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Математичні та агрегатні
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Математичні та агрегатні">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sumiterable-start0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sum(iterable, start=0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#miniterable-maxiterable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        min(iterable) та max(iterable)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#absx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        abs(x)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roundx-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        round(x, n)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Послідовності та цикли
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Послідовності та цикли">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lens" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        len(s)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rangestart-stop-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        range(start, stop, step)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zipiterables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        zip(*iterables)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enumerateiterable-start0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        enumerate(iterable, start=0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Функціональне програмування
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Функціональне програмування">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mapfunction-iterable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        map(function, iterable)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filterfunction-iterable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        filter(function, iterable)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#random" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Модуль random
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Модуль random">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#randomrandinta-b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        random.randint(a, b)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#randomchoiceseq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        random.choice(seq)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#randomrandom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        random.random()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#randomuniforma-b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        random.uniform(a, b)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#randomshuffleseq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        random.shuffle(seq)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#randomsamplepopulation-k" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        random.sample(population, k)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#randomrandrangestart-stop-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        random.randrange(start, stop, step)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#randomseedx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        random.seed(x)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sorted-any-all" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sorted(), any(), all()
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="sorted(), any(), all()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sortediterable-keynone-reversefalse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sorted(iterable, key=None, reverse=False)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#anyiterable-alliterable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        any(iterable) та all(iterable)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Практичні завдання
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Шпаргалка — швидка довідка
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Навігація" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Головна
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../../00_python_mental_model/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Довідник
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Python Core
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="python-helper-toolkit">Python Helper Toolkit: інтроспекція, дебаг і вбудовані функції<a class="headerlink" href="#python-helper-toolkit" title="Permanent link">&para;</a></h1>
+<p>Практичний набір інструментів для дослідження об'єктів, дебагу коду та розуміння пам'яті Python — плюс каталог часто вживаних вбудованих функцій (<code>sum</code>, <code>zip</code>, <code>map</code>, <code>sorted</code>, модуль <code>random</code> тощо). Це довідник: читайте розділ, коли він потрібен саме зараз, а не як лекцію від початку до кінця.</p>
+<h2 id="python">Інтроспекція — дослідження Python зсередини<a class="headerlink" href="#python" title="Permanent link">&para;</a></h2>
+<p>Інтроспекція — це можливість програми досліджувати саму себе під час виконання: дізнатися тип об'єкта, список його методів, чи є два імені насправді одним і тим самим об'єктом у пам'яті.</p>
+<h3 id="dirobject"><code>dir(object)</code> — усі атрибути та методи об'єкта<a class="headerlink" href="#dirobject" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">all_str_methods</span> <span class="o">=</span> <span class="nb">dir</span><span class="p">(</span><span class="s2">"hello"</span><span class="p">)</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Рядок має </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">all_str_methods</span><span class="p">)</span><span class="si">}</span><span class="s2"> атрибутів/методів"</span><span class="p">)</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Фільтруємо магічні методи (dunder) — показуємо тільки звичайні</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">normal_methods</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="s2">"hello"</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"__"</span><span class="p">)]</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Звичайні методи рядка:"</span><span class="p">)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">normal_methods</span><span class="p">)</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="c1"># Те саме для списку</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">list_methods</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">([])</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"__"</span><span class="p">)]</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Методи списку:"</span><span class="p">)</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="nb">print</span><span class="p">(</span><span class="n">list_methods</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Рядок має 81 атрибутів/методів
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>Звичайні методи рядка:
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>['capitalize', 'casefold', 'center', 'count', 'encode', 'endswith', 'expandtabs',
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a> 'find', 'format', 'format_map', 'index', 'isalnum', 'isalpha', 'isascii',
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a> 'isdecimal', 'isdigit', 'isidentifier', 'islower', 'isnumeric', 'isprintable',
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a> 'isspace', 'istitle', 'isupper', 'join', 'ljust', 'lower', 'lstrip', 'maketrans',
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a> 'partition', 'removeprefix', 'removesuffix', 'replace', 'rfind', 'rindex',
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a> 'rjust', 'rpartition', 'rsplit', 'rstrip', 'split', 'splitlines', 'startswith',
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a> 'strip', 'swapcase', 'title', 'translate', 'upper', 'zfill']
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>Методи списку:
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>['append', 'clear', 'copy', 'count', 'extend', 'index', 'insert', 'pop',
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a> 'remove', 'reverse', 'sort']
+</code></pre></div>
+<h3 id="helpobject"><code>help(object)</code> — вбудована документація<a class="headerlink" href="#helpobject" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">help</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">help</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">join</span><span class="p">)</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Hello"</span><span class="p">,</span> <span class="s2">"World"</span><span class="p">]</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">words</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Hello World
+</code></pre></div>
+<p><code>help(str.join)</code> показує сигнатуру та документацію методу прямо в консолі — не потрібно шукати в інтернеті, щоб згадати порядок аргументів.</p>
+<h3 id="typeobject"><code>type(object)</code> — тип об'єкта<a class="headerlink" href="#typeobject" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="mi">42</span><span class="p">))</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="mf">3.14</span><span class="p">))</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="s2">"hello"</span><span class="p">))</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]))</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="kc">True</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>&lt;class 'int'&gt;
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>&lt;class 'float'&gt;
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>&lt;class 'str'&gt;
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>&lt;class 'list'&gt;
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>&lt;class 'bool'&gt;
+</code></pre></div>
+<p>Щоб отримати лише ім'я типу, а не весь <code>&lt;class '...'&gt;</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>int
+</code></pre></div>
+<h3 id="isinstanceobject-classinfo"><code>isinstance(object, classinfo)</code> — правильний спосіб перевірки типу<a class="headerlink" href="#isinstanceobject-classinfo" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">value</span> <span class="o">=</span> <span class="kc">True</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nb">print</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">bool</span><span class="p">))</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="nb">print</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span>  <span class="c1"># bool успадковує int</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>True
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>True
+</code></pre></div>
+<p><code>isinstance()</code> кращий за порівняння <code>type(x) == ...</code>, бо враховує наслідування класів:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"Це список — підрахуємо суму:"</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"Це рядок — перевернемо:"</span><span class="p">,</span> <span class="n">value</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>  <span class="c1"># можна передати кортеж типів!</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"Це число — зведемо в квадрат:"</span><span class="p">,</span> <span class="n">value</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Перевірка bool:"</span><span class="p">)</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"type(True) == int:"</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span> <span class="o">==</span> <span class="nb">int</span><span class="p">)</span>          <span class="c1"># False</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"isinstance(True, int):"</span><span class="p">,</span> <span class="nb">isinstance</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span>  <span class="c1"># True! bool успадковує int</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>Це список — підрахуємо суму: 6
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>Перевірка bool:
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>type(True) == int: False
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>isinstance(True, int): True
+</code></pre></div>
+<p><code>bool</code> — підклас <code>int</code> (<code>True == 1</code>, <code>False == 0</code>), тому <code>type(True) == int</code> дає <code>False</code> (типи не збігаються буквально), а <code>isinstance(True, int)</code> дає <code>True</code> (враховує спадкування). Якщо логіка залежить від типу вхідних даних — використовуйте <code>isinstance()</code>, а не пряме порівняння <code>type()</code>.</p>
+<h3 id="idobject-is"><code>id(object)</code> і <code>is</code> — той самий об'єкт чи просто однакове значення?<a class="headerlink" href="#idobject-is" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">a</span> <span class="o">=</span> <span class="mi">5</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="n">b</span> <span class="o">=</span> <span class="mi">5</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"id(a):"</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"id(b):"</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"a is b:"</span><span class="p">,</span> <span class="n">a</span> <span class="ow">is</span> <span class="n">b</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>id(a): 11759912
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>id(b): 11759912
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>a is b: True
+</code></pre></div>
+<p><code>id()</code> повертає унікальний ідентифікатор об'єкта в пам'яті (для CPython — фактично адресу). Малі цілі числа Python кешує, тому <code>a</code> і <code>b</code> тут — буквально один об'єкт. <code>is</code> перевіряє саме це: чи <code>id()</code> збігається, а не просто чи значення однакові (для цього є <code>==</code>, див. нижче).</p>
+<h2 id="-">Дебаг-інструменти<a class="headerlink" href="#-" title="Permanent link">&para;</a></h2>
+<p>Debug — це контроль, а не хаос: замість вгадування, де саме код поводиться не так, підключаємо конкретні інструменти.</p>
+<h3 id="print"><code>print()</code> як базовий інструмент<a class="headerlink" href="#print" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">x</span> <span class="o">=</span> <span class="mi">10</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="n">y</span> <span class="o">=</span> <span class="mi">3</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"DEBUG → x ="</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"DEBUG → y ="</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"DEBUG → x/y ="</span><span class="p">,</span> <span class="n">x</span> <span class="o">/</span> <span class="n">y</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>DEBUG → x = 10
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>DEBUG → y = 3
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>DEBUG → x/y = 3.3333333333333335
+</code></pre></div>
+<h3 id="f-string">f-string для читабельного дебагу<a class="headerlink" href="#f-string" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">name</span> <span class="o">=</span> <span class="s2">"Victor"</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="n">age</span> <span class="o">=</span> <span class="mi">30</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"DEBUG → name=</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">, age=</span><span class="si">{</span><span class="n">age</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>DEBUG → name=Victor, age=30
+</code></pre></div>
+<p>Компактніше за конкатенацію рядків і одразу видно, яке значення якій змінній відповідає.</p>
+<h3 id="assert"><code>assert</code> — швидка перевірка, що все працює правильно<a class="headerlink" href="#assert" title="Permanent link">&para;</a></h3>
+<p><code>assert</code> — це спосіб сказати програмі: «Я впевнений, що ця умова має бути <code>True</code>. Якщо ні — значить у коді баг. Зупиняй програму.»</p>
+<p><strong>Простий приклад:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">x</span> <span class="o">=</span> <span class="mi">5</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="k">assert</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Everything is OK"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>Everything is OK
+</code></pre></div>
+<p>Умова <code>5 &gt; 0</code> — <code>True</code>, тому програма продовжує роботу і друкує рядок.</p>
+<p>А якщо умова неправильна:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="k">assert</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>AssertionError
+</code></pre></div>
+<p>Програма миттєво зупиняється — саме там, де умова порушена, а не десь далі, де це стане незрозумілим побічним ефектом.</p>
+<p><strong>Коли реально використовувати <code>assert</code>:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Ситуація</th>
+<th>Чи підходить <code>assert</code>?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Перевірка математичної логіки</td>
+<td>✅ Так</td>
+</tr>
+<tr>
+<td>Внутрішній стан об'єкта</td>
+<td>✅ Так</td>
+</tr>
+<tr>
+<td>Перевірка API під час розробки</td>
+<td>✅ Так</td>
+</tr>
+<tr>
+<td>Перевірка прав доступу</td>
+<td>❌ Ні</td>
+</tr>
+<tr>
+<td>Перевірка вводу користувача</td>
+<td>❌ Ні</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">assert — не для перевірки зовнішніх даних</p>
+<p><code>assert</code> можна вимкнути прапорцем <code>-O</code> при запуску Python, і він тоді просто зникає з коду. Для прав доступу чи вводу користувача, де перевірка обов'язково повинна спрацювати, використовуйте звичайні <code>if</code>/<code>raise</code>, а не <code>assert</code>.</p>
+</div>
+<p><strong>Приклад з реального коду:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">apply_discount</span><span class="p">(</span><span class="n">price</span><span class="p">,</span> <span class="n">discount</span><span class="p">):</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>    <span class="n">new_price</span> <span class="o">=</span> <span class="n">price</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">discount</span><span class="p">)</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>    <span class="c1"># внутрішня гарантія</span>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">new_price</span> <span class="o">&lt;=</span> <span class="n">price</span><span class="p">,</span> <span class="s2">"Некоректний розрахунок знижки!"</span>
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>    <span class="k">return</span> <span class="n">new_price</span>
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>
+<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="n">apply_discount</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>AssertionError: Некоректний розрахунок знижки!
+</code></pre></div>
+<p><code>discount=2.0</code> означає «знижка 200%» — очевидна помилка виклику. Через неї <code>new_price</code> стає від'ємним (<code>100 * (1 - 2.0) = -100</code>), і <code>assert</code> ловить цю логічну помилку одразу, замість того щоб від'ємна ціна тихо поповзла далі програмою.</p>
+<h3 id="repr"><code>repr()</code> — технічне представлення<a class="headerlink" href="#repr" title="Permanent link">&para;</a></h3>
+<p><code>repr()</code> (від <em>representation</em>) повертає «офіційне», технічне рядкове представлення об'єкта — на відміну від <code>str()</code>/<code>print()</code>, які показують дані так, щоб було зрозуміло людині, <code>repr()</code> показує так, щоб було зрозуміло програмісту: що саме зберігається в пам'яті.</p>
+<p><strong>Золоте правило <code>repr()</code>:</strong> в ідеалі рядок, який повертає <code>repr()</code>, має виглядати як валідний Python-код — якщо його скопіювати й виконати (чи передати в <code>eval()</code>), має вийти точна копія об'єкта. Якщо це недоцільно — заведено повертати корисну інформацію в кутових дужках <code>&lt;...&gt;</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="n">text</span> <span class="o">=</span> <span class="s2">"Hello</span><span class="se">\n</span><span class="s2">World"</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"print():"</span><span class="p">)</span>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">repr():"</span><span class="p">)</span>
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>print():
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>Hello
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>World
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>repr():
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>'Hello\nWorld'
+</code></pre></div>
+<p><code>print()</code> виводить реальний перенос рядка, <code>repr()</code> показує <code>\n</code> буквально — так видно, що насправді зберігається в рядку, а не як він виглядає на екрані.</p>
+<h3 id="__repr__-repr"><code>__repr__</code> — свій <code>repr()</code> для власних класів<a class="headerlink" href="#__repr__-repr" title="Permanent link">&para;</a></h3>
+<p>За замовчуванням об'єкт власного класу друкується непоказово — ім'я класу й адреса в пам'яті:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Car</span><span class="p">:</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">mileage</span><span class="p">):</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">color</span>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">mileage</span> <span class="o">=</span> <span class="n">mileage</span>
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="n">my_car</span> <span class="o">=</span> <span class="n">Car</span><span class="p">(</span><span class="s2">"червоний"</span><span class="p">,</span> <span class="mi">15000</span><span class="p">)</span>
+<a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">my_car</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>&lt;__main__.Car object at 0x7fd733510b60&gt;
+</code></pre></div>
+<p>Щоб виправити це, визначте магічний метод <code>__repr__(self)</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Car</span><span class="p">:</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">mileage</span><span class="p">):</span>
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">color</span>
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">mileage</span> <span class="o">=</span> <span class="n">mileage</span>
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>
+<a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>        <span class="c1"># Повертаємо рядок, який виглядає як код виклику класу</span>
+<a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">"Car(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">color</span><span class="si">!r}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">mileage</span><span class="si">!r}</span><span class="s2">)"</span>
+<a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a>
+<a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a><span class="n">my_car</span> <span class="o">=</span> <span class="n">Car</span><span class="p">(</span><span class="s2">"червоний"</span><span class="p">,</span> <span class="mi">15000</span><span class="p">)</span>
+<a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a><span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">my_car</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>Car('червоний', 15000)
+</code></pre></div>
+<p>Модифікатор <code>!r</code> у f-рядку (<code>{self.color!r}</code>) наказує Python застосувати <code>repr()</code> до самої змінної — тому текст <code>червоний</code> виводиться разом із лапками, і рядок справді виглядає як валідний виклик <code>Car(...)</code>.</p>
+<h3 id="vars"><code>vars()</code> — внутрішні атрибути об'єкта<a class="headerlink" href="#vars" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Person</span><span class="p">:</span>
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">):</span>
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="n">age</span>
+<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>
+<a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a><span class="n">p</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="s2">"Anna"</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+<a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a><span class="nb">print</span><span class="p">(</span><span class="nb">vars</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>{'name': 'Anna', 'age': 25}
+</code></pre></div>
+<p><code>vars()</code> повертає словник <code>__dict__</code> об'єкта — усі його атрибути екземпляра одразу, зручно для дебагу без ручного перелічування полів.</p>
+<h2 id="imutable-mutable">Модель пам'яті: imutable, mutable, копії<a class="headerlink" href="#imutable-mutable" title="Permanent link">&para;</a></h2>
+<p>Це ключ до розуміння того, чому одні зміни «поширюються всюди», а інші — ні.</p>
+<h3 id="immutable-">Immutable-приклад<a class="headerlink" href="#immutable-" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="n">x</span> <span class="o">=</span> <span class="mi">10</span>
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"id before:"</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>
+<a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+<a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"id after:"</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>id before: 11760072
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>id after: 11760104
+</code></pre></div>
+<p><code>id</code> змінився — <code>x = x + 1</code> не змінює число «на місці», а створює новий об'єкт і переприв'язує до нього ім'я <code>x</code>.</p>
+<h3 id="mutable-">Mutable-приклад<a class="headerlink" href="#mutable-" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"id before:"</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="n">lst</span><span class="p">))</span>
+<a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>
+<a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a><span class="n">lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"id after:"</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="n">lst</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>id before: 140562255662656
+<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>id after: 140562255662656
+</code></pre></div>
+<p><code>id</code> не змінився — <code>append()</code> змінює той самий об'єкт-список у пам'яті, а не створює новий.</p>
+<h3 id="is"><code>==</code> проти <code>is</code><a class="headerlink" href="#is" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a><span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>
+<a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"a == b:"</span><span class="p">,</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">)</span>
+<a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"a is b:"</span><span class="p">,</span> <span class="n">a</span> <span class="ow">is</span> <span class="n">b</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>a == b: True
+<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>a is b: False
+</code></pre></div>
+<p><code>==</code> порівнює <strong>значення</strong> (вміст однаковий), <code>is</code> порівнює <strong>ідентичність</strong> (це буквально один і той самий об'єкт у пам'яті). Тут <code>a</code> і <code>b</code> — два різні списки з однаковим вмістом.</p>
+<h3 id="_1">Поверхнева копія<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="n">original</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="n">copy_list</span> <span class="o">=</span> <span class="n">original</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a>
+<a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"original id:"</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="n">original</span><span class="p">))</span>
+<a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"copy id:"</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="n">copy_list</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>original id: 140562255636992
+<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>copy id: 140562255630144
+</code></pre></div>
+<p><code>.copy()</code> створює новий об'єкт — зміни в <code>copy_list</code> більше не зачіпають <code>original</code>. Але для <strong>вкладених</strong> структур (список списків) поверхневої копії часто недостатньо — вкладені об'єкти всередині все одно спільні.</p>
+<h3 id="_2">Глибока копія<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">copy</span>
+<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>
+<a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a><span class="n">nested</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]]</span>
+<a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a><span class="n">deep</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">nested</span><span class="p">)</span>
+<a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a>
+<a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"nested id:"</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="n">nested</span><span class="p">))</span>
+<a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"deep id:"</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="n">deep</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>nested id: 140562257314560
+<a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>deep id: 140562255629760
+</code></pre></div>
+<p><code>copy.deepcopy()</code> рекурсивно копіює й усі вкладені об'єкти, тому навіть вкладені списки в <code>deep</code> повністю незалежні від <code>nested</code>.</p>
+<h3 id="_3">Експеримент з посиланнями<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a><span class="n">b</span> <span class="o">=</span> <span class="n">a</span>
+<a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>
+<a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a><span class="n">b</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<a id="__codelineno-42-5" name="__codelineno-42-5" href="#__codelineno-42-5"></a>
+<a id="__codelineno-42-6" name="__codelineno-42-6" href="#__codelineno-42-6"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"a:"</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+<a id="__codelineno-42-7" name="__codelineno-42-7" href="#__codelineno-42-7"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"b:"</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>a: [1, 2, 3, 4]
+<a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>b: [1, 2, 3, 4]
+</code></pre></div>
+<p><code>b = a</code> не створює копію — <code>b</code> це просто ще одне ім'я для того самого об'єкта, на який уже вказує <code>a</code>. Зміна через <code>b</code> видно й через <code>a</code>, бо це один список.</p>
+<h3 id="_4">Фінальна ментальна модель<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Змінна — це ім'я.</li>
+<li>Ім'я вказує на об'єкт.</li>
+<li>Об'єкти живуть у пам'яті.</li>
+<li>Є mutable та immutable типи — mutable можна змінити «на місці» (той самий <code>id</code>), immutable — ні (будь-яка «зміна» створює новий об'єкт).</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>a ──────► [1, 2, 3, 4]
+<a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>b ──────┘
+</code></pre></div>
+<p>Обидва імені <code>a</code> і <code>b</code> вказують на один список — саме тому зміна через одне ім'я видна й через інше.</p>
+<h2 id="_5">Часто вживані вбудовані функції<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="_6">Математичні та агрегатні<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<h4 id="sumiterable-start0"><code>sum(iterable, start=0)</code><a class="headerlink" href="#sumiterable-start0" title="Permanent link">&para;</a></h4>
+<p>Обчислює суму всіх елементів послідовності. Використовується для підрахунку загальних сум — вартість товарів у кошику, загальна кількість балів.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="n">prices</span> <span class="o">=</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">95</span><span class="p">]</span>
+<a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a><span class="n">total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
+<a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Ціни:"</span><span class="p">,</span> <span class="n">prices</span><span class="p">)</span>
+<a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Загальна сума:"</span><span class="p">,</span> <span class="n">total</span><span class="p">)</span>
+<a id="__codelineno-45-5" name="__codelineno-45-5" href="#__codelineno-45-5"></a>
+<a id="__codelineno-45-6" name="__codelineno-45-6" href="#__codelineno-45-6"></a><span class="c1"># з початковим значенням</span>
+<a id="__codelineno-45-7" name="__codelineno-45-7" href="#__codelineno-45-7"></a><span class="n">total_with_bonus</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">prices</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<a id="__codelineno-45-8" name="__codelineno-45-8" href="#__codelineno-45-8"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Сума зі стартовим значенням 100:"</span><span class="p">,</span> <span class="n">total_with_bonus</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>Ціни: [50, 75, 30, 95]
+<a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a>Загальна сума: 250
+<a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a>Сума зі стартовим значенням 100: 350
+</code></pre></div>
+<h4 id="miniterable-maxiterable"><code>min(iterable)</code> та <code>max(iterable)</code><a class="headerlink" href="#miniterable-maxiterable" title="Permanent link">&para;</a></h4>
+<p>Повертають найменший і найбільший елемент. Пошук найдешевшого товару, найвищого балу, крайніх точок.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="n">scores</span> <span class="o">=</span> <span class="p">[</span><span class="mi">72</span><span class="p">,</span> <span class="mi">88</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="mi">43</span><span class="p">]</span>
+<a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Бали студентів:"</span><span class="p">,</span> <span class="n">scores</span><span class="p">)</span>
+<a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Найвищий бал:"</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">scores</span><span class="p">))</span>
+<a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Найнижчий бал:"</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">scores</span><span class="p">))</span>
+<a id="__codelineno-47-5" name="__codelineno-47-5" href="#__codelineno-47-5"></a>
+<a id="__codelineno-47-6" name="__codelineno-47-6" href="#__codelineno-47-6"></a><span class="c1"># також працюють з кількома окремими аргументами</span>
+<a id="__codelineno-47-7" name="__codelineno-47-7" href="#__codelineno-47-7"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Максимум з трьох чисел:"</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">17</span><span class="p">))</span>
+<a id="__codelineno-47-8" name="__codelineno-47-8" href="#__codelineno-47-8"></a>
+<a id="__codelineno-47-9" name="__codelineno-47-9" href="#__codelineno-47-9"></a><span class="c1"># і з рядками — за алфавітним порядком</span>
+<a id="__codelineno-47-10" name="__codelineno-47-10" href="#__codelineno-47-10"></a><span class="nb">print</span><span class="p">(</span><span class="nb">min</span><span class="p">([</span><span class="s2">"banana"</span><span class="p">,</span> <span class="s2">"apple"</span><span class="p">,</span> <span class="s2">"cherry"</span><span class="p">]))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>Бали студентів: [72, 88, 55, 99, 61, 43]
+<a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a>Найвищий бал: 99
+<a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a>Найнижчий бал: 43
+<a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a>Максимум з трьох чисел: 25
+<a id="__codelineno-48-5" name="__codelineno-48-5" href="#__codelineno-48-5"></a>apple
+</code></pre></div>
+<h4 id="absx"><code>abs(x)</code><a class="headerlink" href="#absx" title="Permanent link">&para;</a></h4>
+<p>Абсолютне значення (модуль) — число без знаку мінус. Коли важлива лише величина відстані чи різниці, а не напрямок.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="n">difference</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="mi">10</span> <span class="o">-</span> <span class="mi">25</span><span class="p">)</span>
+<a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Різниця між 10 та 25:"</span><span class="p">,</span> <span class="n">difference</span><span class="p">)</span>
+<a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a>
+<a id="__codelineno-49-4" name="__codelineno-49-4" href="#__codelineno-49-4"></a><span class="n">temperature_diff</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="o">-</span><span class="mi">15</span> <span class="o">-</span> <span class="mi">3</span><span class="p">)</span>
+<a id="__codelineno-49-5" name="__codelineno-49-5" href="#__codelineno-49-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Різниця температур:"</span><span class="p">,</span> <span class="n">temperature_diff</span><span class="p">,</span> <span class="s2">"градусів"</span><span class="p">)</span>
+<a id="__codelineno-49-6" name="__codelineno-49-6" href="#__codelineno-49-6"></a>
+<a id="__codelineno-49-7" name="__codelineno-49-7" href="#__codelineno-49-7"></a><span class="nb">print</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">),</span> <span class="nb">abs</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="nb">abs</span><span class="p">(</span><span class="mf">3.14</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>Різниця між 10 та 25: 15
+<a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a>Різниця температур: 18 градусів
+<a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a>100 0 3.14
+</code></pre></div>
+<h4 id="roundx-n"><code>round(x, n)</code><a class="headerlink" href="#roundx-n" title="Permanent link">&para;</a></h4>
+<p>Округлює <code>x</code> до <code>n</code> знаків після коми. Фінансові розрахунки, форматування виводу.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a><span class="n">pi</span> <span class="o">=</span> <span class="mf">3.14159265</span>
+<a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Pi повністю:"</span><span class="p">,</span> <span class="n">pi</span><span class="p">)</span>
+<a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Pi до 2 знаків:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">pi</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<a id="__codelineno-51-4" name="__codelineno-51-4" href="#__codelineno-51-4"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Pi до 4 знаків:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">pi</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<a id="__codelineno-51-5" name="__codelineno-51-5" href="#__codelineno-51-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Pi до цілого:"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">pi</span><span class="p">))</span>
+<a id="__codelineno-51-6" name="__codelineno-51-6" href="#__codelineno-51-6"></a>
+<a id="__codelineno-51-7" name="__codelineno-51-7" href="#__codelineno-51-7"></a><span class="n">price</span> <span class="o">=</span> <span class="mf">19.999</span>
+<a id="__codelineno-51-8" name="__codelineno-51-8" href="#__codelineno-51-8"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Ціна після округлення: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">price</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2"> грн"</span><span class="p">)</span>
+<a id="__codelineno-51-9" name="__codelineno-51-9" href="#__codelineno-51-9"></a>
+<a id="__codelineno-51-10" name="__codelineno-51-10" href="#__codelineno-51-10"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"round(2.5):"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="mf">2.5</span><span class="p">),</span> <span class="s2">" round(3.5):"</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="mf">3.5</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>Pi повністю: 3.14159265
+<a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a>Pi до 2 знаків: 3.14
+<a id="__codelineno-52-3" name="__codelineno-52-3" href="#__codelineno-52-3"></a>Pi до 4 знаків: 3.1416
+<a id="__codelineno-52-4" name="__codelineno-52-4" href="#__codelineno-52-4"></a>Pi до цілого: 3
+<a id="__codelineno-52-5" name="__codelineno-52-5" href="#__codelineno-52-5"></a>Ціна після округлення: 20.0 грн
+<a id="__codelineno-52-6" name="__codelineno-52-6" href="#__codelineno-52-6"></a>round(2.5): 2  round(3.5): 4
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">«Банківське округлення»</p>
+<p><code>round(2.5)</code> дає <code>2</code>, а не <code>3</code> — Python округлює <code>.5</code> до <strong>найближчого парного</strong> числа (banker's rounding), а не завжди вгору. Це навмисно зменшує систематичне зміщення при масових округленнях, але часто дивує новачків — тримайте це в голові для фінансових розрахунків.</p>
+</div>
+<h3 id="_7">Послідовності та цикли<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<h4 id="lens"><code>len(s)</code><a class="headerlink" href="#lens" title="Permanent link">&para;</a></h4>
+<p>Довжина об'єкта — кількість елементів списку чи символів рядка. Валідація довжини пароля, обмеження циклів, розмір структури.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a><span class="n">users</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Alice"</span><span class="p">,</span> <span class="s2">"Bob"</span><span class="p">,</span> <span class="s2">"Charlie"</span><span class="p">,</span> <span class="s2">"Diana"</span><span class="p">]</span>
+<a id="__codelineno-53-2" name="__codelineno-53-2" href="#__codelineno-53-2"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Список користувачів:"</span><span class="p">,</span> <span class="n">users</span><span class="p">)</span>
+<a id="__codelineno-53-3" name="__codelineno-53-3" href="#__codelineno-53-3"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Кількість користувачів:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">users</span><span class="p">))</span>
+<a id="__codelineno-53-4" name="__codelineno-53-4" href="#__codelineno-53-4"></a>
+<a id="__codelineno-53-5" name="__codelineno-53-5" href="#__codelineno-53-5"></a><span class="n">password</span> <span class="o">=</span> <span class="s2">"SuperSecret123"</span>
+<a id="__codelineno-53-6" name="__codelineno-53-6" href="#__codelineno-53-6"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Пароль '</span><span class="si">{</span><span class="n">password</span><span class="si">}</span><span class="s2">' має </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">password</span><span class="p">)</span><span class="si">}</span><span class="s2"> символів"</span><span class="p">)</span>
+<a id="__codelineno-53-7" name="__codelineno-53-7" href="#__codelineno-53-7"></a><span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">password</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">8</span><span class="p">:</span>
+<a id="__codelineno-53-8" name="__codelineno-53-8" href="#__codelineno-53-8"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"✅ Пароль достатньо довгий"</span><span class="p">)</span>
+<a id="__codelineno-53-9" name="__codelineno-53-9" href="#__codelineno-53-9"></a><span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-53-10" name="__codelineno-53-10" href="#__codelineno-53-10"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"❌ Пароль надто короткий"</span><span class="p">)</span>
+<a id="__codelineno-53-11" name="__codelineno-53-11" href="#__codelineno-53-11"></a>
+<a id="__codelineno-53-12" name="__codelineno-53-12" href="#__codelineno-53-12"></a><span class="c1"># для словника len() рахує кількість пар ключ-значення</span>
+<a id="__codelineno-53-13" name="__codelineno-53-13" href="#__codelineno-53-13"></a><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">({</span><span class="s2">"a"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">:</span> <span class="mi">2</span><span class="p">}))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>Список користувачів: ['Alice', 'Bob', 'Charlie', 'Diana']
+<a id="__codelineno-54-2" name="__codelineno-54-2" href="#__codelineno-54-2"></a>Кількість користувачів: 4
+<a id="__codelineno-54-3" name="__codelineno-54-3" href="#__codelineno-54-3"></a>
+<a id="__codelineno-54-4" name="__codelineno-54-4" href="#__codelineno-54-4"></a>Пароль 'SuperSecret123' має 14 символів
+<a id="__codelineno-54-5" name="__codelineno-54-5" href="#__codelineno-54-5"></a>✅ Пароль достатньо довгий
+<a id="__codelineno-54-6" name="__codelineno-54-6" href="#__codelineno-54-6"></a>2
+</code></pre></div>
+<h4 id="rangestart-stop-step"><code>range(start, stop, step)</code><a class="headerlink" href="#rangestart-stop-step" title="Permanent link">&para;</a></h4>
+<p>Генерує послідовність цілих чисел від <code>start</code> до <code>stop</code> (не включаючи <code>stop</code>) із кроком <code>step</code>. Незамінна для циклів <code>for</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"range(5):"</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)))</span>
+<a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"range(1, 6):"</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)))</span>
+<a id="__codelineno-55-3" name="__codelineno-55-3" href="#__codelineno-55-3"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"range(1, 10, 2):"</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
+<a id="__codelineno-55-4" name="__codelineno-55-4" href="#__codelineno-55-4"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"range(10, 0, -1):"</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)))</span>
+<a id="__codelineno-55-5" name="__codelineno-55-5" href="#__codelineno-55-5"></a>
+<a id="__codelineno-55-6" name="__codelineno-55-6" href="#__codelineno-55-6"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Таблиця множення на 3:"</span><span class="p">)</span>
+<a id="__codelineno-55-7" name="__codelineno-55-7" href="#__codelineno-55-7"></a><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">):</span>
+<a id="__codelineno-55-8" name="__codelineno-55-8" href="#__codelineno-55-8"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  3 × </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a>range(5): [0, 1, 2, 3, 4]
+<a id="__codelineno-56-2" name="__codelineno-56-2" href="#__codelineno-56-2"></a>range(1, 6): [1, 2, 3, 4, 5]
+<a id="__codelineno-56-3" name="__codelineno-56-3" href="#__codelineno-56-3"></a>range(1, 10, 2): [1, 3, 5, 7, 9]
+<a id="__codelineno-56-4" name="__codelineno-56-4" href="#__codelineno-56-4"></a>range(10, 0, -1): [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+<a id="__codelineno-56-5" name="__codelineno-56-5" href="#__codelineno-56-5"></a>
+<a id="__codelineno-56-6" name="__codelineno-56-6" href="#__codelineno-56-6"></a>Таблиця множення на 3:
+<a id="__codelineno-56-7" name="__codelineno-56-7" href="#__codelineno-56-7"></a>  3 × 1 = 3
+<a id="__codelineno-56-8" name="__codelineno-56-8" href="#__codelineno-56-8"></a>  3 × 2 = 6
+<a id="__codelineno-56-9" name="__codelineno-56-9" href="#__codelineno-56-9"></a>  3 × 3 = 9
+<a id="__codelineno-56-10" name="__codelineno-56-10" href="#__codelineno-56-10"></a>  3 × 4 = 12
+<a id="__codelineno-56-11" name="__codelineno-56-11" href="#__codelineno-56-11"></a>  3 × 5 = 15
+</code></pre></div>
+<h4 id="zipiterables"><code>zip(*iterables)</code><a class="headerlink" href="#zipiterables" title="Permanent link">&para;</a></h4>
+<p>Об'єднує кілька послідовностей у пари/кортежі з однаковими індексами. Зупиняється на найкоротшій послідовності.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Anna"</span><span class="p">,</span> <span class="s2">"Oleg"</span><span class="p">,</span> <span class="s2">"Maria"</span><span class="p">]</span>
+<a id="__codelineno-57-2" name="__codelineno-57-2" href="#__codelineno-57-2"></a><span class="n">ages</span> <span class="o">=</span> <span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">22</span><span class="p">]</span>
+<a id="__codelineno-57-3" name="__codelineno-57-3" href="#__codelineno-57-3"></a><span class="n">cities</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Київ"</span><span class="p">,</span> <span class="s2">"Львів"</span><span class="p">,</span> <span class="s2">"Харків"</span><span class="p">]</span>
+<a id="__codelineno-57-4" name="__codelineno-57-4" href="#__codelineno-57-4"></a>
+<a id="__codelineno-57-5" name="__codelineno-57-5" href="#__codelineno-57-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Інформація про користувачів:"</span><span class="p">)</span>
+<a id="__codelineno-57-6" name="__codelineno-57-6" href="#__codelineno-57-6"></a><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">city</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">ages</span><span class="p">,</span> <span class="n">cities</span><span class="p">):</span>
+<a id="__codelineno-57-7" name="__codelineno-57-7" href="#__codelineno-57-7"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">age</span><span class="si">}</span><span class="s2"> років, </span><span class="si">{</span><span class="n">city</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-57-8" name="__codelineno-57-8" href="#__codelineno-57-8"></a>
+<a id="__codelineno-57-9" name="__codelineno-57-9" href="#__codelineno-57-9"></a><span class="c1"># швидке створення словника з двох списків</span>
+<a id="__codelineno-57-10" name="__codelineno-57-10" href="#__codelineno-57-10"></a><span class="n">users_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">ages</span><span class="p">))</span>
+<a id="__codelineno-57-11" name="__codelineno-57-11" href="#__codelineno-57-11"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Словник ім'я → вік:"</span><span class="p">,</span> <span class="n">users_dict</span><span class="p">)</span>
+<a id="__codelineno-57-12" name="__codelineno-57-12" href="#__codelineno-57-12"></a>
+<a id="__codelineno-57-13" name="__codelineno-57-13" href="#__codelineno-57-13"></a><span class="c1"># якщо списки різної довжини — zip зупиняється на коротшому</span>
+<a id="__codelineno-57-14" name="__codelineno-57-14" href="#__codelineno-57-14"></a><span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a>Інформація про користувачів:
+<a id="__codelineno-58-2" name="__codelineno-58-2" href="#__codelineno-58-2"></a>  Anna, 25 років, Київ
+<a id="__codelineno-58-3" name="__codelineno-58-3" href="#__codelineno-58-3"></a>  Oleg, 30 років, Львів
+<a id="__codelineno-58-4" name="__codelineno-58-4" href="#__codelineno-58-4"></a>  Maria, 22 років, Харків
+<a id="__codelineno-58-5" name="__codelineno-58-5" href="#__codelineno-58-5"></a>
+<a id="__codelineno-58-6" name="__codelineno-58-6" href="#__codelineno-58-6"></a>Словник ім'я → вік: {'Anna': 25, 'Oleg': 30, 'Maria': 22}
+<a id="__codelineno-58-7" name="__codelineno-58-7" href="#__codelineno-58-7"></a>[(1, 1), (2, 2)]
+</code></pre></div>
+<h4 id="enumerateiterable-start0"><code>enumerate(iterable, start=0)</code><a class="headerlink" href="#enumerateiterable-start0" title="Permanent link">&para;</a></h4>
+<p>Додає лічильник до ітерованого об'єкта — повертає пари <code>(індекс, значення)</code>. Коли в циклі потрібен і елемент, і його номер — без ручного лічильника.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a><span class="n">tasks</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Прочитати теорію"</span><span class="p">,</span> <span class="s2">"Зробити завдання"</span><span class="p">,</span> <span class="s2">"Здати на перевірку"</span><span class="p">]</span>
+<a id="__codelineno-59-2" name="__codelineno-59-2" href="#__codelineno-59-2"></a>
+<a id="__codelineno-59-3" name="__codelineno-59-3" href="#__codelineno-59-3"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Список завдань:"</span><span class="p">)</span>
+<a id="__codelineno-59-4" name="__codelineno-59-4" href="#__codelineno-59-4"></a><span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">task</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tasks</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>  <span class="c1"># нумерація з 1</span>
+<a id="__codelineno-59-5" name="__codelineno-59-5" href="#__codelineno-59-5"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">task</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-59-6" name="__codelineno-59-6" href="#__codelineno-59-6"></a>
+<a id="__codelineno-59-7" name="__codelineno-59-7" href="#__codelineno-59-7"></a><span class="c1"># порівняння: без enumerate (старий, гірший стиль)</span>
+<a id="__codelineno-59-8" name="__codelineno-59-8" href="#__codelineno-59-8"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Без enumerate (гірший спосіб):"</span><span class="p">)</span>
+<a id="__codelineno-59-9" name="__codelineno-59-9" href="#__codelineno-59-9"></a><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-59-10" name="__codelineno-59-10" href="#__codelineno-59-10"></a><span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">tasks</span><span class="p">:</span>
+<a id="__codelineno-59-11" name="__codelineno-59-11" href="#__codelineno-59-11"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">task</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-59-12" name="__codelineno-59-12" href="#__codelineno-59-12"></a>    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a>Список завдань:
+<a id="__codelineno-60-2" name="__codelineno-60-2" href="#__codelineno-60-2"></a>  1. Прочитати теорію
+<a id="__codelineno-60-3" name="__codelineno-60-3" href="#__codelineno-60-3"></a>  2. Зробити завдання
+<a id="__codelineno-60-4" name="__codelineno-60-4" href="#__codelineno-60-4"></a>  3. Здати на перевірку
+<a id="__codelineno-60-5" name="__codelineno-60-5" href="#__codelineno-60-5"></a>
+<a id="__codelineno-60-6" name="__codelineno-60-6" href="#__codelineno-60-6"></a>Без enumerate (гірший спосіб):
+<a id="__codelineno-60-7" name="__codelineno-60-7" href="#__codelineno-60-7"></a>  0: Прочитати теорію
+<a id="__codelineno-60-8" name="__codelineno-60-8" href="#__codelineno-60-8"></a>  1: Зробити завдання
+<a id="__codelineno-60-9" name="__codelineno-60-9" href="#__codelineno-60-9"></a>  2: Здати на перевірку
+</code></pre></div>
+<h3 id="_8">Функціональне програмування<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<h4 id="mapfunction-iterable"><code>map(function, iterable)</code><a class="headerlink" href="#mapfunction-iterable" title="Permanent link">&para;</a></h4>
+<p>Застосовує функцію до кожного елемента послідовності. Масова трансформація даних.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a><span class="n">str_numbers</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"1"</span><span class="p">,</span> <span class="s2">"2"</span><span class="p">,</span> <span class="s2">"3"</span><span class="p">,</span> <span class="s2">"4"</span><span class="p">,</span> <span class="s2">"5"</span><span class="p">]</span>
+<a id="__codelineno-61-2" name="__codelineno-61-2" href="#__codelineno-61-2"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Рядки:"</span><span class="p">,</span> <span class="n">str_numbers</span><span class="p">)</span>
+<a id="__codelineno-61-3" name="__codelineno-61-3" href="#__codelineno-61-3"></a>
+<a id="__codelineno-61-4" name="__codelineno-61-4" href="#__codelineno-61-4"></a><span class="n">numbers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">str_numbers</span><span class="p">))</span>
+<a id="__codelineno-61-5" name="__codelineno-61-5" href="#__codelineno-61-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Числа:"</span><span class="p">,</span> <span class="n">numbers</span><span class="p">)</span>
+<a id="__codelineno-61-6" name="__codelineno-61-6" href="#__codelineno-61-6"></a>
+<a id="__codelineno-61-7" name="__codelineno-61-7" href="#__codelineno-61-7"></a><span class="n">squared</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="n">numbers</span><span class="p">))</span>
+<a id="__codelineno-61-8" name="__codelineno-61-8" href="#__codelineno-61-8"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Квадрати:"</span><span class="p">,</span> <span class="n">squared</span><span class="p">)</span>
+<a id="__codelineno-61-9" name="__codelineno-61-9" href="#__codelineno-61-9"></a>
+<a id="__codelineno-61-10" name="__codelineno-61-10" href="#__codelineno-61-10"></a><span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"hello"</span><span class="p">,</span> <span class="s2">"world"</span><span class="p">,</span> <span class="s2">"python"</span><span class="p">]</span>
+<a id="__codelineno-61-11" name="__codelineno-61-11" href="#__codelineno-61-11"></a><span class="n">upper_words</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">upper</span><span class="p">,</span> <span class="n">words</span><span class="p">))</span>
+<a id="__codelineno-61-12" name="__codelineno-61-12" href="#__codelineno-61-12"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Верхній регістр:"</span><span class="p">,</span> <span class="n">upper_words</span><span class="p">)</span>
+<a id="__codelineno-61-13" name="__codelineno-61-13" href="#__codelineno-61-13"></a>
+<a id="__codelineno-61-14" name="__codelineno-61-14" href="#__codelineno-61-14"></a><span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="p">[</span><span class="s2">"1.5"</span><span class="p">,</span> <span class="s2">"2.7"</span><span class="p">,</span> <span class="s2">"3.0"</span><span class="p">])))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a>Рядки: ['1', '2', '3', '4', '5']
+<a id="__codelineno-62-2" name="__codelineno-62-2" href="#__codelineno-62-2"></a>Числа: [1, 2, 3, 4, 5]
+<a id="__codelineno-62-3" name="__codelineno-62-3" href="#__codelineno-62-3"></a>Квадрати: [1, 4, 9, 16, 25]
+<a id="__codelineno-62-4" name="__codelineno-62-4" href="#__codelineno-62-4"></a>Верхній регістр: ['HELLO', 'WORLD', 'PYTHON']
+<a id="__codelineno-62-5" name="__codelineno-62-5" href="#__codelineno-62-5"></a>[1.5, 2.7, 3.0]
+</code></pre></div>
+<h4 id="filterfunction-iterable"><code>filter(function, iterable)</code><a class="headerlink" href="#filterfunction-iterable" title="Permanent link">&para;</a></h4>
+<p>Залишає лише елементи, для яких функція повертає <code>True</code>. Очищення/вибірка даних.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a><span class="n">nums</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+<a id="__codelineno-63-2" name="__codelineno-63-2" href="#__codelineno-63-2"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Вихідний список:"</span><span class="p">,</span> <span class="n">nums</span><span class="p">)</span>
+<a id="__codelineno-63-3" name="__codelineno-63-3" href="#__codelineno-63-3"></a>
+<a id="__codelineno-63-4" name="__codelineno-63-4" href="#__codelineno-63-4"></a><span class="n">evens</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="n">nums</span><span class="p">))</span>
+<a id="__codelineno-63-5" name="__codelineno-63-5" href="#__codelineno-63-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Парні числа:"</span><span class="p">,</span> <span class="n">evens</span><span class="p">)</span>
+<a id="__codelineno-63-6" name="__codelineno-63-6" href="#__codelineno-63-6"></a>
+<a id="__codelineno-63-7" name="__codelineno-63-7" href="#__codelineno-63-7"></a><span class="n">big_nums</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">,</span> <span class="n">nums</span><span class="p">))</span>
+<a id="__codelineno-63-8" name="__codelineno-63-8" href="#__codelineno-63-8"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Числа &gt; 5:"</span><span class="p">,</span> <span class="n">big_nums</span><span class="p">)</span>
+<a id="__codelineno-63-9" name="__codelineno-63-9" href="#__codelineno-63-9"></a>
+<a id="__codelineno-63-10" name="__codelineno-63-10" href="#__codelineno-63-10"></a><span class="c1"># None як функція-фільтр — перевіряє на True/False (непорожній рядок = True)</span>
+<a id="__codelineno-63-11" name="__codelineno-63-11" href="#__codelineno-63-11"></a><span class="n">strings</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"hello"</span><span class="p">,</span> <span class="s2">""</span><span class="p">,</span> <span class="s2">"world"</span><span class="p">,</span> <span class="s2">""</span><span class="p">,</span> <span class="s2">"python"</span><span class="p">]</span>
+<a id="__codelineno-63-12" name="__codelineno-63-12" href="#__codelineno-63-12"></a><span class="n">non_empty</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">strings</span><span class="p">))</span>
+<a id="__codelineno-63-13" name="__codelineno-63-13" href="#__codelineno-63-13"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Непорожні рядки:"</span><span class="p">,</span> <span class="n">non_empty</span><span class="p">)</span>
+<a id="__codelineno-63-14" name="__codelineno-63-14" href="#__codelineno-63-14"></a>
+<a id="__codelineno-63-15" name="__codelineno-63-15" href="#__codelineno-63-15"></a><span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="o">-</span><span class="mi">9</span><span class="p">,</span> <span class="mi">2</span><span class="p">])))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a>Вихідний список: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+<a id="__codelineno-64-2" name="__codelineno-64-2" href="#__codelineno-64-2"></a>Парні числа: [2, 4, 6, 8, 10]
+<a id="__codelineno-64-3" name="__codelineno-64-3" href="#__codelineno-64-3"></a>Числа &gt; 5: [6, 7, 8, 9, 10]
+<a id="__codelineno-64-4" name="__codelineno-64-4" href="#__codelineno-64-4"></a>Непорожні рядки: ['hello', 'world', 'python']
+<a id="__codelineno-64-5" name="__codelineno-64-5" href="#__codelineno-64-5"></a>[-5, -1, -9]
+</code></pre></div>
+<h3 id="random">Модуль <code>random</code><a class="headerlink" href="#random" title="Permanent link">&para;</a></h3>
+<p>Для роботи з випадковими числами потрібно <code>import random</code>. Модуль базується на алгоритмі «Вихор Мерсенна» — генерує псевдовипадкові числа.</p>
+<h4 id="randomrandinta-b"><code>random.randint(a, b)</code><a class="headerlink" href="#randomrandinta-b" title="Permanent link">&para;</a></h4>
+<p>Випадкове ціле число в діапазоні <code>[a, b]</code> <strong>включно</strong>. Кидок кубика, ігрові механіки.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<a id="__codelineno-65-2" name="__codelineno-65-2" href="#__codelineno-65-2"></a>
+<a id="__codelineno-65-3" name="__codelineno-65-3" href="#__codelineno-65-3"></a><span class="n">dice_roll</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<a id="__codelineno-65-4" name="__codelineno-65-4" href="#__codelineno-65-4"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Кидок кубика:"</span><span class="p">,</span> <span class="n">dice_roll</span><span class="p">)</span>
+<a id="__codelineno-65-5" name="__codelineno-65-5" href="#__codelineno-65-5"></a>
+<a id="__codelineno-65-6" name="__codelineno-65-6" href="#__codelineno-65-6"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"5 кидків кубика:"</span><span class="p">,</span> <span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)])</span>
+<a id="__codelineno-65-7" name="__codelineno-65-7" href="#__codelineno-65-7"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Випадкове число від 1 до 100:"</span><span class="p">,</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-66-1" name="__codelineno-66-1" href="#__codelineno-66-1"></a>Кидок кубика: &lt;випадкове число від 1 до 6&gt;
+<a id="__codelineno-66-2" name="__codelineno-66-2" href="#__codelineno-66-2"></a>5 кидків кубика: [&lt;...5 випадкових чисел від 1 до 6...&gt;]
+<a id="__codelineno-66-3" name="__codelineno-66-3" href="#__codelineno-66-3"></a>Випадкове число від 1 до 100: &lt;випадкове число від 1 до 100&gt;
+</code></pre></div>
+<p>Без <code>random.seed()</code> кожен запуск дає інші числа — саме тому конкретні значення тут не зафіксовані (див. <code>random.seed()</code> нижче про відтворюваність).</p>
+<h4 id="randomchoiceseq"><code>random.choice(seq)</code><a class="headerlink" href="#randomchoiceseq" title="Permanent link">&para;</a></h4>
+<p>Один випадковий елемент із непорожньої послідовності. Жеребкування, хід комп'ютера у грі.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-67-1" name="__codelineno-67-1" href="#__codelineno-67-1"></a><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"червоний"</span><span class="p">,</span> <span class="s2">"зелений"</span><span class="p">,</span> <span class="s2">"синій"</span><span class="p">,</span> <span class="s2">"жовтий"</span><span class="p">]</span>
+<a id="__codelineno-67-2" name="__codelineno-67-2" href="#__codelineno-67-2"></a><span class="n">winner</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">colors</span><span class="p">)</span>
+<a id="__codelineno-67-3" name="__codelineno-67-3" href="#__codelineno-67-3"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Випадковий колір:"</span><span class="p">,</span> <span class="n">winner</span><span class="p">)</span>
+<a id="__codelineno-67-4" name="__codelineno-67-4" href="#__codelineno-67-4"></a>
+<a id="__codelineno-67-5" name="__codelineno-67-5" href="#__codelineno-67-5"></a><span class="c1"># гра «Камінь, ножиці, папір» — хід комп'ютера</span>
+<a id="__codelineno-67-6" name="__codelineno-67-6" href="#__codelineno-67-6"></a><span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"камінь"</span><span class="p">,</span> <span class="s2">"ножиці"</span><span class="p">,</span> <span class="s2">"папір"</span><span class="p">]</span>
+<a id="__codelineno-67-7" name="__codelineno-67-7" href="#__codelineno-67-7"></a><span class="n">computer_move</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+<a id="__codelineno-67-8" name="__codelineno-67-8" href="#__codelineno-67-8"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Комп'ютер обрав:"</span><span class="p">,</span> <span class="n">computer_move</span><span class="p">)</span>
+<a id="__codelineno-67-9" name="__codelineno-67-9" href="#__codelineno-67-9"></a>
+<a id="__codelineno-67-10" name="__codelineno-67-10" href="#__codelineno-67-10"></a><span class="c1"># також працює з рядком!</span>
+<a id="__codelineno-67-11" name="__codelineno-67-11" href="#__codelineno-67-11"></a><span class="n">random_letter</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="s2">"ABCDEFGHIJK"</span><span class="p">)</span>
+<a id="__codelineno-67-12" name="__codelineno-67-12" href="#__codelineno-67-12"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Випадкова літера:"</span><span class="p">,</span> <span class="n">random_letter</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="randomrandom"><code>random.random()</code><a class="headerlink" href="#randomrandom" title="Permanent link">&para;</a></h4>
+<p>Число з плаваючою крапкою в діапазоні <code>[0.0, 1.0)</code>. Ймовірності, статистичне моделювання.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-68-1" name="__codelineno-68-1" href="#__codelineno-68-1"></a><span class="n">chance</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+<a id="__codelineno-68-2" name="__codelineno-68-2" href="#__codelineno-68-2"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Випадкова ймовірність:"</span><span class="p">,</span> <span class="n">chance</span><span class="p">)</span>
+<a id="__codelineno-68-3" name="__codelineno-68-3" href="#__codelineno-68-3"></a>
+<a id="__codelineno-68-4" name="__codelineno-68-4" href="#__codelineno-68-4"></a><span class="c1"># подія з 30% шансом</span>
+<a id="__codelineno-68-5" name="__codelineno-68-5" href="#__codelineno-68-5"></a><span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.30</span><span class="p">:</span>
+<a id="__codelineno-68-6" name="__codelineno-68-6" href="#__codelineno-68-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"⚡ Критичний удар!"</span><span class="p">)</span>
+<a id="__codelineno-68-7" name="__codelineno-68-7" href="#__codelineno-68-7"></a><span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-68-8" name="__codelineno-68-8" href="#__codelineno-68-8"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"Звичайна атака"</span><span class="p">)</span>
+<a id="__codelineno-68-9" name="__codelineno-68-9" href="#__codelineno-68-9"></a>
+<a id="__codelineno-68-10" name="__codelineno-68-10" href="#__codelineno-68-10"></a><span class="c1"># симуляція 10 підкидань монети</span>
+<a id="__codelineno-68-11" name="__codelineno-68-11" href="#__codelineno-68-11"></a><span class="n">results</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Орел"</span> <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.5</span> <span class="k">else</span> <span class="s2">"Решка"</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+<a id="__codelineno-68-12" name="__codelineno-68-12" href="#__codelineno-68-12"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"10 підкидань монети:"</span><span class="p">,</span> <span class="n">results</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="randomuniforma-b"><code>random.uniform(a, b)</code><a class="headerlink" href="#randomuniforma-b" title="Permanent link">&para;</a></h4>
+<p>Випадкове дійсне число між <code>a</code> та <code>b</code> (на відміну від <code>randint</code>, який дає лише цілі).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-69-1" name="__codelineno-69-1" href="#__codelineno-69-1"></a><span class="n">temperature</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">15.5</span><span class="p">,</span> <span class="mf">25.5</span><span class="p">)</span>
+<a id="__codelineno-69-2" name="__codelineno-69-2" href="#__codelineno-69-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Температура: </span><span class="si">{</span><span class="n">temperature</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">°C"</span><span class="p">)</span>
+<a id="__codelineno-69-3" name="__codelineno-69-3" href="#__codelineno-69-3"></a>
+<a id="__codelineno-69-4" name="__codelineno-69-4" href="#__codelineno-69-4"></a><span class="n">prices</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">99.99</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)]</span>
+<a id="__codelineno-69-5" name="__codelineno-69-5" href="#__codelineno-69-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Випадкові ціни:"</span><span class="p">,</span> <span class="n">prices</span><span class="p">)</span>
+<a id="__codelineno-69-6" name="__codelineno-69-6" href="#__codelineno-69-6"></a>
+<a id="__codelineno-69-7" name="__codelineno-69-7" href="#__codelineno-69-7"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">randint(1, 10):"</span><span class="p">,</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s2">"← ціле число"</span><span class="p">)</span>
+<a id="__codelineno-69-8" name="__codelineno-69-8" href="#__codelineno-69-8"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"uniform(1, 10):"</span><span class="p">,</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s2">"← дійсне число"</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="randomshuffleseq"><code>random.shuffle(seq)</code><a class="headerlink" href="#randomshuffleseq" title="Permanent link">&para;</a></h4>
+<p>Перемішує елементи списку <strong>на місці</strong> — змінює сам оригінальний список.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-70-1" name="__codelineno-70-1" href="#__codelineno-70-1"></a><span class="n">cards</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Туз"</span><span class="p">,</span> <span class="s2">"Король"</span><span class="p">,</span> <span class="s2">"Дама"</span><span class="p">,</span> <span class="s2">"Валет"</span><span class="p">,</span> <span class="s2">"10"</span><span class="p">,</span> <span class="s2">"9"</span><span class="p">,</span> <span class="s2">"8"</span><span class="p">]</span>
+<a id="__codelineno-70-2" name="__codelineno-70-2" href="#__codelineno-70-2"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"До тасування:"</span><span class="p">,</span> <span class="n">cards</span><span class="p">)</span>
+<a id="__codelineno-70-3" name="__codelineno-70-3" href="#__codelineno-70-3"></a>
+<a id="__codelineno-70-4" name="__codelineno-70-4" href="#__codelineno-70-4"></a><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">cards</span><span class="p">)</span>
+<a id="__codelineno-70-5" name="__codelineno-70-5" href="#__codelineno-70-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Після тасування:"</span><span class="p">,</span> <span class="n">cards</span><span class="p">)</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">shuffle() змінює оригінал</p>
+<p>Якщо потрібно зберегти оригінальний порядок — тасуйте копію, а не сам список:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-71-1" name="__codelineno-71-1" href="#__codelineno-71-1"></a><span class="n">original</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<a id="__codelineno-71-2" name="__codelineno-71-2" href="#__codelineno-71-2"></a><span class="n">shuffled</span> <span class="o">=</span> <span class="n">original</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<a id="__codelineno-71-3" name="__codelineno-71-3" href="#__codelineno-71-3"></a><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">shuffled</span><span class="p">)</span>
+<a id="__codelineno-71-4" name="__codelineno-71-4" href="#__codelineno-71-4"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Оригінал:"</span><span class="p">,</span> <span class="n">original</span><span class="p">)</span>
+<a id="__codelineno-71-5" name="__codelineno-71-5" href="#__codelineno-71-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Перемішаний:"</span><span class="p">,</span> <span class="n">shuffled</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<h4 id="randomsamplepopulation-k"><code>random.sample(population, k)</code><a class="headerlink" href="#randomsamplepopulation-k" title="Permanent link">&para;</a></h4>
+<p>Новий список із <code>k</code> <strong>унікальних</strong> елементів (без повторень) — на відміну від багаторазового <code>choice()</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-72-1" name="__codelineno-72-1" href="#__codelineno-72-1"></a><span class="n">lottery_balls</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>  <span class="c1"># кулі від 1 до 49</span>
+<a id="__codelineno-72-2" name="__codelineno-72-2" href="#__codelineno-72-2"></a><span class="n">winning_numbers</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">lottery_balls</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<a id="__codelineno-72-3" name="__codelineno-72-3" href="#__codelineno-72-3"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Переможні числа лотереї:"</span><span class="p">,</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">winning_numbers</span><span class="p">))</span>
+<a id="__codelineno-72-4" name="__codelineno-72-4" href="#__codelineno-72-4"></a>
+<a id="__codelineno-72-5" name="__codelineno-72-5" href="#__codelineno-72-5"></a><span class="n">students</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Аня"</span><span class="p">,</span> <span class="s2">"Богдан"</span><span class="p">,</span> <span class="s2">"Василь"</span><span class="p">,</span> <span class="s2">"Галя"</span><span class="p">,</span> <span class="s2">"Дмитро"</span><span class="p">,</span> <span class="s2">"Олена"</span><span class="p">]</span>
+<a id="__codelineno-72-6" name="__codelineno-72-6" href="#__codelineno-72-6"></a><span class="n">selected</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">students</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<a id="__codelineno-72-7" name="__codelineno-72-7" href="#__codelineno-72-7"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Вибрані студенти (без повторень):"</span><span class="p">,</span> <span class="n">selected</span><span class="p">)</span>
+</code></pre></div>
+<p>Якщо <code>k &gt; len(population)</code> — <code>random.sample()</code> підніме <code>ValueError</code> (недостатньо елементів для вибірки без повторень).</p>
+<h4 id="randomrandrangestart-stop-step"><code>random.randrange(start, stop, step)</code><a class="headerlink" href="#randomrandrangestart-stop-step" title="Permanent link">&para;</a></h4>
+<p>Випадкове ціле з <code>range(start, stop, step)</code> — тобто <strong>не включаючи</strong> <code>stop</code> (на відміну від <code>randint</code>, який включає обидва краї).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-73-1" name="__codelineno-73-1" href="#__codelineno-73-1"></a><span class="n">even</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>         <span class="c1"># тільки парні 0..20</span>
+<a id="__codelineno-73-2" name="__codelineno-73-2" href="#__codelineno-73-2"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Випадкове парне число (0-20):"</span><span class="p">,</span> <span class="n">even</span><span class="p">)</span>
+<a id="__codelineno-73-3" name="__codelineno-73-3" href="#__codelineno-73-3"></a>
+<a id="__codelineno-73-4" name="__codelineno-73-4" href="#__codelineno-73-4"></a><span class="n">multiple_of_5</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<a id="__codelineno-73-5" name="__codelineno-73-5" href="#__codelineno-73-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Кратне 5 від 0 до 100:"</span><span class="p">,</span> <span class="n">multiple_of_5</span><span class="p">)</span>
+<a id="__codelineno-73-6" name="__codelineno-73-6" href="#__codelineno-73-6"></a>
+<a id="__codelineno-73-7" name="__codelineno-73-7" href="#__codelineno-73-7"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">randint(1, 10):"</span><span class="p">,</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s2">"← включає 10"</span><span class="p">)</span>
+<a id="__codelineno-73-8" name="__codelineno-73-8" href="#__codelineno-73-8"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"randrange(1, 10):"</span><span class="p">,</span> <span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s2">"← НЕ включає 10"</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="randomseedx"><code>random.seed(x)</code><a class="headerlink" href="#randomseedx" title="Permanent link">&para;</a></h4>
+<p>Фіксує початкове значення генератора псевдовипадкових чисел — при однаковому <code>seed</code> результати завжди однакові. Відтворюваність у експериментах і при дебазі.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-74-1" name="__codelineno-74-1" href="#__codelineno-74-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<a id="__codelineno-74-2" name="__codelineno-74-2" href="#__codelineno-74-2"></a>
+<a id="__codelineno-74-3" name="__codelineno-74-3" href="#__codelineno-74-3"></a><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<a id="__codelineno-74-4" name="__codelineno-74-4" href="#__codelineno-74-4"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"З seed=42 (перший запуск):"</span><span class="p">,</span> <span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)])</span>
+<a id="__codelineno-74-5" name="__codelineno-74-5" href="#__codelineno-74-5"></a>
+<a id="__codelineno-74-6" name="__codelineno-74-6" href="#__codelineno-74-6"></a><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<a id="__codelineno-74-7" name="__codelineno-74-7" href="#__codelineno-74-7"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"З seed=42 (другий запуск):"</span><span class="p">,</span> <span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)])</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-75-1" name="__codelineno-75-1" href="#__codelineno-75-1"></a>З seed=42 (перший запуск): [2, 1, 5, 4, 4]
+<a id="__codelineno-75-2" name="__codelineno-75-2" href="#__codelineno-75-2"></a>З seed=42 (другий запуск): [2, 1, 5, 4, 4]
+</code></pre></div>
+<p>Обидва рядки однакові — <code>seed</code> гарантує повністю відтворювану послідовність при кожному запуску (доки версія Python та сама послідовність викликів не змінюються).</p>
+<h3 id="sorted-any-all"><code>sorted()</code>, <code>any()</code>, <code>all()</code><a class="headerlink" href="#sorted-any-all" title="Permanent link">&para;</a></h3>
+<h4 id="sortediterable-keynone-reversefalse"><code>sorted(iterable, key=None, reverse=False)</code><a class="headerlink" href="#sortediterable-keynone-reversefalse" title="Permanent link">&para;</a></h4>
+<p>Повертає <strong>новий</strong> відсортований список — оригінал не змінюється (на відміну від <code>.sort()</code>, який сортує список на місці).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-76-1" name="__codelineno-76-1" href="#__codelineno-76-1"></a><span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"яблуко"</span><span class="p">,</span> <span class="s2">"кіт"</span><span class="p">,</span> <span class="s2">"ананас"</span><span class="p">,</span> <span class="s2">"буря"</span><span class="p">,</span> <span class="s2">"ліс"</span><span class="p">]</span>
+<a id="__codelineno-76-2" name="__codelineno-76-2" href="#__codelineno-76-2"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Оригінал:"</span><span class="p">,</span> <span class="n">words</span><span class="p">)</span>
+<a id="__codelineno-76-3" name="__codelineno-76-3" href="#__codelineno-76-3"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"За алфавітом:"</span><span class="p">,</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">words</span><span class="p">))</span>
+<a id="__codelineno-76-4" name="__codelineno-76-4" href="#__codelineno-76-4"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"За довжиною:"</span><span class="p">,</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">words</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">))</span>
+<a id="__codelineno-76-5" name="__codelineno-76-5" href="#__codelineno-76-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Зворотньо:"</span><span class="p">,</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">words</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<a id="__codelineno-76-6" name="__codelineno-76-6" href="#__codelineno-76-6"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Оригінал не змінився:"</span><span class="p">,</span> <span class="n">words</span><span class="p">)</span>  <span class="c1"># ← sorted не змінює оригінал!</span>
+<a id="__codelineno-76-7" name="__codelineno-76-7" href="#__codelineno-76-7"></a>
+<a id="__codelineno-76-8" name="__codelineno-76-8" href="#__codelineno-76-8"></a><span class="n">students</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-76-9" name="__codelineno-76-9" href="#__codelineno-76-9"></a>    <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Аня"</span><span class="p">,</span> <span class="s2">"score"</span><span class="p">:</span> <span class="mi">88</span><span class="p">},</span>
+<a id="__codelineno-76-10" name="__codelineno-76-10" href="#__codelineno-76-10"></a>    <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Богдан"</span><span class="p">,</span> <span class="s2">"score"</span><span class="p">:</span> <span class="mi">72</span><span class="p">},</span>
+<a id="__codelineno-76-11" name="__codelineno-76-11" href="#__codelineno-76-11"></a>    <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Василь"</span><span class="p">,</span> <span class="s2">"score"</span><span class="p">:</span> <span class="mi">95</span><span class="p">},</span>
+<a id="__codelineno-76-12" name="__codelineno-76-12" href="#__codelineno-76-12"></a><span class="p">]</span>
+<a id="__codelineno-76-13" name="__codelineno-76-13" href="#__codelineno-76-13"></a><span class="n">by_score</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">students</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="p">[</span><span class="s2">"score"</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-76-14" name="__codelineno-76-14" href="#__codelineno-76-14"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Рейтинг студентів:"</span><span class="p">)</span>
+<a id="__codelineno-76-15" name="__codelineno-76-15" href="#__codelineno-76-15"></a><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">by_score</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+<a id="__codelineno-76-16" name="__codelineno-76-16" href="#__codelineno-76-16"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">s</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span><span class="si">}</span><span class="s2"> — </span><span class="si">{</span><span class="n">s</span><span class="p">[</span><span class="s1">'score'</span><span class="p">]</span><span class="si">}</span><span class="s2"> балів"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-77-1" name="__codelineno-77-1" href="#__codelineno-77-1"></a>Оригінал: ['яблуко', 'кіт', 'ананас', 'буря', 'ліс']
+<a id="__codelineno-77-2" name="__codelineno-77-2" href="#__codelineno-77-2"></a>За алфавітом: ['ананас', 'буря', 'кіт', 'ліс', 'яблуко']
+<a id="__codelineno-77-3" name="__codelineno-77-3" href="#__codelineno-77-3"></a>За довжиною: ['кіт', 'ліс', 'буря', 'яблуко', 'ананас']
+<a id="__codelineno-77-4" name="__codelineno-77-4" href="#__codelineno-77-4"></a>Зворотньо: ['яблуко', 'ліс', 'кіт', 'буря', 'ананас']
+<a id="__codelineno-77-5" name="__codelineno-77-5" href="#__codelineno-77-5"></a>Оригінал не змінився: ['яблуко', 'кіт', 'ананас', 'буря', 'ліс']
+<a id="__codelineno-77-6" name="__codelineno-77-6" href="#__codelineno-77-6"></a>
+<a id="__codelineno-77-7" name="__codelineno-77-7" href="#__codelineno-77-7"></a>Рейтинг студентів:
+<a id="__codelineno-77-8" name="__codelineno-77-8" href="#__codelineno-77-8"></a>  1. Василь — 95 балів
+<a id="__codelineno-77-9" name="__codelineno-77-9" href="#__codelineno-77-9"></a>  2. Аня — 88 балів
+<a id="__codelineno-77-10" name="__codelineno-77-10" href="#__codelineno-77-10"></a>  3. Богдан — 72 балів
+</code></pre></div>
+<h4 id="anyiterable-alliterable"><code>any(iterable)</code> та <code>all(iterable)</code><a class="headerlink" href="#anyiterable-alliterable" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>any()</code> → <code>True</code>, якщо <strong>хоча б один</strong> елемент істинний.</li>
+<li><code>all()</code> → <code>True</code>, якщо <strong>всі</strong> елементи істинні.</li>
+</ul>
+<p>Заміна довгих циклів з перевірками, валідація даних.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-78-1" name="__codelineno-78-1" href="#__codelineno-78-1"></a><span class="n">scores</span> <span class="o">=</span> <span class="p">[</span><span class="mi">85</span><span class="p">,</span> <span class="mi">72</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">91</span><span class="p">,</span> <span class="mi">68</span><span class="p">]</span>
+<a id="__codelineno-78-2" name="__codelineno-78-2" href="#__codelineno-78-2"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Бали:"</span><span class="p">,</span> <span class="n">scores</span><span class="p">)</span>
+<a id="__codelineno-78-3" name="__codelineno-78-3" href="#__codelineno-78-3"></a>
+<a id="__codelineno-78-4" name="__codelineno-78-4" href="#__codelineno-78-4"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">any():"</span><span class="p">)</span>
+<a id="__codelineno-78-5" name="__codelineno-78-5" href="#__codelineno-78-5"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Хтось отримав 0?"</span><span class="p">,</span> <span class="nb">any</span><span class="p">(</span><span class="n">s</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">scores</span><span class="p">))</span>
+<a id="__codelineno-78-6" name="__codelineno-78-6" href="#__codelineno-78-6"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Є хтось з 100?"</span><span class="p">,</span> <span class="nb">any</span><span class="p">(</span><span class="n">s</span> <span class="o">==</span> <span class="mi">100</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">scores</span><span class="p">))</span>
+<a id="__codelineno-78-7" name="__codelineno-78-7" href="#__codelineno-78-7"></a>
+<a id="__codelineno-78-8" name="__codelineno-78-8" href="#__codelineno-78-8"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">all():"</span><span class="p">)</span>
+<a id="__codelineno-78-9" name="__codelineno-78-9" href="#__codelineno-78-9"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Всі набрали &gt; 50?"</span><span class="p">,</span> <span class="nb">all</span><span class="p">(</span><span class="n">s</span> <span class="o">&gt;</span> <span class="mi">50</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">scores</span><span class="p">))</span>
+<a id="__codelineno-78-10" name="__codelineno-78-10" href="#__codelineno-78-10"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Всі набрали &gt;= 0?"</span><span class="p">,</span> <span class="nb">all</span><span class="p">(</span><span class="n">s</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">scores</span><span class="p">))</span>
+<a id="__codelineno-78-11" name="__codelineno-78-11" href="#__codelineno-78-11"></a>
+<a id="__codelineno-78-12" name="__codelineno-78-12" href="#__codelineno-78-12"></a><span class="c1"># перевірка паролів</span>
+<a id="__codelineno-78-13" name="__codelineno-78-13" href="#__codelineno-78-13"></a><span class="n">passwords</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"abc123"</span><span class="p">,</span> <span class="s2">"Pass1!"</span><span class="p">,</span> <span class="s2">"secure"</span><span class="p">]</span>
+<a id="__codelineno-78-14" name="__codelineno-78-14" href="#__codelineno-78-14"></a><span class="n">has_digit</span> <span class="o">=</span> <span class="p">[</span><span class="nb">any</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">passwords</span><span class="p">]</span>
+<a id="__codelineno-78-15" name="__codelineno-78-15" href="#__codelineno-78-15"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Паролі з цифрами:"</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">passwords</span><span class="p">,</span> <span class="n">has_digit</span><span class="p">)))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-79-1" name="__codelineno-79-1" href="#__codelineno-79-1"></a>Бали: [85, 72, 0, 91, 68]
+<a id="__codelineno-79-2" name="__codelineno-79-2" href="#__codelineno-79-2"></a>
+<a id="__codelineno-79-3" name="__codelineno-79-3" href="#__codelineno-79-3"></a>any():
+<a id="__codelineno-79-4" name="__codelineno-79-4" href="#__codelineno-79-4"></a>Хтось отримав 0? True
+<a id="__codelineno-79-5" name="__codelineno-79-5" href="#__codelineno-79-5"></a>Є хтось з 100? False
+<a id="__codelineno-79-6" name="__codelineno-79-6" href="#__codelineno-79-6"></a>
+<a id="__codelineno-79-7" name="__codelineno-79-7" href="#__codelineno-79-7"></a>all():
+<a id="__codelineno-79-8" name="__codelineno-79-8" href="#__codelineno-79-8"></a>Всі набрали &gt; 50? False
+<a id="__codelineno-79-9" name="__codelineno-79-9" href="#__codelineno-79-9"></a>Всі набрали &gt;= 0? True
+<a id="__codelineno-79-10" name="__codelineno-79-10" href="#__codelineno-79-10"></a>
+<a id="__codelineno-79-11" name="__codelineno-79-11" href="#__codelineno-79-11"></a>Паролі з цифрами: [('abc123', True), ('Pass1!', True), ('secure', False)]
+</code></pre></div>
+<h2 id="_9">Практичні завдання<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<p>Спробуйте розв'язати самостійно, використовуючи функції з цієї сторінки:</p>
+<ol>
+<li>Є список оцінок <code>[45, 78, 92, 55, 88, 71, 33, 96]</code>. Знайдіть середній бал, найвищий і найнижчий результат.</li>
+<li>Зі списку імен <code>["Аня", "Богдан", "Аліна", "Андрій", "Катя"]</code> відфільтруйте тільки ті, що починаються на «А».</li>
+<li>Симулюйте 100 кидків монети і порахуйте, скільки разів випав «Орел» і скільки «Решка».</li>
+</ol>
+<h2 id="_10">Шпаргалка — швидка довідка<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Функція</th>
+<th>Що робить</th>
+<th>Приклад</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sum(lst)</code></td>
+<td>Сума елементів</td>
+<td><code>sum([1,2,3])</code> → <code>6</code></td>
+</tr>
+<tr>
+<td><code>min(lst)</code></td>
+<td>Мінімум</td>
+<td><code>min([3,1,2])</code> → <code>1</code></td>
+</tr>
+<tr>
+<td><code>max(lst)</code></td>
+<td>Максимум</td>
+<td><code>max([3,1,2])</code> → <code>3</code></td>
+</tr>
+<tr>
+<td><code>abs(x)</code></td>
+<td>Абсолютне значення</td>
+<td><code>abs(-5)</code> → <code>5</code></td>
+</tr>
+<tr>
+<td><code>round(x, n)</code></td>
+<td>Округлення</td>
+<td><code>round(3.14159, 2)</code> → <code>3.14</code></td>
+</tr>
+<tr>
+<td><code>len(s)</code></td>
+<td>Довжина</td>
+<td><code>len([1,2,3])</code> → <code>3</code></td>
+</tr>
+<tr>
+<td><code>range(a,b,s)</code></td>
+<td>Послідовність чисел</td>
+<td><code>list(range(0,6,2))</code> → <code>[0,2,4]</code></td>
+</tr>
+<tr>
+<td><code>zip(a, b)</code></td>
+<td>Об'єднати списки</td>
+<td><code>zip([1,2],["a","b"])</code></td>
+</tr>
+<tr>
+<td><code>enumerate(lst)</code></td>
+<td>Індекс + елемент</td>
+<td><code>enumerate(["a","b"])</code></td>
+</tr>
+<tr>
+<td><code>map(f, lst)</code></td>
+<td>Трансформація</td>
+<td><code>map(int, ["1","2"])</code></td>
+</tr>
+<tr>
+<td><code>filter(f, lst)</code></td>
+<td>Фільтрація</td>
+<td><code>filter(lambda x: x&gt;0, lst)</code></td>
+</tr>
+<tr>
+<td><code>sorted(lst)</code></td>
+<td>Сортування</td>
+<td><code>sorted([3,1,2])</code> → <code>[1,2,3]</code></td>
+</tr>
+<tr>
+<td><code>any(lst)</code></td>
+<td>Хоча б один <code>True</code></td>
+<td><code>any([0, 0, 1])</code> → <code>True</code></td>
+</tr>
+<tr>
+<td><code>all(lst)</code></td>
+<td>Всі <code>True</code></td>
+<td><code>all([1, 1, 0])</code> → <code>False</code></td>
+</tr>
+<tr>
+<td><code>type(x)</code></td>
+<td>Тип об'єкта</td>
+<td><code>type(42)</code> → <code>int</code></td>
+</tr>
+<tr>
+<td><code>isinstance(x, T)</code></td>
+<td>Перевірка типу</td>
+<td><code>isinstance(42, int)</code> → <code>True</code></td>
+</tr>
+<tr>
+<td><code>dir(x)</code></td>
+<td>Методи об'єкта</td>
+<td><code>dir([])</code> → список методів</td>
+</tr>
+<tr>
+<td><code>id(x)</code></td>
+<td>Ідентифікатор об'єкта в пам'яті</td>
+<td><code>id(x)</code></td>
+</tr>
+<tr>
+<td><code>random.randint(a,b)</code></td>
+<td>Ціле число <code>[a,b]</code></td>
+<td><code>randint(1,6)</code> → <code>4</code></td>
+</tr>
+<tr>
+<td><code>random.choice(lst)</code></td>
+<td>Один випадковий елемент</td>
+<td><code>choice(["a","b","c"])</code></td>
+</tr>
+<tr>
+<td><code>random.random()</code></td>
+<td>Число <code>[0.0, 1.0)</code></td>
+<td><code>random()</code> → <code>0.73...</code></td>
+</tr>
+<tr>
+<td><code>random.uniform(a,b)</code></td>
+<td>Дійсне число <code>[a,b]</code></td>
+<td><code>uniform(1,10)</code></td>
+</tr>
+<tr>
+<td><code>random.shuffle(lst)</code></td>
+<td>Перемішати список (на місці)</td>
+<td><code>shuffle([1,2,3,4])</code></td>
+</tr>
+<tr>
+<td><code>random.sample(lst,k)</code></td>
+<td><code>k</code> унікальних елементів</td>
+<td><code>sample(range(50), 6)</code></td>
+</tr>
+<tr>
+<td><code>random.randrange(a,b,s)</code></td>
+<td>Ціле з <code>range</code>, без <code>b</code></td>
+<td><code>randrange(0,21,2)</code></td>
+</tr>
+<tr>
+<td><code>random.seed(x)</code></td>
+<td>Фіксувати результат</td>
+<td><code>seed(42)</code></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Футер" >
+        
+          
+          <a href="../file_io_json/" class="md-footer__link md-footer__link--prev" aria-label="Назад: File I/O та JSON">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Назад
+              </span>
+              <div class="md-ellipsis">
+                File I/O та JSON
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.footer", "toc.follow", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0456\u0439\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u0421\u043a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438 \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0429\u0435 1 \u0437\u0431\u0456\u0433 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.more.other": "\u0429\u0435 # \u0437\u0431\u0456\u0433\u0456\u0432 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.none": "\u0417\u0431\u0456\u0433\u0456\u0432 \u043d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0437\u0431\u0456\u0433", "search.result.other": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e # \u0437\u0431\u0456\u0433\u0456\u0432", "search.result.placeholder": "\u0420\u043e\u0437\u043f\u043e\u0447\u043d\u0456\u0442\u044c \u043f\u0438\u0441\u0430\u0442\u0438 \u0434\u043b\u044f \u043f\u043e\u0448\u0443\u043a\u0443", "search.result.term.missing": "\u041d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e \u0437\u0430\u043f\u0438\u0442\u0443", "select.version": "\u041e\u0431\u0440\u0430\u0442\u0438 \u0432\u0435\u0440\u0441\u0456\u044e"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/sidebars.js"></script>
+      
+    
+  </body>
+</html>

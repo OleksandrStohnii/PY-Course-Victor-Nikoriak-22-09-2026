@@ -1,0 +1,4535 @@
+
+<!doctype html>
+<html lang="uk" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Курс Python українською — від основ до просунутих тем, у форматі книги">
+      
+      
+      
+        <link rel="canonical" href="https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m4/lesson_46/">
+      
+      
+        <link rel="prev" href="../lesson_45/">
+      
+      
+        <link rel="next" href="../lesson_47/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>46. WebSockets + практика: чат - PY Course — Viktor Nikoriak</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#46-websockets" class="md-skip">
+          Перейти до змісту
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Хедер">
+    <a href="../../.." title="PY Course — Viktor Nikoriak" class="md-header__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PY Course — Viktor Nikoriak
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              46. WebSockets + практика: чат
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Пошук" placeholder="Пошук" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Шукати">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистити" aria-label="Очистити" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Пошук розпочато
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Вкладки" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Головна
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../00_getting_started/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Як користуватися
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Модулі курсу (в розробці)
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../00_python_mental_model/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Довідник
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Навігація" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="PY Course — Viktor Nikoriak" class="md-nav__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    PY Course — Viktor Nikoriak
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Головна
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../00_getting_started/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Як користуватися
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Модулі курсу (в розробці)
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Модулі курсу (в розробці)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../m1/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М1. Основи Python
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М1. Основи Python
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Вступ: формат курсу, AI-політика
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Перші кроки
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Змінні та базові типи даних
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Умови та цикли
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Списки, кортежі, множини
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Словники, for, comprehensions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Функції
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. П1. Big O + базові задачі
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Декоратори
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Ітератори й генератори
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. П2. Пошук
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Модулі та стандартна бібліотека
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Винятки та обробка помилок
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Файли I/O, JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Git & GitHub: система
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. П3. Хеш-структури
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Узагальнення + фінальний проєкт
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М2. Python Advanced
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М2. Python Advanced
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2_python_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Функції як об'єкти першого класу
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Класи, простір імен
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    21. Наслідування, поліморфізм
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    22. Інкапсуляція, область видимості
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    23. П4. Рекурсія, divide & conquer, backtracking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    24. @property, декоратори класів, dunder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    25. Ітератори advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    26. Тестування з pytest (+ валідація AI-коду)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    27. П5. Динамічне програмування + greedy (вступ)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    28. Потоки, multiprocessing, asyncio: вступ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    29. П6. Stack, Queue, Heap, Trie + LRU → ООП-пакет
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М3. Бази даних
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М3. Бази даних
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3_databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m3/bonus_pandas/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. Pandas: аналіз даних, графіки і Dash
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3/lesson_30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    30. Основи SQL (PostgreSQL)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3/lesson_31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    31. Redis overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М4. Web (+ Web Advanced)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М4. Web (+ Web Advanced)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4_web/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    32. HTTP: requests, httpx, aiohttp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    33. REST: принципи дизайну API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    34. Django intro: MVT, ORM, admin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    35. Django: forms, HTML practice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    36. DRF overview + Django vs FastAPI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    37. Typing + Pydantic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../lesson_38/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    38. FastAPI basics + Postman + OpenAPI
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    39. FastAPI + SQLAlchemy: повний CRUD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    40. Middlewares і кешування (Redis на практиці)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    41. Автентифікація та security basics (JWT, hashing, OWASP)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    42. Тестування API (pytest + httpx)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../lesson_43/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    43. AI-інструменти розробника + ризики й валідація
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    44. Інтеграція LLM API (Gemini / Anthropic)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    45. Архітектура застосунків і патерни
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    46. WebSockets + практика: чат
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    46. WebSockets + практика: чат
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пригадай
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Старт: з якого коду починаємо
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#http-vs-ws" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HTTP проти WebSocket
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 1. ASGI і Channels
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 2. Consumer — ще один транспорт
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 2. Consumer — ще один транспорт">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Життєвий цикл: два учасники, одне повідомлення
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 3. Права — на кожне повідомлення
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 4. Звідки прийшло з'єднання: Origin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#channel-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Channel layer: пам'ять чи Redis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Архітектура
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Архітектура">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Тести
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#min-versions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Мінімальні версії залежностей
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Практика
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Практика">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Розібраний приклад: «хто зараз у чаті»
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зміни приклад
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Спробуй самостійно: «друкує…»
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#find-bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Знайди помилку
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Підсумок
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Підсумок">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Самоперевірка
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що далі
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Документація і джерела
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    47. Security advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    48. Telegram Bot API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М5. Production
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М5. Production
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5_production/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m5/bonus_linux/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. Linux для розробника
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    49. Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    50. Docker Compose + деплой
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    51. CI/CD (GitHub Actions)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М6. Капстоун
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М6. Капстоун
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6_capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6/lesson_52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    52. Робота над фінальним проєктом
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6/lesson_53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    53. Випускний: питч фінального проєкту
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m6/bonus_cv/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. CV розробника
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bonus_ai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Self-paced. AI для розробників (бонус)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../00_python_mental_model/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Довідник
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пригадай
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Старт: з якого коду починаємо
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#http-vs-ws" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HTTP проти WebSocket
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 1. ASGI і Channels
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 2. Consumer — ще один транспорт
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 2. Consumer — ще один транспорт">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Життєвий цикл: два учасники, одне повідомлення
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 3. Права — на кожне повідомлення
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 4. Звідки прийшло з'єднання: Origin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#channel-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Channel layer: пам'ять чи Redis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Архітектура
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Архітектура">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Тести
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#min-versions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Мінімальні версії залежностей
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Практика
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Практика">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Розібраний приклад: «хто зараз у чаті»
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зміни приклад
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Спробуй самостійно: «друкує…»
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#find-bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Знайди помилку
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Підсумок
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Підсумок">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Самоперевірка
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що далі
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Документація і джерела
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Навігація" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Головна
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Модулі курсу (в розробці)
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../m4_web/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    М4. Web (+ Web Advanced)
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="46-websockets">Урок 46. WebSockets + практика: чат<a class="headerlink" href="#46-websockets" title="Permanent link">&para;</a></h1>
+<p>У нотатках є групи: «Сім'я» бачить спільні нотатки й списки покупок (урок 41). Сьогодні група отримує <strong>чат</strong> — повідомлення з'являються в усіх учасників одразу, без оновлення сторінки.</p>
+<p>HTTP так не вміє: розмову завжди починає браузер — «запитав → отримав». Щоб дізнатися про нове повідомлення, довелося б питати сервер щосекунди. <strong>WebSocket</strong> — постійний двосторонній канал: відкривається одним HTTP-запитом і лишається відкритим, писати в нього може і браузер, і сервер (урок 33, «WebSocket і SSE»).</p>
+<p>Стартовий код чату — це крок 7B <a href="https://nikoriakviktot.github.io/notes_chat_app/tutorials/07_async_django/">Django-книги</a>: Django Channels, consumer, channel layer, JS-клієнт. Переносячи його в проєкт уроку 45, перевіряємо тим самим правилом: <strong>consumer — ще один транспорт</strong> над тими самими selectors і services. Дві знахідки дорогою:</p>
+<ul>
+<li>учасник, якого вилучили з групи, з відкритою вкладкою далі <strong>читає й пише</strong> в чат;</li>
+<li>будь-який сайт, відкритий у браузері учасника, може під'єднатися до чату від його імені.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Урок</th>
+<th>Django-гілка: застосунок нотаток</th>
+<th>Проєкт</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>33–35</td>
+<td>MVT, форми, DRF API</td>
+<td><code>crispy_notes_project</code></td>
+</tr>
+<tr>
+<td>40</td>
+<td>групи, паролі, JWT</td>
+<td>+ групи</td>
+</tr>
+<tr>
+<td>44</td>
+<td>архітектура: правила доступу в selectors, CBV, PostgreSQL</td>
+<td>+ <code>tests_architecture.py</code></td>
+</tr>
+<tr>
+<td><strong>45</strong></td>
+<td><strong>груповий чат на WebSocket: ASGI, Channels, consumer, channel layer (Redis)</strong></td>
+<td><strong>+ <code>consumers.py</code>, <code>asgi.py</code>, <code>ChatMessage</code></strong></td>
+</tr>
+<tr>
+<td>48–49</td>
+<td>Docker, деплой</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>Проєкт: <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_46_websocket_chat/crispy_notes_project"><code>crispy_notes_project</code></a>.</p>
+<p><strong>Що потрібно з попередніх уроків:</strong> <code>asyncio</code>, <code>await</code>, цикл подій (урок 28); WebSocket і SSE серед типів API (32); Redis (30, 39); групи й правило «бачить група, змінює автор» (40); selectors / services і тест архітектури (44).</p>
+<p><strong>Після уроку ти зможеш:</strong></p>
+<ul>
+<li>пояснити, чим WebSocket відрізняється від HTTP-запиту і коли він потрібен;</li>
+<li>підключити Django Channels: ASGI, <code>ProtocolTypeRouter</code>, routing, consumer;</li>
+<li>написати consumer як тонкий транспорт над selectors і services;</li>
+<li>розіслати повідомлення всім учасникам через channel layer — у пам'яті або в Redis;</li>
+<li>захистити WebSocket: автентифікація, права на кожне повідомлення, перевірка <code>Origin</code>;</li>
+<li>тестувати consumer без браузера і сервера — <code>WebsocketCommunicator</code>.</li>
+</ul>
+<p><strong>Ноутбук заняття:</strong> <a class="md-button md-button--primary" href="https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_46_websocket_chat/note_lesson_46_chat_student.ipynb">Відкрити вправи в Colab</a> <a class="solutions-link" href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_46_websocket_chat/note_lesson_46_chat.ipynb">Переглянути розв’язки</a> — чат з кількома «браузерами» прямо в ноутбуці, без сервера.</p>
+<h2 id="_1">Пригадай<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Чому <code>time.sleep(2)</code> в <code>async def</code> зупиняє <strong>всі</strong> запити FastAPI-застосунку, а <code>await asyncio.sleep(2)</code> — ні (урок 38)?</li>
+<li>Хто в проєкті нотаток відповідає на питання «чи учасник Анна групи 7?» — view, selector чи service (урок 45)?</li>
+<li>Як браузер «пам'ятає», що ти увійшов, між запитами до Django (урок 41)?</li>
+</ol>
+<details class="success">
+<summary>Відповіді</summary>
+<ol>
+<li>Цикл подій один: <code>time.sleep</code> блокує його повністю, і жодна інша корутина не виконується. <code>await asyncio.sleep</code> віддає керування циклу — інші запити обробляються, поки ця корутина чекає.</li>
+<li>Selector (<code>groups_of(user)</code>, <code>get_group_with_members</code>): правило доступу живе в одному місці, views і API лише його викликають.</li>
+<li>Cookie <code>sessionid</code>: браузер надсилає його з кожним запитом до нашого сайту, Django за ним знаходить сесію й користувача. Сьогодні важливо: браузер надсилає цей cookie і тоді, коли запит ініціює <strong>чужа</strong> сторінка.</li>
+</ol>
+</details>
+<h2 id="_2">Старт: з якого коду починаємо<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Звідки (<code>notes_chat_app/</code>)</th>
+<th>Що там</th>
+<th>Куди в проєкті</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>notes_app/consumers.py</code></td>
+<td><code>GroupChatConsumer</code>: <code>connect</code> / <code>receive</code> / <code>disconnect</code>, розсилка через channel layer</td>
+<td><code>hello_app/consumers.py</code></td>
+</tr>
+<tr>
+<td><code>notes_project/asgi.py</code>, <code>routing.py</code></td>
+<td><code>ProtocolTypeRouter</code>: HTTP → Django, WebSocket → <code>AuthMiddlewareStack</code> → <code>URLRouter</code></td>
+<td><code>hello_project/asgi.py</code>, <code>routing.py</code></td>
+</tr>
+<tr>
+<td><code>notes_app/models.py</code> — <code>ChatMessage</code></td>
+<td>повідомлення: група, автор, текст, час; індекс <code>(group, timestamp)</code></td>
+<td><code>hello_app/models.py</code>, міграція <code>0004</code></td>
+</tr>
+<tr>
+<td><code>group_chat.html</code>, <code>static/…/group_chat.js</code></td>
+<td>сторінка чату; клієнт на чистому JS: статус, перепідключення з backoff, <code>escapeHtml</code></td>
+<td><code>hello_app/templates/…</code>, <code>hello_app/static/hello_app/js/</code></td>
+</tr>
+<tr>
+<td><code>settings.py</code></td>
+<td><code>daphne</code> першим в <code>INSTALLED_APPS</code>, <code>ASGI_APPLICATION</code>, <code>CHANNEL_LAYERS</code> (Redis за <code>REDIS_URL</code>, інакше в пам'яті)</td>
+<td><code>hello_project/settings.py</code></td>
+</tr>
+<tr>
+<td><code>notes_app/tests/test_consumers.py</code></td>
+<td>9 тестів <code>WebsocketCommunicator</code></td>
+<td><code>hello_app/tests_consumers.py</code> — без змін, проходять</td>
+</tr>
+</tbody>
+</table>
+<p>Теорію кроку — WebSocket-протокол, ASGI-стек, налаштування Channels, consumer, JS-клієнт — книга пояснює посторінково (посилання в кінці кожного розділу). Тут — перенесення в наш проєкт і те, що з'ясувалося при перевірці.</p>
+<h2 id="http-vs-ws">HTTP проти WebSocket<a class="headerlink" href="#http-vs-ws" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>sequenceDiagram
+    participant O as браузер Олени
+    participant S as сервер
+    participant A as браузер Анни
+
+    Note over O,S: HTTP: питати щосекунди (polling)
+    O-&gt;&gt;S: GET /messages?after=41
+    S--&gt;&gt;O: [] — нового немає
+    O-&gt;&gt;S: GET /messages?after=41
+    S--&gt;&gt;O: [] — нового немає
+    A-&gt;&gt;S: POST /messages «Привіт»
+    O-&gt;&gt;S: GET /messages?after=41
+    S--&gt;&gt;O: [42: «Привіт»] — із запізненням до секунди
+
+    Note over O,A: WebSocket: одне з'єднання, сервер пише сам
+    O-&gt;&gt;S: GET /ws/groups/7/chat/ + Upgrade: websocket
+    S--&gt;&gt;O: 101 Switching Protocols
+    A-&gt;&gt;S: {"content": "Привіт"}
+    S--&gt;&gt;O: {"type": "message", "content": "Привіт"} — одразу
+    S--&gt;&gt;A: {"type": "message", "content": "Привіт"}</code></pre>
+<p>Polling робить сотні порожніх запитів і все одно запізнюється. WebSocket тримає одне з'єднання на вкладку, а сервер пише в нього, щойно є що сказати. Ціна — сервер тримає тисячі відкритих з'єднань. Потік на кожне (WSGI) цього не витримає; потрібен цикл подій — <strong>ASGI</strong>.</p>
+<p>Поглиблено: <a href="https://nikoriakviktot.github.io/notes_chat_app/tutorials/07_async_django/7b_websocket_protocol/">WebSocket-протокол і цикл подій</a>.</p>
+<h2 id="refactor-1">Рефакторинг 1. ASGI і Channels<a class="headerlink" href="#refactor-1" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Було (урок 45)</th>
+<th>Стало (урок 46)</th>
+<th>Навіщо</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>asgi.py</code> — лише <code>get_asgi_application()</code></td>
+<td><code>ProtocolTypeRouter</code>: <code>"http"</code> → Django, <code>"websocket"</code> → Channels</td>
+<td>один процес обслуговує і сторінки, і WebSocket</td>
+</tr>
+<tr>
+<td><code>runserver</code> — WSGI</td>
+<td><code>daphne</code> першим в <code>INSTALLED_APPS</code> → <code>runserver</code> запускає ASGI</td>
+<td>чат працює і в розробці, без окремої команди</td>
+</tr>
+<tr>
+<td>—</td>
+<td><code>routing.py</code>: <code>ws/groups/&lt;pk&gt;/chat/</code> → <code>GroupChatConsumer</code></td>
+<td>«urls.py для WebSocket»</td>
+</tr>
+<tr>
+<td>—</td>
+<td><code>CHANNEL_LAYERS</code>: Redis за <code>REDIS_URL</code>, інакше в пам'яті</td>
+<td>розсилка повідомлень між з'єднаннями</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><span class="filename">hello_project/asgi.py (фрагмент)</span><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">'DJANGO_SETTINGS_MODULE'</span><span class="p">,</span> <span class="s1">'hello_project.settings'</span><span class="p">)</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># get_asgi_application() ПОВИНЕН бути викликаний ДО будь-якого імпорту з hello_app (consumers, models)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">django_asgi_app</span> <span class="o">=</span> <span class="n">get_asgi_application</span><span class="p">()</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">channels.routing</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProtocolTypeRouter</span><span class="p">,</span> <span class="n">URLRouter</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="kn">from</span><span class="w"> </span><span class="nn">channels.auth</span><span class="w"> </span><span class="kn">import</span> <span class="n">AuthMiddlewareStack</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="kn">from</span><span class="w"> </span><span class="nn">channels.security.websocket</span><span class="w"> </span><span class="kn">import</span> <span class="n">AllowedHostsOriginValidator</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="kn">from</span><span class="w"> </span><span class="nn">hello_project.routing</span><span class="w"> </span><span class="kn">import</span> <span class="n">websocket_urlpatterns</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="k">def</span><span class="w"> </span><span class="nf">websocket_application</span><span class="p">():</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="o">...</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="k">return</span> <span class="n">AllowedHostsOriginValidator</span><span class="p">(</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>        <span class="n">AuthMiddlewareStack</span><span class="p">(</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>            <span class="n">URLRouter</span><span class="p">(</span><span class="n">websocket_urlpatterns</span><span class="p">)</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>        <span class="p">)</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    <span class="p">)</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="n">application</span> <span class="o">=</span> <span class="n">ProtocolTypeRouter</span><span class="p">({</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>    <span class="s2">"http"</span><span class="p">:</span> <span class="n">ASGIStaticFilesHandler</span><span class="p">(</span><span class="n">django_asgi_app</span><span class="p">),</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>    <span class="s2">"websocket"</span><span class="p">:</span> <span class="n">websocket_application</span><span class="p">(),</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="p">})</span>
+</code></pre></div>
+<p>Порядок імпортів тут — не стиль, а вимога: <code>get_asgi_application()</code> запускає <code>django.setup()</code>, і лише після цього можна імпортувати моделі (через routing → consumers → selectors → models). Інакше <code>AppRegistryNotReady</code>.</p>
+<p>Шари WebSocket-стеку — ззовні всередину: <code>AllowedHostsOriginValidator</code> (звідки прийшли — рефакторинг 4) → <code>AuthMiddlewareStack</code> (хто: <code>scope['user']</code> із cookie сесії) → <code>URLRouter</code> (куди: consumer і <code>group_pk</code>).</p>
+<div class="highlight"><span class="filename">hello_project/settings.py (фрагмент)</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="c1"># Урок 46: daphne ПЕРШИМ — перевизначає runserver, щоб він запускався через ASGI (інакше WebSocket не працює)</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="s2">"daphne"</span><span class="p">,</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="s2">"django.contrib.admin"</span><span class="p">,</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="o">...</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="s2">"channels"</span><span class="p">,</span>                      <span class="c1"># урок 46: WebSocket (consumers, channel layer)</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="s2">"hello_app"</span><span class="p">,</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="p">]</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="n">ASGI_APPLICATION</span> <span class="o">=</span> <span class="s2">"hello_project.asgi.application"</span>   <span class="c1"># урок 46: HTTP + WebSocket (hello_project/asgi.py)</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="n">REDIS_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"REDIS_URL"</span><span class="p">)</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="k">if</span> <span class="n">REDIS_URL</span><span class="p">:</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>    <span class="n">CHANNEL_LAYERS</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"default"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"BACKEND"</span><span class="p">:</span> <span class="s2">"channels_redis.core.RedisChannelLayer"</span><span class="p">,</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>                                  <span class="s2">"CONFIG"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"hosts"</span><span class="p">:</span> <span class="p">[</span><span class="n">REDIS_URL</span><span class="p">]}}}</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>    <span class="n">CHANNEL_LAYERS</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"default"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"BACKEND"</span><span class="p">:</span> <span class="s2">"channels.layers.InMemoryChannelLayer"</span><span class="p">}}</span>
+</code></pre></div>
+<p>Поглиблено: <a href="https://nikoriakviktot.github.io/notes_chat_app/tutorials/07_async_django/7b_asgi_stack/">ASGI-стек</a>, <a href="https://nikoriakviktot.github.io/notes_chat_app/tutorials/07_async_django/7b_channels_settings/">налаштування Channels</a>.</p>
+<h2 id="refactor-2">Рефакторинг 2. Consumer — ще один транспорт<a class="headerlink" href="#refactor-2" title="Permanent link">&para;</a></h2>
+<p>Consumer — «view для WebSocket»: view обробляє один запит і завершується, consumer живе, поки відкрите з'єднання. До рефакторингу він сам ходив у базу — три власні ORM-хелпери:</p>
+<div class="highlight"><span class="filename">notes_app/consumers.py (до рефакторингу, скорочено)</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>    <span class="nd">@database_sync_to_async</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">check_membership</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group_pk</span><span class="p">,</span> <span class="n">user</span><span class="p">):</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>        <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>            <span class="n">group</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">group_pk</span><span class="p">)</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>            <span class="k">return</span> <span class="n">group</span><span class="o">.</span><span class="n">user_set</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">user</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>        <span class="k">except</span> <span class="n">Group</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>            <span class="k">return</span> <span class="kc">False</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="nd">@database_sync_to_async</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">load_history</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group_pk</span><span class="p">):</span> <span class="o">...</span>          <span class="c1"># ChatMessage.objects… [:50]</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    <span class="nd">@database_sync_to_async</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">save_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group_pk</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>        <span class="k">return</span> <span class="n">ChatMessage</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">group_id</span><span class="o">=</span><span class="n">group_pk</span><span class="p">,</span> <span class="n">author</span><span class="o">=</span><span class="n">user</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="n">content</span><span class="p">)</span>
+</code></pre></div>
+<p>Правило «хто учасник групи» — вже вчетверте в проєкті (сторінки групи, нотатки групи, списки групи… і чат), і знову власною копією. За правилом уроку 45 consumer лише <strong>вибирає</strong> правило:</p>
+<table>
+<thead>
+<tr>
+<th>Було (consumer до рефакторингу)</th>
+<th>Стало</th>
+<th>Де</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>check_membership</code> — <code>Group.objects.get</code> + <code>user_set…exists()</code></td>
+<td><code>selectors.is_group_member(user, group_pk)</code></td>
+<td>те саме правило, що <code>groups_of(user)</code> для сторінок</td>
+</tr>
+<tr>
+<td><code>load_history</code> — ORM у consumer</td>
+<td><code>selectors.recent_chat_messages(group_pk)</code></td>
+<td>повертає <strong>список</strong>, не QuerySet</td>
+</tr>
+<tr>
+<td><code>save_message</code> + перевірка довжини в <code>receive</code></td>
+<td><code>services.post_chat_message(group_pk=…, author=…, content=…)</code></td>
+<td>правило тексту й членства — для будь-якого транспорту</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><span class="filename">hello_app/selectors.py (фрагмент)</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">is_group_member</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">group_pk</span><span class="p">):</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="sd">"""Те саме правило, що для сторінок групи: група є серед груп користувача."""</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="k">return</span> <span class="n">user</span><span class="o">.</span><span class="n">is_authenticated</span> <span class="ow">and</span> <span class="n">groups_of</span><span class="p">(</span><span class="n">user</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">group_pk</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">recent_chat_messages</span><span class="p">(</span><span class="n">group_pk</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="sd">"""Останні `limit` повідомлень групи, від старих до нових — СПИСОК словників, а не QuerySet.</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="sd">    Consumer працює в циклі подій, а ORM — синхронний: цю функцію викликають через</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="sd">    database_sync_to_async, і SQL мусить виконатися всередині неї (list(...)). Лінивий QuerySet,</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="sd">    повернутий у цикл подій, виконався б там — SynchronousOnlyOperation.</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="sd">    """</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>    <span class="n">newest</span> <span class="o">=</span> <span class="p">(</span><span class="n">ChatMessage</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">group_id</span><span class="o">=</span><span class="n">group_pk</span><span class="p">)</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>              <span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">'-timestamp'</span><span class="p">,</span> <span class="s1">'-id'</span><span class="p">)[:</span><span class="n">limit</span><span class="p">]</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>              <span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s1">'id'</span><span class="p">,</span> <span class="s1">'author__username'</span><span class="p">,</span> <span class="s1">'content'</span><span class="p">,</span> <span class="s1">'timestamp'</span><span class="p">))</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">newest</span><span class="p">))</span>
+</code></pre></div>
+<p><code>.order_by('-timestamp', '-id')</code> — «найновіші 50», <code>reversed</code> — показати від старих до нових. Другий ключ <code>-id</code> потрібен, бо два повідомлення можуть отримати однаковий <code>timestamp</code>.</p>
+<div class="highlight"><span class="filename">hello_app/services.py (фрагмент)</span><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">CHAT_MESSAGE_MAX_LENGTH</span> <span class="o">=</span> <span class="mi">2000</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">post_chat_message</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">group_pk</span><span class="p">,</span> <span class="n">author</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="sd">"""Зберегти повідомлення чату. Одне правило для будь-якого транспорту (WebSocket, API, тест):</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="sd">    - писати може лише учасник групи — перевірка на КОЖНЕ повідомлення, не лише при підключенні;</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="sd">    - текст обрізаємо з країв; порожній або довший за CHAT_MESSAGE_MAX_LENGTH — ValidationError.</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="sd">    """</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>    <span class="n">text</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="s1">''</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">text</span><span class="p">:</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>        <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span><span class="s1">'Порожнє повідомлення.'</span><span class="p">)</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">CHAT_MESSAGE_MAX_LENGTH</span><span class="p">:</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>        <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Повідомлення довше за </span><span class="si">{</span><span class="n">CHAT_MESSAGE_MAX_LENGTH</span><span class="si">}</span><span class="s1"> символів.'</span><span class="p">)</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">selectors</span><span class="o">.</span><span class="n">is_group_member</span><span class="p">(</span><span class="n">author</span><span class="p">,</span> <span class="n">group_pk</span><span class="p">):</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>        <span class="k">raise</span> <span class="n">PermissionDenied</span><span class="p">(</span><span class="s1">'Писати в чат може лише учасник групи.'</span><span class="p">)</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>    <span class="k">return</span> <span class="n">ChatMessage</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">group_id</span><span class="o">=</span><span class="n">group_pk</span><span class="p">,</span> <span class="n">author</span><span class="o">=</span><span class="n">author</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="n">text</span><span class="p">)</span>
+</code></pre></div>
+<p>Consumer тепер — транспорт: розібрати кадр, викликати service, розіслати результат.</p>
+<div class="highlight"><span class="filename">hello_app/consumers.py (фрагмент)</span><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">receive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text_data</span><span class="p">):</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>        <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>            <span class="n">content</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">text_data</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'content'</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>        <span class="k">except</span> <span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">JSONDecodeError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>            <span class="k">return</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>        <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>            <span class="n">msg</span> <span class="o">=</span> <span class="k">await</span> <span class="n">database_sync_to_async</span><span class="p">(</span><span class="n">services</span><span class="o">.</span><span class="n">post_chat_message</span><span class="p">)(</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>                <span class="n">group_pk</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">group_pk</span><span class="p">,</span> <span class="n">author</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="n">content</span><span class="p">)</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>        <span class="k">except</span> <span class="n">ValidationError</span><span class="p">:</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>            <span class="k">return</span>                                   <span class="c1"># порожнє чи задовге — ігноруємо, як і раніше</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>        <span class="k">except</span> <span class="n">PermissionDenied</span><span class="p">:</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="n">CLOSE_NOT_ALLOWED</span><span class="p">)</span>  <span class="c1"># уже не учасник групи</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>            <span class="k">return</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel_layer</span><span class="o">.</span><span class="n">group_send</span><span class="p">(</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">room_group_name</span><span class="p">,</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>            <span class="p">{</span>
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>                <span class="s1">'type'</span><span class="p">:</span> <span class="s1">'chat_message'</span><span class="p">,</span>
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>                <span class="s1">'message_id'</span><span class="p">:</span> <span class="n">msg</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>                <span class="s1">'author'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="p">,</span>
+<a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>                <span class="s1">'content'</span><span class="p">:</span> <span class="n">msg</span><span class="o">.</span><span class="n">content</span><span class="p">,</span>
+<a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a>                <span class="s1">'timestamp'</span><span class="p">:</span> <span class="n">msg</span><span class="o">.</span><span class="n">timestamp</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(),</span>
+<a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a>            <span class="p">}</span>
+<a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a>        <span class="p">)</span>
+</code></pre></div>
+<p><code>database_sync_to_async(f)(…)</code> — виконати синхронну функцію (ORM) у пулі потоків і дочекатися результату, не блокуючи цикл подій. Той самий selector чи service працює і з view (синхронно), і з consumer (через обгортку) — нічого не дублюється. <code>tests_architecture.py</code> уроку 45 тепер перевіряє й <code>consumers.py</code>: <code>.objects</code> у ньому немає.</p>
+<h3 id="_3">Життєвий цикл: два учасники, одне повідомлення<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>Олена й Анна відкрили чат групи 7. Анна пише «Привіт»:</p>
+<pre class="mermaid"><code>flowchart TD
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    subgraph C1["connect(): кожна вкладка — свій consumer"]
+        direction LR
+        c1{"is_group_member&lt;br&gt;(Олена / Анна, 7)"} -- так --&gt; c2["group_add('chat_group_7',&lt;br&gt;channel_name)"] --&gt; c3["accept()"] --&gt; c4["history:&lt;br&gt;recent_chat_messages(7)"]
+    end
+    subgraph C2["receive() у consumer Анни"]
+        direction LR
+        r1["{'content': 'Привіт'}"] --&gt; r2["services.post_chat_message&lt;br&gt;член? довжина? → INSERT"] --&gt; r3["group_send('chat_group_7',&lt;br&gt;type: chat_message)"]
+    end
+    subgraph C3["channel layer: усім підписникам групи"]
+        direction LR
+        l1["consumer Олени&lt;br&gt;chat_message()"] ~~~ l2["consumer Анни&lt;br&gt;chat_message()"]
+    end
+    subgraph C4["send() → браузери"]
+        direction LR
+        s1["Олена бачить&lt;br&gt;«Привіт»"] ~~~ s2["Анна бачить своє&lt;br&gt;«Привіт»"]
+    end
+
+    C1 --&gt; C2 --&gt; C3 --&gt; C4
+
+    class c1 decision
+    class c2,c3,c4 step
+    class r1 step
+    class r2 warning
+    class r3,l1,l2 step
+    class s1,s2 success</code></pre>
+<p><code>type: 'chat_message'</code> у <code>group_send</code> — ім'я <strong>методу</strong>, який channel layer викличе в кожному consumer групи (<code>chat.message</code> теж стане <code>chat_message</code>). Consumer Анни не надсилає своє повідомлення напряму — воно приходить до неї тим самим шляхом, що й до Олени, вже з <code>id</code> і часом із бази.</p>
+<p>Поглиблено: <a href="https://nikoriakviktot.github.io/notes_chat_app/tutorials/07_async_django/7b_consumer/">consumer: життєвий цикл, <code>database_sync_to_async</code>, <code>group_send</code></a>.</p>
+<h2 id="refactor-3">Рефакторинг 3. Права — на кожне повідомлення<a class="headerlink" href="#refactor-3" title="Permanent link">&para;</a></h2>
+<p>Consumer до рефакторингу перевіряв членство <strong>один раз</strong> — у <code>connect()</code>. Далі з'єднання живе годинами. Що, якщо Анну вилучили з групи, а її вкладка лишилась відкритою? Справжній запуск стартового коду (<code>WebsocketCommunicator</code>, про нього — у розділі «Тести»):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Анна в групі: False
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>Анна отримала: Обговорюємо подарунок для Анни
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>збережено від Анни: 1
+</code></pre></div>
+<p>Анна вже не учасниця, але отримує нові повідомлення й пише в чат — і її повідомлення зберігаються. Сторінка групи її вже не пустить (<code>404</code>), а відкритий WebSocket — пускає.</p>
+<p>Правильно — дві речі:</p>
+<ol>
+<li><strong>Service перевіряє членство на кожне повідомлення</strong> (<code>post_chat_message</code> вище). Consumer отримує <code>PermissionDenied</code> і закриває з'єднання кодом <code>4403</code>.</li>
+<li><strong>Вилучення з групи закриває відкриті чати одразу</strong>, не чекаючи, поки людина щось напише. Service вилучення надсилає подію в channel layer — після COMMIT, коли зміна вже в базі:</li>
+</ol>
+<div class="highlight"><span class="filename">hello_app/services.py (фрагмент)</span><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">remove_user_from_group</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">user</span><span class="p">):</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="sd">"""Removes user from group. Урок 46: відкритий чат цього користувача в групі закривається."""</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="n">group</span><span class="o">.</span><span class="n">user_set</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="n">notify_chat</span><span class="p">(</span><span class="n">group</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="p">{</span><span class="s1">'type'</span><span class="p">:</span> <span class="s1">'member.removed'</span><span class="p">,</span> <span class="s1">'user_id'</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">pk</span><span class="p">})</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="k">def</span><span class="w"> </span><span class="nf">notify_chat</span><span class="p">(</span><span class="n">group_pk</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">    </span><span class="sd">"""Подія для всіх відкритих чатів групи — після COMMIT (раніше consumer міг би ще бачити старе членство)."""</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>    <span class="n">layer</span> <span class="o">=</span> <span class="n">get_channel_layer</span><span class="p">()</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>    <span class="k">if</span> <span class="n">layer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>        <span class="n">transaction</span><span class="o">.</span><span class="n">on_commit</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">async_to_sync</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">group_send</span><span class="p">)(</span><span class="n">chat_group_name</span><span class="p">(</span><span class="n">group_pk</span><span class="p">),</span> <span class="n">event</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">hello_app/consumers.py (фрагмент)</span><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">member_removed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">        </span><span class="sd">"""services.remove_user_from_group: якщо вилучили саме нас — закрити з'єднання."""</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>        <span class="k">if</span> <span class="n">event</span><span class="p">[</span><span class="s1">'user_id'</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">pk</span><span class="p">:</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="n">CLOSE_NOT_ALLOWED</span><span class="p">)</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">group_deleted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">        </span><span class="sd">"""services.delete_group: чату більше немає."""</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="n">CLOSE_NOT_ALLOWED</span><span class="p">)</span>
+</code></pre></div>
+<p>Покроково — Олена вилучає Анну зі сторінки групи:</p>
+<pre class="mermaid"><code>flowchart TD
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    subgraph R1["HTTP: POST /groups/7/ action=remove"]
+        direction LR
+        h1["group_detail view"] --&gt; h2["services.remove_user_from_group&lt;br&gt;DELETE з auth_user_groups"]
+    end
+    subgraph R2["COMMIT → transaction.on_commit"]
+        direction LR
+        e1["group_send('chat_group_7',&lt;br&gt;type: member.removed, user_id: Анна)"]
+    end
+    subgraph R3["channel layer → member_removed() у кожному consumer групи"]
+        direction LR
+        m1{"consumer Олени:&lt;br&gt;user_id == Олена?"} -- ні --&gt; m2["нічого"]
+        m3{"consumer Анни:&lt;br&gt;user_id == Анна?"} -- так --&gt; m4["close(code=4403)"]
+    end
+    subgraph R4["браузер Анни: onclose, code 4403"]
+        direction LR
+        j1["4000–4999 → не перепідключатися"] --&gt; j2["«Немає доступу&lt;br&gt;до чату цієї групи»"]
+    end
+
+    R1 --&gt; R2 --&gt; R3 --&gt; R4
+
+    class h1,h2,e1 step
+    class m1,m3 decision
+    class m2 success
+    class m4,j2 error
+    class j1 warning</code></pre>
+<p>Подія йде <strong>після COMMIT</strong> з тієї ж причини, що інвалідація кешу в уроці 40: якби consumer отримав її до COMMIT і щось перевірив у базі, він побачив би старе членство.</p>
+<p>Клієнт теж має знати про відмову. Стартовий JS при будь-якому закритті, крім 1000/1001, перепідключався з backoff до 30 секунд — безкінечно. Відмову в handshake (не учасник) браузер бачить як <code>1006</code>, так само як обрив мережі. Тепер коди <code>4000–4999</code> («застосунок відмовив») — без перепідключення, а після 5 невдалих спроб поспіль — повідомлення замість нових спроб:</p>
+<div class="highlight"><span class="filename">hello_app/static/hello_app/js/group_chat.js (фрагмент)</span><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">code</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mf">4000</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">code</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">5000</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">                </span><span class="nx">setStatus</span><span class="p">(</span><span class="s1">'forbidden'</span><span class="p">);</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">                </span><span class="k">return</span><span class="p">;</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">code</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="mf">1000</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">code</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="mf">1001</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">                </span><span class="nx">failedAttempts</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">failedAttempts</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nx">MAX_FAILED_ATTEMPTS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">                    </span><span class="nx">setStatus</span><span class="p">(</span><span class="s1">'gave_up'</span><span class="p">);</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">                    </span><span class="k">return</span><span class="p">;</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">                </span><span class="p">}</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">                </span><span class="kd">const</span><span class="w"> </span><span class="nx">jitter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1000</span><span class="p">;</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="w">                </span><span class="nx">setTimeout</span><span class="p">(</span><span class="nx">connect</span><span class="p">,</span><span class="w"> </span><span class="nx">reconnectDelay</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">jitter</span><span class="p">);</span>
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="w">                </span><span class="nx">reconnectDelay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="nx">reconnectDelay</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="mf">30000</span><span class="p">);</span>
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="w">            </span><span class="p">}</span>
+</code></pre></div>
+<p>Налаштування клієнт бере зі сторінки: <code>group.pk</code> і ім'я — у <code>data-*</code> атрибутах прихованого <code>#chat-config</code>, без inline <code>&lt;script&gt;</code>. Пояснення в шаблоні — у <code>{% comment %} … {% endcomment %}</code>: коментар <code>{# … #}</code> у Django лише <strong>однорядковий</strong>, багаторядковий потрапляє в HTML як текст. У шаблоні чату це не косметика. Слово <code>&lt;script&gt;</code> у такому «коментарі» браузер прочитав би як справжній тег, і все до наступного <code>&lt;/script&gt;</code>, разом з <code>#chat-config</code>, стало б кодом JS. Тест <code>test_template_comments_are_not_rendered</code> перевіряє, що на сторінці немає <code>{#</code>.</p>
+<p>Поглиблено: <a href="https://nikoriakviktot.github.io/notes_chat_app/tutorials/07_async_django/7b_websocket_client/">JS-клієнт: статус, перепідключення, <code>escapeHtml</code></a>.</p>
+<h2 id="refactor-4">Рефакторинг 4. Звідки прийшло з'єднання: <code>Origin</code><a class="headerlink" href="#refactor-4" title="Permanent link">&para;</a></h2>
+<p>HTML-форми захищає CSRF-токен (урок 35). У WebSocket-рукостисканні токена немає, а cookie сесії браузер надсилає на наш сайт <strong>з будь-якої сторінки</strong>. Сайт <code>evil.example</code>, відкритий у сусідній вкладці, може виконати:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="ow">new</span><span class="w"> </span><span class="nx">WebSocket</span><span class="p">(</span><span class="s2">"wss://notes.example/ws/groups/7/chat/"</span><span class="p">)</span><span class="w">   </span><span class="c1">// cookie Олени піде разом із запитом</span>
+</code></pre></div>
+<p>…і отримає історію чату від імені Олени. Це <strong>Cross-Site WebSocket Hijacking</strong>. Справжній запуск стартового стеку (<code>AuthMiddlewareStack(URLRouter(...))</code>) з cookie Олени і заголовком <code>Origin: https://evil.example</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>з evil.example: (True, None)
+</code></pre></div>
+<p><code>(True, None)</code> — з'єднання прийнято. Браузер не дає сторінці підробити заголовок <code>Origin</code> — там завжди адреса сторінки, яка відкриває з'єднання. Тож сервер має його перевірити: <code>AllowedHostsOriginValidator</code> пускає лише <code>Origin</code> з <code>ALLOWED_HOSTS</code> (у <code>DEBUG</code> з порожнім списком — <code>localhost</code>, <code>127.0.0.1</code>, <code>[::1]</code>).</p>
+<div class="highlight"><span class="filename">hello_app/tests_chat.py (фрагмент)</span><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_foreign_site_is_rejected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">        </span><span class="sd">"""Cookie сесії той самий, але сторінка — чужа: без перевірки Origin чат відкрився б."""</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect_from</span><span class="p">(</span><span class="sa">b</span><span class="s1">'https://evil.example'</span><span class="p">))</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect_from</span><span class="p">(</span><span class="sa">b</span><span class="s1">'http://localhost.evil.example'</span><span class="p">))</span>
+</code></pre></div>
+<p><code>localhost.evil.example</code> — перевірка того, що порівнюється весь домен, а не початок рядка (урок 42, <code>fakerbc.ua</code>).</p>
+<div class="admonition warning">
+<p class="admonition-title">На сервері — <code>DJANGO_ALLOWED_HOSTS</code></p>
+<p>Валідатор бере список з <code>ALLOWED_HOSTS</code>. Без <code>DJANGO_ALLOWED_HOSTS=notes.example</code> на сервері (<code>DEBUG=0</code>) список порожній — і чат не приймає <strong>жодного</strong> з'єднання. Валідатор читає налаштування один раз, при імпорті <code>asgi.py</code>; тому тести збирають стек функцією <code>websocket_application()</code> під <code>override_settings(ALLOWED_HOSTS=[...])</code>.</p>
+</div>
+<h2 id="channel-layer">Channel layer: пам'ять чи Redis<a class="headerlink" href="#channel-layer" title="Permanent link">&para;</a></h2>
+<p>Channel layer — поштова служба між consumers: <code>group_add</code> підписує з'єднання на групу, <code>group_send</code> доставляє подію всім підписникам.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><code>InMemoryChannelLayer</code></th>
+<th><code>RedisChannelLayer</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Де живуть групи</td>
+<td>у пам'яті процесу</td>
+<td>у Redis</td>
+</tr>
+<tr>
+<td>Кілька процесів сервера</td>
+<td>ні: Олена на процесі 1 не почує Анну на процесі 2</td>
+<td>так</td>
+</tr>
+<tr>
+<td>Коли</td>
+<td>розробка, тести, ноутбук</td>
+<td>сервер (урок 49: кілька процесів у Docker)</td>
+</tr>
+<tr>
+<td>У проєкті</td>
+<td>без <code>REDIS_URL</code></td>
+<td><code>REDIS_URL=redis://…</code></td>
+</tr>
+</tbody>
+</table>
+<p>Ті самі 76 тестів проходять з обома шарами. Це також перевірка, що в подіях немає нічого, чого не можна передати через Redis: там лише JSON-сумісні значення (<code>user_id</code>, рядки, ISO-час), а не об'єкти моделей.</p>
+<p>Поглиблено: <a href="https://nikoriakviktot.github.io/notes_chat_app/tutorials/09_deployment/redis/">Redis і Channel Layer</a>.</p>
+<h2 id="architecture">Архітектура<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>graph LR
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    BR["браузер&lt;br&gt;сторінка + group_chat.js"] -- "HTTP" --&gt; PT["asgi.py&lt;br&gt;ProtocolTypeRouter"]
+    BR -- "WebSocket" --&gt; PT
+    PT -- http --&gt; DJ["Django: views / api"]
+    PT -- websocket --&gt; OV["AllowedHostsOriginValidator&lt;br&gt;звідки?"]
+    OV --&gt; AM["AuthMiddlewareStack&lt;br&gt;хто?"] --&gt; UR["URLRouter&lt;br&gt;routing.py"] --&gt; CO["GroupChatConsumer&lt;br&gt;транспорт"]
+    DJ --&gt; SEL["selectors&lt;br&gt;is_group_member, recent_chat_messages"]
+    DJ --&gt; SRV["services&lt;br&gt;post_chat_message, remove_user_from_group"]
+    CO --&gt; SEL
+    CO --&gt; SRV
+    SRV -- "on_commit: member.removed" --&gt; CL["channel layer&lt;br&gt;пам'ять / Redis"]
+    CO &lt;-- "group_add / group_send" --&gt; CL
+    SEL --&gt; DB["PostgreSQL / SQLite"]
+    SRV --&gt; DB
+
+    class BR,PT,DJ,UR step
+    class OV,AM warning
+    class CO step
+    class SEL,SRV success
+    class CL,DB decision</code></pre>
+<ul>
+<li><strong>Три транспорти — одні правила.</strong> Сторінки, API і WebSocket викликають ті самі selectors і services. Правило «хто учасник групи» — одне, тож вилучення з групи діє скрізь одразу.</li>
+<li><strong>Consumer — тонкий.</strong> Розібрати кадр, викликати service, розіслати результат або закрити з'єднання. ORM у ньому немає — це перевіряє <code>tests_architecture.py</code>.</li>
+<li><strong>Захист у шарах:</strong> звідки (Origin) → хто (сесія) → чи учасник (connect) → чи ще учасник (кожне повідомлення, подія вилучення) → що бачить інший браузер (екранування на клієнті).</li>
+</ul>
+<h3 id="_4">Тести<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Файл</th>
+<th>Що перевіряє</th>
+<th>Скільки</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tests_consumers.py</code></td>
+<td>тести стартового проєкту без змін: підключення, відмова анонімові й чужому, розсилка, збереження, історія, ізоляція груп</td>
+<td>9</td>
+</tr>
+<tr>
+<td><code>tests_chat.py</code></td>
+<td>service (межі тексту, членство, історія 50 з 55), сторінка чату, вилучення під час з'єднання, видалення групи, <code>Origin</code>, <code>escapeHtml</code> у Node.js</td>
+<td>18</td>
+</tr>
+<tr>
+<td><code>tests_architecture.py</code> та інші з уроків 35–45</td>
+<td>+ <code>consumers.py</code> без ORM</td>
+<td>49</td>
+</tr>
+</tbody>
+</table>
+<p><code>WebsocketCommunicator</code> — це «браузер» у тесті. Він підключається до consumer напряму, без сервера й мережі, і дає <code>connect()</code>, <code>send_json_to()</code>, <code>receive_json_from()</code>, <code>receive_nothing()</code>:</p>
+<div class="highlight"><span class="filename">hello_app/tests_chat.py (фрагмент)</span><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_removed_member_is_disconnected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>        <span class="n">olena</span><span class="p">,</span> <span class="n">ann</span> <span class="o">=</span> <span class="n">communicator_for</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">olena</span><span class="p">),</span> <span class="n">communicator_for</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ann</span><span class="p">)</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">((</span><span class="k">await</span> <span class="n">olena</span><span class="o">.</span><span class="n">connect</span><span class="p">())[</span><span class="mi">0</span><span class="p">])</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">((</span><span class="k">await</span> <span class="n">ann</span><span class="o">.</span><span class="n">connect</span><span class="p">())[</span><span class="mi">0</span><span class="p">])</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>        <span class="k">await</span> <span class="n">database_sync_to_async</span><span class="p">(</span><span class="n">services</span><span class="o">.</span><span class="n">remove_user_from_group</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ann</span><span class="p">)</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>        <span class="n">closed</span> <span class="o">=</span> <span class="k">await</span> <span class="n">ann</span><span class="o">.</span><span class="n">receive_output</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">closed</span><span class="p">,</span> <span class="p">{</span><span class="s1">'type'</span><span class="p">:</span> <span class="s1">'websocket.close'</span><span class="p">,</span> <span class="s1">'code'</span><span class="p">:</span> <span class="n">CLOSE_NOT_ALLOWED</span><span class="p">})</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="k">await</span> <span class="n">olena</span><span class="o">.</span><span class="n">receive_nothing</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mf">0.3</span><span class="p">))</span>  <span class="c1"># Олені — нічого: подія не для неї</span>
+</code></pre></div>
+<p>Тести consumer — <code>TransactionTestCase</code>, а не <code>TestCase</code>: consumer ходить у базу з іншого потоку (<code>database_sync_to_async</code>), а транзакцію <code>TestCase</code> інший потік не бачить. Наприклад, дані з <code>setUp</code> для нього «не існують».</p>
+<p>Справжній запуск:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>$ python manage.py test
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>............................................................................
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>----------------------------------------------------------------------
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>Ran 76 tests in 90.405s
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>OK
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>$ DATABASE_URL=postgres://… REDIS_URL=redis://localhost:6380/3 python manage.py test
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>...
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>Ran 76 tests in 92.025s
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>OK
+</code></pre></div>
+<p><code>tests_chat.py</code> на стартовому коді дає 9 червоних тестів: консюмер не реагує на вилучення з групи (два тести), вилученому дозволено писати, <code>Origin</code> не перевіряється (три тести), ORM у consumer, JS перепідключається після відмови, багаторядковий <code>{# … #}</code> у шаблоні потрапляє на сторінку. 14 навмисних поломок нового коду — кожну ловить хоча б один тест.</p>
+<p>Наживо — <code>runserver</code> (daphne) і два браузери (Playwright): повідомлення Анни з'являється в Олени без оновлення сторінки. <code>&lt;b&gt;Хліб&lt;/b&gt;</code> показується як текст, а не жирним — <code>escapeHtml</code> працює. Боб (не в групі): сторінка чату — <code>404</code>, WebSocket — закрито в рукостисканні. Олена вилучає Анну на сторінці групи — у вкладці Анни статус «Немає доступу до чату цієї групи».</p>
+<h2 id="min-versions">Мінімальні версії залежностей<a class="headerlink" href="#min-versions" title="Permanent link">&para;</a></h2>
+<div class="highlight"><span class="filename">requirements.txt (нове)</span><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>channels&gt;=4.0                        # урок 46: WebSocket — consumers, routing, channel layer
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>daphne&gt;=4.0                          # урок 46: ASGI-сервер; першим в INSTALLED_APPS — runserver через ASGI
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>channels-redis&gt;=4.0                  # урок 46: RedisChannelLayer (REDIS_URL); без Redis — InMemoryChannelLayer
+</code></pre></div>
+<p>Усі 76 тестів проходять на Python 3.10 з <code>channels</code> 4.0.0, <code>daphne</code> 4.0.0, <code>channels-redis</code> 4.0.0 і мінімальними версіями решти залежностей з уроку 45, а також на Python 3.13 з найновішими.</p>
+<h2 id="practice">Практика<a class="headerlink" href="#practice" title="Permanent link">&para;</a></h2>
+<h3 id="_5">Розібраний приклад: «хто зараз у чаті»<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>Задача: при підключенні й відключенні учасника всі в групі отримують <code>{"type": "presence", "user": "ann", "online": true}</code>.</p>
+<p>Це подія для <strong>транспорту</strong>, а не бізнес-дія: у базу нічого не пишемо, правило доступу вже перевірено в <code>connect()</code>. Тож лише consumer:</p>
+<div class="highlight"><span class="filename">hello_app/consumers.py (розв&#x27;язок)</span><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>        <span class="o">...</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel_layer</span><span class="o">.</span><span class="n">group_send</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">room_group_name</span><span class="p">,</span> <span class="p">{</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>            <span class="s1">'type'</span><span class="p">:</span> <span class="s1">'presence'</span><span class="p">,</span> <span class="s1">'user'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="s1">'online'</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>        <span class="o">...</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">close_code</span><span class="p">):</span>
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'room_group_name'</span><span class="p">):</span>
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel_layer</span><span class="o">.</span><span class="n">group_send</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">room_group_name</span><span class="p">,</span> <span class="p">{</span>
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a>                <span class="s1">'type'</span><span class="p">:</span> <span class="s1">'presence'</span><span class="p">,</span> <span class="s1">'user'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="s1">'online'</span><span class="p">:</span> <span class="kc">False</span><span class="p">})</span>
+<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a>            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel_layer</span><span class="o">.</span><span class="n">group_discard</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">room_group_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel_name</span><span class="p">)</span>
+<a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a>
+<a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">presence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">text_data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">event</span><span class="p">))</span>
+</code></pre></div>
+<p>Тест — Олена підключена, Анна приходить і йде:</p>
+<div class="highlight"><span class="filename">hello_app/tests_chat.py (розв&#x27;язок)</span><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_presence</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>        <span class="n">olena</span><span class="p">,</span> <span class="n">ann</span> <span class="o">=</span> <span class="n">communicator_for</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">olena</span><span class="p">),</span> <span class="n">communicator_for</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ann</span><span class="p">)</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>        <span class="k">await</span> <span class="n">olena</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>        <span class="k">await</span> <span class="n">olena</span><span class="o">.</span><span class="n">receive_json_from</span><span class="p">()</span>                     <span class="c1"># своя presence</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>        <span class="k">await</span> <span class="n">ann</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="k">await</span> <span class="n">olena</span><span class="o">.</span><span class="n">receive_json_from</span><span class="p">(),</span> <span class="p">{</span><span class="s1">'type'</span><span class="p">:</span> <span class="s1">'presence'</span><span class="p">,</span> <span class="s1">'user'</span><span class="p">:</span> <span class="s1">'ann'</span><span class="p">,</span> <span class="s1">'online'</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>        <span class="k">await</span> <span class="n">ann</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="k">await</span> <span class="n">olena</span><span class="o">.</span><span class="n">receive_json_from</span><span class="p">(),</span> <span class="p">{</span><span class="s1">'type'</span><span class="p">:</span> <span class="s1">'presence'</span><span class="p">,</span> <span class="s1">'user'</span><span class="p">:</span> <span class="s1">'ann'</span><span class="p">,</span> <span class="s1">'online'</span><span class="p">:</span> <span class="kc">False</span><span class="p">})</span>
+<a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>        <span class="k">await</span> <span class="n">olena</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+</code></pre></div>
+<p><code>connect</code> розсилає presence усій групі, куди consumer уже доданий (<code>group_add</code> вище), тож кожен отримує і <strong>власну</strong> presence — звідси перший <code>receive_json_from()</code> у тесті. <code>disconnect</code> розсилає <code>online: False</code> іншим і відписується з групи.</p>
+<p><code>test_presence</code> зелений, але разом з ним червоніють 10 наявних тестів. Справжній вивід:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>FAIL: test_message_broadcast_to_other_member (hello_app.tests_consumers.GroupChatConsumerMessagesTest...)
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>AssertionError: 'presence' != 'message'
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>FAIL: test_message_stays_within_group (hello_app.tests_consumers.GroupChatMultipleGroupsTest...)
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>AssertionError: False is not true : Carol не має отримувати повідомлення з іншої групи
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>...
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>FAILED (failures=9, errors=1)
+</code></pre></div>
+<p>Ці тести читали «наступний кадр» і чекали <code>message</code> або тиші (<code>receive_nothing</code>), а тепер першою приходить <code>presence</code>. Carol справді не отримала нічого з чужої групи — вона отримала <strong>свою</strong> presence. Це зміна <strong>протоколу</strong>: кожен клієнт, який розраховував на порядок кадрів, мусить знати про новий тип. Тести це показали. Їх оновлюють: пропускають кадри <code>presence</code>, де вони не перевіряються. JS-клієнт кадри невідомого типу пропускає (<code>if (data.type === 'history' || data.type === 'message')</code>), тож щоб показати «онлайн», йому потрібна окрема гілка в <code>onmessage</code>.</p>
+<h3 id="_6">Зміни приклад<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Прибери <code>AllowedHostsOriginValidator</code> з <code>websocket_application()</code> (лиши <code>AuthMiddlewareStack(URLRouter(...))</code>) і запусти <code>python manage.py test hello_app.tests_chat hello_app.tests_consumers</code>. Які тести впали?</li>
+<li>У <code>recent_chat_messages</code> заміни <code>return list(reversed(newest))</code> на <code>return newest</code> — QuerySet замість списку. Що станеться в consumer і чому тести це бачать?</li>
+</ol>
+<details class="success">
+<summary>Що покаже запуск</summary>
+<ol>
+<li>Червоні 3 тести, усі з <code>ChatOriginTests</code>. <code>test_foreign_site_is_rejected</code> і <code>test_no_origin_is_rejected</code>: <code>AssertionError: True is not false</code> — чужий сайт і запит без <code>Origin</code> підключились. <code>test_application_uses_the_origin_check</code>: зовнішній шар стека тепер <code>CookieMiddleware</code>, а не <code>OriginValidator</code>. Решта 24 зелені: з власної сторінки чат працює як і раніше, тож без цих тестів дірку ніхто б не помітив.</li>
+<li><code>FAILED (failures=1, errors=13)</code>. Лінивий QuerySet повертається з <code>database_sync_to_async</code> невиконаним, а <code>for msg in history</code> у <code>connect()</code> виконує SQL уже в циклі подій — <code>SynchronousOnlyOperation</code>. Consumer падає при кожному підключенні, тому червоніють майже всі тести з WebSocket. Тест сервісу ловить ту саму помилку ще до consumer: <code>&lt;QuerySet [...]&gt; is not an instance of &lt;class 'list'&gt;</code>. А порядок у ньому від нових до старих — <code>reversed(...)</code> теж зник.</li>
+</ol>
+</details>
+<h3 id="_7">Спробуй самостійно: «друкує…»<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>Коли учасник набирає текст, інші бачать «Анна друкує…». Клієнт надсилає <code>{"typing": true}</code> не частіше ніж раз на 2 секунди; consumer розсилає <code>{"type": "typing", "user": "ann"}</code> усім, <strong>крім</strong> автора; у базу нічого не пишеться.</p>
+<p><strong>Критерії перевірки:</strong> тест з двома <code>WebsocketCommunicator</code>: Олена отримує <code>typing</code> від Анни, Анна свого не отримує (<code>receive_nothing</code>); <code>{"typing": true}</code> від вилученого з групи учасника закриває його з'єднання кодом 4403; <code>tests_architecture</code> зелений.</p>
+<h3 id="find-bug">Знайди помилку<a class="headerlink" href="#find-bug" title="Permanent link">&para;</a></h3>
+<p>Consumer з тестом — обидва з перенесеного коду, тест зелений:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">GroupChatConsumer</span><span class="p">(</span><span class="n">AsyncWebsocketConsumer</span><span class="p">):</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="p">[</span><span class="s1">'user'</span><span class="p">]</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">group_pk</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="p">[</span><span class="s1">'url_route'</span><span class="p">][</span><span class="s1">'kwargs'</span><span class="p">][</span><span class="s1">'group_pk'</span><span class="p">])</span>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_membership</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">group_pk</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="p">):</span>
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>            <span class="k">return</span>
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">room_group_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"chat_group_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">group_pk</span><span class="si">}</span><span class="s2">"</span>
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel_layer</span><span class="o">.</span><span class="n">group_add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">room_group_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel_name</span><span class="p">)</span>
+<a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+<a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a>
+<a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">receive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text_data</span><span class="p">):</span>
+<a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a>        <span class="n">content</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">text_data</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'content'</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+<a id="__codelineno-19-14" name="__codelineno-19-14" href="#__codelineno-19-14"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">content</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">content</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2000</span><span class="p">:</span>
+<a id="__codelineno-19-15" name="__codelineno-19-15" href="#__codelineno-19-15"></a>            <span class="k">return</span>
+<a id="__codelineno-19-16" name="__codelineno-19-16" href="#__codelineno-19-16"></a>        <span class="n">msg</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_message</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">group_pk</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span>
+<a id="__codelineno-19-17" name="__codelineno-19-17" href="#__codelineno-19-17"></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel_layer</span><span class="o">.</span><span class="n">group_send</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">room_group_name</span><span class="p">,</span> <span class="p">{</span><span class="s1">'type'</span><span class="p">:</span> <span class="s1">'chat_message'</span><span class="p">,</span> <span class="o">...</span><span class="p">})</span>
+<a id="__codelineno-19-18" name="__codelineno-19-18" href="#__codelineno-19-18"></a>
+<a id="__codelineno-19-19" name="__codelineno-19-19" href="#__codelineno-19-19"></a>
+<a id="__codelineno-19-20" name="__codelineno-19-20" href="#__codelineno-19-20"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">test_non_member_rejected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-19-21" name="__codelineno-19-21" href="#__codelineno-19-21"></a>    <span class="n">outsider</span> <span class="o">=</span> <span class="k">await</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">acreate_user</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s1">'outsider'</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">'pass'</span><span class="p">)</span>
+<a id="__codelineno-19-22" name="__codelineno-19-22" href="#__codelineno-19-22"></a>    <span class="n">communicator</span> <span class="o">=</span> <span class="n">_make_communicator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="n">outsider</span><span class="p">)</span>
+<a id="__codelineno-19-23" name="__codelineno-19-23" href="#__codelineno-19-23"></a>    <span class="n">connected</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="k">await</span> <span class="n">communicator</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+<a id="__codelineno-19-24" name="__codelineno-19-24" href="#__codelineno-19-24"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">connected</span><span class="p">)</span>
+</code></pre></div>
+<p>Хто може писати в цей чат? Відповідь — справжній вивід на цьому коді:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>Анна в групі: False
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>Анна отримала: Обговорюємо подарунок для Анни
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>збережено від Анни: 1
+</code></pre></div>
+<details class="success">
+<summary>Відповідь</summary>
+<p>Членство перевіряється <strong>один раз</strong> — у <code>connect()</code>. WebSocket-з'єднання живе годинами. Хто був учасником у момент підключення, той лишається «учасником» для цього consumer, навіть коли його вже вилучили з групи: він отримує нові повідомлення (його канал досі в групі channel layer) і пише (у <code>receive</code> перевірки немає).</p>
+<p>Тест перевіряв <strong>момент підключення</strong>. У HTTP кожен запит — новий <code>connect()</code>, тож «перевірити при вході» достатньо. У WebSocket права треба перевіряти протягом усього з'єднання: на кожне повідомлення (<code>services.post_chat_message</code>) і за подією, коли права змінились (<code>member.removed</code> → <code>close(4403)</code>). Тест на це — <code>test_removed_member_is_disconnected</code>: вилучення <strong>під час</strong> відкритого з'єднання.</p>
+</details>
+<h2 id="_8">Підсумок<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Поняття</th>
+<th>Що запам'ятати</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WebSocket</td>
+<td>одне з'єднання, писати можуть обидві сторони; відкривається HTTP-запитом з <code>Upgrade</code></td>
+</tr>
+<tr>
+<td>ASGI</td>
+<td>цикл подій тримає тисячі з'єднань; <code>ProtocolTypeRouter</code>: HTTP → Django, WebSocket → Channels</td>
+</tr>
+<tr>
+<td>Consumer</td>
+<td>«view для WebSocket», живе, поки відкрите з'єднання; тонкий транспорт над selectors/services</td>
+</tr>
+<tr>
+<td><code>database_sync_to_async</code></td>
+<td>ORM у пулі потоків; selector повертає список, не QuerySet</td>
+</tr>
+<tr>
+<td>Channel layer</td>
+<td><code>group_add</code> / <code>group_send</code> / <code>type</code> → метод; пам'ять — один процес, Redis — кілька</td>
+</tr>
+<tr>
+<td>Права</td>
+<td>Origin → сесія → членство при <code>connect</code> → на кожне повідомлення → подія вилучення (<code>4403</code>)</td>
+</tr>
+<tr>
+<td>XSS</td>
+<td>сервер зберігає текст як є; екранує клієнт перед <code>innerHTML</code> (<code>escapeHtml</code>)</td>
+</tr>
+<tr>
+<td>Тести</td>
+<td><code>WebsocketCommunicator</code> + <code>TransactionTestCase</code>; ті самі тести з обома channel layers</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_9">Самоперевірка<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Чому для WebSocket потрібен ASGI, а не WSGI?</li>
+<li>Навіщо <code>get_asgi_application()</code> викликати до імпорту <code>routing</code>?</li>
+<li>Що станеться, якщо <code>recent_chat_messages</code> поверне QuerySet?</li>
+<li>Чому перевірки членства в <code>connect()</code> недостатньо?</li>
+<li>Від чого захищає <code>AllowedHostsOriginValidator</code> і чому CSRF-токен тут не допоможе?</li>
+<li>Олена на процесі сервера 1, Анна — на процесі 2, channel layer у пам'яті. Що побачать вони в чаті?</li>
+</ol>
+<details class="success">
+<summary>Відповіді</summary>
+<ol>
+<li>WSGI — «запит → відповідь → кінець» і потік на запит. WebSocket-з'єднання відкрите годинами; тисяча вкладок — тисяча потоків, що чекають. ASGI обслуговує їх одним циклом подій.</li>
+<li><code>get_asgi_application()</code> виконує <code>django.setup()</code>. <code>routing</code> імпортує consumers, ті — selectors і моделі; до <code>setup()</code> — <code>AppRegistryNotReady</code>.</li>
+<li>SQL виконається не в <code>database_sync_to_async</code>, а там, де по ньому пройдуть циклом, — у циклі подій. Django кидає <code>SynchronousOnlyOperation</code>.</li>
+<li>З'єднання живе довше за права: вилученого з групи учасника consumer і далі вважає своїм. Перевірка потрібна на кожне повідомлення плюс подія, яка закриває з'єднання, коли права змінились.</li>
+<li>Від Cross-Site WebSocket Hijacking: чужа сторінка відкриває WebSocket до нашого сайту, і браузер додає cookie сесії. У рукостисканні немає CSRF-токена, але є <code>Origin</code>, який сторінка не може підробити.</li>
+<li>Кожен бачить лише свої повідомлення: групи channel layer у пам'яті — окремі в кожному процесі. Потрібен <code>RedisChannelLayer</code> — спільні групи для всіх процесів.</li>
+</ol>
+</details>
+<h3 id="_10">Що далі<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Ноутбук заняття: <a class="md-button md-button--primary" href="https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_46_websocket_chat/note_lesson_46_chat_student.ipynb">Відкрити вправи в Colab</a> <a class="solutions-link" href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_46_websocket_chat/note_lesson_46_chat.ipynb">Переглянути розв’язки</a>.</li>
+<li>Урок 47 — Security advanced: CSWSH і права на кожне повідомлення — частина ширшої картини.</li>
+<li>Уроки 49–50 — Docker і деплой: кілька процесів сервера, Redis як channel layer, <code>DJANGO_ALLOWED_HOSTS</code>.</li>
+</ul>
+<h2 id="_11">Документація і джерела<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Код: <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_46_websocket_chat/crispy_notes_project"><code>crispy_notes_project</code></a> — проєкт уроку 45 + чат зі стартового <code>notes_chat_app</code>.</li>
+<li>Django-книга, крок 7B: <a href="https://nikoriakviktot.github.io/notes_chat_app/tutorials/07_async_django/">огляд кроку</a>, <a href="https://nikoriakviktot.github.io/notes_chat_app/tutorials/07_async_django/7b_websocket_protocol/">WebSocket-протокол</a>, <a href="https://nikoriakviktot.github.io/notes_chat_app/tutorials/07_async_django/7b_asgi_stack/">ASGI-стек</a>, <a href="https://nikoriakviktot.github.io/notes_chat_app/tutorials/07_async_django/7b_channels_settings/">налаштування Channels</a>, <a href="https://nikoriakviktot.github.io/notes_chat_app/tutorials/07_async_django/7b_consumer/">consumer</a>, <a href="https://nikoriakviktot.github.io/notes_chat_app/tutorials/07_async_django/7b_websocket_client/">JS-клієнт</a>, <a href="https://nikoriakviktot.github.io/notes_chat_app/tutorials/07_async_django/checkpoint/">чекпоінт</a>; <a href="https://nikoriakviktot.github.io/notes_chat_app/tutorials/06_testing/test_consumers/">тести consumers</a>; <a href="https://nikoriakviktot.github.io/notes_chat_app/tutorials/09_deployment/redis/">Redis і Channel Layer</a>.</li>
+<li>Django Channels: <a href="https://channels.readthedocs.io/en/latest/tutorial/index.html">tutorial</a>, <a href="https://channels.readthedocs.io/en/latest/topics/consumers.html">consumers</a>, <a href="https://channels.readthedocs.io/en/latest/topics/channel_layers.html">channel layers</a>, <a href="https://channels.readthedocs.io/en/latest/topics/security.html">security — <code>AllowedHostsOriginValidator</code></a>, <a href="https://channels.readthedocs.io/en/latest/topics/testing.html">testing — <code>WebsocketCommunicator</code></a>, <a href="https://channels.readthedocs.io/en/latest/topics/databases.html">database access</a>.</li>
+<li>Протокол: <a href="https://www.rfc-editor.org/rfc/rfc6455">RFC 6455 — The WebSocket Protocol</a> (коди закриття — §7.4; 4000–4999 — для застосунків); <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSocket">MDN — WebSocket API</a>; <a href="https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/10-Testing_WebSockets">OWASP — Cross-Site WebSocket Hijacking</a>.</li>
+<li>Урок 28 курсу — <a href="../../m2/lesson_28/">asyncio</a>; урок 33 — <a href="../lesson_33/">типи API: WebSocket і SSE</a>; урок 45 — <a href="../lesson_45/">архітектура</a>.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Футер" >
+        
+          
+          <a href="../lesson_45/" class="md-footer__link md-footer__link--prev" aria-label="Назад: 45. Архітектура застосунків і патерни">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Назад
+              </span>
+              <div class="md-ellipsis">
+                45. Архітектура застосунків і патерни
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../lesson_47/" class="md-footer__link md-footer__link--next" aria-label="Вперед: 47. Security advanced">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Вперед
+              </span>
+              <div class="md-ellipsis">
+                47. Security advanced
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.footer", "toc.follow", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0456\u0439\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u0421\u043a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438 \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0429\u0435 1 \u0437\u0431\u0456\u0433 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.more.other": "\u0429\u0435 # \u0437\u0431\u0456\u0433\u0456\u0432 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.none": "\u0417\u0431\u0456\u0433\u0456\u0432 \u043d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0437\u0431\u0456\u0433", "search.result.other": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e # \u0437\u0431\u0456\u0433\u0456\u0432", "search.result.placeholder": "\u0420\u043e\u0437\u043f\u043e\u0447\u043d\u0456\u0442\u044c \u043f\u0438\u0441\u0430\u0442\u0438 \u0434\u043b\u044f \u043f\u043e\u0448\u0443\u043a\u0443", "search.result.term.missing": "\u041d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e \u0437\u0430\u043f\u0438\u0442\u0443", "select.version": "\u041e\u0431\u0440\u0430\u0442\u0438 \u0432\u0435\u0440\u0441\u0456\u044e"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/sidebars.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,4966 @@
+
+<!doctype html>
+<html lang="uk" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Курс Python українською — від основ до просунутих тем, у форматі книги">
+      
+      
+      
+        <link rel="canonical" href="https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m1/lesson_13/">
+      
+      
+        <link rel="prev" href="../lesson_12/">
+      
+      
+        <link rel="next" href="../lesson_14/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>13. Модулі та стандартна бібліотека - PY Course — Viktor Nikoriak</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#13" class="md-skip">
+          Перейти до змісту
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Хедер">
+    <a href="../../.." title="PY Course — Viktor Nikoriak" class="md-header__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PY Course — Viktor Nikoriak
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              13. Модулі та стандартна бібліотека
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Пошук" placeholder="Пошук" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Шукати">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистити" aria-label="Очистити" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Пошук розпочато
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Вкладки" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Головна
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../00_getting_started/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Як користуватися
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Модулі курсу (в розробці)
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../00_python_mental_model/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Довідник
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Навігація" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="PY Course — Viktor Nikoriak" class="md-nav__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    PY Course — Viktor Nikoriak
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Головна
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../00_getting_started/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Як користуватися
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Модулі курсу (в розробці)
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Модулі курсу (в розробці)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М1. Основи Python
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М1. Основи Python
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Вступ: формат курсу, AI-політика
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Перші кроки
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Змінні та базові типи даних
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Умови та цикли
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Списки, кортежі, множини
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Словники, for, comprehensions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Функції
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. П1. Big O + базові задачі
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Декоратори
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Ітератори й генератори
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. П2. Пошук
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Модулі та стандартна бібліотека
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Модулі та стандартна бібліотека
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пригадай
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Модуль — це файл
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Три способи імпорту
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#import" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що робить import
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Що робить import">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python-syspath" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Де Python шукає: sys.path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Виконання лише один раз
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#if-__name__-__main__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        if __name__ == "__main__":
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Затінення: коли твій файл заважає стандартному
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Стандартна бібліотека: батарейки в комплекті
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Стандартна бібліотека: батарейки в комплекті">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#datetime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        datetime: дата і час одним об'єктом
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#random" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        random: відтворювані випадкові дані
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#collectionscounter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        collections.Counter: підрахунок одним рядком
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calendar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        calendar: скільки днів у місяці
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        statistics: середнє і медіана
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Як знайти потрібний модуль
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sysargv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sys.argv: аргументи з командного рядка
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Практика
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Практика">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Розібраний приклад: звіт кафе з чотирьох модулів
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зміни приклад: чайові за прийомом їжі
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Спробуй самостійно: звіт за тиждень
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Поглиблення: пакети
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Поглиблення: пакети">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пакет — це тека з модулями
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Імпорти всередині пакета
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#__init__py" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що робить __init__.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пакети стандартної бібліотеки
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Підсумок
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Підсумок">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Самоперевірка
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що далі
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Документація і джерела
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Винятки та обробка помилок
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Файли I/O, JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Git & GitHub: система
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. П3. Хеш-структури
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Узагальнення + фінальний проєкт
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М2. Python Advanced
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М2. Python Advanced
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2_python_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Функції як об'єкти першого класу
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Класи, простір імен
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    21. Наслідування, поліморфізм
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    22. Інкапсуляція, область видимості
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    23. П4. Рекурсія, divide & conquer, backtracking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    24. @property, декоратори класів, dunder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    25. Ітератори advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    26. Тестування з pytest (+ валідація AI-коду)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    27. П5. Динамічне програмування + greedy (вступ)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    28. Потоки, multiprocessing, asyncio: вступ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    29. П6. Stack, Queue, Heap, Trie + LRU → ООП-пакет
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М3. Бази даних
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М3. Бази даних
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3_databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m3/bonus_pandas/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. Pandas: аналіз даних, графіки і Dash
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3/lesson_30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    30. Основи SQL (PostgreSQL)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3/lesson_31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    31. Redis overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М4. Web (+ Web Advanced)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М4. Web (+ Web Advanced)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4_web/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    32. HTTP: requests, httpx, aiohttp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    33. REST: принципи дизайну API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    34. Django intro: MVT, ORM, admin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    35. Django: forms, HTML practice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    36. DRF overview + Django vs FastAPI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    37. Typing + Pydantic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m4/lesson_38/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    38. FastAPI basics + Postman + OpenAPI
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    39. FastAPI + SQLAlchemy: повний CRUD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    40. Middlewares і кешування (Redis на практиці)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    41. Автентифікація та security basics (JWT, hashing, OWASP)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    42. Тестування API (pytest + httpx)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m4/lesson_43/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    43. AI-інструменти розробника + ризики й валідація
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    44. Інтеграція LLM API (Gemini / Anthropic)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    45. Архітектура застосунків і патерни
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    46. WebSockets + практика: чат
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    47. Security advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4/lesson_48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    48. Telegram Bot API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М5. Production
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М5. Production
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5_production/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m5/bonus_linux/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. Linux для розробника
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    49. Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    50. Docker Compose + деплой
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    51. CI/CD (GitHub Actions)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М6. Капстоун
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М6. Капстоун
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6_capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6/lesson_52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    52. Робота над фінальним проєктом
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6/lesson_53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    53. Випускний: питч фінального проєкту
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m6/bonus_cv/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. CV розробника
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bonus_ai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Self-paced. AI для розробників (бонус)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../00_python_mental_model/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Довідник
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пригадай
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Модуль — це файл
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Три способи імпорту
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#import" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що робить import
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Що робить import">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python-syspath" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Де Python шукає: sys.path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Виконання лише один раз
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#if-__name__-__main__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        if __name__ == "__main__":
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Затінення: коли твій файл заважає стандартному
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Стандартна бібліотека: батарейки в комплекті
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Стандартна бібліотека: батарейки в комплекті">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#datetime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        datetime: дата і час одним об'єктом
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#random" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        random: відтворювані випадкові дані
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#collectionscounter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        collections.Counter: підрахунок одним рядком
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calendar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        calendar: скільки днів у місяці
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        statistics: середнє і медіана
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Як знайти потрібний модуль
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sysargv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sys.argv: аргументи з командного рядка
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Практика
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Практика">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Розібраний приклад: звіт кафе з чотирьох модулів
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зміни приклад: чайові за прийомом їжі
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Спробуй самостійно: звіт за тиждень
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Поглиблення: пакети
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Поглиблення: пакети">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пакет — це тека з модулями
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Імпорти всередині пакета
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#__init__py" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що робить __init__.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пакети стандартної бібліотеки
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Підсумок
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Підсумок">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Самоперевірка
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що далі
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Документація і джерела
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Навігація" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Головна
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Модулі курсу (в розробці)
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    М1. Основи Python
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="13">Урок 13. Модулі та стандартна бібліотека<a class="headerlink" href="#13" title="Permanent link">&para;</a></h1>
+<p>В уроці 8 звіт кафе розклали на функції. Відтоді кафе підключило касу, і тепер вона віддає чеки не з готовими «пт» і «вечеря», а з <strong>міткою часу</strong>: <code>2024-07-19 18:30</code>. Власниця хоче звіт за будь-який місяць, а адміністратор — запускати його сам, з термінала, без ноутбука.</p>
+<p>Ноутбук з усім кодом уже на кілька екранів: генерація чеків, правила «яка година — який прийом їжі», функції звіту. Щоб знайти потрібну функцію, його доводиться гортати. Щоб скористатися звітом в іншій програмі, код доведеться копіювати. У цьому уроці ми розкладемо кафе на <strong>модулі</strong> — окремі файли, які імпортують один одного. А дати, підрахунки й календар візьмемо зі <strong>стандартної бібліотеки</strong>: вона вже встановлена разом з Python.</p>
+<p><strong>Що потрібно з попередніх уроків:</strong> <code>NamedTuple Order</code> (урок 5), словники й <code>dict.get</code> (урок 6), функції та звіт кафе (урок 8). Ти вже писав <code>from bisect import bisect_left</code> (урок 12) і <code>from functools import wraps</code> (урок 10), тож сьогодні розберемося, що саме відбувається в цьому рядку.</p>
+<p><strong>Після уроку ти зможеш:</strong></p>
+<ul>
+<li>розкладати програму на модулі й імпортувати з них функції трьома способами;</li>
+<li>пояснювати, де Python шукає модуль і чому файл модуля виконується лише один раз;</li>
+<li>захищати код перевірок у модулі через <code>if __name__ == "__main__":</code>;</li>
+<li>розпізнавати затінення (shadowing), коли твій файл має ім'я стандартного модуля;</li>
+<li>працювати з датами через <code>datetime</code> і <code>timedelta</code>, рахувати через <code>Counter</code>, користуватися <code>calendar</code>, <code>statistics</code> і <code>random</code>;</li>
+<li>приймати аргументи з командного рядка через <code>sys.argv</code>.</li>
+</ul>
+<p><strong>Задача розділу.</strong> Перетворити ноутбук кафе на проєкт з чотирьох модулів, який друкує звіт за місяць командою <code>python main.py 2024 7</code>. Повний код — у розділі <a href="#practice">«Практика»</a>, готовий проєкт — у теці <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_1/lessons/lesson_13_modules_stdlib/cafe_report"><code>cafe_report/</code></a>.</p>
+<p><strong>Ноутбук заняття:</strong> <a class="md-button md-button--primary" href="https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_13_modules_stdlib/note_lesson_13_modules_stdlib_student.ipynb">Відкрити вправи в Colab</a> <a class="solutions-link" href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_13_modules_stdlib/note_lesson_13_modules_stdlib.ipynb">Переглянути розв’язки</a></p>
+<h2 id="_1">Пригадай<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>Дай відповідь подумки, нічого не запускаючи:</p>
+<ol>
+<li>В уроці 11 ми писали <code>from collections import deque</code>, а в уроці 9 — <code>import time</code> і потім <code>time.perf_counter()</code>. Чому в першому випадку пишемо просто <code>deque(...)</code>, а в другому — з префіксом <code>time.</code>?</li>
+<li>Які поля має <code>Order</code> у звіті кафе з уроку 8?</li>
+<li><code>print</code>, <code>len</code> і <code>sorted</code> ми ніколи не імпортували. Звідки вони беруться?</li>
+</ol>
+<details class="success">
+<summary>Відповіді</summary>
+<ol>
+<li><code>from collections import deque</code> бере з модуля одне ім'я і кладе його в нашу програму. <code>import time</code> дає лише ім'я модуля, тому до функцій звертаємося через крапку.</li>
+<li><code>total_bill</code>, <code>tip</code>, <code>day</code>, <code>time</code>, <code>size</code>.</li>
+<li>Це <strong>вбудовані</strong> (built-in) функції: вони доступні завжди, без імпорту. Усе інше, навіть зі стандартної бібліотеки, треба імпортувати.</li>
+</ol>
+</details>
+<h2 id="_2">Модуль — це файл<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p><strong>Модуль</strong> — це звичайний файл <code>.py</code>. Нічого особливого в ньому немає: ті самі <code>def</code>, <code>class</code> і змінні, що й у ноутбуці. Ім'я модуля — ім'я файлу без <code>.py</code>.</p>
+<p>Розкладемо код кафе за ролями, як у уроці 8 розкладали звіт на функції:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>cafe_report/
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── rules.py    ← правила: мітка часу → день тижня, година → прийом їжі
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├── orders.py   ← чеки: RawOrder з каси, Order для звіту, генерація даних
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>├── report.py   ← звіт: функції з уроку 8
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>└── main.py     ← точка входу: python main.py 2024 7
+</code></pre></div>
+<p>Так модулі створює ноутбук заняття, і так працюють усі приклади до розділу «Практика». У готовій теці <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_1/lessons/lesson_13_modules_stdlib/cafe_report"><code>cafe_report/</code></a> ті самі чотири модулі розкладено ще й по <strong>пакетах</strong> — теках з модулями. Як це змінює імпорти, розберемо в <a href="#practice">«Практиці»</a>.</p>
+<p>Найпростіший модуль — правила кафе. У ньому немає жодного імпорту:</p>
+<div class="highlight"><span class="filename">rules.py</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="sd">"""Правила кафе: як мітка часу перетворюється на день тижня і прийом їжі."""</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">DAYS</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"пн"</span><span class="p">,</span> <span class="s2">"вт"</span><span class="p">,</span> <span class="s2">"ср"</span><span class="p">,</span> <span class="s2">"чт"</span><span class="p">,</span> <span class="s2">"пт"</span><span class="p">,</span> <span class="s2">"сб"</span><span class="p">,</span> <span class="s2">"нд"</span><span class="p">)</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">MONTHS</span> <span class="o">=</span> <span class="p">(</span><span class="s2">""</span><span class="p">,</span> <span class="s2">"січень"</span><span class="p">,</span> <span class="s2">"лютий"</span><span class="p">,</span> <span class="s2">"березень"</span><span class="p">,</span> <span class="s2">"квітень"</span><span class="p">,</span> <span class="s2">"травень"</span><span class="p">,</span> <span class="s2">"червень"</span><span class="p">,</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>          <span class="s2">"липень"</span><span class="p">,</span> <span class="s2">"серпень"</span><span class="p">,</span> <span class="s2">"вересень"</span><span class="p">,</span> <span class="s2">"жовтень"</span><span class="p">,</span> <span class="s2">"листопад"</span><span class="p">,</span> <span class="s2">"грудень"</span><span class="p">)</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">day_from_timestamp</span><span class="p">(</span><span class="n">ts</span><span class="p">):</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="sd">"""Короткий день тижня: datetime(2024, 7, 19, ...) -&gt; 'пт'."""</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="k">return</span> <span class="n">DAYS</span><span class="p">[</span><span class="n">ts</span><span class="o">.</span><span class="n">weekday</span><span class="p">()]</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="k">def</span><span class="w"> </span><span class="nf">meal_type_from_hour</span><span class="p">(</span><span class="n">hour</span><span class="p">):</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span><span class="sd">"""Прийом їжі за годиною замовлення."""</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    <span class="k">if</span> <span class="mi">11</span> <span class="o">&lt;=</span> <span class="n">hour</span> <span class="o">&lt;=</span> <span class="mi">15</span><span class="p">:</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>        <span class="k">return</span> <span class="s2">"обід"</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>    <span class="k">if</span> <span class="mi">17</span> <span class="o">&lt;=</span> <span class="n">hour</span> <span class="o">&lt;=</span> <span class="mi">23</span><span class="p">:</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>        <span class="k">return</span> <span class="s2">"вечеря"</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>    <span class="k">return</span> <span class="s2">"інше"</span>
+</code></pre></div>
+<p>Інший файл, що лежить у тій самій теці, користується ним через <code>import</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">rules</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">rules</span><span class="o">.</span><span class="n">meal_type_from_hour</span><span class="p">(</span><span class="mi">19</span><span class="p">))</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">rules</span><span class="o">.</span><span class="n">meal_type_from_hour</span><span class="p">(</span><span class="mi">16</span><span class="p">))</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">rules</span><span class="o">.</span><span class="n">DAYS</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>вечеря
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>інше
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>пт
+</code></pre></div>
+<p><code>rules.meal_type_from_hour</code> читається як «функція <code>meal_type_from_hour</code> з модуля <code>rules</code>». Кожен модуль — окремий <strong>простір імен</strong> (namespace): у <code>rules.py</code> і в <code>report.py</code> можуть бути змінні з однаковими іменами, і вони не заважатимуть одна одній. Префікс завжди показує, звідки ім'я.</p>
+<p>Модулі проєкту імпортують один одного і стандартну бібліотеку. Стрілка — «імпортує»:</p>
+<pre class="mermaid"><code>flowchart TD
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    M["main.py&lt;br&gt;точка входу"] --&gt; O["orders.py&lt;br&gt;чеки"]
+    M --&gt; R["report.py&lt;br&gt;звіт"]
+    M --&gt; U["rules.py&lt;br&gt;правила"]
+    O --&gt; U
+    R --&gt; U
+    M --&gt; S1["sys, calendar"]
+    O --&gt; S2["random, datetime, typing"]
+    R --&gt; S3["collections"]
+
+    class M warning
+    class O,R,U step
+    class S1,S2,S3 success</code></pre>
+<p>Зелені блоки — стандартна бібліотека. <code>rules.py</code> нікого не імпортує, тому його найлегше перевіряти: даєш годину — отримуєш рядок.</p>
+<h2 id="_3">Три способи імпорту<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Спосіб</th>
+<th>Як викликати</th>
+<th>Коли зручно</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>import rules</code></td>
+<td><code>rules.meal_type_from_hour(19)</code></td>
+<td>імен багато, важливо бачити, звідки кожне</td>
+</tr>
+<tr>
+<td><code>from rules import meal_type_from_hour</code></td>
+<td><code>meal_type_from_hour(19)</code></td>
+<td>одне-два імені, які часто використовуються</td>
+</tr>
+<tr>
+<td><code>import statistics as st</code></td>
+<td><code>st.mean(bills)</code></td>
+<td>довга назва або домовленість (<code>import pandas as pd</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>Є й четвертий спосіб, <code>from math import *</code>: він забирає з модуля <strong>всі</strong> імена. Так не пишуть, бо незрозуміло, звідки взялося ім'я, а чуже ім'я може непомітно замінити твоє або вбудоване:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">print</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="nb">print</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>8
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>8.0
+</code></pre></div>
+<p>Вбудована <code>pow</code> повертала ціле число, а після <code>import *</code> той самий виклик дає <code>8.0</code>: <code>math.pow</code> мовчки замінила вбудовану функцію. <a href="https://peps.python.org/pep-0008/#imports">PEP 8</a> радить уникати таких імпортів.</p>
+<div class="admonition warning">
+<p class="admonition-title"><code>datetime</code> — і модуль, і клас</p>
+<p>У модулі <code>datetime</code> є клас з тим самим іменем. Після <code>import datetime</code> ім'я <code>datetime</code> означає <strong>модуль</strong>, і викликати його не можна:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">ts</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">19</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>TypeError: 'module' object is not callable. Did you mean: 'datetime.datetime(...)'?
+</code></pre></div>
+<p>Підказку «Did you mean» друкує Python 3.12 і новіші.</p>
+<p>Або <code>datetime.datetime(2024, 7, 19)</code>, або <code>from datetime import datetime</code>. У цьому уроці — другий варіант.</p>
+</div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">19</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>2024-07-19 00:00:00
+</code></pre></div>
+<p><strong>Порядок імпортів</strong> за PEP 8 — на початку файлу, трьома групами через порожній рядок: стандартна бібліотека, сторонні пакети (<code>pip install</code>), модулі твого проєкту. Так на початку <code>orders.py</code>:</p>
+<div class="highlight"><span class="filename">orders.py — початок</span><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">NamedTuple</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rules</span><span class="w"> </span><span class="kn">import</span> <span class="n">day_from_timestamp</span><span class="p">,</span> <span class="n">meal_type_from_hour</span>
+</code></pre></div>
+<h2 id="import">Що робить import<a class="headerlink" href="#import" title="Permanent link">&para;</a></h2>
+<p>Коли Python бачить <code>import rules</code>, він виконує чотири кроки:</p>
+<pre class="mermaid"><code>flowchart TD
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    A["import rules"] --&gt; B{"rules уже&lt;br&gt;в sys.modules?"}
+    B -- так --&gt; F["взяти готовий модуль&lt;br&gt;файл не виконується"]
+    B -- ні --&gt; C["шукати rules.py&lt;br&gt;по теках sys.path"]
+    C --&gt; D{"знайшли?"}
+    D -- ні --&gt; E["ModuleNotFoundError"]
+    D -- так --&gt; G["виконати файл&lt;br&gt;зверху вниз"]
+    G --&gt; H["зберегти в sys.modules"]
+    H --&gt; I["ім'я rules&lt;br&gt;з'являється в програмі"]
+    F --&gt; I
+
+    class A,C,G,H step
+    class B,D decision
+    class E error
+    class F,I success</code></pre>
+<ol>
+<li><strong>Кеш.</strong> Якщо модуль уже імпортували, Python бере його зі словника <code>sys.modules</code> і нічого не виконує повторно.</li>
+<li><strong>Пошук.</strong> Інакше перебирає теки зі списку <code>sys.path</code> по черзі, доки не знайде <code>rules.py</code>.</li>
+<li><strong>Виконання.</strong> Виконує файл модуля зверху вниз, як звичайну програму: <code>def</code> створюють функції, присвоєння — змінні, <code>print</code> друкує.</li>
+<li><strong>Збереження.</strong> Кладе готовий модуль у <code>sys.modules</code>, а в програмі з'являється ім'я <code>rules</code>.</li>
+</ol>
+<p>Кеш легко побачити:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">collections</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"collections"</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">)</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s2">"collections"</span><span class="p">]))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>True
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>&lt;class 'module'&gt;
+</code></pre></div>
+<h3 id="python-syspath">Де Python шукає: sys.path<a class="headerlink" href="#python-syspath" title="Permanent link">&para;</a></h3>
+<p><code>sys.path</code> — звичайний список тек. Порядок пошуку:</p>
+<ol>
+<li><strong>тека скрипта</strong>, який запустили (<code>python main.py</code> — тека, де лежить <code>main.py</code>); у ноутбуці — поточна тека;</li>
+<li>теки зі змінної оточення <code>PYTHONPATH</code>, якщо вона задана;</li>
+<li>стандартна бібліотека;</li>
+<li><code>site-packages</code> — пакети, встановлені через <code>pip</code>.</li>
+</ol>
+<p>Перша ж тека, де знайшовся файл, перемагає. Тому <code>main.py</code> бачить <code>rules.py</code>, що лежить поруч, без жодних налаштувань. І тому ж з'являється пастка, про яку далі.</p>
+<h3 id="_4">Виконання лише один раз<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>Файл модуля виконується <strong>при першому імпорті</strong>. Усе, що стоїть на верхньому рівні файлу, спрацює в цей момент — навіть якщо імпортуючий хотів лише одну функцію.</p>
+<p>Коли <code>report.py</code> переносили з ноутбука, в кінець файлу за звичкою потрапила перевірка з уроку 8:</p>
+<div class="highlight"><span class="filename">report.py — перша версія (кінець файлу)</span><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">orders</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>    <span class="n">Order</span><span class="p">(</span><span class="mf">540.0</span><span class="p">,</span> <span class="mf">50.0</span><span class="p">,</span> <span class="s2">"пт"</span><span class="p">,</span> <span class="s2">"вечеря"</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>    <span class="n">Order</span><span class="p">(</span><span class="mf">320.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">,</span> <span class="s2">"пт"</span><span class="p">,</span> <span class="s2">"обід"</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>    <span class="n">Order</span><span class="p">(</span><span class="mf">980.0</span><span class="p">,</span> <span class="mf">120.0</span><span class="p">,</span> <span class="s2">"сб"</span><span class="p">,</span> <span class="s2">"вечеря"</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="p">]</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="n">print_report</span><span class="p">(</span><span class="n">orders</span><span class="p">)</span>
+</code></pre></div>
+<p>Адміністратор запускає звіт за липень і бачить <strong>два</strong> звіти. Перший — з трьох тестових чеків:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>python<span class="w"> </span>main.py<span class="w"> </span><span class="m">2024</span><span class="w"> </span><span class="m">7</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>пт — чеків:  2, виторг:    860.00, середній: 430.00
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>сб — чеків:  1, виторг:    980.00, середній: 980.00
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>Найкращий день: сб
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>За прийомом їжі: {'вечеря': 2, 'обід': 1}
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>Звіт кафе: липень 2024, днів: 31, чеків: 86
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>пн — чеків: 17, виторг:  14561.67, середній: 856.57
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>...
+</code></pre></div>
+<p><code>main.py</code> виконав <code>from report import print_report</code> → Python виконав <code>report.py</code> зверху вниз → разом з функціями виконався і тестовий <code>print_report(orders)</code>. Це <strong>побічний ефект імпорту</strong>. А от другий <code>import report</code> у тій самій програмі вже нічого не надрукує: модуль у кеші.</p>
+<h2 id="if-__name__-__main__"><code>if __name__ == "__main__":</code><a class="headerlink" href="#if-__name__-__main__" title="Permanent link">&para;</a></h2>
+<p>Тестовий звіт у <code>report.py</code> корисний: ним зручно перевірити модуль окремо, командою <code>python report.py</code>. Потрібно, щоб він спрацьовував <strong>лише</strong> тоді, коли файл запускають напряму, а не імпортують.</p>
+<p>Для цього в кожного модуля є змінна <code>__name__</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Як використали файл</th>
+<th>Значення <code>__name__</code> всередині нього</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>python report.py</code> — запустили напряму</td>
+<td><code>"__main__"</code></td>
+</tr>
+<tr>
+<td><code>import report</code> з іншого файлу</td>
+<td><code>"report"</code> — ім'я модуля</td>
+</tr>
+</tbody>
+</table>
+<p>Отже, тестовий код ховаємо під умову:</p>
+<div class="highlight"><span class="filename">report.py — кінець файлу</span><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">orders</span><span class="w"> </span><span class="kn">import</span> <span class="n">Order</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>    <span class="n">demo</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>        <span class="n">Order</span><span class="p">(</span><span class="mf">540.0</span><span class="p">,</span> <span class="mf">50.0</span><span class="p">,</span> <span class="s2">"пт"</span><span class="p">,</span> <span class="s2">"вечеря"</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>        <span class="n">Order</span><span class="p">(</span><span class="mf">320.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">,</span> <span class="s2">"пт"</span><span class="p">,</span> <span class="s2">"обід"</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>        <span class="n">Order</span><span class="p">(</span><span class="mf">980.0</span><span class="p">,</span> <span class="mf">120.0</span><span class="p">,</span> <span class="s2">"сб"</span><span class="p">,</span> <span class="s2">"вечеря"</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>    <span class="p">]</span>
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>    <span class="n">print_report</span><span class="p">(</span><span class="n">demo</span><span class="p">)</span>
+</code></pre></div>
+<p>Тепер <code>python report.py</code> друкує тестовий звіт, а <code>python main.py 2024 7</code> — лише звіт за липень. Так само закінчується і <code>main.py</code>: <code>main(sys.argv)</code> стоїть під тією ж умовою, тож <code>main.py</code> можна імпортувати в тести, і звіт при цьому не запуститься.</p>
+<p>У ноутбуці <code>__name__</code> завжди <code>"__main__"</code>: ноутбук — це програма, яку запускають напряму.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nb">print</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>__main__
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Модуль без побічних ефектів</p>
+<p>На верхньому рівні модуля лишай тільки імпорти, константи (<code>DAYS</code>), <code>def</code> і <code>class</code>. Усе, що друкує, читає файли чи довго рахує, — у функції або під <code>if __name__ == "__main__":</code>. Тоді <code>import</code> нічого не робить, крім того, що дає імена.</p>
+</div>
+<h2 id="_5">Затінення: коли твій файл заважає стандартному<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>Адміністраторка кафе вирішила зберігати графік змін у тій самій теці і назвала файл логічно — <code>calendar.py</code>:</p>
+<div class="highlight"><span class="filename">calendar.py</span><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="n">STAFF</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"пн"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Оксана"</span><span class="p">,</span> <span class="s2">"Тарас"</span><span class="p">],</span> <span class="s2">"сб"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Ірина"</span><span class="p">]}</span>
+</code></pre></div>
+<p>Наступний запуск звіту падає:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>python<span class="w"> </span>main.py<span class="w"> </span><span class="m">2024</span><span class="w"> </span><span class="m">7</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>Traceback (most recent call last):
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>  ...
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>    days_in_month = calendar.monthrange(year, month)[1]
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>                    ^^^^^^^^^^^^^^^^^^^
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>AttributeError: module 'calendar' has no attribute 'monthrange'
+</code></pre></div>
+<p><code>main.py</code> пише <code>import calendar</code>, маючи на увазі стандартний модуль. Але першою в <code>sys.path</code> стоїть тека скрипта, а там тепер лежить <code>calendar.py</code> з графіком. Python знайшов <strong>його</strong> і далі не шукав. Стандартний <code>calendar</code> <strong>затінено</strong> (shadowing).</p>
+<p>Python 3.13 підказує прямо:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>AttributeError: module 'calendar' has no attribute 'monthrange' (consider renaming '.../cafe_report/calendar.py' since it has the same name as the standard library module named 'calendar' and prevents importing that standard library module)
+</code></pre></div>
+<p>Старіші версії такої підказки не дають. Ліки однакові: перейменувати свій файл, наприклад на <code>staff_schedule.py</code>, і видалити теку <code>__pycache__</code> поруч, якщо вона з'явилася.</p>
+<div class="admonition warning">
+<p class="admonition-title">Не називай файли іменами стандартних модулів</p>
+<p><code>random.py</code>, <code>math.py</code>, <code>calendar.py</code>, <code>statistics.py</code>, <code>test.py</code>, <code>email.py</code> — усе це імена модулів стандартної бібліотеки. Помилка при цьому з'являється не у твоєму файлі, а в чужому коді, який чекав на справжній модуль. Швидка перевірка: <code>print(calendar.__file__)</code> показує, який саме файл завантажено.</p>
+</div>
+<h2 id="_6">Стандартна бібліотека: батарейки в комплекті<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>Python постачається з сотнями готових модулів. Про це кажуть «batteries included» — батарейки в комплекті. Перш ніж писати щось самому чи шукати пакет для <code>pip install</code>, варто перевірити <a href="https://docs.python.org/3/library/index.html">перелік модулів</a>. Кафе знадобиться п'ять.</p>
+<h3 id="datetime">datetime: дата і час одним об'єктом<a class="headerlink" href="#datetime" title="Permanent link">&para;</a></h3>
+<p>Каса віддає мітку часу як об'єкт <code>datetime</code>. З нього дістаємо все, що потрібно звіту:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="n">ts</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">day</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">minute</span><span class="p">)</span>
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">weekday</span><span class="p">())</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>2024-07-19 18:30:00
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>2024 7 19 18 30
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>4
+</code></pre></div>
+<p><code>weekday()</code> рахує дні з нуля: 0 — понеділок, 6 — неділя. Тому <code>rules.DAYS[ts.weekday()]</code> — це <code>"пт"</code>.</p>
+<p><strong>Рядок ↔ дата.</strong> <code>strftime</code> (string <strong>f</strong>rom time) перетворює дату на рядок за шаблоном, <code>strptime</code> (string <strong>p</strong>arse time) — навпаки:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="nb">print</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"</span><span class="si">%d</span><span class="s2">.%m.%Y %H:%M"</span><span class="p">))</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y-%m"</span><span class="p">))</span>
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="n">parsed</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="s2">"15.07.2024"</span><span class="p">,</span> <span class="s2">"</span><span class="si">%d</span><span class="s2">.%m.%Y"</span><span class="p">)</span>
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">parsed</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>19.07.2024 18:30
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>2024-07
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>2024-07-15 00:00:00
+</code></pre></div>
+<p><strong>Проміжки часу.</strong> <code>timedelta</code> — «скільки часу»: його додають до дати, а різниця двох дат теж дає <code>timedelta</code>. Дати порівнюються, як числа:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="nb">print</span><span class="p">(</span><span class="n">ts</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="n">period</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2025</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">period</span><span class="o">.</span><span class="n">days</span><span class="p">)</span>
+<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">ts</span> <span class="o">&lt;</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>2024-07-19 20:30:00
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>731
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>True
+</code></pre></div>
+<p>731 день, бо 2024 рік високосний. Саме так <code>orders.py</code> генерує мітки часу: початок періоду плюс випадкова кількість днів, годин і хвилин.</p>
+<div class="admonition note">
+<p class="admonition-title">Назви днів і місяців англійською</p>
+<p><code>ts.strftime("%A")</code> дасть <code>Friday</code>: назви залежать від <strong>локалі</strong> системи. Модуль <code>locale</code> вміє перемкнути її на українську, але лише якщо українська локаль встановлена на конкретному комп'ютері. У Colab чи на сервері її може не бути, і <code>locale.setlocale</code> впаде з <code>locale.Error</code>. Тому кафе тримає власні кортежі <code>DAYS</code> і <code>MONTHS</code> у <code>rules.py</code>: вони працюють однаково всюди.</p>
+</div>
+<h3 id="random">random: відтворювані випадкові дані<a class="headerlink" href="#random" title="Permanent link">&para;</a></h3>
+<p>Справжньої каси в нас немає, тому чеки генеруємо. Щоб звіт щоразу виходив однаковим, генератор створюємо з <strong>зерном</strong> (seed):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="n">rng</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">Random</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">rng</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">rng</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>
+<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a><span class="n">rng</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">Random</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">rng</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">rng</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>6 1 1
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>6 1 1
+</code></pre></div>
+<p>Те саме зерно дає ту саму послідовність. Числа лише <strong>псевдовипадкові</strong>: їх обчислює формула. Для навчальних даних і тестів це саме те, що треба, для паролів — ні (для них є модуль <a href="https://docs.python.org/3/library/secrets.html"><code>secrets</code></a>).</p>
+<p><code>random.Random(seed)</code> — окремий генератор, який належить лише функції <code>generate_raw_orders</code>. Виклик <code>random.seed(42)</code> змінив би спільний генератор для всієї програми, а це побічний ефект.</p>
+<h3 id="collectionscounter">collections.Counter: підрахунок одним рядком<a class="headerlink" href="#collectionscounter" title="Permanent link">&para;</a></h3>
+<p>В уроці 6 чеки за днями рахували вручну: <code>counts[day] = counts.get(day, 0) + 1</code>. <code>Counter</code> робить те саме одним рядком:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="n">times</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"вечеря"</span><span class="p">,</span> <span class="s2">"обід"</span><span class="p">,</span> <span class="s2">"вечеря"</span><span class="p">,</span> <span class="s2">"інше"</span><span class="p">,</span> <span class="s2">"вечеря"</span><span class="p">,</span> <span class="s2">"обід"</span><span class="p">]</span>
+<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="n">counts</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
+<a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span>
+<a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">counts</span><span class="p">[</span><span class="s2">"вечеря"</span><span class="p">],</span> <span class="n">counts</span><span class="p">[</span><span class="s2">"сніданок"</span><span class="p">])</span>
+<a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">counts</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>Counter({'вечеря': 3, 'обід': 2, 'інше': 1})
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>3 0
+<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>[('вечеря', 3)]
+</code></pre></div>
+<p><code>Counter</code> — це словник, тож усе, що вміє <code>dict</code>, вміє і він. Відсутній ключ дає <code>0</code>, а не <code>KeyError</code>. <code>most_common(k)</code> повертає k найчастіших значень. У <code>report.py</code> функція <code>count_by_day</code> тепер займає один рядок: <code>return Counter(order.day for order in orders)</code>.</p>
+<h3 id="calendar">calendar: скільки днів у місяці<a class="headerlink" href="#calendar" title="Permanent link">&para;</a></h3>
+<p>Щоб порахувати «чеків на день», треба знати, скільки днів у місяці. Для лютого це залежить від року:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">calendar</span>
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>
+<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="n">first_weekday</span><span class="p">,</span> <span class="n">days</span> <span class="o">=</span> <span class="n">calendar</span><span class="o">.</span><span class="n">monthrange</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">days</span><span class="p">,</span> <span class="n">first_weekday</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span>
+<a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">calendar</span><span class="o">.</span><span class="n">monthrange</span><span class="p">(</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">2</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+<a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">calendar</span><span class="o">.</span><span class="n">isleap</span><span class="p">(</span><span class="mi">2024</span><span class="p">))</span>
+<a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">calendar</span><span class="o">.</span><span class="n">month_name</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="nb">repr</span><span class="p">(</span><span class="n">calendar</span><span class="o">.</span><span class="n">month_name</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>29 True
+<a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>28
+<a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>True
+<a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a>July ''
+</code></pre></div>
+<p><code>monthrange</code> повертає пару: день тижня першого числа (3 — четвер, нумерація як у <code>weekday()</code>) і кількість днів. <code>month_name</code> нумерує місяці з 1, тому під індексом 0 — порожній рядок. Кортеж <code>MONTHS</code> у <code>rules.py</code> влаштований так само: <code>MONTHS[7] == "липень"</code>.</p>
+<h3 id="statistics">statistics: середнє і медіана<a class="headerlink" href="#statistics" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">statistics</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">st</span>
+<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>
+<a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a><span class="n">bills</span> <span class="o">=</span> <span class="p">[</span><span class="mi">320</span><span class="p">,</span> <span class="mi">540</span><span class="p">,</span> <span class="mi">760</span><span class="p">,</span> <span class="mi">980</span><span class="p">,</span> <span class="mi">4500</span><span class="p">]</span>
+<a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">bills</span><span class="p">))</span>
+<a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">bills</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>1420
+<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>760
+</code></pre></div>
+<p>Один банкет на 4500 грн підняв середній чек до 1420, хоча чотири з п'яти чеків менші за тисячу. Медіана — середнє значення <strong>за порядком</strong> — такому викиду не піддається. Коли власниця питає «скільки зазвичай витрачає гість», чесніша відповідь — медіана.</p>
+<h3 id="_7">Як знайти потрібний модуль<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Перелік модулів з описами: <a href="https://docs.python.org/3/library/index.html">The Python Standard Library</a>.</li>
+<li>Що є в модулі: <code>dir(module)</code> і <code>help(module.function)</code> прямо в інтерпретаторі.</li>
+<li>Який файл завантажено: <code>module.__file__</code>.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">rules</span>
+<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>
+<a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a><span class="nb">print</span><span class="p">([</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">rules</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"_"</span><span class="p">)])</span>
+<a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">rules</span><span class="o">.</span><span class="n">meal_type_from_hour</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>['DAYS', 'MONTHS', 'day_from_timestamp', 'meal_type_from_hour']
+<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>Прийом їжі за годиною замовлення.
+</code></pre></div>
+<p>Рядок документації (docstring), який ти пишеш під <code>def</code>, — це саме те, що покаже <code>help()</code>.</p>
+<h2 id="sysargv">sys.argv: аргументи з командного рядка<a class="headerlink" href="#sysargv" title="Permanent link">&para;</a></h2>
+<p>Адміністратор запускає звіт так:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>python<span class="w"> </span>main.py<span class="w"> </span><span class="m">2024</span><span class="w"> </span><span class="m">7</span>
+</code></pre></div>
+<p>Усе, що написано після <code>python</code>, Python кладе в список <code>sys.argv</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Індекс</th>
+<th>Значення</th>
+<th>Тип</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sys.argv[0]</code></td>
+<td><code>"main.py"</code> — ім'я скрипта</td>
+<td><code>str</code></td>
+</tr>
+<tr>
+<td><code>sys.argv[1]</code></td>
+<td><code>"2024"</code></td>
+<td><code>str</code></td>
+</tr>
+<tr>
+<td><code>sys.argv[2]</code></td>
+<td><code>"7"</code></td>
+<td><code>str</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Усі</strong> аргументи — рядки, навіть якщо схожі на числа. Тому <code>main.py</code> перетворює їх через <code>int()</code>:</p>
+<div class="highlight"><span class="filename">main.py</span><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="sd">"""Звіт кафе за місяць: python main.py РІК МІСЯЦЬ"""</span>
+<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">calendar</span>
+<a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a>
+<a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">orders</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_raw_orders</span><span class="p">,</span> <span class="n">in_month</span><span class="p">,</span> <span class="n">to_order</span>
+<a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">report</span><span class="w"> </span><span class="kn">import</span> <span class="n">print_report</span>
+<a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rules</span><span class="w"> </span><span class="kn">import</span> <span class="n">MONTHS</span>
+<a id="__codelineno-40-8" name="__codelineno-40-8" href="#__codelineno-40-8"></a>
+<a id="__codelineno-40-9" name="__codelineno-40-9" href="#__codelineno-40-9"></a>
+<a id="__codelineno-40-10" name="__codelineno-40-10" href="#__codelineno-40-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+<a id="__codelineno-40-11" name="__codelineno-40-11" href="#__codelineno-40-11"></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+<a id="__codelineno-40-12" name="__codelineno-40-12" href="#__codelineno-40-12"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">"Використання: python main.py РІК МІСЯЦЬ, наприклад: python main.py 2024 7"</span><span class="p">)</span>
+<a id="__codelineno-40-13" name="__codelineno-40-13" href="#__codelineno-40-13"></a>        <span class="k">return</span>
+<a id="__codelineno-40-14" name="__codelineno-40-14" href="#__codelineno-40-14"></a>    <span class="n">year</span><span class="p">,</span> <span class="n">month</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<a id="__codelineno-40-15" name="__codelineno-40-15" href="#__codelineno-40-15"></a>    <span class="n">raw_orders</span> <span class="o">=</span> <span class="n">generate_raw_orders</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<a id="__codelineno-40-16" name="__codelineno-40-16" href="#__codelineno-40-16"></a>    <span class="n">orders</span> <span class="o">=</span> <span class="p">[</span><span class="n">to_order</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span> <span class="k">for</span> <span class="n">raw</span> <span class="ow">in</span> <span class="n">raw_orders</span> <span class="k">if</span> <span class="n">in_month</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">)]</span>
+<a id="__codelineno-40-17" name="__codelineno-40-17" href="#__codelineno-40-17"></a>    <span class="n">days_in_month</span> <span class="o">=</span> <span class="n">calendar</span><span class="o">.</span><span class="n">monthrange</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+<a id="__codelineno-40-18" name="__codelineno-40-18" href="#__codelineno-40-18"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Звіт кафе: </span><span class="si">{</span><span class="n">MONTHS</span><span class="p">[</span><span class="n">month</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">, днів: </span><span class="si">{</span><span class="n">days_in_month</span><span class="si">}</span><span class="s2">, чеків: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">orders</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-40-19" name="__codelineno-40-19" href="#__codelineno-40-19"></a>    <span class="n">print_report</span><span class="p">(</span><span class="n">orders</span><span class="p">)</span>
+<a id="__codelineno-40-20" name="__codelineno-40-20" href="#__codelineno-40-20"></a>
+<a id="__codelineno-40-21" name="__codelineno-40-21" href="#__codelineno-40-21"></a>
+<a id="__codelineno-40-22" name="__codelineno-40-22" href="#__codelineno-40-22"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+<a id="__codelineno-40-23" name="__codelineno-40-23" href="#__codelineno-40-23"></a>    <span class="n">main</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+</code></pre></div>
+<p><code>main</code> отримує список аргументів параметром, а не читає <code>sys.argv</code> сама. Так її легко перевірити в тестах: <code>main(["main.py", "2024", "7"])</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>python<span class="w"> </span>main.py
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>Використання: python main.py РІК МІСЯЦЬ, наприклад: python main.py 2024 7
+</code></pre></div>
+<p>А якщо ввести місяць словом?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>python<span class="w"> </span>main.py<span class="w"> </span><span class="m">2024</span><span class="w"> </span>липень
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>ValueError: invalid literal for int() with base 10: 'липень'
+</code></pre></div>
+<p>Програма падає з трасуванням. Як перехоплювати такі помилки й відповідати людині зрозуміло — тема <a href="../lesson_14/">уроку 14</a>. Для складніших програм зі стандартної бібліотеки є <a href="https://docs.python.org/3/library/argparse.html"><code>argparse</code></a>: він сам друкує довідку <code>--help</code> і перевіряє типи аргументів.</p>
+<h2 id="practice">Практика<a class="headerlink" href="#practice" title="Permanent link">&para;</a></h2>
+<h3 id="_8">Розібраний приклад: звіт кафе з чотирьох модулів<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>Готовий проєкт лежить у теці <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_1/lessons/lesson_13_modules_stdlib/cafe_report"><code>cafe_report/</code></a>. Модулі ті самі, що й вище, але кожен лежить у своїй теці:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>cafe_report/
+<a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>├── main.py                  ← точка входу: python main.py 2024 7
+<a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a>├── rules/
+<a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a>│   ├── __init__.py          ← порожній файл: тека rules — пакет
+<a id="__codelineno-45-5" name="__codelineno-45-5" href="#__codelineno-45-5"></a>│   └── rules.py
+<a id="__codelineno-45-6" name="__codelineno-45-6" href="#__codelineno-45-6"></a>├── orders/
+<a id="__codelineno-45-7" name="__codelineno-45-7" href="#__codelineno-45-7"></a>│   ├── __init__.py
+<a id="__codelineno-45-8" name="__codelineno-45-8" href="#__codelineno-45-8"></a>│   └── orders.py
+<a id="__codelineno-45-9" name="__codelineno-45-9" href="#__codelineno-45-9"></a>├── reports/
+<a id="__codelineno-45-10" name="__codelineno-45-10" href="#__codelineno-45-10"></a>│   ├── __init__.py
+<a id="__codelineno-45-11" name="__codelineno-45-11" href="#__codelineno-45-11"></a>│   └── report.py
+<a id="__codelineno-45-12" name="__codelineno-45-12" href="#__codelineno-45-12"></a>└── tests/
+<a id="__codelineno-45-13" name="__codelineno-45-13" href="#__codelineno-45-13"></a>    ├── __init__.py
+<a id="__codelineno-45-14" name="__codelineno-45-14" href="#__codelineno-45-14"></a>    └── test_cafe_report.py  ← перевірки проєкту
+</code></pre></div>
+<p>Тека з модулями й файлом <code>__init__.py</code> — це <strong>пакет</strong>. Модулів поки чотири, і пласкої теки вистачило б. Але кафе росте: у <code>orders/</code> згодом ляже модуль для доставки, у <code>reports/</code> — звіт для бухгалтера, і кожна роль матиме свою теку.</p>
+<p>Коду модулів пакети не змінюють — лише рядки імпорту. Ім'я модуля тепер пишеться через крапку: спершу пакет, потім модуль.</p>
+<table>
+<thead>
+<tr>
+<th>Пласка тека (ноутбук)</th>
+<th>Тека з пакетами (<code>cafe_report/</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>from rules import DAYS</code></td>
+<td><code>from rules.rules import DAYS</code> — пакет <code>rules</code>, модуль <code>rules</code></td>
+</tr>
+<tr>
+<td><code>from orders import Order</code></td>
+<td><code>from orders.orders import Order</code></td>
+</tr>
+<tr>
+<td><code>from report import print_report</code></td>
+<td><code>from reports.report import print_report</code></td>
+</tr>
+<tr>
+<td><code>python report.py</code></td>
+<td><code>python -m reports.report</code></td>
+</tr>
+</tbody>
+</table>
+<p>Запуск теж змінюється. <code>python main.py</code> працює як і раніше: <code>main.py</code> лежить у корені, тож перша тека в <code>sys.path</code> — <code>cafe_report/</code>, і пакети <code>rules</code>, <code>orders</code>, <code>reports</code> Python знаходить поруч. А от <code>python reports/report.py</code> впаде з <code>ModuleNotFoundError: No module named 'rules'</code>: тоді першою текою стане <code>reports/</code>, де пакета <code>rules</code> немає. Модуль усередині пакета запускають через <code>-m</code> і ім'я модуля з крапкою: <code>python -m reports.report</code>. Детальніше про пакети — у розділі <a href="#packages">«Поглиблення: пакети»</a>.</p>
+<p><code>rules/rules.py</code> і <code>main.py</code> ти вже бачив вище: у <code>main.py</code> з <code>cafe_report/</code> відрізняються лише три рядки імпорту з таблиці. Ось два інші модулі повністю:</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">orders/orders.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-46-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-46-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-46-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-46-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-46-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-46-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-46-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-46-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-46-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-46-10">10</a></span>
+<span class="normal"><a href="#__codelineno-46-11">11</a></span>
+<span class="normal"><a href="#__codelineno-46-12">12</a></span>
+<span class="normal"><a href="#__codelineno-46-13">13</a></span>
+<span class="normal"><a href="#__codelineno-46-14">14</a></span>
+<span class="normal"><a href="#__codelineno-46-15">15</a></span>
+<span class="normal"><a href="#__codelineno-46-16">16</a></span>
+<span class="normal"><a href="#__codelineno-46-17">17</a></span>
+<span class="normal"><a href="#__codelineno-46-18">18</a></span>
+<span class="normal"><a href="#__codelineno-46-19">19</a></span>
+<span class="normal"><a href="#__codelineno-46-20">20</a></span>
+<span class="normal"><a href="#__codelineno-46-21">21</a></span>
+<span class="normal"><a href="#__codelineno-46-22">22</a></span>
+<span class="normal"><a href="#__codelineno-46-23">23</a></span>
+<span class="normal"><a href="#__codelineno-46-24">24</a></span>
+<span class="normal"><a href="#__codelineno-46-25">25</a></span>
+<span class="normal"><a href="#__codelineno-46-26">26</a></span>
+<span class="normal"><a href="#__codelineno-46-27">27</a></span>
+<span class="normal"><a href="#__codelineno-46-28">28</a></span>
+<span class="normal"><a href="#__codelineno-46-29">29</a></span>
+<span class="normal"><a href="#__codelineno-46-30">30</a></span>
+<span class="normal"><a href="#__codelineno-46-31">31</a></span>
+<span class="normal"><a href="#__codelineno-46-32">32</a></span>
+<span class="normal"><a href="#__codelineno-46-33">33</a></span>
+<span class="normal"><a href="#__codelineno-46-34">34</a></span>
+<span class="normal"><a href="#__codelineno-46-35">35</a></span>
+<span class="normal"><a href="#__codelineno-46-36">36</a></span>
+<span class="normal"><a href="#__codelineno-46-37">37</a></span>
+<span class="normal"><a href="#__codelineno-46-38">38</a></span>
+<span class="normal"><a href="#__codelineno-46-39">39</a></span>
+<span class="normal"><a href="#__codelineno-46-40">40</a></span>
+<span class="normal"><a href="#__codelineno-46-41">41</a></span>
+<span class="normal"><a href="#__codelineno-46-42">42</a></span>
+<span class="normal"><a href="#__codelineno-46-43">43</a></span>
+<span class="normal"><a href="#__codelineno-46-44">44</a></span>
+<span class="normal"><a href="#__codelineno-46-45">45</a></span>
+<span class="normal"><a href="#__codelineno-46-46">46</a></span>
+<span class="normal"><a href="#__codelineno-46-47">47</a></span>
+<span class="normal"><a href="#__codelineno-46-48">48</a></span>
+<span class="normal"><a href="#__codelineno-46-49">49</a></span>
+<span class="normal"><a href="#__codelineno-46-50">50</a></span>
+<span class="normal"><a href="#__codelineno-46-51">51</a></span>
+<span class="normal"><a href="#__codelineno-46-52">52</a></span>
+<span class="normal"><a href="#__codelineno-46-53">53</a></span>
+<span class="normal"><a href="#__codelineno-46-54">54</a></span>
+<span class="normal"><a href="#__codelineno-46-55">55</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1"></a><span class="sd">"""Чеки кафе: сирі записи з каси і перетворення на Order з уроку 8."""</span>
+<a id="__codelineno-46-2" name="__codelineno-46-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<a id="__codelineno-46-3" name="__codelineno-46-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+<a id="__codelineno-46-4" name="__codelineno-46-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">NamedTuple</span>
+<a id="__codelineno-46-5" name="__codelineno-46-5"></a>
+<a id="__codelineno-46-6" name="__codelineno-46-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rules.rules</span><span class="w"> </span><span class="kn">import</span> <span class="n">day_from_timestamp</span><span class="p">,</span> <span class="n">meal_type_from_hour</span>
+<a id="__codelineno-46-7" name="__codelineno-46-7"></a>
+<a id="__codelineno-46-8" name="__codelineno-46-8"></a>
+<a id="__codelineno-46-9" name="__codelineno-46-9"></a><span class="hll"><span class="k">class</span><span class="w"> </span><span class="nc">RawOrder</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
+</span><a id="__codelineno-46-10" name="__codelineno-46-10"></a><span class="w">    </span><span class="sd">"""Чек, як його віддає каса: з міткою часу."""</span>
+<a id="__codelineno-46-11" name="__codelineno-46-11"></a>    <span class="n">total_bill</span><span class="p">:</span> <span class="nb">float</span>
+<a id="__codelineno-46-12" name="__codelineno-46-12"></a>    <span class="n">tip</span><span class="p">:</span> <span class="nb">float</span>
+<a id="__codelineno-46-13" name="__codelineno-46-13"></a>    <span class="n">size</span><span class="p">:</span> <span class="nb">int</span>
+<a id="__codelineno-46-14" name="__codelineno-46-14"></a>    <span class="n">timestamp</span><span class="p">:</span> <span class="n">datetime</span>
+<a id="__codelineno-46-15" name="__codelineno-46-15"></a>
+<a id="__codelineno-46-16" name="__codelineno-46-16"></a>
+<a id="__codelineno-46-17" name="__codelineno-46-17"></a><span class="hll"><span class="k">class</span><span class="w"> </span><span class="nc">Order</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
+</span><a id="__codelineno-46-18" name="__codelineno-46-18"></a><span class="w">    </span><span class="sd">"""Чек, як його рахує звіт з уроку 8."""</span>
+<a id="__codelineno-46-19" name="__codelineno-46-19"></a>    <span class="n">total_bill</span><span class="p">:</span> <span class="nb">float</span>
+<a id="__codelineno-46-20" name="__codelineno-46-20"></a>    <span class="n">tip</span><span class="p">:</span> <span class="nb">float</span>
+<a id="__codelineno-46-21" name="__codelineno-46-21"></a>    <span class="n">day</span><span class="p">:</span> <span class="nb">str</span>
+<a id="__codelineno-46-22" name="__codelineno-46-22"></a>    <span class="n">time</span><span class="p">:</span> <span class="nb">str</span>
+<a id="__codelineno-46-23" name="__codelineno-46-23"></a>    <span class="n">size</span><span class="p">:</span> <span class="nb">int</span>
+<a id="__codelineno-46-24" name="__codelineno-46-24"></a>
+<a id="__codelineno-46-25" name="__codelineno-46-25"></a>
+<a id="__codelineno-46-26" name="__codelineno-46-26"></a><span class="k">def</span><span class="w"> </span><span class="nf">generate_raw_orders</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<a id="__codelineno-46-27" name="__codelineno-46-27"></a><span class="w">    </span><span class="sd">"""n випадкових чеків за 2023–2024 роки, кафе працює з 9:00 до 23:00."""</span>
+<a id="__codelineno-46-28" name="__codelineno-46-28"></a><span class="hll">    <span class="n">rng</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">Random</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+</span><a id="__codelineno-46-29" name="__codelineno-46-29"></a>    <span class="n">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-46-30" name="__codelineno-46-30"></a><span class="hll">    <span class="n">days</span> <span class="o">=</span> <span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2025</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span><span class="o">.</span><span class="n">days</span>
+</span><a id="__codelineno-46-31" name="__codelineno-46-31"></a>    <span class="n">raw_orders</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-46-32" name="__codelineno-46-32"></a>    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<a id="__codelineno-46-33" name="__codelineno-46-33"></a><span class="hll">        <span class="n">timestamp</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">rng</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="n">days</span><span class="p">),</span>
+</span><a id="__codelineno-46-34" name="__codelineno-46-34"></a><span class="hll">                                      <span class="n">hours</span><span class="o">=</span><span class="n">rng</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span>
+</span><a id="__codelineno-46-35" name="__codelineno-46-35"></a><span class="hll">                                      <span class="n">minutes</span><span class="o">=</span><span class="n">rng</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">59</span><span class="p">))</span>
+</span><a id="__codelineno-46-36" name="__codelineno-46-36"></a>        <span class="n">bill</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">1500</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-46-37" name="__codelineno-46-37"></a>        <span class="n">tip</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">bill</span> <span class="o">*</span> <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-46-38" name="__codelineno-46-38"></a>        <span class="n">raw_orders</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">RawOrder</span><span class="p">(</span><span class="n">bill</span><span class="p">,</span> <span class="n">tip</span><span class="p">,</span> <span class="n">rng</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">timestamp</span><span class="p">))</span>
+<a id="__codelineno-46-39" name="__codelineno-46-39"></a>    <span class="k">return</span> <span class="n">raw_orders</span>
+<a id="__codelineno-46-40" name="__codelineno-46-40"></a>
+<a id="__codelineno-46-41" name="__codelineno-46-41"></a>
+<a id="__codelineno-46-42" name="__codelineno-46-42"></a><span class="hll"><span class="k">def</span><span class="w"> </span><span class="nf">in_month</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">):</span>
+</span><a id="__codelineno-46-43" name="__codelineno-46-43"></a><span class="w">    </span><span class="sd">"""Чи належить чек до вказаного місяця."""</span>
+<a id="__codelineno-46-44" name="__codelineno-46-44"></a>    <span class="k">return</span> <span class="n">raw</span><span class="o">.</span><span class="n">timestamp</span><span class="o">.</span><span class="n">year</span> <span class="o">==</span> <span class="n">year</span> <span class="ow">and</span> <span class="n">raw</span><span class="o">.</span><span class="n">timestamp</span><span class="o">.</span><span class="n">month</span> <span class="o">==</span> <span class="n">month</span>
+<a id="__codelineno-46-45" name="__codelineno-46-45"></a>
+<a id="__codelineno-46-46" name="__codelineno-46-46"></a>
+<a id="__codelineno-46-47" name="__codelineno-46-47"></a><span class="hll"><span class="k">def</span><span class="w"> </span><span class="nf">to_order</span><span class="p">(</span><span class="n">raw</span><span class="p">):</span>
+</span><a id="__codelineno-46-48" name="__codelineno-46-48"></a><span class="w">    </span><span class="sd">"""RawOrder -&gt; Order: день і прийом їжі обчислюються з мітки часу."""</span>
+<a id="__codelineno-46-49" name="__codelineno-46-49"></a>    <span class="k">return</span> <span class="n">Order</span><span class="p">(</span>
+<a id="__codelineno-46-50" name="__codelineno-46-50"></a>        <span class="n">total_bill</span><span class="o">=</span><span class="n">raw</span><span class="o">.</span><span class="n">total_bill</span><span class="p">,</span>
+<a id="__codelineno-46-51" name="__codelineno-46-51"></a>        <span class="n">tip</span><span class="o">=</span><span class="n">raw</span><span class="o">.</span><span class="n">tip</span><span class="p">,</span>
+<a id="__codelineno-46-52" name="__codelineno-46-52"></a>        <span class="n">day</span><span class="o">=</span><span class="n">day_from_timestamp</span><span class="p">(</span><span class="n">raw</span><span class="o">.</span><span class="n">timestamp</span><span class="p">),</span>
+<a id="__codelineno-46-53" name="__codelineno-46-53"></a>        <span class="n">time</span><span class="o">=</span><span class="n">meal_type_from_hour</span><span class="p">(</span><span class="n">raw</span><span class="o">.</span><span class="n">timestamp</span><span class="o">.</span><span class="n">hour</span><span class="p">),</span>
+<a id="__codelineno-46-54" name="__codelineno-46-54"></a>        <span class="n">size</span><span class="o">=</span><span class="n">raw</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+<a id="__codelineno-46-55" name="__codelineno-46-55"></a>    <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">reports/report.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-47-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-47-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-47-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-47-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-47-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-47-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-47-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-47-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-47-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-47-10">10</a></span>
+<span class="normal"><a href="#__codelineno-47-11">11</a></span>
+<span class="normal"><a href="#__codelineno-47-12">12</a></span>
+<span class="normal"><a href="#__codelineno-47-13">13</a></span>
+<span class="normal"><a href="#__codelineno-47-14">14</a></span>
+<span class="normal"><a href="#__codelineno-47-15">15</a></span>
+<span class="normal"><a href="#__codelineno-47-16">16</a></span>
+<span class="normal"><a href="#__codelineno-47-17">17</a></span>
+<span class="normal"><a href="#__codelineno-47-18">18</a></span>
+<span class="normal"><a href="#__codelineno-47-19">19</a></span>
+<span class="normal"><a href="#__codelineno-47-20">20</a></span>
+<span class="normal"><a href="#__codelineno-47-21">21</a></span>
+<span class="normal"><a href="#__codelineno-47-22">22</a></span>
+<span class="normal"><a href="#__codelineno-47-23">23</a></span>
+<span class="normal"><a href="#__codelineno-47-24">24</a></span>
+<span class="normal"><a href="#__codelineno-47-25">25</a></span>
+<span class="normal"><a href="#__codelineno-47-26">26</a></span>
+<span class="normal"><a href="#__codelineno-47-27">27</a></span>
+<span class="normal"><a href="#__codelineno-47-28">28</a></span>
+<span class="normal"><a href="#__codelineno-47-29">29</a></span>
+<span class="normal"><a href="#__codelineno-47-30">30</a></span>
+<span class="normal"><a href="#__codelineno-47-31">31</a></span>
+<span class="normal"><a href="#__codelineno-47-32">32</a></span>
+<span class="normal"><a href="#__codelineno-47-33">33</a></span>
+<span class="normal"><a href="#__codelineno-47-34">34</a></span>
+<span class="normal"><a href="#__codelineno-47-35">35</a></span>
+<span class="normal"><a href="#__codelineno-47-36">36</a></span>
+<span class="normal"><a href="#__codelineno-47-37">37</a></span>
+<span class="normal"><a href="#__codelineno-47-38">38</a></span>
+<span class="normal"><a href="#__codelineno-47-39">39</a></span>
+<span class="normal"><a href="#__codelineno-47-40">40</a></span>
+<span class="normal"><a href="#__codelineno-47-41">41</a></span>
+<span class="normal"><a href="#__codelineno-47-42">42</a></span>
+<span class="normal"><a href="#__codelineno-47-43">43</a></span>
+<span class="normal"><a href="#__codelineno-47-44">44</a></span>
+<span class="normal"><a href="#__codelineno-47-45">45</a></span>
+<span class="normal"><a href="#__codelineno-47-46">46</a></span>
+<span class="normal"><a href="#__codelineno-47-47">47</a></span>
+<span class="normal"><a href="#__codelineno-47-48">48</a></span>
+<span class="normal"><a href="#__codelineno-47-49">49</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1"></a><span class="sd">"""Звіт кафе: функції з уроку 8, тепер в окремому модулі."""</span>
+<a id="__codelineno-47-2" name="__codelineno-47-2"></a><span class="hll"><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
+</span><a id="__codelineno-47-3" name="__codelineno-47-3"></a>
+<a id="__codelineno-47-4" name="__codelineno-47-4"></a><span class="hll"><span class="kn">from</span><span class="w"> </span><span class="nn">rules.rules</span><span class="w"> </span><span class="kn">import</span> <span class="n">DAYS</span>
+</span><a id="__codelineno-47-5" name="__codelineno-47-5"></a>
+<a id="__codelineno-47-6" name="__codelineno-47-6"></a>
+<a id="__codelineno-47-7" name="__codelineno-47-7"></a><span class="k">def</span><span class="w"> </span><span class="nf">count_by_day</span><span class="p">(</span><span class="n">orders</span><span class="p">):</span>
+<a id="__codelineno-47-8" name="__codelineno-47-8"></a><span class="hll"><span class="w">    </span><span class="sd">"""Кількість чеків у кожен день."""</span>
+</span><a id="__codelineno-47-9" name="__codelineno-47-9"></a>    <span class="k">return</span> <span class="n">Counter</span><span class="p">(</span><span class="n">order</span><span class="o">.</span><span class="n">day</span> <span class="k">for</span> <span class="n">order</span> <span class="ow">in</span> <span class="n">orders</span><span class="p">)</span>
+<a id="__codelineno-47-10" name="__codelineno-47-10"></a>
+<a id="__codelineno-47-11" name="__codelineno-47-11"></a>
+<a id="__codelineno-47-12" name="__codelineno-47-12"></a><span class="k">def</span><span class="w"> </span><span class="nf">revenue_by_day</span><span class="p">(</span><span class="n">orders</span><span class="p">):</span>
+<a id="__codelineno-47-13" name="__codelineno-47-13"></a><span class="w">    </span><span class="sd">"""Сума чеків за кожен день."""</span>
+<a id="__codelineno-47-14" name="__codelineno-47-14"></a>    <span class="n">revenue</span> <span class="o">=</span> <span class="p">{}</span>
+<a id="__codelineno-47-15" name="__codelineno-47-15"></a>    <span class="k">for</span> <span class="n">order</span> <span class="ow">in</span> <span class="n">orders</span><span class="p">:</span>
+<a id="__codelineno-47-16" name="__codelineno-47-16"></a>        <span class="n">revenue</span><span class="p">[</span><span class="n">order</span><span class="o">.</span><span class="n">day</span><span class="p">]</span> <span class="o">=</span> <span class="n">revenue</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">order</span><span class="o">.</span><span class="n">day</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">order</span><span class="o">.</span><span class="n">total_bill</span>
+<a id="__codelineno-47-17" name="__codelineno-47-17"></a>    <span class="k">return</span> <span class="n">revenue</span>
+<a id="__codelineno-47-18" name="__codelineno-47-18"></a>
+<a id="__codelineno-47-19" name="__codelineno-47-19"></a>
+<a id="__codelineno-47-20" name="__codelineno-47-20"></a><span class="k">def</span><span class="w"> </span><span class="nf">best_day</span><span class="p">(</span><span class="n">revenue</span><span class="p">):</span>
+<a id="__codelineno-47-21" name="__codelineno-47-21"></a><span class="w">    </span><span class="sd">"""День з найбільшим виторгом."""</span>
+<a id="__codelineno-47-22" name="__codelineno-47-22"></a>    <span class="n">best</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-47-23" name="__codelineno-47-23"></a>    <span class="k">for</span> <span class="n">day</span><span class="p">,</span> <span class="n">amount</span> <span class="ow">in</span> <span class="n">revenue</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<a id="__codelineno-47-24" name="__codelineno-47-24"></a>        <span class="k">if</span> <span class="n">best</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">amount</span> <span class="o">&gt;</span> <span class="n">revenue</span><span class="p">[</span><span class="n">best</span><span class="p">]:</span>
+<a id="__codelineno-47-25" name="__codelineno-47-25"></a>            <span class="n">best</span> <span class="o">=</span> <span class="n">day</span>
+<a id="__codelineno-47-26" name="__codelineno-47-26"></a>    <span class="k">return</span> <span class="n">best</span>
+<a id="__codelineno-47-27" name="__codelineno-47-27"></a>
+<a id="__codelineno-47-28" name="__codelineno-47-28"></a>
+<a id="__codelineno-47-29" name="__codelineno-47-29"></a><span class="k">def</span><span class="w"> </span><span class="nf">print_report</span><span class="p">(</span><span class="n">orders</span><span class="p">):</span>
+<a id="__codelineno-47-30" name="__codelineno-47-30"></a><span class="w">    </span><span class="sd">"""Друкує звіт кафе за списком чеків."""</span>
+<a id="__codelineno-47-31" name="__codelineno-47-31"></a>    <span class="n">counts</span> <span class="o">=</span> <span class="n">count_by_day</span><span class="p">(</span><span class="n">orders</span><span class="p">)</span>
+<a id="__codelineno-47-32" name="__codelineno-47-32"></a>    <span class="n">revenue</span> <span class="o">=</span> <span class="n">revenue_by_day</span><span class="p">(</span><span class="n">orders</span><span class="p">)</span>
+<a id="__codelineno-47-33" name="__codelineno-47-33"></a><span class="hll">    <span class="k">for</span> <span class="n">day</span> <span class="ow">in</span> <span class="n">DAYS</span><span class="p">:</span>
+</span><a id="__codelineno-47-34" name="__codelineno-47-34"></a>        <span class="k">if</span> <span class="n">day</span> <span class="ow">in</span> <span class="n">revenue</span><span class="p">:</span>
+<a id="__codelineno-47-35" name="__codelineno-47-35"></a>            <span class="n">average</span> <span class="o">=</span> <span class="n">revenue</span><span class="p">[</span><span class="n">day</span><span class="p">]</span> <span class="o">/</span> <span class="n">counts</span><span class="p">[</span><span class="n">day</span><span class="p">]</span>
+<a id="__codelineno-47-36" name="__codelineno-47-36"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">day</span><span class="si">}</span><span class="s2"> — чеків: </span><span class="si">{</span><span class="n">counts</span><span class="p">[</span><span class="n">day</span><span class="p">]</span><span class="si">:</span><span class="s2">&gt;2</span><span class="si">}</span><span class="s2">, виторг: </span><span class="si">{</span><span class="n">revenue</span><span class="p">[</span><span class="n">day</span><span class="p">]</span><span class="si">:</span><span class="s2">&gt;9.2f</span><span class="si">}</span><span class="s2">, середній: </span><span class="si">{</span><span class="n">average</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-47-37" name="__codelineno-47-37"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"Найкращий день:"</span><span class="p">,</span> <span class="n">best_day</span><span class="p">(</span><span class="n">revenue</span><span class="p">))</span>
+<a id="__codelineno-47-38" name="__codelineno-47-38"></a><span class="hll">    <span class="nb">print</span><span class="p">(</span><span class="s2">"За прийомом їжі:"</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">Counter</span><span class="p">(</span><span class="n">order</span><span class="o">.</span><span class="n">time</span> <span class="k">for</span> <span class="n">order</span> <span class="ow">in</span> <span class="n">orders</span><span class="p">)</span><span class="o">.</span><span class="n">most_common</span><span class="p">()))</span>
+</span><a id="__codelineno-47-39" name="__codelineno-47-39"></a>
+<a id="__codelineno-47-40" name="__codelineno-47-40"></a>
+<a id="__codelineno-47-41" name="__codelineno-47-41"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+<a id="__codelineno-47-42" name="__codelineno-47-42"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">orders.orders</span><span class="w"> </span><span class="kn">import</span> <span class="n">Order</span>
+<a id="__codelineno-47-43" name="__codelineno-47-43"></a>
+<a id="__codelineno-47-44" name="__codelineno-47-44"></a>    <span class="n">demo</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-47-45" name="__codelineno-47-45"></a>        <span class="n">Order</span><span class="p">(</span><span class="mf">540.0</span><span class="p">,</span> <span class="mf">50.0</span><span class="p">,</span> <span class="s2">"пт"</span><span class="p">,</span> <span class="s2">"вечеря"</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<a id="__codelineno-47-46" name="__codelineno-47-46"></a>        <span class="n">Order</span><span class="p">(</span><span class="mf">320.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">,</span> <span class="s2">"пт"</span><span class="p">,</span> <span class="s2">"обід"</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<a id="__codelineno-47-47" name="__codelineno-47-47"></a>        <span class="n">Order</span><span class="p">(</span><span class="mf">980.0</span><span class="p">,</span> <span class="mf">120.0</span><span class="p">,</span> <span class="s2">"сб"</span><span class="p">,</span> <span class="s2">"вечеря"</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+<a id="__codelineno-47-48" name="__codelineno-47-48"></a>    <span class="p">]</span>
+<a id="__codelineno-47-49" name="__codelineno-47-49"></a>    <span class="n">print_report</span><span class="p">(</span><span class="n">demo</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>Запуск з теки <code>cafe_report/</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>python<span class="w"> </span>main.py<span class="w"> </span><span class="m">2024</span><span class="w"> </span><span class="m">7</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>Звіт кафе: липень 2024, днів: 31, чеків: 86
+<a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>пн — чеків: 17, виторг:  14561.67, середній: 856.57
+<a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a>вт — чеків:  9, виторг:   8332.69, середній: 925.85
+<a id="__codelineno-49-4" name="__codelineno-49-4" href="#__codelineno-49-4"></a>ср — чеків: 17, виторг:  14020.64, середній: 824.74
+<a id="__codelineno-49-5" name="__codelineno-49-5" href="#__codelineno-49-5"></a>чт — чеків: 14, виторг:  10434.54, середній: 745.32
+<a id="__codelineno-49-6" name="__codelineno-49-6" href="#__codelineno-49-6"></a>пт — чеків: 12, виторг:   8032.91, середній: 669.41
+<a id="__codelineno-49-7" name="__codelineno-49-7" href="#__codelineno-49-7"></a>сб — чеків:  6, виторг:   3416.60, середній: 569.43
+<a id="__codelineno-49-8" name="__codelineno-49-8" href="#__codelineno-49-8"></a>нд — чеків: 11, виторг:  10220.77, середній: 929.16
+<a id="__codelineno-49-9" name="__codelineno-49-9" href="#__codelineno-49-9"></a>Найкращий день: пн
+<a id="__codelineno-49-10" name="__codelineno-49-10" href="#__codelineno-49-10"></a>За прийомом їжі: {'вечеря': 39, 'обід': 27, 'інше': 20}
+</code></pre></div>
+<p>Що відбувається в ключових рядках:</p>
+<ul>
+<li><strong><code>orders.py</code>, рядки 9 і 17</strong> — два види чека. <code>RawOrder</code> — те, що дає каса, з міткою часу. <code>Order</code> — той самий <code>NamedTuple</code>, що в уроці 8, тож функції звіту не довелося переписувати;</li>
+<li><strong>рядки 28 і 30</strong> — власний генератор із зерном і довжина періоду як різниця двох дат: <code>.days</code> у <code>timedelta</code>;</li>
+<li><strong>рядки 33–35</strong> — мітка часу = початок періоду + <code>timedelta</code> з випадковими днями, годиною роботи кафе (9–22) і хвилинами;</li>
+<li><strong>рядки 42 і 47</strong> — дві маленькі функції замість одного великого циклу: <code>in_month</code> відбирає чеки, <code>to_order</code> перетворює <code>RawOrder → Order</code> за правилами з <code>rules.py</code>;</li>
+<li><strong><code>report.py</code>, рядки 2, 4 і 8</strong> — <code>Counter</code> замінив ручний підрахунок з уроку 8. <strong>Рядок 33</strong> — порядок днів береться з <code>rules.DAYS</code>: звіт іде від понеділка до неділі, хоч би в якому порядку прийшли чеки;</li>
+<li><strong>рядки 29–38</strong> — <code>print_report</code> майже не змінилася. Вона не знає ні про касу, ні про мітки часу: її вхід — список <code>Order</code>, як і раніше.</li>
+</ul>
+<p>Модуль звіту окремо, на трьох тестових чеках:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>python<span class="w"> </span>-m<span class="w"> </span>reports.report
+</code></pre></div>
+<p>Перевірки проєкту — у <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_13_modules_stdlib/cafe_report/tests/test_cafe_report.py"><code>tests/test_cafe_report.py</code></a>. Це теж модуль: він імпортує <code>rules.rules</code>, <code>orders.orders</code>, <code>reports.report</code> і <code>main</code> і перевіряє їх <code>assert</code>-ами, зокрема що <code>import reports.report</code> нічого не друкує. Запуск з теки <code>cafe_report/</code>: <code>python -m tests.test_cafe_report</code>.</p>
+<p>Тека зветься <code>tests</code>, а не <code>test</code>: <code>test</code> — пакет стандартної бібліотеки, і своя тека з таким ім'ям його затінила б, як <code>calendar.py</code> вище.</p>
+<h3 id="_9">Зміни приклад: чайові за прийомом їжі<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>Власниця хоче знати, коли гості залишають щедріші чайові. Додай у <code>reports/report.py</code> дві функції:</p>
+<ul>
+<li><code>tip_percent(order)</code> — частка чайових у чеку, у відсотках;</li>
+<li><code>tips_by_time(orders)</code> — словник «прийом їжі → середній відсоток чайових», округлений до одного знака. Середнє порахуй через <code>statistics.mean</code>.</li>
+</ul>
+<p>І рядок у кінці <code>print_report</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>Чайові, %: {'обід': 7.6, 'вечеря': 7.3, 'інше': 6.2}
+</code></pre></div>
+<p><strong>Критерії перевірки:</strong></p>
+<ul>
+<li><code>python main.py 2024 7</code> друкує рядок, як вище, останнім;</li>
+<li><code>tips_by_time([])</code> повертає <code>{}</code>, а не падає;</li>
+<li>імпорт <code>statistics</code> стоїть на початку <code>reports/report.py</code>, у групі стандартної бібліотеки, над <code>from rules.rules import DAYS</code>;</li>
+<li><code>python -m reports.report</code> теж друкує рядок про чайові — для трьох тестових чеків.</li>
+</ul>
+<details class="tip">
+<summary>Підказка</summary>
+<p>Групуй, як <code>bills_by_time</code> в уроці 8: <code>groups.setdefault(order.time, []).append(tip_percent(order))</code>. Потім dict comprehension: <code>{time: round(mean(values), 1) for time, values in groups.items()}</code>. Для порожнього списку чеків цикл не виконається жодного разу, і comprehension поверне порожній словник.</p>
+</details>
+<h3 id="_10">Спробуй самостійно: звіт за тиждень<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p>Бухгалтер просить звіт не за місяць, а за тиждень, що починається з указаної дати:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>python<span class="w"> </span>week.py<span class="w"> </span><span class="m">2024</span>-07-15
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>Звіт кафе: тиждень з 2024-07-15 до 2024-07-21, чеків: 21
+<a id="__codelineno-53-2" name="__codelineno-53-2" href="#__codelineno-53-2"></a>пн — чеків:  4, виторг:   3586.74, середній: 896.68
+<a id="__codelineno-53-3" name="__codelineno-53-3" href="#__codelineno-53-3"></a>ср — чеків:  4, виторг:   3609.78, середній: 902.45
+<a id="__codelineno-53-4" name="__codelineno-53-4" href="#__codelineno-53-4"></a>чт — чеків:  3, виторг:   2465.85, середній: 821.95
+<a id="__codelineno-53-5" name="__codelineno-53-5" href="#__codelineno-53-5"></a>пт — чеків:  5, виторг:   3284.45, середній: 656.89
+<a id="__codelineno-53-6" name="__codelineno-53-6" href="#__codelineno-53-6"></a>сб — чеків:  4, виторг:   2436.49, середній: 609.12
+<a id="__codelineno-53-7" name="__codelineno-53-7" href="#__codelineno-53-7"></a>нд — чеків:  1, виторг:   1291.95, середній: 1291.95
+<a id="__codelineno-53-8" name="__codelineno-53-8" href="#__codelineno-53-8"></a>Найкращий день: ср
+<a id="__codelineno-53-9" name="__codelineno-53-9" href="#__codelineno-53-9"></a>За прийомом їжі: {'інше': 9, 'вечеря': 8, 'обід': 4}
+</code></pre></div>
+<p>Створи в теці <code>cafe_report/</code> новий модуль <code>week.py</code>. Правила:</p>
+<ul>
+<li>модулі в <code>rules/</code>, <code>orders/</code> і <code>reports/</code> не змінюються: <code>week.py</code> лише імпортує з них, як <code>main.py</code> (<code>from orders.orders import ...</code>);</li>
+<li>дату з <code>sys.argv[1]</code> розбери через <code>datetime.strptime</code>, кінець тижня — <code>start + timedelta(days=7)</code>;</li>
+<li>чек потрапляє у звіт, якщо <code>start &lt;= raw.timestamp &lt; end</code>: 22 липня 00:00 вже не входить;</li>
+<li>у заголовку — останній день тижня (<code>end - timedelta(days=1)</code>), дату виводь через <code>.date()</code> або <code>strftime("%Y-%m-%d")</code>;</li>
+<li>без аргументу <code>week.py</code> друкує підказку, як у <code>main.py</code>;</li>
+<li>код запуску — під <code>if __name__ == "__main__":</code>.</li>
+</ul>
+<p>У звіті немає вівторка: за цей тиждень у згенерованих даних не було жодного вівторкового чека, і <code>print_report</code> пропускає такі дні.</p>
+<h2 id="packages">Поглиблення: пакети<a class="headerlink" href="#packages" title="Permanent link">&para;</a></h2>
+<p>Ноутбук заняття обходиться чотирма файлами в одній теці, а в «Практиці» ти вже бачив проєкт, де кожна роль лежить у своєму пакеті. Цей розділ — для охочих: як пакети влаштовані зсередини. Коли файлів стає два десятки, без пакетів не обійтися. І ти вже користувався пакетами, навіть не знаючи цього.</p>
+<h3 id="_11">Пакет — це тека з модулями<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<p>Перенесемо модулі кафе в теку <code>cafe/</code>, а <code>main.py</code> залишимо зовні:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>project/
+<a id="__codelineno-54-2" name="__codelineno-54-2" href="#__codelineno-54-2"></a>├── main.py
+<a id="__codelineno-54-3" name="__codelineno-54-3" href="#__codelineno-54-3"></a>└── cafe/             ← пакет
+<a id="__codelineno-54-4" name="__codelineno-54-4" href="#__codelineno-54-4"></a>    ├── __init__.py   ← позначає теку як пакет (може бути порожнім)
+<a id="__codelineno-54-5" name="__codelineno-54-5" href="#__codelineno-54-5"></a>    ├── rules.py      ← модуль cafe.rules
+<a id="__codelineno-54-6" name="__codelineno-54-6" href="#__codelineno-54-6"></a>    ├── orders.py     ← модуль cafe.orders
+<a id="__codelineno-54-7" name="__codelineno-54-7" href="#__codelineno-54-7"></a>    └── report.py     ← модуль cafe.report
+</code></pre></div>
+<p><strong>Пакет</strong> — це тека з модулями, яку можна імпортувати. Ім'я модуля всередині пакета пишеться через крапку: <code>cafe.rules</code>. Ті самі три способи імпорту працюють і тут (запуск з теки <code>project/</code>):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">cafe.rules</span>
+<a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">cafe</span><span class="o">.</span><span class="n">rules</span><span class="o">.</span><span class="n">meal_type_from_hour</span><span class="p">(</span><span class="mi">19</span><span class="p">))</span>
+<a id="__codelineno-55-3" name="__codelineno-55-3" href="#__codelineno-55-3"></a>
+<a id="__codelineno-55-4" name="__codelineno-55-4" href="#__codelineno-55-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">cafe</span><span class="w"> </span><span class="kn">import</span> <span class="n">rules</span>
+<a id="__codelineno-55-5" name="__codelineno-55-5" href="#__codelineno-55-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">rules</span><span class="o">.</span><span class="n">DAYS</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+<a id="__codelineno-55-6" name="__codelineno-55-6" href="#__codelineno-55-6"></a>
+<a id="__codelineno-55-7" name="__codelineno-55-7" href="#__codelineno-55-7"></a><span class="kn">from</span><span class="w"> </span><span class="nn">cafe.rules</span><span class="w"> </span><span class="kn">import</span> <span class="n">meal_type_from_hour</span>
+<a id="__codelineno-55-8" name="__codelineno-55-8" href="#__codelineno-55-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">meal_type_from_hour</span><span class="p">(</span><span class="mi">12</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a>вечеря
+<a id="__codelineno-56-2" name="__codelineno-56-2" href="#__codelineno-56-2"></a>пт
+<a id="__codelineno-56-3" name="__codelineno-56-3" href="#__codelineno-56-3"></a>обід
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Модуль</th>
+<th>Пакет</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Що це на диску</td>
+<td>один файл <code>.py</code></td>
+<td>тека з модулями і <code>__init__.py</code></td>
+</tr>
+<tr>
+<td>Що містить</td>
+<td>функції, класи, змінні</td>
+<td>модулі та вкладені пакети</td>
+</tr>
+<tr>
+<td>Як імпортувати</td>
+<td><code>import rules</code></td>
+<td><code>import cafe.rules</code>, <code>from cafe import rules</code></td>
+</tr>
+</tbody>
+</table>
+<p>Пакети можна розкладати по-різному. Тут усі модулі кафе в одному пакеті <code>cafe/</code>. У <code>cafe_report/</code> з «Практики» — окремий пакет на кожну роль, тому ім'я повторюється: <code>rules.rules</code> — пакет <code>rules</code>, модуль <code>rules</code>. Обидва способи робочі. Один пакет простіший, поки модулів мало; пакет на роль зручніший, коли в кожній ролі з'являється кілька модулів.</p>
+<p><strong>Перевір себе.</strong> У теці <code>cafe/</code> з'явилася вкладена тека <code>kitchen/</code> зі своїм <code>__init__.py</code> і файлом <code>menu.py</code>. Як імпортувати з нього функцію <code>price</code>?</p>
+<details class="success">
+<summary>Відповідь</summary>
+<p><code>from cafe.kitchen.menu import price</code>. Кожна крапка — крок на рівень глибше: пакет <code>cafe</code> → вкладений пакет <code>kitchen</code> → модуль <code>menu</code>.</p>
+</details>
+<h3 id="_12">Імпорти всередині пакета<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<p>Після переїзду <code>main.py</code> падає, хоча <code>orders.py</code> не змінювався:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a>  File ".../project/cafe/orders.py", line 6, in &lt;module&gt;
+<a id="__codelineno-57-2" name="__codelineno-57-2" href="#__codelineno-57-2"></a>    from rules import day_from_timestamp, meal_type_from_hour
+<a id="__codelineno-57-3" name="__codelineno-57-3" href="#__codelineno-57-3"></a>ModuleNotFoundError: No module named 'rules'
+</code></pre></div>
+<p>Причина — у <code>sys.path</code>. Запустили <code>python main.py</code>, отже перша тека пошуку — <code>project/</code>. Там лежить тека <code>cafe/</code>, але не файл <code>rules.py</code>. Модуль тепер називається <code>cafe.rules</code>, і так його й треба імпортувати. Є два способи:</p>
+<div class="highlight"><span class="filename">cafe/orders.py — абсолютний імпорт</span><pre><span></span><code><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">cafe.rules</span><span class="w"> </span><span class="kn">import</span> <span class="n">day_from_timestamp</span><span class="p">,</span> <span class="n">meal_type_from_hour</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">cafe/orders.py — відносний імпорт</span><pre><span></span><code><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">.rules</span><span class="w"> </span><span class="kn">import</span> <span class="n">day_from_timestamp</span><span class="p">,</span> <span class="n">meal_type_from_hour</span>
+</code></pre></div>
+<p>Крапка у <strong>відносному імпорті</strong> означає «з того самого пакета, де лежить цей файл», дві крапки (<code>..</code>) — з батьківського пакета. Абсолютний імпорт явно показує повний шлях, і PEP 8 радить саме його. Відносний коротший і не ламається, якщо перейменувати пакет.</p>
+<p>Відносний імпорт має пастку. Спробуємо перевірити <code>report.py</code> окремо, як раніше:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a>python<span class="w"> </span>cafe/report.py
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a>    from .rules import DAYS
+<a id="__codelineno-61-2" name="__codelineno-61-2" href="#__codelineno-61-2"></a>ImportError: attempted relative import with no known parent package
+</code></pre></div>
+<p>Запущений напряму файл — це <code>__main__</code>, а не <code>cafe.report</code>, тому Python не знає, від якого пакета рахувати крапку. Модуль пакета запускають через <code>-m</code> і ім'я модуля, з теки <code>project/</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a>python<span class="w"> </span>-m<span class="w"> </span>cafe.report
+</code></pre></div>
+<p>Так <code>report.py</code> знає свій пакет, а <code>__name__</code> у ньому все одно дорівнює <code>"__main__"</code>, тож тестовий звіт спрацює. Лише імпорт під цією умовою теж треба оновити: <code>from .orders import Order</code>.</p>
+<h3 id="__init__py">Що робить <code>__init__.py</code><a class="headerlink" href="#__init__py" title="Permanent link">&para;</a></h3>
+<p><code>__init__.py</code> — звичайний модуль, який виконується при <strong>першому</strong> імпорті пакета, за тими самими правилами кешу з <code>sys.modules</code>. Найчастіше його залишають порожнім. Друге типове призначення — винести найважливіші імена на верхній рівень пакета:</p>
+<div class="highlight"><span class="filename">cafe/__init__.py</span><pre><span></span><code><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a><span class="sd">"""Пакет кафе: правила, чеки і звіт."""</span>
+<a id="__codelineno-63-2" name="__codelineno-63-2" href="#__codelineno-63-2"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"ініціалізація пакета cafe"</span><span class="p">)</span>
+<a id="__codelineno-63-3" name="__codelineno-63-3" href="#__codelineno-63-3"></a>
+<a id="__codelineno-63-4" name="__codelineno-63-4" href="#__codelineno-63-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">.rules</span><span class="w"> </span><span class="kn">import</span> <span class="n">DAYS</span><span class="p">,</span> <span class="n">meal_type_from_hour</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">cafe</span>
+<a id="__codelineno-64-2" name="__codelineno-64-2" href="#__codelineno-64-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">cafe.rules</span>
+<a id="__codelineno-64-3" name="__codelineno-64-3" href="#__codelineno-64-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">cafe</span><span class="w"> </span><span class="kn">import</span> <span class="n">meal_type_from_hour</span>
+<a id="__codelineno-64-4" name="__codelineno-64-4" href="#__codelineno-64-4"></a>
+<a id="__codelineno-64-5" name="__codelineno-64-5" href="#__codelineno-64-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">meal_type_from_hour</span><span class="p">(</span><span class="mi">19</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a>ініціалізація пакета cafe
+<a id="__codelineno-65-2" name="__codelineno-65-2" href="#__codelineno-65-2"></a>вечеря
+</code></pre></div>
+<p>Пакет імпортувався тричі, а <code>__init__.py</code> виконався один раз. <code>print</code> тут лише для того, щоб це побачити: у справжньому пакеті діє те саме правило, що й для модулів, — без побічних ефектів на верхньому рівні.</p>
+<div class="admonition note">
+<p class="admonition-title">А якщо <code>__init__.py</code> немає?</p>
+<p>З Python 3.3 тека без <code>__init__.py</code> теж імпортується. Це <strong>пакет простору імен</strong> (namespace package, <a href="https://peps.python.org/pep-0420/">PEP 420</a>), механізм для пакетів, розкладених по кількох теках. Python і тут показує, що це інший вид пакета: <code>&lt;module 'cafe' (namespace) ...&gt;</code>. У звичайному проєкті <code>__init__.py</code> додають завжди: так одразу видно, що тека — пакет, а не просто тека з файлами.</p>
+</div>
+<h3 id="_13">Пакети стандартної бібліотеки<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<p><code>from collections import Counter</code> з цього уроку — це імпорт з пакета. Видно за <code>__file__</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-66-1" name="__codelineno-66-1" href="#__codelineno-66-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">collections</span>
+<a id="__codelineno-66-2" name="__codelineno-66-2" href="#__codelineno-66-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<a id="__codelineno-66-3" name="__codelineno-66-3" href="#__codelineno-66-3"></a>
+<a id="__codelineno-66-4" name="__codelineno-66-4" href="#__codelineno-66-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">collections</span><span class="o">.</span><span class="vm">__file__</span><span class="p">)</span>
+<a id="__codelineno-66-5" name="__codelineno-66-5" href="#__codelineno-66-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="vm">__file__</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-67-1" name="__codelineno-67-1" href="#__codelineno-67-1"></a>/usr/lib/python3.12/collections/__init__.py
+<a id="__codelineno-67-2" name="__codelineno-67-2" href="#__codelineno-67-2"></a>/usr/lib/python3.12/random.py
+</code></pre></div>
+<p><code>random</code> — один файл, тобто модуль. <code>collections</code> — тека з <code>__init__.py</code>, тобто пакет (шлях у тебе буде інший, залежно від того, де встановлено Python). Так само влаштовані <code>json</code>, <code>email</code>, <code>urllib</code> і більшість сторонніх бібліотек, які ставлять через <code>pip install</code>.</p>
+<h2 id="_14">Підсумок<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Поняття</th>
+<th>Що запам'ятати</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Модуль</td>
+<td>файл <code>.py</code>; його ім'я — простір імен: <code>rules.DAYS</code></td>
+</tr>
+<tr>
+<td><code>import</code></td>
+<td>шукає по <code>sys.path</code>, виконує файл один раз, кешує в <code>sys.modules</code></td>
+</tr>
+<tr>
+<td><code>__name__</code></td>
+<td><code>"__main__"</code> при запуску напряму, ім'я модуля при імпорті</td>
+</tr>
+<tr>
+<td>Затінення</td>
+<td>свій <code>calendar.py</code> у теці скрипта ховає стандартний <code>calendar</code></td>
+</tr>
+<tr>
+<td><code>datetime</code></td>
+<td><code>.year</code>, <code>.weekday()</code>, <code>strftime</code>/<code>strptime</code>, <code>timedelta</code>, порівняння</td>
+</tr>
+<tr>
+<td><code>Counter</code></td>
+<td><code>Counter(values)</code>, <code>most_common(k)</code>, відсутній ключ — <code>0</code></td>
+</tr>
+<tr>
+<td><code>sys.argv</code></td>
+<td>список рядків; <code>[0]</code> — ім'я скрипта</td>
+</tr>
+<tr>
+<td>Пакет (поглиблення)</td>
+<td>тека з <code>__init__.py</code>; <code>cafe.rules</code>, <code>from .rules import ...</code>, запуск <code>python -m cafe.report</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_15">Самоперевірка<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Чим <code>import rules</code> відрізняється від <code>from rules import meal_type_from_hour</code> з погляду того, як далі викликати функцію?</li>
+<li>У <code>report.py</code> на верхньому рівні стоїть <code>print("звіт завантажено")</code>. Що побачить користувач, який запускає <code>main.py</code>, де <code>report</code> імпортується двічі?</li>
+<li>Чому тестовий код модуля ховають під <code>if __name__ == "__main__":</code>?</li>
+<li>Поруч з <code>main.py</code> лежить твій файл <code>random.py</code>. Що станеться з <code>orders.py</code>, який робить <code>import random</code>?</li>
+<li>Що надрукує <code>print(type(sys.argv[1]))</code> для <code>python main.py 2024 7</code>?</li>
+<li>Чому <code>generate_raw_orders</code> створює <code>random.Random(seed)</code>, а не викликає <code>random.seed(seed)</code>?</li>
+<li>Власниця каже: «Середній чек у липні — 800 грн, але більшість гостей платить менше». Як таке можливо і який показник їй краще показати?</li>
+</ol>
+<details class="success">
+<summary>Відповіді</summary>
+<ol>
+<li>Після <code>import rules</code> викликаємо з префіксом: <code>rules.meal_type_from_hour(19)</code>. Після <code>from rules import meal_type_from_hour</code> — без нього: <code>meal_type_from_hour(19)</code>, але ім'я <code>rules</code> у програмі не з'являється.</li>
+<li>Один рядок «звіт завантажено»: файл модуля виконується лише при першому імпорті, другий <code>import</code> бере модуль із <code>sys.modules</code>.</li>
+<li>Щоб він виконувався, лише коли файл запускають напряму (<code>python report.py</code>), і не виконувався, коли модуль імпортують.</li>
+<li>Python знайде твій <code>random.py</code> першим (тека скрипта стоїть першою в <code>sys.path</code>) і завантажить його замість стандартного. Виклик <code>random.Random</code> впаде з <code>AttributeError</code>.</li>
+<li><code>&lt;class 'str'&gt;</code>: усі аргументи командного рядка — рядки.</li>
+<li><code>random.seed</code> змінює спільний генератор усієї програми, тобто має побічний ефект. Власний <code>random.Random(seed)</code> належить лише функції: результат відтворюваний, а інший код не зачеплено.</li>
+<li>Кілька великих чеків (банкетів) підтягують середнє вгору. Медіана (<code>statistics.median</code>) показує «типовий» чек і до таких викидів не чутлива.</li>
+</ol>
+</details>
+<h3 id="_16">Що далі<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Ноутбук заняття: <a class="md-button md-button--primary" href="https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_13_modules_stdlib/note_lesson_13_modules_stdlib_student.ipynb">Відкрити вправи в Colab</a> <a class="solutions-link" href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_13_modules_stdlib/note_lesson_13_modules_stdlib.ipynb">Переглянути розв’язки</a> — та сама історія кафе: модулі створюються прямо з ноутбука через <code>%%writefile</code>, з вправами й перевірками.</li>
+<li>Довідник: <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_13_modules_stdlib/notes_modules.ipynb"><code>notes_modules.ipynb</code></a> <a href="https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_13_modules_stdlib/notes_modules.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a> — пакети й <code>__init__.py</code>, відносні імпорти та ще десяток модулів стандартної бібліотеки: <code>pathlib</code>, <code>re</code>, <code>itertools</code>, <code>functools</code>, <code>json</code>, <code>timeit</code>.</li>
+<li>Наступне заняття: <a href="../lesson_14/">Урок 14. Винятки</a>. <code>python main.py 2024 липень</code> падає з <code>ValueError</code>, а <code>python main.py 2024 13</code> — з помилкою <code>calendar</code>. Навчимося перехоплювати такі помилки.</li>
+<li>Урок 15 — файли й JSON: каса віддаватиме чеки не з генератора, а з файлу, і <code>datetime.strptime</code> знадобиться знову.</li>
+</ul>
+<h2 id="_17">Документація і джерела<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Туторіал Python: <a href="https://docs.python.org/3/tutorial/modules.html">Modules</a> — модулі, <code>__name__</code>, <code>sys.path</code>, пакети</li>
+<li>Довідник мови: <a href="https://docs.python.org/3/reference/import.html">The import system</a>; <a href="https://docs.python.org/3/library/sys.html#sys.path"><code>sys.path</code></a>, <a href="https://docs.python.org/3/library/sys.html#sys.modules"><code>sys.modules</code></a>, <a href="https://docs.python.org/3/library/sys.html#sys.argv"><code>sys.argv</code></a></li>
+<li><a href="https://docs.python.org/3/library/__main__.html"><code>__main__</code> — Top-level code environment</a></li>
+<li>Модулі уроку: <a href="https://docs.python.org/3/library/datetime.html"><code>datetime</code></a> (коди форматів — <a href="https://docs.python.org/3/library/datetime.html#format-codes">strftime() and strptime() Format Codes</a>), <a href="https://docs.python.org/3/library/collections.html#collections.Counter"><code>collections.Counter</code></a>, <a href="https://docs.python.org/3/library/calendar.html"><code>calendar</code></a>, <a href="https://docs.python.org/3/library/statistics.html"><code>statistics</code></a>, <a href="https://docs.python.org/3/library/random.html"><code>random</code></a>, <a href="https://docs.python.org/3/library/argparse.html"><code>argparse</code></a></li>
+<li>Перелік усіх модулів: <a href="https://docs.python.org/3/library/index.html">The Python Standard Library</a></li>
+<li>Стиль імпортів: <a href="https://peps.python.org/pep-0008/#imports">PEP 8 — Imports</a></li>
+<li>Для охочих:<ul>
+<li>Harvard CS50P, <a href="https://cs50.harvard.edu/python/weeks/4/">лекція 4 «Libraries»</a> — модулі, <code>random</code>, <code>statistics</code>, <code>sys.argv</code>, власні модулі;</li>
+<li>Princeton, <em>Introduction to Programming in Python</em>, <a href="https://introcs.cs.princeton.edu/python/22module/">розділ 2.2 «Modules and Clients»</a> — програма з кількох модулів, <code>if __name__ == '__main__'</code> для тестування модуля;</li>
+<li>Doug Hellmann, <a href="https://pymotw.com/3/">Python 3 Module of the Week</a> — приклади до кожного модуля стандартної бібліотеки.</li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Футер" >
+        
+          
+          <a href="../lesson_12/" class="md-footer__link md-footer__link--prev" aria-label="Назад: 12. П2. Пошук">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Назад
+              </span>
+              <div class="md-ellipsis">
+                12. П2. Пошук
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../lesson_14/" class="md-footer__link md-footer__link--next" aria-label="Вперед: 14. Винятки та обробка помилок">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Вперед
+              </span>
+              <div class="md-ellipsis">
+                14. Винятки та обробка помилок
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.footer", "toc.follow", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0456\u0439\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u0421\u043a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438 \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0429\u0435 1 \u0437\u0431\u0456\u0433 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.more.other": "\u0429\u0435 # \u0437\u0431\u0456\u0433\u0456\u0432 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.none": "\u0417\u0431\u0456\u0433\u0456\u0432 \u043d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0437\u0431\u0456\u0433", "search.result.other": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e # \u0437\u0431\u0456\u0433\u0456\u0432", "search.result.placeholder": "\u0420\u043e\u0437\u043f\u043e\u0447\u043d\u0456\u0442\u044c \u043f\u0438\u0441\u0430\u0442\u0438 \u0434\u043b\u044f \u043f\u043e\u0448\u0443\u043a\u0443", "search.result.term.missing": "\u041d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e \u0437\u0430\u043f\u0438\u0442\u0443", "select.version": "\u041e\u0431\u0440\u0430\u0442\u0438 \u0432\u0435\u0440\u0441\u0456\u044e"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/sidebars.js"></script>
+      
+    
+  </body>
+</html>

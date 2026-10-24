@@ -1,0 +1,4795 @@
+
+<!doctype html>
+<html lang="uk" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Курс Python українською — від основ до просунутих тем, у форматі книги">
+      
+      
+      
+        <link rel="canonical" href="https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m4/lesson_38/">
+      
+      
+        <link rel="prev" href="../lesson_37/">
+      
+      
+        <link rel="next" href="../fastapi/fastapi_documentation/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Урок - PY Course — Viktor Nikoriak</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#38-fastapi-basics-postman-openapi" class="md-skip">
+          Перейти до змісту
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Хедер">
+    <a href="../../.." title="PY Course — Viktor Nikoriak" class="md-header__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PY Course — Viktor Nikoriak
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Урок
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Пошук" placeholder="Пошук" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Шукати">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистити" aria-label="Очистити" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Пошук розпочато
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Вкладки" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Головна
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../00_getting_started/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Як користуватися
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Модулі курсу (в розробці)
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../00_python_mental_model/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Довідник
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Навігація" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="PY Course — Viktor Nikoriak" class="md-nav__button md-logo" aria-label="PY Course — Viktor Nikoriak" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    PY Course — Viktor Nikoriak
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026" title="Перейти до вихідного коду" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Головна
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../00_getting_started/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Як користуватися
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Модулі курсу (в розробці)
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Модулі курсу (в розробці)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../m1/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М1. Основи Python
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М1. Основи Python
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Вступ: формат курсу, AI-політика
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Перші кроки
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Змінні та базові типи даних
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Умови та цикли
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Списки, кортежі, множини
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Словники, for, comprehensions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Функції
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. П1. Big O + базові задачі
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Декоратори
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Ітератори й генератори
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. П2. Пошук
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Модулі та стандартна бібліотека
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Винятки та обробка помилок
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Файли I/O, JSON
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Git & GitHub: система
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. П3. Хеш-структури
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m1/lesson_18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. Узагальнення + фінальний проєкт
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М2. Python Advanced
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М2. Python Advanced
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2_python_advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Функції як об'єкти першого класу
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Класи, простір імен
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    21. Наслідування, поліморфізм
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    22. Інкапсуляція, область видимості
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    23. П4. Рекурсія, divide & conquer, backtracking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    24. @property, декоратори класів, dunder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    25. Ітератори advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    26. Тестування з pytest (+ валідація AI-коду)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    27. П5. Динамічне програмування + greedy (вступ)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    28. Потоки, multiprocessing, asyncio: вступ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m2/lesson_29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    29. П6. Stack, Queue, Heap, Trie + LRU → ООП-пакет
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М3. Бази даних
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М3. Бази даних
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3_databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m3/bonus_pandas/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. Pandas: аналіз даних, графіки і Dash
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3/lesson_30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    30. Основи SQL (PostgreSQL)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m3/lesson_31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    31. Redis overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М4. Web (+ Web Advanced)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М4. Web (+ Web Advanced)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m4_web/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    32. HTTP: requests, httpx, aiohttp
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    33. REST: принципи дизайну API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    34. Django intro: MVT, ORM, admin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    35. Django: forms, HTML practice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    36. DRF overview + Django vs FastAPI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    37. Typing + Pydantic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_8" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_8" id="__nav_3_5_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    38. FastAPI basics + Postman + OpenAPI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_5_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    38. FastAPI basics + Postman + OpenAPI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Урок
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Урок
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пригадай
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Старт: з якого коду починаємо
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 1. FastAPI над NewsItem
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 1. FastAPI над NewsItem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Запуск і перші запити
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        422: помилка перевірки
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що змінилося
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 2. Сховище через Depends і lifespan
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 2. Сховище через Depends і lifespan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#depends-fastapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Depends: ендпоінт просить, FastAPI дає
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Підміна залежності в тестах
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 3. POST /api/scrape: парсинг через API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 3. POST /api/scrape: парсинг через API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Знімок, повторний збір і чужий сайт
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Живий збір
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenAPI і /docs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#postman" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Postman: колекція запитів з перевірками
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#measure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Async чи blocking: виміри
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Архітектура: було → стало
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Архітектура: було → стало">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mypy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Тести і mypy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Практика
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Практика">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-apinewssources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Розібраний приклад: ендпоінт GET /api/news/sources
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зміни приклад
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Спробуй самостійно: пошук за словом
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#find-bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Знайди помилку
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Підсумок
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Підсумок">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Самоперевірка
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що далі
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Документація і джерела
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fastapi/fastapi_documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Довідник: FastAPI — архітектура і async
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    39. FastAPI + SQLAlchemy: повний CRUD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    40. Middlewares і кешування (Redis на практиці)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    41. Автентифікація та security basics (JWT, hashing, OWASP)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    42. Тестування API (pytest + httpx)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../lesson_43/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    43. AI-інструменти розробника + ризики й валідація
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    44. Інтеграція LLM API (Gemini / Anthropic)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    45. Архітектура застосунків і патерни
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    46. WebSockets + практика: чат
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    47. Security advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson_48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    48. Telegram Bot API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М5. Production
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М5. Production
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5_production/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m5/bonus_linux/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. Linux для розробника
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    49. Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    50. Docker Compose + деплой
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m5/lesson_51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    51. CI/CD (GitHub Actions)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    М6. Капстоун
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    М6. Капстоун
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6_capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Огляд модуля
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6/lesson_52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    52. Робота над фінальним проєктом
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m6/lesson_53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    53. Випускний: питч фінального проєкту
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../m6/bonus_cv/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Бонус. CV розробника
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bonus_ai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Self-paced. AI для розробників (бонус)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../00_python_mental_model/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Довідник
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Зміст">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Зміст
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Пригадай
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Старт: з якого коду починаємо
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 1. FastAPI над NewsItem
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 1. FastAPI над NewsItem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Запуск і перші запити
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        422: помилка перевірки
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що змінилося
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 2. Сховище через Depends і lifespan
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 2. Сховище через Depends і lifespan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#depends-fastapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Depends: ендпоінт просить, FastAPI дає
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Підміна залежності в тестах
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refactor-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Рефакторинг 3. POST /api/scrape: парсинг через API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Рефакторинг 3. POST /api/scrape: парсинг через API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Знімок, повторний збір і чужий сайт
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Живий збір
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenAPI і /docs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#postman" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Postman: колекція запитів з перевірками
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#measure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Async чи blocking: виміри
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Архітектура: було → стало
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Архітектура: було → стало">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mypy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Тести і mypy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Практика
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Практика">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-apinewssources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Розібраний приклад: ендпоінт GET /api/news/sources
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Зміни приклад
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Спробуй самостійно: пошук за словом
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#find-bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Знайди помилку
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Підсумок
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Підсумок">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Самоперевірка
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Що далі
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Документація і джерела
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Навігація" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Головна
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Модулі курсу (в розробці)
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../m4_web/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    М4. Web (+ Web Advanced)
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    38. FastAPI basics + Postman + OpenAPI
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="38-fastapi-basics-postman-openapi">Урок 38. FastAPI basics + Postman + OpenAPI<a class="headerlink" href="#38-fastapi-basics-postman-openapi" title="Permanent link">&para;</a></h1>
+<p>В уроці 37 агрегатор навчився <strong>перевіряти</strong> новини: парсер <code>parse_rbc_news</code> дає сирі рядки, модель <code>NewsItem</code> пропускає лише правильні. Але все це живе в Python-процесі: скористатися агрегатором може лише той, хто імпортує модуль. Сьогодні агрегатор стає <strong>сервісом</strong> — HTTP API, який можна викликати з браузера, Postman, іншої програми чи (в уроці 48) Telegram-бота.</p>
+<p>Знову не з нуля: вже є FastAPI-застосунок агрегатора — <code>news_dashboard/app/main.py</code> (618 рядків, 16 ендпоінтів, MongoDB, NLP, архівний парсер). Беремо з нього ядро й робимо три рефакторинги проєкту <code>news_hub</code> з уроку 37.</p>
+<table>
+<thead>
+<tr>
+<th>Урок</th>
+<th>Крок агрегатора</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>36</td>
+<td>парсер з типами; <code>NewsItem</code> на Pydantic</td>
+</tr>
+<tr>
+<td><strong>37</strong></td>
+<td><strong>FastAPI: <code>GET /api/news</code>, <code>POST /api/scrape</code>, <code>/docs</code>, Postman</strong></td>
+</tr>
+<tr>
+<td>38</td>
+<td>SQLAlchemy: новини в базі</td>
+</tr>
+<tr>
+<td>39</td>
+<td>middleware, кеш і rate limit на Redis</td>
+</tr>
+<tr>
+<td>41</td>
+<td>тести API</td>
+</tr>
+<tr>
+<td>43</td>
+<td>Gemini: підсумок, категорія, тональність</td>
+</tr>
+<tr>
+<td>47</td>
+<td>Telegram-бот</td>
+</tr>
+<tr>
+<td>48–50</td>
+<td>Docker, Compose, CI/CD</td>
+</tr>
+</tbody>
+</table>
+<p>Проєкт: <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_38_fastapi_basics/news_hub"><code>news_hub</code></a>. Поруч — <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_38_fastapi_basics/fastapi_demo"><code>fastapi_demo</code></a> — стартовий код: шість ендпоінтів, на яких видно, що з сервером робить блокуючий код.</p>
+<p><strong>Що потрібно з попередніх уроків:</strong> <code>async</code>/<code>await</code> і <code>asyncio.gather</code> (27, 31), REST — ресурси, методи, статус-коди, OpenAPI (32), FastAPI-версія API нотаток (35), <code>NewsItem</code> і <code>validate_news</code> (36).</p>
+<p><strong>Після уроку ти зможеш:</strong></p>
+<ul>
+<li>написати FastAPI-застосунок: маршрути, параметри шляху й запиту з обмеженнями, тіло запиту — Pydantic-модель, <code>response_model</code>;</li>
+<li>пояснити, звідки береться <code>422</code> і як його прочитати;</li>
+<li>винести ресурс (сховище, клієнт) у залежність <code>Depends</code> і підмінити її в тестах;</li>
+<li>ініціалізувати ресурси в <code>lifespan</code>;</li>
+<li>прочитати <code>/docs</code> і <code>/openapi.json</code>, зібрати колекцію Postman з перевірками й запустити її з консолі;</li>
+<li>відрізнити ендпоінт, що блокує сервер, від того, що не блокує, — і довести це вимірами.</li>
+</ul>
+<p><strong>Ноутбук заняття:</strong> <a class="md-button md-button--primary" href="https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_38_fastapi_basics/note_lesson_38_fastapi_student.ipynb">Відкрити вправи в Colab</a> <a class="solutions-link" href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_38_fastapi_basics/note_lesson_38_fastapi.ipynb">Переглянути розв’язки</a> — API агрегатора через <code>TestClient</code>, без запуску сервера.</p>
+<p><strong>Довідник:</strong> <a href="../fastapi/fastapi_documentation/">FastAPI: архітектура, async і production-патерни</a>: розділи 1–5 — до цього уроку.</p>
+<h2 id="_1">Пригадай<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Що поверне <code>NewsItem.from_raw(...)</code> для новини з заголовком «Коротко» (урок 37)?</li>
+<li>Чим <code>await asyncio.sleep(2)</code> відрізняється від <code>time.sleep(2)</code> усередині <code>async def</code> (урок 28)?</li>
+<li>Який статус-код відповідає на <code>POST</code>, що створює ресурс, і який — на неправильні дані (урок 33)?</li>
+</ol>
+<details class="success">
+<summary>Відповіді</summary>
+<ol>
+<li>Нічого — кине <code>ValidationError</code> (<code>title</code>: мінімум 10 символів). <code>validate_news</code> не губить такі новини, а складає в <code>rejected</code> з причинами.</li>
+<li><code>await asyncio.sleep</code> віддає керування циклу подій — поки корутина спить, виконуються інші. <code>time.sleep</code> зупиняє весь потік разом із циклом подій. Сьогодні побачимо це на сервері в цифрах.</li>
+<li><code>201 Created</code>; неправильні дані — <code>400</code> або <code>422</code>. FastAPI для помилок перевірки завжди повертає <code>422</code>.</li>
+</ol>
+</details>
+<h2 id="_2">Старт: з якого коду починаємо<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p><code>news_dashboard/app/main.py</code> — застосунок, що вміє все одразу: парсить rbc.ua (разом або по черзі), зберігає в MongoDB, рахує тональність і ключові слова (spaCy), збирає архів за роки у фоні, будує тренди. Для першого кроку це забагато — беремо ядро, решту переносимо в уроки, де для неї з'явиться основа:</p>
+<table>
+<thead>
+<tr>
+<th>Ендпоінти стартового <code>main.py</code></th>
+<th>Що з ними</th>
+<th>Коли повернуться</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/health</code>, <code>GET /api/news</code>, <code>/api/news/count</code>, <code>/api/news/stats</code>, <code>POST /api/scrape</code>, <code>DELETE /api/news</code></td>
+<td><strong>беремо</strong> — ядро агрегатора</td>
+<td>урок 38</td>
+</tr>
+<tr>
+<td>MongoDB (<code>motor</code>) у кожному ендпоінті</td>
+<td>→ <code>NewsStore</code> через <code>Depends</code></td>
+<td>урок 39 — SQLAlchemy</td>
+</tr>
+<tr>
+<td><code>POST /api/scrape/archive</code>, <code>/api/scrape/jobs</code> (<code>BackgroundTasks</code>)</td>
+<td>фоновий збір</td>
+<td>урок 40</td>
+</tr>
+<tr>
+<td><code>/keywords</code>, <code>/entities</code>, <code>/entity-trend</code>, <code>/reanalyze</code>, <code>/purge-russian</code> (spaCy, langdetect)</td>
+<td>аналіз тексту</td>
+<td>урок 44 — Gemini</td>
+</tr>
+<tr>
+<td><code>/trends</code>, <code>/timeline</code> (<code>$regex</code> з рядка користувача)</td>
+<td>пошук і агрегація</td>
+<td>урок 39 (SQL), безпека regex — урок 47</td>
+</tr>
+<tr>
+<td>CORS <code>allow_origins=["*"]</code> + <code>allow_credentials=True</code></td>
+<td>прибрано: у 37 немає браузерного клієнта</td>
+<td>з фронтендом</td>
+</tr>
+</tbody>
+</table>
+<p>Старий застосунок описував новину <strong>другою</strong> моделлю — 13 полів у <code>main.py</code>, окремо від парсера, і власним <code>_parse_page</code> у <code>scraper.py</code> зі своїм словником категорій. У <code>news_hub</code> модель одна — <code>NewsItem</code> з уроку 37 — і вона ж стане відповіддю API.</p>
+<h2 id="refactor-1">Рефакторинг 1. FastAPI над <code>NewsItem</code><a class="headerlink" href="#refactor-1" title="Permanent link">&para;</a></h2>
+<p>FastAPI будує API з <strong>анотацій типів</strong>: параметр функції стає параметром запиту, його тип і <code>Query(...)</code> — правилами перевірки, <code>response_model</code> — формою відповіді. Той самий Pydantic, що в уроці 37, тільки тепер на вході й виході HTTP.</p>
+<div class="highlight"><span class="filename">news_hub/api.py (фрагмент)</span><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"news_hub API"</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s2">"0.37.0"</span><span class="p">,</span> <span class="n">lifespan</span><span class="o">=</span><span class="n">lifespan</span><span class="p">,</span> <span class="n">openapi_tags</span><span class="o">=</span><span class="p">[</span><span class="o">...</span><span class="p">])</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/api/news"</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="nb">list</span><span class="p">[</span><span class="n">NewsItem</span><span class="p">],</span> <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s2">"news"</span><span class="p">],</span> <span class="n">summary</span><span class="o">=</span><span class="s2">"Список новин"</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">list_news</span><span class="p">(</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">store</span><span class="p">:</span> <span class="n">StoreDep</span><span class="p">,</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">skip</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Query</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Query</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">ge</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">le</span><span class="o">=</span><span class="mi">1000</span><span class="p">),</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n">category</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Query</span><span class="p">(</span><span class="s2">""</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Новини, Економіка, …"</span><span class="p">),</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="n">source</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Query</span><span class="p">(</span><span class="s2">""</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"rbc.ua, auto.rbc.ua, …"</span><span class="p">),</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="n">lang</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"uk"</span><span class="p">,</span> <span class="s2">"ru"</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Query</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">NewsItem</span><span class="p">]:</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="sd">"""Новини з фільтрами й пагінацією: `?lang=uk&amp;limit=5`."""</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="k">return</span> <span class="n">store</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">skip</span><span class="o">=</span><span class="n">skip</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span> <span class="n">lang</span><span class="o">=</span><span class="n">lang</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">)</span>
+</code></pre></div>
+<p>Що тут робить FastAPI без жодного рядка нашого коду:</p>
+<table>
+<thead>
+<tr>
+<th>Запис</th>
+<th>Що відбувається з запитом <code>GET /api/news?limit=abc&amp;lang=en</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>limit: int = Query(50, ge=1, le=1000)</code></td>
+<td><code>"abc"</code> → не число → <code>422</code>; <code>0</code> → менше <code>ge=1</code> → <code>422</code>; немає → <code>50</code></td>
+</tr>
+<tr>
+<td><code>lang: Literal["uk", "ru"] \| None</code></td>
+<td><code>"en"</code> → не зі списку → <code>422</code></td>
+</tr>
+<tr>
+<td><code>response_model=list[NewsItem]</code></td>
+<td>відповідь перетворюється на JSON за моделлю: <code>url</code> → рядок, <code>published_time</code> → <code>"14:19:00"</code></td>
+</tr>
+<tr>
+<td><code>tags</code>, <code>summary</code>, docstring</td>
+<td>потрапляють в OpenAPI → <code>/docs</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_3">Запуск і перші запити<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>У папці <code>news_hub</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>uvicorn<span class="w"> </span>news_hub.api:app<span class="w"> </span>--reload<span class="w">      </span><span class="c1"># INFO: Uvicorn running on http://127.0.0.1:8000</span>
+</code></pre></div>
+<p><code>news_hub.api:app</code> — «модуль <code>news_hub/api.py</code>, змінна <code>app</code>»; <code>--reload</code> перезапускає сервер, коли змінюється код. У другому терміналі (або в Python-консолі) — запити клієнтом <code>httpx</code> з уроку 32:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">httpx</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">api</span> <span class="o">=</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="n">base_url</span><span class="o">=</span><span class="s2">"http://127.0.0.1:8000"</span><span class="p">)</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/health"</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/api/news"</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">(),</span> <span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/api/news/count"</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>{'status': 'ok'}
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>[] {'count': 0}
+</code></pre></div>
+<p>Сховище порожнє: новин ще ніхто не збирав. Збираємо зі знімка (168 новин, урок 37) — рефакторинг 3 розбере цей ендпоінт докладно:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">report</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/api/scrape"</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">"source"</span><span class="p">:</span> <span class="s2">"snapshot"</span><span class="p">})</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nb">print</span><span class="p">({</span><span class="n">key</span><span class="p">:</span> <span class="n">report</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"news_found"</span><span class="p">,</span> <span class="s2">"news_valid"</span><span class="p">,</span> <span class="s2">"news_saved"</span><span class="p">,</span> <span class="s2">"news_total"</span><span class="p">)})</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">response</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/api/news"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">"lang"</span><span class="p">:</span> <span class="s2">"uk"</span><span class="p">,</span> <span class="s2">"limit"</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">"content-type"</span><span class="p">])</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="k">for</span> <span class="n">news</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">():</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">news</span><span class="p">)</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/api/news/stats"</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>{'news_found': 168, 'news_valid': 168, 'news_saved': 168, 'news_total': 168}
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>200 application/json
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>{'title': 'Реформа ВСУ', 'url': 'https://www.rbc.ua/ukr/news/reforma-zsu-kih-zmin-armiyi-chekati-vzhe-1777644218.html', 'source': 'rbc.ua', 'lang': 'uk', 'category': 'Новини', 'published_time': None}
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>{'title': 'Долги теплокоммунэнерго перед "Нафтогазом" превысили 150 млрд грн, - Свириденко', 'url': 'https://www.rbc.ua/ukr/news/borgi-teplokomunenergo-pered-naftogazom-perevishchili-1778323211.html', 'source': 'rbc.ua', 'lang': 'uk', 'category': 'Новини', 'published_time': None}
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>{'total': 168, 'category': {'Новини': 168}, 'lang': {'ru': 138, 'uk': 30}, 'source': {'rbc.ua': 167, 'auto.rbc.ua': 1}}
+</code></pre></div>
+<p>Два спостереження:</p>
+<ul>
+<li><code>published_time</code> у JSON — <code>null</code>: у цих двох новин у стрічці не було часу. Для інших — рядок <code>"HH:MM:SS"</code>: <code>response_model</code> перетворює <code>time</code> на JSON сам;</li>
+<li>обидві новини лежать під <code>/ukr/</code>, тож <code>lang="uk"</code>, а заголовки — російською («Реформа ВСУ», «Долги …»). Мову ми <strong>виводимо з URL</strong>, а не з тексту, — і сайт не завжди кладе текст туди, куди обіцяє адреса. Визначати мову за змістом навчимо агрегатор з Gemini в уроці 44.</li>
+</ul>
+<h3 id="errors">422: помилка перевірки<a class="headerlink" href="#errors" title="Permanent link">&para;</a></h3>
+<p>Неправильні параметри до нашої функції навіть не доходять — FastAPI відповідає <code>422 Unprocessable Content</code> з переліком помилок:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">for</span> <span class="n">params</span> <span class="ow">in</span> <span class="p">({</span><span class="s2">"limit"</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span> <span class="p">{</span><span class="s2">"limit"</span><span class="p">:</span> <span class="s2">"abc"</span><span class="p">},</span> <span class="p">{</span><span class="s2">"lang"</span><span class="p">:</span> <span class="s2">"en"</span><span class="p">}):</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/api/news"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="n">error</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">"detail"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="s2">"→"</span><span class="p">,</span> <span class="n">error</span><span class="p">[</span><span class="s2">"loc"</span><span class="p">],</span> <span class="n">error</span><span class="p">[</span><span class="s2">"msg"</span><span class="p">])</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>422 {'limit': 0} → ['query', 'limit'] Input should be greater than or equal to 1
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>422 {'limit': 'abc'} → ['query', 'limit'] Input should be a valid integer, unable to parse string as an integer
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>422 {'lang': 'en'} → ['query', 'lang'] Input should be 'uk' or 'ru'
+</code></pre></div>
+<p><code>loc</code> — де помилка: <code>["query", "limit"]</code> — параметр запиту <code>limit</code>; для тіла запиту буде <code>["body", …]</code>. Той самий формат отримає і Postman, і фронтенд, і бот — один раз навчився читати, читаєш скрізь.</p>
+<h3 id="_4">Що змінилося<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Було (<code>news_dashboard/app/main.py</code>)</th>
+<th>Стало (<code>news_hub/news_hub/api.py</code>)</th>
+<th>Навіщо</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>class NewsItem(BaseModel)</code> — 13 полів у <code>main.py</code>, окремо від парсера</td>
+<td><code>response_model=list[NewsItem]</code> — модель з уроку 37</td>
+<td>одна модель на весь проєкт</td>
+</tr>
+<tr>
+<td><code>lang: str = Query(default="", description="uk \| ru \| unknown")</code></td>
+<td><code>lang: Literal["uk", "ru"] \| None</code></td>
+<td><code>?lang=en</code> — <code>422</code>, а не порожній список</td>
+</tr>
+<tr>
+<td><code>mode: str = Field(pattern="^(async\|sequential)$")</code></td>
+<td><code>mode: Literal["async", "sequential"]</code></td>
+<td>те саме без regex; mypy знає значення</td>
+</tr>
+<tr>
+<td><code>from fastapi import HTTPException</code> усередині функцій</td>
+<td>імпорти вгорі модуля</td>
+<td>читабельність</td>
+</tr>
+<tr>
+<td>16 ендпоінтів</td>
+<td>6 + <code>openapi_tags</code></td>
+<td>ядро, згруповане в <code>/docs</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="refactor-2">Рефакторинг 2. Сховище через <code>Depends</code> і <code>lifespan</code><a class="headerlink" href="#refactor-2" title="Permanent link">&para;</a></h2>
+<p>У стартовому коді кожен ендпоінт сам діставав базу: <code>db = get_db()</code> → <code>db.news.find(query)</code>. Ендпоінт знає про MongoDB, а протестувати його без MongoDB неможливо. Виносимо «де лежать новини» в клас з тим самим контрактом:</p>
+<div class="highlight"><span class="filename">GET /api/news: було → стало</span><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="w"> </span>@app.get("/api/news", response_model=list[NewsItem])
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="gd">-async def list_news(skip: int = Query(default=0, ge=0), limit: int = ..., category: str = ..., ...):</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="gd">-    db = get_db()</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="gd">-    query: dict = {}</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="gd">-    if category:</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="gd">-        query["category"] = category</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="gd">-    ...</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="gd">-    cursor = db.news.find(query).sort("scraped_at", -1).skip(skip).limit(limit)</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="gd">-    docs = await cursor.to_list(length=limit)</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="gd">-    return [_doc_to_item(d) for d in docs]</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="gi">+async def list_news(store: StoreDep, skip: int = Query(0, ge=0), limit: int = ..., ...) -&gt; list[NewsItem]:</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="gi">+    return store.find(skip=skip, limit=limit, category=category, source=source, lang=lang or "")</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">news_hub/store.py (скорочено)</span><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">NewsStore</span><span class="p">:</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">NewsItem</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>      <span class="c1"># url → новина: той самий url двічі не збережеться</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">add_many</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">NewsItem</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">        </span><span class="sd">"""Додає лише нові (як `$setOnInsert` + `upsert` у Mongo); повертає, скільки додано."""</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">find</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">skip</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span> <span class="n">lang</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">NewsItem</span><span class="p">]:</span> <span class="o">...</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span> <span class="o">...</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">stats</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span> <span class="o">...</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span> <span class="o">...</span>
+</code></pre></div>
+<p>Урок 39 замінить <code>NewsStore</code> на SQLAlchemy <strong>з тими самими методами</strong> — ендпоінти не зміняться.</p>
+<h3 id="depends-fastapi"><code>Depends</code>: ендпоінт просить, FastAPI дає<a class="headerlink" href="#depends-fastapi" title="Permanent link">&para;</a></h3>
+<div class="highlight"><span class="filename">news_hub/api.py (фрагмент)</span><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nd">@asynccontextmanager</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">lifespan</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">FastAPI</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="kc">None</span><span class="p">]:</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    <span class="n">app</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">store</span> <span class="o">=</span> <span class="n">NewsStore</span><span class="p">()</span>        <span class="c1"># до першого запиту</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>    <span class="k">yield</span>                                <span class="c1"># тут сервер працює</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>    <span class="n">app</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>              <span class="c1"># після зупинки</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">get_store</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NewsStore</span><span class="p">:</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>    <span class="n">store</span><span class="p">:</span> <span class="n">NewsStore</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">store</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>    <span class="k">return</span> <span class="n">store</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="n">StoreDep</span> <span class="o">=</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">NewsStore</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_store</span><span class="p">)]</span>
+</code></pre></div>
+<ul>
+<li><strong><code>Depends(get_store)</code></strong> — «перед викликом ендпоінта виклич <code>get_store</code> і передай результат». Ендпоінт оголошує, <em>що</em> йому потрібно, а не <em>звідки</em> це взяти. Докладніше — розділ 5 <a href="../fastapi/fastapi_documentation/#s5">довідника</a>.</li>
+<li><strong><code>Annotated[NewsStore, Depends(...)]</code></strong> — тип для mypy і <code>/docs</code> плюс інструкція для FastAPI в одному записі; <code>StoreDep</code> — щоб не повторювати його в кожному ендпоінті.</li>
+<li><strong><code>lifespan</code></strong> — код до <code>yield</code> виконується один раз при старті, після <code>yield</code> — при зупинці. Старий <code>@app.on_event("startup")</code> у FastAPI застарів; <code>lifespan</code> тримає старт і зупинку поруч. У уроці 39 тут з'явиться пул з'єднань з базою (розділ 6 довідника).</li>
+</ul>
+<h3 id="_5">Підміна залежності в тестах<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>Живий скрапінг ходить у мережу — у тестах він не потрібен. <code>app.dependency_overrides</code> підміняє залежність на час тесту:</p>
+<div class="highlight"><span class="filename">tests/test_api.py (фрагмент)</span><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">fake_scraper</span><span class="p">(</span><span class="n">pages</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ScrapeOutcome</span><span class="p">:</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    <span class="n">page</span> <span class="o">=</span> <span class="n">PageResult</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="p">(</span><span class="n">pages</span> <span class="ow">or</span> <span class="p">[</span><span class="s2">"https://www.rbc.ua/ukr/news/"</span><span class="p">])[</span><span class="mi">0</span><span class="p">],</span> <span class="n">start</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    <span class="k">return</span> <span class="n">ScrapeOutcome</span><span class="p">(</span><span class="n">pages</span><span class="o">=</span><span class="p">[</span><span class="n">page</span><span class="p">],</span> <span class="n">news</span><span class="o">=</span><span class="n">FAKE_NEWS</span><span class="p">,</span> <span class="n">total_time</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="k">def</span><span class="w"> </span><span class="nf">client</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">TestClient</span><span class="p">]:</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>    <span class="n">app</span><span class="o">.</span><span class="n">dependency_overrides</span><span class="p">[</span><span class="n">get_scrapers</span><span class="p">]</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="p">{</span><span class="s2">"async"</span><span class="p">:</span> <span class="n">fake_scraper</span><span class="p">,</span> <span class="s2">"sequential"</span><span class="p">:</span> <span class="n">fake_scraper</span><span class="p">}</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>    <span class="k">with</span> <span class="n">TestClient</span><span class="p">(</span><span class="n">app</span><span class="p">)</span> <span class="k">as</span> <span class="n">c</span><span class="p">:</span>          <span class="c1"># with → спрацює lifespan: нове порожнє сховище</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>        <span class="k">yield</span> <span class="n">c</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>    <span class="n">app</span><span class="o">.</span><span class="n">dependency_overrides</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+</code></pre></div>
+<p><code>TestClient</code> надсилає запити прямо в застосунок — без uvicorn і мережі. Так само працює ноутбук заняття. Повністю тестування API — урок 42.</p>
+<h2 id="refactor-3">Рефакторинг 3. <code>POST /api/scrape</code>: парсинг через API<a class="headerlink" href="#refactor-3" title="Permanent link">&para;</a></h2>
+<p>Тепер головне: агрегатор збирає новини за HTTP-запитом. Тіло запиту — Pydantic-модель:</p>
+<div class="highlight"><span class="filename">news_hub/api.py (фрагмент)</span><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">ScrapeRequest</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>    <span class="n">source</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"live"</span><span class="p">,</span> <span class="s2">"snapshot"</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="s2">"live"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"live — сайт; snapshot — збережений знімок"</span><span class="p">)</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>    <span class="n">mode</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"async"</span><span class="p">,</span> <span class="s2">"sequential"</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="s2">"async"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"сторінки одночасно чи по черзі"</span><span class="p">)</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>    <span class="n">pages</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">HttpUrl</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"порожньо — стандартний список сторінок"</span><span class="p">)</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>    <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">"pages"</span><span class="p">)</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>    <span class="nd">@classmethod</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">only_rbc</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">pages</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">HttpUrl</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">HttpUrl</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>        <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">pages</span> <span class="ow">or</span> <span class="p">[]:</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">url</span><span class="o">.</span><span class="n">host</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">"rbc.ua"</span><span class="p">):</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"сервер завантажує лише сторінки rbc.ua, а не </span><span class="si">{</span><span class="n">url</span><span class="o">.</span><span class="n">host</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>        <span class="k">return</span> <span class="n">pages</span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a><span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/api/scrape"</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">ScrapeReport</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s2">"scrape"</span><span class="p">],</span> <span class="n">summary</span><span class="o">=</span><span class="s2">"Зібрати новини"</span><span class="p">)</span>
+<a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">scrape</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">ScrapeRequest</span><span class="p">,</span> <span class="n">store</span><span class="p">:</span> <span class="n">StoreDep</span><span class="p">,</span>
+<a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a>                 <span class="n">scrapers</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Scraper</span><span class="p">],</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_scrapers</span><span class="p">)])</span> <span class="o">-&gt;</span> <span class="n">ScrapeReport</span><span class="p">:</span>
+<a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a>    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">source</span> <span class="o">==</span> <span class="s2">"snapshot"</span><span class="p">:</span>
+<a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a>        <span class="n">outcome</span> <span class="o">=</span> <span class="n">ScrapeOutcome</span><span class="p">(</span><span class="n">pages</span><span class="o">=</span><span class="p">[],</span> <span class="n">news</span><span class="o">=</span><span class="n">load_snapshot</span><span class="p">(),</span> <span class="n">total_time</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+<a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a>        <span class="n">pages</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">pages</span><span class="p">]</span> <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">pages</span> <span class="k">else</span> <span class="kc">None</span>
+<a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a>        <span class="n">outcome</span> <span class="o">=</span> <span class="k">await</span> <span class="n">scrapers</span><span class="p">[</span><span class="n">request</span><span class="o">.</span><span class="n">mode</span><span class="p">](</span><span class="n">pages</span><span class="p">)</span>
+<a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a>
+<a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a>    <span class="n">valid</span><span class="p">,</span> <span class="n">rejected</span> <span class="o">=</span> <span class="n">validate_news</span><span class="p">(</span><span class="n">outcome</span><span class="o">.</span><span class="n">news</span><span class="p">)</span>       <span class="c1"># урок 37: нічого не губиться мовчки</span>
+<a id="__codelineno-12-25" name="__codelineno-12-25" href="#__codelineno-12-25"></a>    <span class="n">saved</span> <span class="o">=</span> <span class="n">store</span><span class="o">.</span><span class="n">add_many</span><span class="p">(</span><span class="n">valid</span><span class="p">)</span>
+<a id="__codelineno-12-26" name="__codelineno-12-26" href="#__codelineno-12-26"></a>    <span class="k">return</span> <span class="n">ScrapeReport</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</code></pre></div>
+<p>Як FastAPI розрізняє, звідки брати параметр: простий тип (<code>int</code>, <code>str</code>, <code>Literal</code>) — з рядка запиту (<code>?limit=5</code>), Pydantic-модель — з тіла запиту (JSON), <code>Depends(...)</code> — із залежності.</p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant C as Клієнт (Postman, httpx)
+    participant F as FastAPI
+    participant S as scrape_all_async
+    participant R as rbc.ua
+    participant V as validate_news
+    participant DB as NewsStore
+
+    C-&gt;&gt;F: POST /api/scrape {"mode": "async"}
+    F-&gt;&gt;F: JSON → ScrapeRequest (інакше 422)
+    F-&gt;&gt;S: pages = None → 7 стандартних сторінок
+    par одночасно, asyncio.gather
+        S-&gt;&gt;R: GET /ukr/news/
+        S-&gt;&gt;R: GET /rus/news/
+        S-&gt;&gt;R: … ще 5 сторінок
+    end
+    R--&gt;&gt;S: HTML або помилка
+    S--&gt;&gt;F: ScrapeOutcome: сирі новини + час кожної сторінки
+    F-&gt;&gt;V: list[RawNews]
+    V--&gt;&gt;F: перевірені NewsItem + відхилені з причинами
+    F-&gt;&gt;DB: add_many(перевірені)
+    DB--&gt;&gt;F: скільки нових
+    F--&gt;&gt;C: 200 ScrapeReport</code></pre>
+<h3 id="_6">Знімок, повторний збір і чужий сайт<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">first</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/api/scrape"</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">"source"</span><span class="p">:</span> <span class="s2">"snapshot"</span><span class="p">})</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"вдруге:"</span><span class="p">,</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">first</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"news_found"</span><span class="p">,</span> <span class="s2">"news_saved"</span><span class="p">,</span> <span class="s2">"news_total"</span><span class="p">)})</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="n">response</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/api/scrape"</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">"pages"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"https://example.com/admin"</span><span class="p">]})</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">"detail"</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">"msg"</span><span class="p">])</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="n">response</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/api/scrape"</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">"mode"</span><span class="p">:</span> <span class="s2">"fast"</span><span class="p">})</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">"detail"</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">"loc"</span><span class="p">],</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">"detail"</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">"msg"</span><span class="p">])</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>вдруге: {'news_found': 168, 'news_saved': 0, 'news_total': 168}
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>422 Value error, сервер завантажує лише сторінки rbc.ua, а не example.com
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>422 ['body', 'mode'] Input should be 'async' or 'sequential'
+</code></pre></div>
+<p>Повторний збір не дублює новин (<code>news_saved: 0</code>): ключ сховища — <code>url</code>, як <code>upsert</code> зі <code>$setOnInsert</code> у стартовому коді.</p>
+<p>Обмеження <code>pages</code> лише сайтом rbc.ua — не формальність. Старий <code>ScrapeRequest</code> приймав будь-які URL: хто завгодно міг змусити сервер завантажити довільну адресу — зокрема внутрішню, недоступну ззовні (<code>http://localhost:…</code>, адреси хмарної інфраструктури). Це <strong>SSRF</strong> (Server-Side Request Forgery) — розберемо в уроці 47.</p>
+<h3 id="_7">Живий збір<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p><code>scraper.py</code> — <code>scrape_all_async</code> і <code>scrape_sequential</code> з прототипу <code>news_dashboard</code>: <code>aiohttp</code>, <code>asyncio.gather</code>, час початку й кінця кожної сторінки (у <code>news_dashboard</code> з них будувалась діаграма Ганта «разом vs по черзі»). Змінилося: розбір — <code>parse_rbc_news</code> з уроку 37 замість другої копії парсера; сторінка з кодом помилки (<code>403</code>, <code>503</code>) — помилка, а не «0 новин»:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">report</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/api/scrape"</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">"pages"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"https://www.rbc.ua/ukr/news/"</span><span class="p">]})</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">report</span><span class="p">[</span><span class="s2">"pages"</span><span class="p">]:</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">page</span><span class="p">[</span><span class="s2">"url"</span><span class="p">],</span> <span class="s2">"→ новин:"</span><span class="p">,</span> <span class="n">page</span><span class="p">[</span><span class="s2">"count"</span><span class="p">],</span> <span class="s2">"| помилка:"</span><span class="p">,</span> <span class="n">page</span><span class="p">[</span><span class="s2">"error"</span><span class="p">])</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="nb">print</span><span class="p">({</span><span class="n">key</span><span class="p">:</span> <span class="n">report</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"news_found"</span><span class="p">,</span> <span class="s2">"news_saved"</span><span class="p">,</span> <span class="s2">"news_total"</span><span class="p">)})</span>
+</code></pre></div>
+<p>Приклад виводу (у середовищі, де збирався курс, rbc.ua недоступний; з доступом до сайту тут буде кількість новин і <code>помилка: None</code>):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>https://www.rbc.ua/ukr/news/ → новин: 0 | помилка: ClientResponseError: 403, message='Forbidden', url='https://www.rbc.ua/ukr/news/'
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>{'news_found': 0, 'news_saved': 0, 'news_total': 168}
+</code></pre></div>
+<p>Старий <code>fetch_one</code> не перевіряв статус: сторінку «403 Forbidden» він розбирав як стрічку новин і повідомляв «0 новин, помилки немає». Тепер <code>resp.raise_for_status()</code> — і причина видна у звіті.</p>
+<h2 id="openapi">OpenAPI і <code>/docs</code><a class="headerlink" href="#openapi" title="Permanent link">&para;</a></h2>
+<p>FastAPI сам описує API за стандартом <strong>OpenAPI</strong> (урок 33) — з маршрутів, типів параметрів, моделей і docstring-ів:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="n">schema</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/openapi.json"</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">schema</span><span class="p">[</span><span class="s2">"openapi"</span><span class="p">],</span> <span class="s2">"|"</span><span class="p">,</span> <span class="n">schema</span><span class="p">[</span><span class="s2">"info"</span><span class="p">][</span><span class="s2">"title"</span><span class="p">],</span> <span class="n">schema</span><span class="p">[</span><span class="s2">"info"</span><span class="p">][</span><span class="s2">"version"</span><span class="p">])</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="k">for</span> <span class="n">path</span><span class="p">,</span> <span class="n">methods</span> <span class="ow">in</span> <span class="n">schema</span><span class="p">[</span><span class="s2">"paths"</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>    <span class="k">for</span> <span class="n">method</span><span class="p">,</span> <span class="n">operation</span> <span class="ow">in</span> <span class="n">methods</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">method</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">:</span><span class="s2">6</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">path</span><span class="si">:</span><span class="s2">18</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">operation</span><span class="p">[</span><span class="s1">'tags'</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">operation</span><span class="p">[</span><span class="s1">'summary'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="nb">print</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">schema</span><span class="p">[</span><span class="s2">"components"</span><span class="p">][</span><span class="s2">"schemas"</span><span class="p">]))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>3.1.0 | news_hub API 0.37.0
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>GET    /health            ['system'] Health
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>GET    /api/news          ['news'] Список новин
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>DELETE /api/news          ['news'] Delete All News
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>GET    /api/news/count    ['news'] News Count
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>GET    /api/news/stats    ['news'] News Stats
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>POST   /api/scrape        ['scrape'] Зібрати новини
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>['HTTPValidationError', 'NewsItem', 'PageResult', 'ScrapeReport', 'ScrapeRequest', 'Stats', 'ValidationError']
+</code></pre></div>
+<ul>
+<li><code>http://127.0.0.1:8000/docs</code> — <strong>Swagger UI</strong>: інтерактивна документація з цього опису;</li>
+<li><code>http://127.0.0.1:8000/redoc</code> — ReDoc: той самий опис для читання;</li>
+<li><code>/openapi.json</code> — сам опис: з нього генерують клієнтів, його імпортує Postman.</li>
+</ul>
+<p><img alt="Swagger UI агрегатора: ендпоінти згруповані за тегами news, scrape, system" src="img/lesson_38_swagger.png" /></p>
+<p><strong>Try it out</strong> → параметри → <strong>Execute</strong>: Swagger UI надсилає справжній запит і показує команду <code>curl</code>, URL, відповідь і заголовки:</p>
+<p><img alt="GET /api/news з lang=uk і limit=2 у Swagger UI: відповідь 200 з двома новинами" src="img/lesson_38_swagger_try.png" /></p>
+<p>Опис моделі <code>NewsItem</code> у розділі <strong>Schemas</strong> — та сама JSON Schema, яку в уроці 37 ми отримували через <code>NewsItem.model_json_schema()</code>.</p>
+<h2 id="postman">Postman: колекція запитів з перевірками<a class="headerlink" href="#postman" title="Permanent link">&para;</a></h2>
+<p><code>/docs</code> зручний, щоб спробувати один запит. <strong>Postman</strong> — щоб зберегти набір запитів, передати його команді й перевіряти відповіді автоматично. У проєкті є колекція <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_38_fastapi_basics/news_hub/postman/news_hub.postman_collection.json"><code>postman/news_hub.postman_collection.json</code></a>: 7 запитів, у кожного — вкладка <strong>Tests</strong> з перевірками на JavaScript:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1">// 2. зібрати знімок — POST {{baseUrl}}/api/scrape, тіло {"source": "snapshot"}</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="kd">const</span><span class="w"> </span><span class="nx">report</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">pm</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="nx">pm</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">"200"</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">pm</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">to</span><span class="p">.</span><span class="nx">have</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mf">200</span><span class="p">));</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="nx">pm</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s2">"усі 168 новин зі знімка перевірені"</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">pm</span><span class="p">.</span><span class="nx">expect</span><span class="p">(</span><span class="nx">report</span><span class="p">.</span><span class="nx">news_valid</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">eql</span><span class="p">(</span><span class="mf">168</span><span class="p">));</span>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="nx">pm</span><span class="p">.</span><span class="nx">collectionVariables</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">"total"</span><span class="p">,</span><span class="w"> </span><span class="nx">report</span><span class="p">.</span><span class="nx">news_total</span><span class="p">);</span><span class="w">   </span><span class="c1">// запам'ятали для запитів 4 і 7</span>
+</code></pre></div>
+<ul>
+<li><code>{{baseUrl}}</code> — змінна колекції (<code>http://127.0.0.1:8000</code>): змінив раз — змінилося в усіх запитах;</li>
+<li><code>pm.collectionVariables.set</code> — передати значення з одного запиту в інший.</li>
+</ul>
+<p><strong>Як працювати:</strong> Postman → <strong>Import</strong> → файл колекції → <strong>Run collection</strong>. Або <strong>Import</strong> → <code>http://127.0.0.1:8000/openapi.json</code>: Postman сам створить запит на кожен ендпоінт (без перевірок).</p>
+<p>Ту саму колекцію запускає з консолі <strong>newman</strong> — так її можна проганяти в CI (урок 51). Приклад виводу (сервер запущено на порту 8000; час запитів залежить від машини):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>$ npx newman run postman/news_hub.postman_collection.json
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>newman
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>news_hub — урок 38
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>→ 1. health
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>  GET http://127.0.0.1:8000/health [200 OK, 140B, 24ms]
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>  ✓  200 і status ok
+<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>
+<a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>→ 2. зібрати знімок
+<a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a>  POST http://127.0.0.1:8000/api/scrape [200 OK, 270B, 14ms]
+<a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a>  ✓  200
+<a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a>  ✓  усі 168 новин зі знімка перевірені
+<a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a>
+<a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a>→ 3. українські новини
+<a id="__codelineno-20-16" name="__codelineno-20-16" href="#__codelineno-20-16"></a>  GET http://127.0.0.1:8000/api/news?lang=uk&amp;limit=5 [200 OK, 1.69kB, 4ms]
+<a id="__codelineno-20-17" name="__codelineno-20-17" href="#__codelineno-20-17"></a>  ✓  200
+<a id="__codelineno-20-18" name="__codelineno-20-18" href="#__codelineno-20-18"></a>  ✓  не більше limit
+<a id="__codelineno-20-19" name="__codelineno-20-19" href="#__codelineno-20-19"></a>  ✓  усі lang = uk
+<a id="__codelineno-20-20" name="__codelineno-20-20" href="#__codelineno-20-20"></a>
+<a id="__codelineno-20-21" name="__codelineno-20-21" href="#__codelineno-20-21"></a>→ 4. статистика
+<a id="__codelineno-20-22" name="__codelineno-20-22" href="#__codelineno-20-22"></a>  GET http://127.0.0.1:8000/api/news/stats [200 OK, 237B, 6ms]
+<a id="__codelineno-20-23" name="__codelineno-20-23" href="#__codelineno-20-23"></a>  ✓  total = кількості після збору
+<a id="__codelineno-20-24" name="__codelineno-20-24" href="#__codelineno-20-24"></a>  ✓  є мови uk і ru
+<a id="__codelineno-20-25" name="__codelineno-20-25" href="#__codelineno-20-25"></a>
+<a id="__codelineno-20-26" name="__codelineno-20-26" href="#__codelineno-20-26"></a>→ 5. помилка: lang=en
+<a id="__codelineno-20-27" name="__codelineno-20-27" href="#__codelineno-20-27"></a>  GET http://127.0.0.1:8000/api/news?lang=en [422 Unprocessable Content, 289B, 3ms]
+<a id="__codelineno-20-28" name="__codelineno-20-28" href="#__codelineno-20-28"></a>  ✓  422 — FastAPI перевірив параметр
+<a id="__codelineno-20-29" name="__codelineno-20-29" href="#__codelineno-20-29"></a>  ✓  помилка в полі lang
+<a id="__codelineno-20-30" name="__codelineno-20-30" href="#__codelineno-20-30"></a>
+<a id="__codelineno-20-31" name="__codelineno-20-31" href="#__codelineno-20-31"></a>→ 6. помилка: чужий сайт
+<a id="__codelineno-20-32" name="__codelineno-20-32" href="#__codelineno-20-32"></a>  POST http://127.0.0.1:8000/api/scrape [422 Unprocessable Content, 364B, 3ms]
+<a id="__codelineno-20-33" name="__codelineno-20-33" href="#__codelineno-20-33"></a>  ✓  422 — сервер не завантажує чужі URL
+<a id="__codelineno-20-34" name="__codelineno-20-34" href="#__codelineno-20-34"></a>
+<a id="__codelineno-20-35" name="__codelineno-20-35" href="#__codelineno-20-35"></a>→ 7. очистити
+<a id="__codelineno-20-36" name="__codelineno-20-36" href="#__codelineno-20-36"></a>  DELETE http://127.0.0.1:8000/api/news [200 OK, 140B, 3ms]
+<a id="__codelineno-20-37" name="__codelineno-20-37" href="#__codelineno-20-37"></a>  ✓  видалено стільки, скільки було
+<a id="__codelineno-20-38" name="__codelineno-20-38" href="#__codelineno-20-38"></a>
+<a id="__codelineno-20-39" name="__codelineno-20-39" href="#__codelineno-20-39"></a>┌─────────────────────────┬─────────────────┬─────────────────┐
+<a id="__codelineno-20-40" name="__codelineno-20-40" href="#__codelineno-20-40"></a>│                         │        executed │          failed │
+<a id="__codelineno-20-41" name="__codelineno-20-41" href="#__codelineno-20-41"></a>├─────────────────────────┼─────────────────┼─────────────────┤
+<a id="__codelineno-20-42" name="__codelineno-20-42" href="#__codelineno-20-42"></a>│              iterations │               1 │               0 │
+<a id="__codelineno-20-43" name="__codelineno-20-43" href="#__codelineno-20-43"></a>├─────────────────────────┼─────────────────┼─────────────────┤
+<a id="__codelineno-20-44" name="__codelineno-20-44" href="#__codelineno-20-44"></a>│                requests │               7 │               0 │
+<a id="__codelineno-20-45" name="__codelineno-20-45" href="#__codelineno-20-45"></a>├─────────────────────────┼─────────────────┼─────────────────┤
+<a id="__codelineno-20-46" name="__codelineno-20-46" href="#__codelineno-20-46"></a>│            test-scripts │               7 │               0 │
+<a id="__codelineno-20-47" name="__codelineno-20-47" href="#__codelineno-20-47"></a>├─────────────────────────┼─────────────────┼─────────────────┤
+<a id="__codelineno-20-48" name="__codelineno-20-48" href="#__codelineno-20-48"></a>│      prerequest-scripts │               0 │               0 │
+<a id="__codelineno-20-49" name="__codelineno-20-49" href="#__codelineno-20-49"></a>├─────────────────────────┼─────────────────┼─────────────────┤
+<a id="__codelineno-20-50" name="__codelineno-20-50" href="#__codelineno-20-50"></a>│              assertions │              12 │               0 │
+<a id="__codelineno-20-51" name="__codelineno-20-51" href="#__codelineno-20-51"></a>├─────────────────────────┴─────────────────┴─────────────────┤
+<a id="__codelineno-20-52" name="__codelineno-20-52" href="#__codelineno-20-52"></a>│ total run duration: 187ms                                   │
+<a id="__codelineno-20-53" name="__codelineno-20-53" href="#__codelineno-20-53"></a>├─────────────────────────────────────────────────────────────┤
+<a id="__codelineno-20-54" name="__codelineno-20-54" href="#__codelineno-20-54"></a>│ total data received: 2.22kB (approx)                        │
+<a id="__codelineno-20-55" name="__codelineno-20-55" href="#__codelineno-20-55"></a>├─────────────────────────────────────────────────────────────┤
+<a id="__codelineno-20-56" name="__codelineno-20-56" href="#__codelineno-20-56"></a>│ average response time: 8ms [min: 3ms, max: 24ms, s.d.: 7ms] │
+<a id="__codelineno-20-57" name="__codelineno-20-57" href="#__codelineno-20-57"></a>└─────────────────────────────────────────────────────────────┘
+</code></pre></div>
+<h2 id="measure">Async чи blocking: виміри<a class="headerlink" href="#measure" title="Permanent link">&para;</a></h2>
+<p>FastAPI приймає і <code>async def</code>, і звичайний <code>def</code>. Різниця — у тому, <strong>хто</strong> виконує функцію:</p>
+<ul>
+<li><code>async def</code> — виконується в <strong>циклі подій</strong> (один потік на всі запити). Поки корутина чекає на <code>await</code>, цикл обслуговує інші запити;</li>
+<li><code>def</code> — FastAPI запускає в <strong>пулі потоків</strong> (за замовчуванням 40), щоб блокуючий код не зупиняв цикл подій.</li>
+</ul>
+<p>Небезпечне поєднання — <code>async def</code> + блокуючий виклик (<code>time.sleep</code>, <code>requests.get</code>, синхронний драйвер бази): функція займає цикл подій, і <strong>весь сервер</strong> чекає. Саме тому скрапер агрегатора — на <code>aiohttp</code> з <code>await</code>, а не на <code>requests</code>.</p>
+<p>Покроково — три одночасні запити до ендпоінта, що «чекає 2 секунди», у двох варіантах:</p>
+<pre class="mermaid"><code>flowchart TD
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    subgraph B0 ["sync-broken, t = 0 с: time.sleep(2) у async def"]
+        direction LR
+        b0a["запит 1&lt;br&gt;спить, тримає цикл"] ~~~ b0b["запит 2&lt;br&gt;чекає в черзі"] ~~~ b0c["запит 3&lt;br&gt;чекає в черзі"] ~~~ b0h["/health&lt;br&gt;не відповідає"]
+    end
+    subgraph B2 ["t = 2 с: цикл звільнився на мить"]
+        direction LR
+        b2a["запит 1&lt;br&gt;готово за 2 с"] ~~~ b2b["запит 2&lt;br&gt;спить, тримає цикл"] ~~~ b2c["запит 3&lt;br&gt;чекає"]
+    end
+    subgraph B4 ["t = 4 с"]
+        direction LR
+        b4b["запит 2&lt;br&gt;готово за 4 с"] ~~~ b4c["запит 3&lt;br&gt;спить, тримає цикл"]
+    end
+    subgraph B6 ["t = 6 с: разом 6 с = 3 × 2 с"]
+        direction LR
+        b6c["запит 3&lt;br&gt;готово за 6 с"]
+    end
+    B0 --&gt; B2 --&gt; B4 --&gt; B6
+
+    subgraph A0 ["async-correct, t = 0 с: await asyncio.sleep(2)"]
+        direction LR
+        a0a["запит 1&lt;br&gt;await, цикл вільний"] ~~~ a0b["запит 2&lt;br&gt;await, цикл вільний"] ~~~ a0c["запит 3&lt;br&gt;await, цикл вільний"] ~~~ a0h["/health&lt;br&gt;відповідає одразу"]
+    end
+    subgraph A2 ["t = 2 с: разом 2 с"]
+        direction LR
+        a2a["запит 1&lt;br&gt;готово за 2 с"] ~~~ a2b["запит 2&lt;br&gt;готово за 2 с"] ~~~ a2c["запит 3&lt;br&gt;готово за 2 с"]
+    end
+    A0 --&gt; A2
+    B6 ~~~ A0
+
+    class b0a,b2b,b4c warning
+    class b0b,b0c,b2c step
+    class b0h error
+    class b2a success
+    class b4b,b6c error
+    class a0a,a0b,a0c step
+    class a0h,a2a,a2b,a2c success</code></pre>
+<p>Перевіримо на <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_38_fastapi_basics/fastapi_demo"><code>fastapi_demo</code></a>. Сервер — <code>uvicorn app.main:app --port 8001</code>, навантаження — <code>python load_test.py</code> (одночасні запити, загальний час). Результати з машини, де збирався курс (4 ядра, один процес uvicorn; числа на іншій машині будуть трохи інші, співвідношення — ті самі):</p>
+<table>
+<thead>
+<tr>
+<th>Ендпоінт</th>
+<th>Як написаний</th>
+<th style="text-align: right;">Одночасних запитів</th>
+<th style="text-align: right;">Загальний час</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/sync-broken</code></td>
+<td><code>async def</code> + <code>time.sleep(2)</code></td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">20.57 с</td>
+</tr>
+<tr>
+<td><code>/sync-broken</code></td>
+<td>те саме</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">40.03 с</td>
+</tr>
+<tr>
+<td><code>/sync-safe</code></td>
+<td><code>def</code> + <code>time.sleep(2)</code></td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">2.03 с</td>
+</tr>
+<tr>
+<td><code>/async-correct</code></td>
+<td><code>async def</code> + <code>await asyncio.sleep(2)</code></td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">2.01 с</td>
+</tr>
+<tr>
+<td><code>/async-correct</code></td>
+<td>те саме</td>
+<td style="text-align: right;">500</td>
+<td style="text-align: right;">2.21 с</td>
+</tr>
+<tr>
+<td><code>/db-sync-broken/1</code></td>
+<td><code>async def</code> + синхронний «драйвер бази» (1.5 с)</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">12.01 с</td>
+</tr>
+<tr>
+<td><code>/db-async-correct/1</code></td>
+<td>те саме через <code>run_in_executor</code></td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">1.51 с</td>
+</tr>
+</tbody>
+</table>
+<p>Поки йшли 10 запитів до <code>/sync-broken</code>, тест щосекунди питав <code>/health</code> — і шість разів поспіль не дочекався відповіді за 2 с: сервер не відповідав <strong>нікому</strong>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Спершу виміряй вимірювач</p>
+<p>Клієнт навантажувального тесту — теж частина досліду. <code>httpx.AsyncClient</code> на сотнях одночасних з'єднань сам стає вузьким місцем: 500 запитів до миттєвого <code>/health</code> через httpx тривають 5.66 с, через aiohttp — 0.22 с. І тайм-аут клієнта має бути більшим за тривалість тесту (20 × 2 = 40 с): інакше клієнт обриває запити, а сервер їх усе одно виконує й гальмує наступний вимір. Тому <code>load_test.py</code> — на aiohttp без ліміту з'єднань, з тайм-аутом 60 с.</p>
+<p>Правило: коли вимір дивує, перевір, що ти вимірюєш. Клієнт, мережа й тайм-аути — теж частина досліду.</p>
+</div>
+<p>Для CPU-задач (<code>/cpu-broken</code> → <code>/cpu-fixed</code> через <code>ProcessPoolExecutor</code>) і пулу з'єднань з базою — розділи 3–6 <a href="../fastapi/fastapi_documentation/#s3">довідника</a>.</p>
+<h2 id="architecture">Архітектура: було → стало<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    classDef step     fill:#eceff1,stroke:#546e7a,stroke-width:1px,color:#1a1a1a;
+    classDef decision fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#1a1a1a;
+    classDef success  fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1a1a1a;
+    classDef error    fill:#ffebee,stroke:#c62828,stroke-width:3px,color:#1a1a1a;
+    classDef warning  fill:#fff8e1,stroke:#e65100,stroke-width:2px,color:#1a1a1a;
+
+    subgraph OLD ["до рефакторингу: news_dashboard,&lt;br&gt;16 ендпоінтів в одному main.py"]
+        direction LR
+        E0["ендпоінт"] --&gt; M0["MongoDB&lt;br&gt;напряму: get_db()"]
+        E0 --&gt; S0["scraper.py&lt;br&gt;власний _parse_page + NLP"]
+        S0 --&gt; N0["друга модель новини&lt;br&gt;13 полів у main.py"]
+    end
+    subgraph NEW ["news_hub, урок 38"]
+        direction LR
+        API["api.py&lt;br&gt;маршрути, ScrapeRequest"] -- "Depends" --&gt; ST["NewsStore&lt;br&gt;find, add_many, stats"]
+        API -- "Depends" --&gt; SC["scraper.py&lt;br&gt;aiohttp, gather"]
+        SC --&gt; P["parser.py&lt;br&gt;parse_rbc_news, урок 37"]
+        API --&gt; V["models.py&lt;br&gt;NewsItem, validate_news"]
+        V --&gt; ST
+    end
+    subgraph NEXT ["далі"]
+        direction LR
+        D["урок 39: NewsStore → SQLAlchemy"] ~~~ R["урок 40: кеш і rate limit"] ~~~ G["урок 44: Gemini"]
+    end
+    OLD --&gt; NEW --&gt; NEXT
+
+    class E0,S0 step
+    class M0,N0 error
+    class API,SC,P step
+    class V warning
+    class ST success
+    class D,R,G success</code></pre>
+<ul>
+<li><strong>Шари.</strong> <code>api.py</code> знає HTTP (маршрути, коди, моделі запитів), <code>scraper.py</code> — мережу, <code>parser.py</code> — HTML, <code>models.py</code> — правила даних, <code>store.py</code> — зберігання. Кожен можна замінити, не чіпаючи інших: урок 39 змінить лише <code>store.py</code>.</li>
+<li><strong>Залежності через <code>Depends</code>.</strong> Ендпоінт не створює сховище і не вибирає скрапер — отримує їх. Тому тест підмінює скрапер одним рядком, а урок 39 підставить сесію бази.</li>
+<li><strong>Одна модель.</strong> <code>NewsItem</code> перевіряє дані з парсера (урок 37) і описує відповідь API й схему в <code>/docs</code> (урок 38) — змінимо модель, і все це зміниться узгоджено.</li>
+</ul>
+<h3 id="mypy">Тести і mypy<a class="headerlink" href="#mypy" title="Permanent link">&para;</a></h3>
+<p>Приклад виводу (час залежить від машини):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>$ pytest -q -p no:cacheprovider
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>.......................                                                                      [100%]
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>23 passed in 0.64s
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>$ mypy --strict news_hub
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>Success: no issues found in 7 source files
+</code></pre></div>
+<p>Додалось 11 тестів API: порожнє сховище, збір зі знімка й фільтри, повторний збір, відхилені новини зі «скрапера»-заглушки, чотири випадки <code>422</code>, очищення, перелік шляхів в OpenAPI.</p>
+<h2 id="practice">Практика<a class="headerlink" href="#practice" title="Permanent link">&para;</a></h2>
+<h3 id="get-apinewssources">Розібраний приклад: ендпоінт <code>GET /api/news/sources</code><a class="headerlink" href="#get-apinewssources" title="Permanent link">&para;</a></h3>
+<p>Задача: список джерел з кількістю новин — <code>{"rbc.ua": 167, "auto.rbc.ua": 1}</code>.</p>
+<ol>
+<li><strong>Шлях і метод.</strong> Читаємо — <code>GET</code>; ресурс — джерела новин → <code>/api/news/sources</code>.</li>
+<li><strong>Звідки дані.</strong> <code>store.stats()["source"]</code> уже рахує джерела — нової логіки не треба.</li>
+<li><strong>Що повертаємо.</strong> <code>dict[str, int]</code> — анотація результату одразу стає схемою в <code>/docs</code>.</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi.testclient</span><span class="w"> </span><span class="kn">import</span> <span class="n">TestClient</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">news_hub.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">StoreDep</span><span class="p">,</span> <span class="n">app</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/api/news/sources"</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s2">"news"</span><span class="p">])</span>
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">news_sources</span><span class="p">(</span><span class="n">store</span><span class="p">:</span> <span class="n">StoreDep</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="w">    </span><span class="sd">"""Джерела новин і скільки новин з кожного."""</span>
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>    <span class="k">return</span> <span class="n">store</span><span class="o">.</span><span class="n">stats</span><span class="p">()[</span><span class="s2">"source"</span><span class="p">]</span>
+<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>
+<a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>
+<a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a><span class="k">with</span> <span class="n">TestClient</span><span class="p">(</span><span class="n">app</span><span class="p">)</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+<a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a>    <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/api/scrape"</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">"source"</span><span class="p">:</span> <span class="s2">"snapshot"</span><span class="p">})</span>
+<a id="__codelineno-22-13" name="__codelineno-22-13" href="#__codelineno-22-13"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/api/news/sources"</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+<a id="__codelineno-22-14" name="__codelineno-22-14" href="#__codelineno-22-14"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"/api/news/sources"</span> <span class="ow">in</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/openapi.json"</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">"paths"</span><span class="p">])</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>{'rbc.ua': 167, 'auto.rbc.ua': 1}
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>True
+</code></pre></div>
+<p>Порядок має значення: якби в застосунку був маршрут <code>/api/news/{news_id}</code>, оголошений <strong>раніше</strong>, запит <code>/api/news/sources</code> потрапив би в нього з <code>news_id="sources"</code>. Конкретні шляхи оголошуй перед шляхами з параметрами.</p>
+<h3 id="_8">Зміни приклад<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Додай до <code>/api/news/sources</code> параметр <code>min_count: int = Query(1, ge=1)</code> — повертати лише джерела, де новин не менше <code>min_count</code>. Перевір <code>422</code> для <code>min_count=0</code>.</li>
+<li>Додай у колекцію Postman запит «8. джерела» з перевіркою, що сума значень дорівнює <code>total</code> зі збору.</li>
+</ol>
+<h3 id="_9">Спробуй самостійно: пошук за словом<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>Ендпоінт <code>GET /api/news/search?q=…</code>:</p>
+<ul>
+<li><code>q</code> — обов'язковий, 2–60 символів (<code>Query(min_length=2, max_length=60)</code>);</li>
+<li>шукає <code>q</code> у заголовку без урахування регістру (<code>q.lower() in item.title.lower()</code>), повертає <code>list[NewsItem]</code>;</li>
+<li>пошук — метод <code>NewsStore.search(q, limit)</code>, а не код в ендпоінті.</li>
+</ul>
+<p><strong>Критерії перевірки:</strong> <code>?q=Зеленськ</code> на знімку повертає лише новини з цим словом у заголовку; <code>?q=а</code> — <code>422</code>; тест у <code>tests/test_api.py</code>; <code>mypy --strict</code> чистий. Старий <code>/api/news/trends</code> робив те саме через <code>$regex</code> з рядка користувача — чому так не варто, розберемо в уроці 47.</p>
+<h3 id="find-bug">Знайди помилку<a class="headerlink" href="#find-bug" title="Permanent link">&para;</a></h3>
+<p>Студент додав ендпоінт «зібрати одну сторінку» — через <code>requests</code>, як в уроці 32:</p>
+<div class="highlight"><span class="filename">news_hub/api.py</span><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/api/scrape/page"</span><span class="p">)</span>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">scrape_page</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">store</span><span class="p">:</span> <span class="n">StoreDep</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>    <span class="n">html</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>    <span class="n">valid</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">validate_news</span><span class="p">(</span><span class="n">parse_rbc_news</span><span class="p">(</span><span class="n">html</span><span class="p">))</span>
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">"saved"</span><span class="p">:</span> <span class="n">store</span><span class="o">.</span><span class="n">add_many</span><span class="p">(</span><span class="n">valid</span><span class="p">)}</span>
+</code></pre></div>
+<p>Локально з одним користувачем усе працює. Що станеться, коли rbc.ua відповідатиме 10 секунд, а до агрегатора прийде ще кілька запитів? Знайди дві проблеми.</p>
+<details class="success">
+<summary>Відповідь</summary>
+<ol>
+<li><strong><code>requests.get</code> у <code>async def</code> блокує цикл подій.</strong> Поки сторінка вантажиться (до 15 с), сервер не відповідає нікому — навіть <code>/health</code>. Це <code>/sync-broken</code> з <a href="#measure">вимірів</a>: 10 таких запитів — 10 × час сторінки. Виправлення: асинхронний клієнт з <code>await</code> (<code>aiohttp</code>, як у <code>scraper.py</code>, або <code>httpx.AsyncClient</code>) — або <code>def</code> замість <code>async def</code>, щоб FastAPI виконав функцію в пулі потоків.</li>
+<li><strong><code>url: str</code> без перевірки — SSRF.</strong> Будь-хто може попросити сервер завантажити <code>http://localhost:…</code> чи внутрішню адресу. Виправлення: <code>HttpUrl</code> і перевірка домену, як у <code>ScrapeRequest.only_rbc</code>.</li>
+</ol>
+<p>Бонус: <code>url: str</code> без моделі — це параметр <strong>рядка запиту</strong> (<code>POST /api/scrape/page?url=…</code>), а не тіла; для <code>POST</code> з даними краще модель у тілі.</p>
+</details>
+<h2 id="_10">Підсумок<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Поняття</th>
+<th>Що запам'ятати</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FastAPI()</code> + <code>@app.get/post/delete</code></td>
+<td>маршрут = метод + шлях → функція</td>
+</tr>
+<tr>
+<td>Параметри</td>
+<td>простий тип — з рядка запиту; Pydantic-модель — з тіла; <code>Depends</code> — із залежності</td>
+</tr>
+<tr>
+<td><code>Query(..., ge=, le=)</code>, <code>Literal</code></td>
+<td>правила перевірки параметрів; порушення → <code>422</code></td>
+</tr>
+<tr>
+<td><code>422</code></td>
+<td><code>detail[i].loc</code> — де помилка, <code>msg</code> — що не так</td>
+</tr>
+<tr>
+<td><code>response_model</code></td>
+<td>форма відповіді й JSON з моделі</td>
+</tr>
+<tr>
+<td><code>Depends</code>, <code>Annotated</code></td>
+<td>ендпоінт просить ресурс, FastAPI дає; у тестах — <code>dependency_overrides</code></td>
+</tr>
+<tr>
+<td><code>lifespan</code></td>
+<td>код при старті й зупинці сервера (замість <code>on_event</code>)</td>
+</tr>
+<tr>
+<td><code>/docs</code>, <code>/redoc</code>, <code>/openapi.json</code></td>
+<td>опис API, який FastAPI будує сам</td>
+</tr>
+<tr>
+<td>Postman / newman</td>
+<td>збережені запити з перевірками; newman — те саме з консолі й CI</td>
+</tr>
+<tr>
+<td><code>async def</code> vs <code>def</code></td>
+<td><code>async def</code> — у циклі подій, лише з <code>await</code>; блокуючий код — у <code>def</code> (пул потоків) або через async-бібліотеку</td>
+</tr>
+<tr>
+<td>Вимір</td>
+<td>перевір клієнт і тайм-аути, перш ніж робити висновки про сервер</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_11">Самоперевірка<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Звідки FastAPI бере значення параметра <code>limit: int = Query(50)</code>, а звідки — <code>request: ScrapeRequest</code>?</li>
+<li>Що поверне <code>GET /api/news?limit=0</code> і де в відповіді шукати причину?</li>
+<li>Навіщо сховище в <code>Depends</code>, якщо можна створити глобальну змінну <code>store = NewsStore()</code>?</li>
+<li>Що робить код до і після <code>yield</code> у <code>lifespan</code>?</li>
+<li>Чим відрізняються <code>/docs</code> і колекція Postman? Коли що використовувати?</li>
+<li><code>async def</code> + <code>time.sleep(2)</code>, 20 одночасних запитів — скільки чекатиме останній і чому? А з <code>def</code>?</li>
+<li>Чому <code>POST /api/scrape</code> приймає сторінки лише з rbc.ua?</li>
+</ol>
+<details class="success">
+<summary>Відповіді</summary>
+<ol>
+<li><code>limit</code> — з рядка запиту (<code>?limit=5</code>), бо це простий тип; <code>ScrapeRequest</code> — Pydantic-модель, тому з JSON-тіла.</li>
+<li><code>422</code>, <code>detail[0].loc == ["query", "limit"]</code>, <code>msg</code> — «Input should be greater than or equal to 1».</li>
+<li>Залежність можна підмінити в тестах (<code>dependency_overrides</code>) і замінити реалізацію (SQLAlchemy в уроці 39), не змінюючи ендпоінтів. Глобальна змінна жорстко зв'язує код з однією реалізацією і живе між тестами.</li>
+<li>До <code>yield</code> — один раз при старті (створити сховище, пул з'єднань), після — при зупинці (закрити, прибрати).</li>
+<li><code>/docs</code> — спробувати запит тут і зараз, прочитати контракт. Postman — зберегти набір запитів із перевірками, поділитися з командою, проганяти в CI через newman.</li>
+<li>~40 с: <code>time.sleep</code> займає цикл подій, запити виконуються по черзі (виміряно: 40.03 с). З <code>def</code> — ~2 с: FastAPI виконує функції в пулі потоків (виміряно: 2.03 с).</li>
+<li>Інакше будь-хто змусить сервер завантажити довільну адресу, зокрема внутрішню (SSRF).</li>
+</ol>
+</details>
+<h3 id="_12">Що далі<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Ноутбук заняття: <a class="md-button md-button--primary" href="https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_38_fastapi_basics/note_lesson_38_fastapi_student.ipynb">Відкрити вправи в Colab</a> <a class="solutions-link" href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_38_fastapi_basics/note_lesson_38_fastapi.ipynb">Переглянути розв’язки</a>.</li>
+<li>Урок 39 — <code>NewsStore</code> → SQLAlchemy: новини переживають перезапуск сервера, унікальний <code>url</code> — обмеження бази, <code>GET /api/news</code> — SQL-запит з фільтрами. Довідник: розділи 6–8 (пул з'єднань, Repository, Unit of Work).</li>
+</ul>
+<h2 id="_13">Документація і джерела<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Код: <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_38_fastapi_basics/news_hub"><code>news_hub</code></a> — API й скрапер з <code>news_dashboard/app/main.py</code> і <code>scraper.py</code> прототипу <code>news_dashboard</code>; <a href="https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_38_fastapi_basics/fastapi_demo"><code>fastapi_demo</code></a> — там само.</li>
+<li>Довідник курсу: <a href="../fastapi/fastapi_documentation/">FastAPI: архітектура, async і production-патерни</a>.</li>
+<li>FastAPI: <a href="https://fastapi.tiangolo.com/tutorial/first-steps/">First Steps</a>, <a href="https://fastapi.tiangolo.com/tutorial/query-params-str-validations/">Query Parameters and String Validations</a>, <a href="https://fastapi.tiangolo.com/tutorial/body/">Request Body</a>, <a href="https://fastapi.tiangolo.com/tutorial/response-model/">Response Model</a>, <a href="https://fastapi.tiangolo.com/tutorial/handling-errors/">Handling Errors</a>, <a href="https://fastapi.tiangolo.com/tutorial/dependencies/">Dependencies</a>, <a href="https://fastapi.tiangolo.com/advanced/events/">Lifespan Events</a>, <a href="https://fastapi.tiangolo.com/tutorial/testing/">Testing</a>, <a href="https://fastapi.tiangolo.com/advanced/testing-dependencies/">Testing Dependencies with Overrides</a>, <a href="https://fastapi.tiangolo.com/async/">Concurrency and async / await</a></li>
+<li><a href="https://spec.openapis.org/oas/latest.html">OpenAPI Specification</a></li>
+<li>Postman: <a href="https://learning.postman.com/docs/tests-and-scripts/write-scripts/test-scripts/">Write scripts to test API response data</a>, <a href="https://learning.postman.com/docs/collections/using-newman-cli/command-line-integration-with-newman/">Run collections using Newman CLI</a></li>
+<li>aiohttp: <a href="https://docs.aiohttp.org/en/stable/client_quickstart.html">Client Quickstart</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Футер" >
+        
+          
+          <a href="../lesson_37/" class="md-footer__link md-footer__link--prev" aria-label="Назад: 37. Typing + Pydantic">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Назад
+              </span>
+              <div class="md-ellipsis">
+                37. Typing + Pydantic
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../fastapi/fastapi_documentation/" class="md-footer__link md-footer__link--next" aria-label="Вперед: Довідник: FastAPI — архітектура і async">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Вперед
+              </span>
+              <div class="md-ellipsis">
+                Довідник: FastAPI — архітектура і async
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.path", "navigation.prune", "navigation.footer", "toc.follow", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0456\u0439\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u0421\u043a\u043e\u043f\u0456\u044e\u0432\u0430\u0442\u0438 \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0429\u0435 1 \u0437\u0431\u0456\u0433 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.more.other": "\u0429\u0435 # \u0437\u0431\u0456\u0433\u0456\u0432 \u043d\u0430 \u0446\u0456\u0439 \u0441\u0442\u043e\u0440\u0456\u043d\u0446\u0456", "search.result.none": "\u0417\u0431\u0456\u0433\u0456\u0432 \u043d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0437\u0431\u0456\u0433", "search.result.other": "\u0417\u043d\u0430\u0439\u0434\u0435\u043d\u043e # \u0437\u0431\u0456\u0433\u0456\u0432", "search.result.placeholder": "\u0420\u043e\u0437\u043f\u043e\u0447\u043d\u0456\u0442\u044c \u043f\u0438\u0441\u0430\u0442\u0438 \u0434\u043b\u044f \u043f\u043e\u0448\u0443\u043a\u0443", "search.result.term.missing": "\u041d\u0435 \u0437\u043d\u0430\u0439\u0434\u0435\u043d\u043e \u0437\u0430\u043f\u0438\u0442\u0443", "select.version": "\u041e\u0431\u0440\u0430\u0442\u0438 \u0432\u0435\u0440\u0441\u0456\u044e"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/sidebars.js"></script>
+      
+    
+  </body>
+</html>
