@@ -7,7 +7,7 @@ Django-гілка курсу веде той самий застосунок н�
 - **JWT** для API — вхід для програм, яким не підходить cookie браузера;
 - **налаштування безпеки** і `check --deploy`; карта ризиків OWASP Top 10 на нашому коді.
 
-Стартовий код — той самий `crispy_notes_project`, до якого додано групи, скидання пароля й блок налаштувань безпеки. Теорія — [частина VII Django-книги](https://nikoriakviktot.github.io/notes_chat_app/07_auth_and_security/): тут лише зміни в коді й те, що знайшли, коли зібрали все разом.
+Стартовий код — той самий `crispy_notes_project`, до якого додано групи, скидання пароля й блок налаштувань безпеки. Теорія — [частина VII Django-книги](https://nikoriakviktor.github.io/notes_chat_app/07_auth_and_security/): тут лише зміни в коді й те, що знайшли, коли зібрали все разом.
 
 | Урок | Django-гілка: застосунок нотаток | Проєкт |
 |---|---|---|
@@ -18,7 +18,7 @@ Django-гілка курсу веде той самий застосунок н�
 | 44 | архітектура: services і selectors | — |
 | 45 | чат на WebSocket | — |
 
-Проєкт: [`crispy_notes_project`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_41_auth_security/crispy_notes_project).
+Проєкт: [`crispy_notes_project`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_41_auth_security/crispy_notes_project).
 
 **Що потрібно з попередніх уроків:** застосунок нотаток і його `services`/`selectors` (33–35), DRF-серіалізатори й `ViewSet` (35), HTTP-заголовки й статус-коди (31–32), хеш-функції (урок 17).
 
@@ -30,7 +30,7 @@ Django-гілка курсу веде той самий застосунок н�
 - видати й перевірити JWT, пояснити, з чого складається токен і чому його не можна «підправити»;
 - прочитати `manage.py check --deploy` і зв'язати знахідки з OWASP Top 10.
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_41_auth_security/note_lesson_41_auth_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_41_auth_security/note_lesson_41_auth.ipynb){ .solutions-link } — хеші паролів, JWT по частинах, групи й права в API.
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_41_auth_security/note_lesson_41_auth_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_41_auth_security/note_lesson_41_auth.ipynb){ .solutions-link } — хеші паролів, JWT по частинах, групи й права в API.
 
 ## Пригадай
 
@@ -42,7 +42,7 @@ Django-гілка курсу веде той самий застосунок н�
 
     1. `404`: для чужого користувача нотатки «немає». `403` підтвердив би, що нотатка з таким id існує, — це вже витік.
     2. Ні: хеш — односторонній. Можна лише порахувати хеш іншого рядка й порівняти.
-    3. У cookie `sessionid`: у ній лише випадковий ключ, а дані сесії (хто увійшов) — на сервері, в таблиці `django_session`. Детально — [Сесії в Django-книзі](https://nikoriakviktot.github.io/notes_chat_app/07_auth_and_security/sessions_flow_full/).
+    3. У cookie `sessionid`: у ній лише випадковий ключ, а дані сесії (хто увійшов) — на сервері, в таблиці `django_session`. Детально — [Сесії в Django-книзі](https://nikoriakviktor.github.io/notes_chat_app/07_auth_and_security/sessions_flow_full/).
 
 ## Старт: з якого коду починаємо
 
@@ -192,7 +192,7 @@ Not Found: /api/notes/1/
 
 `403` для учасника групи чесний: нотатку він і так бачить, приховувати нічого. Для Івана — `404`, як і в уроці 36. Тест `test_api_member_reads_but_cannot_write` закріплює правило: без `_get_own_note` він падає.
 
-Поглиблено: [Права доступу](https://nikoriakviktot.github.io/notes_chat_app/07_auth_and_security/permissions_full/), [Автентифікація, сесії й права: IDOR](https://nikoriakviktot.github.io/notes_chat_app/07_auth_and_security/auth_sessions_permissions/).
+Поглиблено: [Права доступу](https://nikoriakviktor.github.io/notes_chat_app/07_auth_and_security/permissions_full/), [Автентифікація, сесії й права: IDOR](https://nikoriakviktor.github.io/notes_chat_app/07_auth_and_security/auth_sessions_permissions/).
 
 ## Паролі { #passwords }
 
@@ -264,7 +264,7 @@ nobody@example.com   → 302 /accounts/password_reset/done/
 
 Однакова відповідь для відомого й невідомого email — не випадковість: інакше форма скидання стала б способом **перевіряти, хто зареєстрований** (user enumeration, OWASP A07). Токен у посиланні одноразовий: він залежить від хешу пароля, тож після зміни пароля старе посилання не спрацює.
 
-Поглиблено: [Автентифікація](https://nikoriakviktot.github.io/notes_chat_app/07_auth_and_security/auth_basics_full/), [Основи безпеки](https://nikoriakviktot.github.io/notes_chat_app/07_auth_and_security/security_foundations_full/).
+Поглиблено: [Автентифікація](https://nikoriakviktor.github.io/notes_chat_app/07_auth_and_security/auth_basics_full/), [Основи безпеки](https://nikoriakviktor.github.io/notes_chat_app/07_auth_and_security/security_foundations_full/).
 
 ## Рефакторинг 4b. JWT для API { #jwt }
 
@@ -434,7 +434,7 @@ Too Many Requests: /api/token/
 
 Після 5 спроб за хвилину — `429`, навіть з правильним паролем: зловмисник не може перебирати швидко, а справжній користувач чекає хвилину. Той самий принцип, що rate limit агрегатора в уроці 40, — тут готовий `ScopedRateThrottle` DRF.
 
-Поглиблено: [DRF: автентифікація й permissions у Django-книзі](https://nikoriakviktot.github.io/notes_chat_app/06_application_architecture/drf_rest_api_full/).
+Поглиблено: [DRF: автентифікація й permissions у Django-книзі](https://nikoriakviktor.github.io/notes_chat_app/06_application_architecture/drf_rest_api_full/).
 
 ## Налаштування безпеки і `check --deploy` { #settings }
 
@@ -499,7 +499,7 @@ System check identified 4 issues (0 silenced).
 | **A05** Security Misconfiguration | `DEBUG`, `ALLOWED_HOSTS`, заголовки | `check --deploy`, блок налаштувань безпеки |
 | **A07** Identification and Authentication Failures | вхід, скидання пароля, API | throttle на `/api/token/`, однакова відповідь для невідомого email, короткий access-токен, валідатори пароля |
 
-Решта пунктів (A04, A06, A08–A10) і розбір кожного — [OWASP Top 10 у Django-книзі](https://nikoriakviktot.github.io/notes_chat_app/07_auth_and_security/owasp_top_10_full/), а поглиблено — урок 47.
+Решта пунктів (A04, A06, A08–A10) і розбір кожного — [OWASP Top 10 у Django-книзі](https://nikoriakviktor.github.io/notes_chat_app/07_auth_and_security/owasp_top_10_full/), а поглиблено — урок 47.
 
 ## Архітектура: два входи, одні правила { #architecture }
 
@@ -660,14 +660,14 @@ print("підроблений токен →", response.status_code, [note["titl
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_41_auth_security/note_lesson_41_auth_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_41_auth_security/note_lesson_41_auth.ipynb){ .solutions-link }.
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_41_auth_security/note_lesson_41_auth_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_41_auth_security/note_lesson_41_auth.ipynb){ .solutions-link }.
 - Урок 42 — тестування API на агрегаторі новин: тестова база, підміна мережі, моки.
 - Урок 47 — security advanced: SSRF, секрети, заголовки, JWT для адмін-ендпоінтів агрегатора.
 
 ## Документація і джерела
 
-- Код: [`crispy_notes_project`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_41_auth_security/crispy_notes_project) — проєкт уроку 36 + групи, скидання пароля й налаштування безпеки зі стартового `crispy_notes_project`.
-- Django-книга, частина VII: [огляд](https://nikoriakviktot.github.io/notes_chat_app/07_auth_and_security/), [автентифікація](https://nikoriakviktot.github.io/notes_chat_app/07_auth_and_security/auth_basics_full/), [сесії](https://nikoriakviktot.github.io/notes_chat_app/07_auth_and_security/sessions_flow_full/), [права доступу](https://nikoriakviktot.github.io/notes_chat_app/07_auth_and_security/permissions_full/), [архітектура безпеки Django](https://nikoriakviktot.github.io/notes_chat_app/07_auth_and_security/django_security_architecture_full/), [типові помилки](https://nikoriakviktot.github.io/notes_chat_app/07_auth_and_security/security_misconceptions_full/), [OWASP Top 10](https://nikoriakviktot.github.io/notes_chat_app/07_auth_and_security/owasp_top_10_full/).
+- Код: [`crispy_notes_project`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_41_auth_security/crispy_notes_project) — проєкт уроку 36 + групи, скидання пароля й налаштування безпеки зі стартового `crispy_notes_project`.
+- Django-книга, частина VII: [огляд](https://nikoriakviktor.github.io/notes_chat_app/07_auth_and_security/), [автентифікація](https://nikoriakviktor.github.io/notes_chat_app/07_auth_and_security/auth_basics_full/), [сесії](https://nikoriakviktor.github.io/notes_chat_app/07_auth_and_security/sessions_flow_full/), [права доступу](https://nikoriakviktor.github.io/notes_chat_app/07_auth_and_security/permissions_full/), [архітектура безпеки Django](https://nikoriakviktor.github.io/notes_chat_app/07_auth_and_security/django_security_architecture_full/), [типові помилки](https://nikoriakviktor.github.io/notes_chat_app/07_auth_and_security/security_misconceptions_full/), [OWASP Top 10](https://nikoriakviktor.github.io/notes_chat_app/07_auth_and_security/owasp_top_10_full/).
 - Django: [Password management](https://docs.djangoproject.com/en/5.2/topics/auth/passwords/), [Using the authentication system](https://docs.djangoproject.com/en/5.2/topics/auth/default/), [Deployment checklist](https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/), [Security in Django](https://docs.djangoproject.com/en/5.2/topics/security/)
 - DRF: [Authentication](https://www.django-rest-framework.org/api-guide/authentication/), [Permissions](https://www.django-rest-framework.org/api-guide/permissions/), [Throttling](https://www.django-rest-framework.org/api-guide/throttling/); [Simple JWT](https://django-rest-framework-simplejwt.readthedocs.io/)
 - [RFC 7519 — JSON Web Token](https://datatracker.ietf.org/doc/html/rfc7519), [jwt.io](https://jwt.io/) — розібрати токен

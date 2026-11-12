@@ -1,6 +1,6 @@
 # delivery_tests — тести для сервісу «Смачно + Таксі»
 
-Навчальний проєкт уроку 26 ([сторінка в книзі](https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m2/lesson_25/)).
+Навчальний проєкт уроку 26 ([сторінка в книзі](https://nikoriakviktor.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m2/lesson_25/)).
 
 ```text
 delivery/

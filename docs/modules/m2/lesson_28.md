@@ -21,7 +21,7 @@
 
 **Задача розділу.** Ранковий звіт диспетчерської: опитування ресторанів і статистика районів, які сьогодні виконуються за секунди замість хвилини. Повний код — у розділі [«Практика»](#practice).
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_28_concurrency_intro/note_lesson_28_concurrency_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_28_concurrency_intro/note_lesson_28_concurrency.ipynb){ .solutions-link }
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_28_concurrency_intro/note_lesson_28_concurrency_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_28_concurrency_intro/note_lesson_28_concurrency.ipynb){ .solutions-link }
 
 ## Пригадай
 
@@ -687,7 +687,7 @@ async def report():
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_28_concurrency_intro/note_lesson_28_concurrency_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_28_concurrency_intro/note_lesson_28_concurrency.ipynb){ .solutions-link } — вимірювання, стан гонитви і `Lock`, процеси з файлу-модуля, корутини в Jupyter, вправи з перевірками.
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_28_concurrency_intro/note_lesson_28_concurrency_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_28_concurrency_intro/note_lesson_28_concurrency.ipynb){ .solutions-link } — вимірювання, стан гонитви і `Lock`, процеси з файлу-модуля, корутини в Jupyter, вправи з перевірками.
 - Наступне заняття — урок 29, практикум П6: стек, черга, купа, префіксне дерево й LRU-кеш.
 - Далі в курсі: асинхронні HTTP-запити з `httpx` і `aiohttp` (урок 32), асинхронний FastAPI (уроки 38–39), WebSockets (урок 46).
 

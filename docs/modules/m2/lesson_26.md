@@ -20,9 +20,9 @@
 - вимірювати покриття й розуміти, чому 100% — не мета;
 - перевіряти AI-згенерований код тестами на інваріанти.
 
-**Задача розділу.** Набір тестів для тарифів, конвеєра подій і SMS-сповіщень сервісу — у проєкті [`delivery_tests/`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_2/lessons/lesson_26_pytest_testing/delivery_tests). Повний розбір — у розділі [«Практика»](#practice).
+**Задача розділу.** Набір тестів для тарифів, конвеєра подій і SMS-сповіщень сервісу — у проєкті [`delivery_tests/`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_2/lessons/lesson_26_pytest_testing/delivery_tests). Повний розбір — у розділі [«Практика»](#practice).
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_26_pytest_testing/note_lesson_26_pytest_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_26_pytest_testing/note_lesson_26_pytest.ipynb){ .solutions-link }
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_26_pytest_testing/note_lesson_26_pytest_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_26_pytest_testing/note_lesson_26_pytest.ipynb){ .solutions-link }
 
 !!! note "Встановлення"
     pytest — стороння бібліотека: `pip install pytest pytest-cov` в активованому середовищі (урок 2). У Colab pytest уже є.
@@ -663,7 +663,7 @@ def test_read_log_from_file(tmp_path, log_lines):
 - `test_whole_pipeline` — інтеграційний: усі стадії разом на даних з fixture `log_lines`.
 - `test_read_log_from_file` — файл у тимчасовій папці; порожні рядки наприкінці мають відкидатися.
 
-Окремо в папці уроку лежить [`basics/`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_2/lessons/lesson_26_pytest_testing/basics) — п'ять файлів-практикумів від простого до складного: перший тест, `unittest.TestCase`, довідник assert-методів, fixtures, `parametrize`. Кожен файл — тести з докладними коментарями; запуск: `python -m pytest -v` у цій папці (105 тестів).
+Окремо в папці уроку лежить [`basics/`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_2/lessons/lesson_26_pytest_testing/basics) — п'ять файлів-практикумів від простого до складного: перший тест, `unittest.TestCase`, довідник assert-методів, fixtures, `parametrize`. Кожен файл — тести з докладними коментарями; запуск: `python -m pytest -v` у цій папці (105 тестів).
 
 ### Зміни приклад: нічний тариф
 
@@ -767,8 +767,8 @@ def test_parse_two(rejected):
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_26_pytest_testing/note_lesson_26_pytest_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_26_pytest_testing/note_lesson_26_pytest.ipynb){ .solutions-link } — тести пишуться у файли й запускаються pytest прямо з ноутбука: промокод, баг на межі, конвеєр подій, mock SMS-шлюзу, перевірка AI-коду.
-- Практикум викладача: [`basics/`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_2/lessons/lesson_26_pytest_testing/basics) — 5 файлів з тестами від першого `assert` до `parametrize`.
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_26_pytest_testing/note_lesson_26_pytest_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_26_pytest_testing/note_lesson_26_pytest.ipynb){ .solutions-link } — тести пишуться у файли й запускаються pytest прямо з ноутбука: промокод, баг на межі, конвеєр подій, mock SMS-шлюзу, перевірка AI-коду.
+- Практикум викладача: [`basics/`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_2/lessons/lesson_26_pytest_testing/basics) — 5 файлів з тестами від першого `assert` до `parametrize`.
 - Наступне заняття — урок 27, практикум П5: динамічне програмування. Тести з сьогоднішнього уроку допоможуть переконатися, що швидке рішення дає ту саму відповідь, що й повільне.
 - Далі в курсі: тестування Django (уроки 34–35), тести HTTP API з `httpx` (урок 42), запуск тестів у CI через GitHub Actions (урок 51).
 

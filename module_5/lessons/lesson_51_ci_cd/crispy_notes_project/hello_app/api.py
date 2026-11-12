@@ -5,7 +5,7 @@ View не робить ORM-запитів сам: читання — selectors, 
 Кожен запит бачить лише нотатки поточного користувача (захист від IDOR).
 Урок 44: записник для фільтра й поля `notebook` — теж через selectors (notebooks_owned_by, find_owned),
 а не `Notebook.objects.filter(user=...)` тут; `Model.objects.none()` лишились — вони не роблять запитів.
-Теорія: https://nikoriakviktot.github.io/notes_chat_app/06_application_architecture/drf_rest_api_full/
+Теорія: https://nikoriakviktor.github.io/notes_chat_app/06_application_architecture/drf_rest_api_full/
 """
 from drf_spectacular.utils import OpenApiParameter, extend_schema, extend_schema_view
 from rest_framework import permissions, serializers, status, viewsets

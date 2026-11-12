@@ -12,9 +12,9 @@
 
 | Файл | Що це |
 |---|---|
-| [`pitch_deck_template.md`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/lessons/lesson_53_graduation_pitch/pitch_deck_template.md) | шаблон на 10 слайдів для Marp: слайди — Markdown, нотатки доповідача — у коментарях |
-| [`example_news_digest_deck.md`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/lessons/lesson_53_graduation_pitch/example_news_digest_deck.md) і [PDF](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/lessons/lesson_53_graduation_pitch/example_news_digest_deck.pdf) | приклад: питч «Тема дня» на основі `news_hub` з повним текстом виступу |
-| [`pitch_check.py`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/lessons/lesson_53_graduation_pitch/pitch_check.py) | перевірка деку: кількість слайдів, текст на слайді, час виступу, обов'язкові розділи, забуті заготовки |
+| [`pitch_deck_template.md`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/lessons/lesson_53_graduation_pitch/pitch_deck_template.md) | шаблон на 10 слайдів для Marp: слайди — Markdown, нотатки доповідача — у коментарях |
+| [`example_news_digest_deck.md`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/lessons/lesson_53_graduation_pitch/example_news_digest_deck.md) і [PDF](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/lessons/lesson_53_graduation_pitch/example_news_digest_deck.pdf) | приклад: питч «Тема дня» на основі `news_hub` з повним текстом виступу |
+| [`pitch_check.py`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/lessons/lesson_53_graduation_pitch/pitch_check.py) | перевірка деку: кількість слайдів, текст на слайді, час виступу, обов'язкові розділи, забуті заготовки |
 
 **Що потрібно з попередніх уроків:** фінальний проєкт і план з уроку 52; Docker Compose (49) — для демо; вимірювання з уроку 52 — для технічного слайда.
 
@@ -25,7 +25,7 @@
 - порахувати ринок знизу вгору і чесно позначити, що є фактом, а що — припущенням;
 - показати демо, яке не зламається на сцені, і відповісти на незручні питання.
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/lessons/lesson_53_graduation_pitch/note_lesson_53_pitch_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/lessons/lesson_53_graduation_pitch/note_lesson_53_pitch.ipynb){ .solutions-link } — 5 «чому» як дерево причин, питання за The Mom Test, ринок знизу вгору, розбір і перевірка деку, бюджет часу на слайди.
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/lessons/lesson_53_graduation_pitch/note_lesson_53_pitch_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/lessons/lesson_53_graduation_pitch/note_lesson_53_pitch.ipynb){ .solutions-link } — 5 «чому» як дерево причин, питання за The Mom Test, ринок знизу вгору, розбір і перевірка деку, бюджет часу на слайди.
 
 ## Пригадай
 
@@ -452,7 +452,7 @@ python module_6/lessons/lesson_53_graduation_pitch/pitch_check.py my_deck.md
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/lessons/lesson_53_graduation_pitch/note_lesson_53_pitch_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/lessons/lesson_53_graduation_pitch/note_lesson_53_pitch.ipynb){ .solutions-link }.
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/lessons/lesson_53_graduation_pitch/note_lesson_53_pitch_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/lessons/lesson_53_graduation_pitch/note_lesson_53_pitch.ipynb){ .solutions-link }.
 - [Бонус. CV розробника](bonus_cv.md): як описати фінальний проєкт у CV тими самими фактами, що й у питчі.
 
 ## Документація і джерела

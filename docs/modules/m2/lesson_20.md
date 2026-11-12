@@ -19,7 +19,7 @@
 
 **Задача розділу.** Клас `DeliveryService`, який сам видає номери замовлень, не дає додати доставку до неіснуючого замовлення й будує звіт. Повний код — у розділі [«Практика»](#practice).
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_20_classes_namespace/note_lesson_20_classes_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_20_classes_namespace/note_lesson_20_classes.ipynb){ .solutions-link }
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_20_classes_namespace/note_lesson_20_classes_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_20_classes_namespace/note_lesson_20_classes.ipynb){ .solutions-link }
 
 ## Пригадай
 
@@ -711,9 +711,9 @@ lucky               →  Promo(LUCKY20, 20%, лишилось 2)
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_20_classes_namespace/note_lesson_20_classes_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_20_classes_namespace/note_lesson_20_classes.ipynb){ .solutions-link } — сервіс доставки: прогнози, вправи з перевірками, баги з атрибутами класу.
-- Практикум на реальних даних: [`lab_lesson_20_titanic_oop.ipynb`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_20_classes_namespace/lab_lesson_20_titanic_oop.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_20_classes_namespace/lab_lesson_20_titanic_oop.ipynb) — клас `Passenger` для пасажирів «Титаніка», `@classmethod` з рядка таблиці, аналіз виживання; 5 завдань.
-- Довідник-схема: [ментальна модель класів](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_20_classes_namespace/classes_mental_model.md).
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_20_classes_namespace/note_lesson_20_classes_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_20_classes_namespace/note_lesson_20_classes.ipynb){ .solutions-link } — сервіс доставки: прогнози, вправи з перевірками, баги з атрибутами класу.
+- Практикум на реальних даних: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_20_classes_namespace/lab_lesson_20_titanic_oop_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_20_classes_namespace/lab_lesson_20_titanic_oop.ipynb){ .solutions-link } — клас `Passenger` для пасажирів «Титаніка», `@classmethod` з рядка таблиці, аналіз виживання; 5 завдань.
+- Довідник-схема: [ментальна модель класів](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_20_classes_namespace/classes_mental_model.md).
 - Наступне заняття — урок 21 «Наслідування, поліморфізм»: доставка таксі, кур'єром-пішоходом і самовивіз — різні класи з однаковим методом `fare()`.
 
 ## Документація і джерела

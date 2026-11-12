@@ -21,7 +21,7 @@
 
 **Задача розділу.** Розклад водія на зміну: спершу найбільше замовлень, потім найбільший заробіток. Повний код — у розділі [«Практика»](#practice).
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_27_practicum_dp_greedy/note_lesson_27_scheduling_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_27_practicum_dp_greedy/note_lesson_27_scheduling.ipynb){ .solutions-link }
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_27_practicum_dp_greedy/note_lesson_27_scheduling_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_27_practicum_dp_greedy/note_lesson_27_scheduling.ipynb){ .solutions-link }
 
 ## Пригадай
 
@@ -694,7 +694,7 @@ print(re.findall(r"<.*?>", html))
 
 Зверни увагу на різницю: жадібний **квантифікатор** відступає і переглядає своє рішення, а жадібний **алгоритм** — ніколи. Спільна лише назва: «брати якомога більше одразу».
 
-Модуль `re` від простого до складного — в окремому ноутбуці [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_27_practicum_dp_greedy/re_lesson_27_greedy_regex_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_27_practicum_dp_greedy/re_lesson_27_greedy_regex.ipynb){ .solutions-link }: методи рядків проти regex, `search` / `fullmatch` / `findall` / `sub`, групи, квантифікатори, номери замовлень і дати в журналі водіїв.
+Модуль `re` від простого до складного — в окремому ноутбуці [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_27_practicum_dp_greedy/re_lesson_27_greedy_regex_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_27_practicum_dp_greedy/re_lesson_27_greedy_regex.ipynb){ .solutions-link }: методи рядків проти regex, `search` / `fullmatch` / `findall` / `sub`, групи, квантифікатори, номери замовлень і дати в журналі водіїв.
 
 ## Практика { #practice }
 
@@ -832,8 +832,8 @@ print(p_bug[1:], dp[4])
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_27_practicum_dp_greedy/note_lesson_27_scheduling_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_27_practicum_dp_greedy/note_lesson_27_scheduling.ipynb){ .solutions-link } — сумісність, greedy, контрприклад, `p(i)`, таблиця ДП, відновлення розкладу, перевірка перебором, `bisect`.
-- Додатково: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_27_practicum_dp_greedy/re_lesson_27_greedy_regex_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_27_practicum_dp_greedy/re_lesson_27_greedy_regex.ipynb){ .solutions-link } — модуль `re` і жадібні квантифікатори.
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_27_practicum_dp_greedy/note_lesson_27_scheduling_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_27_practicum_dp_greedy/note_lesson_27_scheduling.ipynb){ .solutions-link } — сумісність, greedy, контрприклад, `p(i)`, таблиця ДП, відновлення розкладу, перевірка перебором, `bisect`.
+- Додатково: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_27_practicum_dp_greedy/re_lesson_27_greedy_regex_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_27_practicum_dp_greedy/re_lesson_27_greedy_regex.ipynb){ .solutions-link } — модуль `re` і жадібні квантифікатори.
 - Наступне заняття — урок 28 «Потоки, multiprocessing, asyncio: вступ».
 
 ## Документація і джерела

@@ -11,10 +11,10 @@
 
 | Інструмент | Що робить |
 |---|---|
-| [`architecture_audit.py`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/lessons/lesson_52_final_project/architecture_audit.py) | граф імпортів пакета через `ast`: рядки, fan-in / fan-out, цикли (алгоритм Тар'яна), діаграма Mermaid |
-| [`db_audit.sql`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/lessons/lesson_52_final_project/db_audit.sql) | розміри таблиць, зайві й невикористані індекси, повні перегляди таблиць |
-| [`query_count.py`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/lessons/lesson_52_final_project/query_count.py) | скільки SQL-запитів робить кожна сторінка Django при 10 і 40 записах (N+1) |
-| [`patches/news_hub_search_index.patch`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/lessons/lesson_52_final_project/patches/news_hub_search_index.patch) | перевірена міграція за результатами аудиту: trigram-індекс для пошуку, мінус зайвий індекс |
+| [`architecture_audit.py`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/lessons/lesson_52_final_project/architecture_audit.py) | граф імпортів пакета через `ast`: рядки, fan-in / fan-out, цикли (алгоритм Тар'яна), діаграма Mermaid |
+| [`db_audit.sql`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/lessons/lesson_52_final_project/db_audit.sql) | розміри таблиць, зайві й невикористані індекси, повні перегляди таблиць |
+| [`query_count.py`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/lessons/lesson_52_final_project/query_count.py) | скільки SQL-запитів робить кожна сторінка Django при 10 і 40 записах (N+1) |
+| [`patches/news_hub_search_index.patch`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/lessons/lesson_52_final_project/patches/news_hub_search_index.patch) | перевірена міграція за результатами аудиту: trigram-індекс для пошуку, мінус зайвий індекс |
 
 | Урок | Що робимо |
 |---|---|
@@ -31,7 +31,7 @@
 - перевірити, де живе стан застосунку і чи переживе він кілька реплік;
 - обрати тему фінального проєкту й скласти його мінімальний план.
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/lessons/lesson_52_final_project/note_lesson_52_final_project_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/lessons/lesson_52_final_project/note_lesson_52_final_project.ipynb){ .solutions-link } — аудит архітектури власноруч: граф імпортів, цикли, keyset-пагінація і `EXPLAIN` на SQLite, чек-лист фінального проєкту.
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/lessons/lesson_52_final_project/note_lesson_52_final_project_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/lessons/lesson_52_final_project/note_lesson_52_final_project.ipynb){ .solutions-link } — аудит архітектури власноруч: граф імпортів, цикли, keyset-пагінація і `EXPLAIN` на SQLite, чек-лист фінального проєкту.
 
 ## Пригадай
 
@@ -320,7 +320,7 @@ flowchart TD
 
 Для частого слова картина інша. «Гришин» є в 3600 заголовках: з індексом база знаходить усі 3600, сортує за `id` і віддає 20 перших — 36 мс. Без індексу — 16–19 мс: перші 20 збігів трапляються вже на початку перегляду за `id`, і база зупиняється. Індекс — не чарівна кнопка, а ще один варіант для планувальника, і він не завжди обирає найкращий. Міряй на своїх даних — і на рідкісних, і на частих значеннях.
 
-Готова міграція — [`patches/news_hub_search_index.patch`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/lessons/lesson_52_final_project/patches/news_hub_search_index.patch) для `news_hub` уроку 51 (застосовується `git apply`):
+Готова міграція — [`patches/news_hub_search_index.patch`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/lessons/lesson_52_final_project/patches/news_hub_search_index.patch) для `news_hub` уроку 51 (застосовується `git apply`):
 
 ```python
 def upgrade() -> None:
@@ -905,13 +905,13 @@ REST_FRAMEWORK = {"DEFAULT_THROTTLE_RATES": {"login": "5/min"}}
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/lessons/lesson_52_final_project/note_lesson_52_final_project_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/lessons/lesson_52_final_project/note_lesson_52_final_project.ipynb){ .solutions-link }.
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/lessons/lesson_52_final_project/note_lesson_52_final_project_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/lessons/lesson_52_final_project/note_lesson_52_final_project.ipynb){ .solutions-link }.
 - [Бонус. CV розробника](bonus_cv.md): як описати фінальний проєкт у CV.
 - [Урок 53](lesson_53.md) — випускний: презентація фінального проєкту як питч-дек.
 
 ## Документація і джерела
 
-- Код уроку: [`lesson_52_final_project`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_6/lessons/lesson_52_final_project); проєкти, що аналізуються, — [`lesson_51_ci_cd`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_5/lessons/lesson_51_ci_cd).
+- Код уроку: [`lesson_52_final_project`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_6/lessons/lesson_52_final_project); проєкти, що аналізуються, — [`lesson_51_ci_cd`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_5/lessons/lesson_51_ci_cd).
 - PostgreSQL: [`EXPLAIN`](https://www.postgresql.org/docs/16/using-explain.html), [індекси за виразами](https://www.postgresql.org/docs/16/indexes-expressional.html), [класи операторів](https://www.postgresql.org/docs/16/indexes-opclass.html), [`pg_trgm`](https://www.postgresql.org/docs/16/pgtrgm.html), [`CREATE INDEX CONCURRENTLY`](https://www.postgresql.org/docs/16/sql-createindex.html#SQL-CREATEINDEX-CONCURRENTLY), [статистика `pg_stat_user_indexes`](https://www.postgresql.org/docs/16/monitoring-stats.html), [`json` і `jsonb`](https://www.postgresql.org/docs/16/datatype-json.html).
 - SQLAlchemy: [індекси за виразами й `postgresql_ops`](https://docs.sqlalchemy.org/en/20/dialects/postgresql.html#operator-classes), [події DDL](https://docs.sqlalchemy.org/en/20/core/ddl.html). Alembic: [`autocommit_block`](https://alembic.sqlalchemy.org/en/latest/api/runtime.html#alembic.runtime.migration.MigrationContext.autocommit_block), [`alembic check`](https://alembic.sqlalchemy.org/en/latest/autogenerate.html).
 - Django: [кеш і бекенди](https://docs.djangoproject.com/en/5.2/topics/cache/), [`db_index`](https://docs.djangoproject.com/en/5.2/ref/models/fields/#db-index), [`assertNumQueries`](https://docs.djangoproject.com/en/5.2/topics/testing/tools/#django.test.TransactionTestCase.assertNumQueries). DRF: [throttling і кеш](https://www.django-rest-framework.org/api-guide/throttling/). FastAPI: [`APIRouter`, великі застосунки](https://fastapi.tiangolo.com/tutorial/bigger-applications/).

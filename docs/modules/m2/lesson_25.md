@@ -46,7 +46,7 @@ print(len(LOG))
 
 **Задача розділу.** Конвеєр «журнал → розбір → зміна → тривалості → звіт», що рахує середній час доставки кожного кур'єра й збирає биті рядки окремо. Повний код — у розділі [«Практика»](#practice).
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_25_iterators_advanced/note_lesson_25_iterators_advanced_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_25_iterators_advanced/note_lesson_25_iterators_advanced.ipynb){ .solutions-link }
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_25_iterators_advanced/note_lesson_25_iterators_advanced_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_25_iterators_advanced/note_lesson_25_iterators_advanced.ipynb){ .solutions-link }
 
 ## Пригадай
 
@@ -756,7 +756,7 @@ print(avg.send(18))
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_25_iterators_advanced/note_lesson_25_iterators_advanced_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_25_iterators_advanced/note_lesson_25_iterators_advanced.ipynb){ .solutions-link } — прогнози й вправи з перевірками: курсор з `peek`, сопрограма-лічильник, `batched`, ковзне середнє, звіт по кур'єрах.
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_25_iterators_advanced/note_lesson_25_iterators_advanced_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_25_iterators_advanced/note_lesson_25_iterators_advanced.ipynb){ .solutions-link } — прогнози й вправи з перевірками: курсор з `peek`, сопрограма-лічильник, `batched`, ковзне середнє, звіт по кур'єрах.
 - Наступне заняття — урок 26 «Тестування з pytest»: стадії нашого конвеєра — ідеальні кандидати на перші тести.
 - Урок 28 — потоки, `multiprocessing` і `asyncio`: `async` / `await` — нащадки `.send()` і `yield from`.
 

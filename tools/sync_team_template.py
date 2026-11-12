@@ -2,7 +2,7 @@
 """Синхронізація шаблону командного проєкту уроку 16 з курсом.
 
 Джерело — `module_1/lessons/lesson_16_git_github_system/team_project/` (без `solution/`),
-ціль — локальний клон https://github.com/NikoriakViktot/cafe-kasa-template.
+ціль — локальний клон https://github.com/NikoriakViktor/cafe-kasa-template.
 
     python tools/sync_team_template.py                       # скопіювати і показати, що змінилося
     python tools/sync_team_template.py --push -m "TEAM.md: …"  # ще й закомітити й запушити шаблон
@@ -36,7 +36,7 @@ def main():
     template = args.template.resolve()
     if not (template / ".git").is_dir():
         sys.exit(f"Немає клону шаблону: {template}\n"
-                 f"  git clone https://github.com/NikoriakViktot/cafe-kasa-template.git {template}")
+                 f"  git clone https://github.com/NikoriakViktor/cafe-kasa-template.git {template}")
     if args.push and not args.message:
         sys.exit("--push потребує -m \"повідомлення коміту\"")
 

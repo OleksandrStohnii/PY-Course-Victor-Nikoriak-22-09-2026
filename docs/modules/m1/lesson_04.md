@@ -14,7 +14,7 @@
 
 **Задача розділу.** Кафе приймає замовлення. Офіціант вводить позиції з меню, програма рахує суму, а наприкінці вирішує, чи можлива доставка і скільки вона коштує. Ми зберемо цю програму крок за кроком, а повний код розберемо в розділі [«Практика»](#practice).
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_04_conditions_and_control/note_lesson_04_conditions_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_04_conditions_and_control/note_lesson_04_conditions.ipynb){ .solutions-link }
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_04_conditions_and_control/note_lesson_04_conditions_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_04_conditions_and_control/note_lesson_04_conditions.ipynb){ .solutions-link }
 
 ## Пригадай
 
@@ -388,7 +388,7 @@ flowchart LR
 !!! warning "`case _`, а не `case other`"
     Голе ім'я в `case` не порівнюється, а **захоплює** будь-яке значення: `case other:` спрацює завжди й запише значення у змінну `other`. Якщо після нього є ще гілки, Python не запустить програму: `SyntaxError: name capture 'other' makes remaining patterns unreachable`. Для «усього іншого» пиши `case _:`.
 
-`match` уміє більше: розбирати списки й словники за формою, додавати умову `if` до гілки. Усе це — в окремому ноутбуці [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_04_conditions_and_control/match_case_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_04_conditions_and_control/match_case.ipynb){ .solutions-link }. Для порівнянь на кшталт `order_total >= 500` залишайся з `if` / `elif`: `match` — про збіг із конкретними значеннями та формою даних.
+`match` уміє більше: розбирати списки й словники за формою, додавати умову `if` до гілки. Усе це — в окремому ноутбуці [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_04_conditions_and_control/match_case_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_04_conditions_and_control/match_case.ipynb){ .solutions-link }. Для порівнянь на кшталт `order_total >= 500` залишайся з `if` / `elif`: `match` — про збіг із конкретними значеннями та формою даних.
 
 ## Truthy, falsy і None
 
@@ -1390,8 +1390,8 @@ $ python guess.py 2
 
 ### Що далі
 
-- Ноутбук заняття з передбаченнями та вправами: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_04_conditions_and_control/note_lesson_04_conditions_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_04_conditions_and_control/note_lesson_04_conditions.ipynb){ .solutions-link }
-- Окремий ноутбук про `match` / `case`: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_04_conditions_and_control/match_case_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_04_conditions_and_control/match_case.ipynb){ .solutions-link }
+- Ноутбук заняття з передбаченнями та вправами: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_04_conditions_and_control/note_lesson_04_conditions_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_04_conditions_and_control/note_lesson_04_conditions.ipynb){ .solutions-link }
+- Окремий ноутбук про `match` / `case`: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_04_conditions_and_control/match_case_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_04_conditions_and_control/match_case.ipynb){ .solutions-link }
 - Наступний урок: [Урок 5. Списки, кортежі та множини](lesson_05.md). Досі замовлення зберігало лише суму й кількість. Щоб пам'ятати самі позиції, потрібні колекції.
 
 ## Документація

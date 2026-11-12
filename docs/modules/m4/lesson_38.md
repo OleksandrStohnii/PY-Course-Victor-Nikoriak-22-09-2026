@@ -15,7 +15,7 @@
 | 47 | Telegram-бот |
 | 48–50 | Docker, Compose, CI/CD |
 
-Проєкт: [`news_hub`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_38_fastapi_basics/news_hub). Поруч — [`fastapi_demo`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_38_fastapi_basics/fastapi_demo) — стартовий код: шість ендпоінтів, на яких видно, що з сервером робить блокуючий код.
+Проєкт: [`news_hub`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_38_fastapi_basics/news_hub). Поруч — [`fastapi_demo`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_38_fastapi_basics/fastapi_demo) — стартовий код: шість ендпоінтів, на яких видно, що з сервером робить блокуючий код.
 
 **Що потрібно з попередніх уроків:** `async`/`await` і `asyncio.gather` (27, 31), REST — ресурси, методи, статус-коди, OpenAPI (32), FastAPI-версія API нотаток (35), `NewsItem` і `validate_news` (36).
 
@@ -28,7 +28,7 @@
 - прочитати `/docs` і `/openapi.json`, зібрати колекцію Postman з перевірками й запустити її з консолі;
 - відрізнити ендпоінт, що блокує сервер, від того, що не блокує, — і довести це вимірами.
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_38_fastapi_basics/note_lesson_38_fastapi_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_38_fastapi_basics/note_lesson_38_fastapi.ipynb){ .solutions-link } — API агрегатора через `TestClient`, без запуску сервера.
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_38_fastapi_basics/note_lesson_38_fastapi_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_38_fastapi_basics/note_lesson_38_fastapi.ipynb){ .solutions-link } — API агрегатора через `TestClient`, без запуску сервера.
 
 **Довідник:** [FastAPI: архітектура, async і production-патерни](fastapi/fastapi_documentation.md): розділи 1–5 — до цього уроку.
 
@@ -387,7 +387,7 @@ POST   /api/scrape        ['scrape'] Зібрати новини
 
 ## Postman: колекція запитів з перевірками { #postman }
 
-`/docs` зручний, щоб спробувати один запит. **Postman** — щоб зберегти набір запитів, передати його команді й перевіряти відповіді автоматично. У проєкті є колекція [`postman/news_hub.postman_collection.json`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_38_fastapi_basics/news_hub/postman/news_hub.postman_collection.json): 7 запитів, у кожного — вкладка **Tests** з перевірками на JavaScript:
+`/docs` зручний, щоб спробувати один запит. **Postman** — щоб зберегти набір запитів, передати його команді й перевіряти відповіді автоматично. У проєкті є колекція [`postman/news_hub.postman_collection.json`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_38_fastapi_basics/news_hub/postman/news_hub.postman_collection.json): 7 запитів, у кожного — вкладка **Tests** з перевірками на JavaScript:
 
 ```javascript
 // 2. зібрати знімок — POST {{baseUrl}}/api/scrape, тіло {"source": "snapshot"}
@@ -521,7 +521,7 @@ flowchart TD
     class a0h,a2a,a2b,a2c success
 ```
 
-Перевіримо на [`fastapi_demo`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_38_fastapi_basics/fastapi_demo). Сервер — `uvicorn app.main:app --port 8001`, навантаження — `python load_test.py` (одночасні запити, загальний час). Результати з машини, де збирався курс (4 ядра, один процес uvicorn; числа на іншій машині будуть трохи інші, співвідношення — ті самі):
+Перевіримо на [`fastapi_demo`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_38_fastapi_basics/fastapi_demo). Сервер — `uvicorn app.main:app --port 8001`, навантаження — `python load_test.py` (одночасні запити, загальний час). Результати з машини, де збирався курс (4 ядра, один процес uvicorn; числа на іншій машині будуть трохи інші, співвідношення — ті самі):
 
 | Ендпоінт | Як написаний | Одночасних запитів | Загальний час |
 |---|---|---:|---:|
@@ -708,12 +708,12 @@ async def scrape_page(url: str, store: StoreDep) -> dict[str, int]:
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_38_fastapi_basics/note_lesson_38_fastapi_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_38_fastapi_basics/note_lesson_38_fastapi.ipynb){ .solutions-link }.
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_38_fastapi_basics/note_lesson_38_fastapi_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_38_fastapi_basics/note_lesson_38_fastapi.ipynb){ .solutions-link }.
 - Урок 39 — `NewsStore` → SQLAlchemy: новини переживають перезапуск сервера, унікальний `url` — обмеження бази, `GET /api/news` — SQL-запит з фільтрами. Довідник: розділи 6–8 (пул з'єднань, Repository, Unit of Work).
 
 ## Документація і джерела
 
-- Код: [`news_hub`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_38_fastapi_basics/news_hub) — API й скрапер з `news_dashboard/app/main.py` і `scraper.py` прототипу `news_dashboard`; [`fastapi_demo`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_38_fastapi_basics/fastapi_demo) — там само.
+- Код: [`news_hub`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_38_fastapi_basics/news_hub) — API й скрапер з `news_dashboard/app/main.py` і `scraper.py` прототипу `news_dashboard`; [`fastapi_demo`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_38_fastapi_basics/fastapi_demo) — там само.
 - Довідник курсу: [FastAPI: архітектура, async і production-патерни](fastapi/fastapi_documentation.md).
 - FastAPI: [First Steps](https://fastapi.tiangolo.com/tutorial/first-steps/), [Query Parameters and String Validations](https://fastapi.tiangolo.com/tutorial/query-params-str-validations/), [Request Body](https://fastapi.tiangolo.com/tutorial/body/), [Response Model](https://fastapi.tiangolo.com/tutorial/response-model/), [Handling Errors](https://fastapi.tiangolo.com/tutorial/handling-errors/), [Dependencies](https://fastapi.tiangolo.com/tutorial/dependencies/), [Lifespan Events](https://fastapi.tiangolo.com/advanced/events/), [Testing](https://fastapi.tiangolo.com/tutorial/testing/), [Testing Dependencies with Overrides](https://fastapi.tiangolo.com/advanced/testing-dependencies/), [Concurrency and async / await](https://fastapi.tiangolo.com/async/)
 - [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)

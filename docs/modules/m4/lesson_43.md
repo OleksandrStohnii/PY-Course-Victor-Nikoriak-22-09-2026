@@ -15,7 +15,7 @@
 | 43 | Gemini: підсумок, категорія, тональність |
 | 47 | Telegram-бот |
 
-Проєкти: [`news_hub`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_43_ai_dev_tools/news_hub), [`depression_dashboard`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_43_ai_dev_tools/depression_dashboard). Довідник: [Claude Code](ai/claude_code.md) — встановлення, CLAUDE.md, skills, MCP, hooks, дозволи.
+Проєкти: [`news_hub`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_43_ai_dev_tools/news_hub), [`depression_dashboard`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_43_ai_dev_tools/depression_dashboard). Довідник: [Claude Code](ai/claude_code.md) — встановлення, CLAUDE.md, skills, MCP, hooks, дозволи.
 
 **Що потрібно з попередніх уроків:** чекліст валідації AI-коду й тести властивостей (урок 26); тест конвеєра, мок і фейк, покриття, мінімальні версії (41); Pydantic (36); FastAPI, `Depends` (37).
 
@@ -26,7 +26,7 @@
 - рецензувати результат агента: діф, тести, які він змінив, рішення, які він ухвалив сам;
 - знаходити в «робочому» AI-коді вади, яких не видно на скриншоті.
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_43_ai_dev_tools/note_lesson_43_ai_review_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_43_ai_dev_tools/note_lesson_43_ai_review.ipynb){ .solutions-link } — ключ AI не потрібен: вправи на справжньому результаті агента.
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_43_ai_dev_tools/note_lesson_43_ai_review_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_43_ai_dev_tools/note_lesson_43_ai_review.ipynb){ .solutions-link } — ключ AI не потрібен: вправи на справжньому результаті агента.
 
 ## Пригадай
 
@@ -84,7 +84,7 @@
 +- Нових залежностей не додавай; якщо без неї ніяк — зупинись і поясни.
 ```
 
-Цей приклад описує MongoDB, `app/nlp.py` і Streamlit — нічого з цього в `news_hub` немає. Застарілий `CLAUDE.md` гірший за відсутній: агент упевнено піде шукати `motor`. Новий файл містить **команди перевірки** і **правила, яких не видно з коду**: кожне з них — урок попередніх занять (`endswith` — урок 42, мережа в тестах — урок 42, «не змінюй тести» — урок 26). Повний файл — [`news_hub/CLAUDE.md`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_43_ai_dev_tools/news_hub/CLAUDE.md).
+Цей приклад описує MongoDB, `app/nlp.py` і Streamlit — нічого з цього в `news_hub` немає. Застарілий `CLAUDE.md` гірший за відсутній: агент упевнено піде шукати `motor`. Новий файл містить **команди перевірки** і **правила, яких не видно з коду**: кожне з них — урок попередніх занять (`endswith` — урок 42, мережа в тестах — урок 42, «не змінюй тести» — урок 26). Повний файл — [`news_hub/CLAUDE.md`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_43_ai_dev_tools/news_hub/CLAUDE.md).
 
 ### Дозволи, hook, skill
 
@@ -206,7 +206,7 @@ html error page -> []
 
 ### Запуск B: специфікація, яку не можна обійти
 
-Специфікація — [`tests/unit/test_pravda.py`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_43_ai_dev_tools/news_hub/tests/unit/test_pravda.py). Написано **до** коду, 18 тестів: порядок і дублікати, чисті поля, київський час для обох форматів `pubDate`, конвеєр «RSS → `validate_news`» з очікуваним `rejected`, межові домени (`fakepravda.com.ua`, `pravda.com.ua.evil.com`), `POST /api/scrape` лишається лише для rbc.ua, заборона мережі, битий XML → `ValueError`.
+Специфікація — [`tests/unit/test_pravda.py`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_43_ai_dev_tools/news_hub/tests/unit/test_pravda.py). Написано **до** коду, 18 тестів: порядок і дублікати, чисті поля, київський час для обох форматів `pubDate`, конвеєр «RSS → `validate_news`» з очікуваним `rejected`, межові домени (`fakepravda.com.ua`, `pravda.com.ua.evil.com`), `POST /api/scrape` лишається лише для rbc.ua, заборона мережі, битий XML → `ValueError`.
 
 Агент B прочитав специфікацію, `CLAUDE.md`, наявні `parser.py` і `models.py`. Написав `rss.py` лише на стандартній бібліотеці (`xml.etree`, `email.utils`, `zoneinfo`) і додав `is_allowed_host` з правилом «точний збіг або піддомен». `is_rbc_host` лишив окремо — для `POST /api/scrape`. Наприкінці перелічив свої рішення: нових залежностей немає, битий XML → `ValueError`, `lang = "uk"` для доменів без `/ukr/` у шляху, категорія — з `<category>`.
 
@@ -240,7 +240,7 @@ pravda.com.ua uk Новини 20:15:00 | Синоптики: "Перші зам�
 | у новини немає `<pubDate>` або він битий | `ValueError` — і **вся стрічка** губиться через одну новину | ця новина без часу, решта — як є |
 | Windows без пакета `tzdata` | `ZoneInfoNotFoundError` під час `import news_hub.rss`: у Windows немає системної бази часових поясів | `tzdata` у `requirements.txt` |
 
-Кожен випадок — тест у [`tests/unit/test_pravda_review.py`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_43_ai_dev_tools/news_hub/tests/unit/test_pravda_review.py). На коді агента всі три падали:
+Кожен випадок — тест у [`tests/unit/test_pravda_review.py`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_43_ai_dev_tools/news_hub/tests/unit/test_pravda_review.py). На коді агента всі три падали:
 
 ```text
 FAILED tests/unit/test_pravda_review.py::test_item_without_category_is_not_named_after_year
@@ -548,12 +548,12 @@ def test_pravda_rss_broken_xml_is_empty_list() -> None:
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_43_ai_dev_tools/note_lesson_43_ai_review_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_43_ai_dev_tools/note_lesson_43_ai_review.ipynb){ .solutions-link }.
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_43_ai_dev_tools/note_lesson_43_ai_review_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_43_ai_dev_tools/note_lesson_43_ai_review.ipynb){ .solutions-link }.
 - Урок 44 — LLM усередині агрегатора: Gemini дає підсумок і категорію новини. Відповідь моделі — теж «дані від AI»: її перевірятиме Pydantic, а виклик API мокатимемо за правилами уроку 42.
 
 ## Документація і джерела
 
-- Код: [`news_hub`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_43_ai_dev_tools/news_hub) — `rss.py` і зміни `models.py` написав Claude Code за специфікацією, правки рецензента позначено; ідея RSS-джерела — скрипт аналізу тональності `analysis_tonality_2.py`. [`depression_dashboard`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_43_ai_dev_tools/depression_dashboard) — проєкт, який згенерував AI, разом з промптами (`prompts/`).
+- Код: [`news_hub`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_43_ai_dev_tools/news_hub) — `rss.py` і зміни `models.py` написав Claude Code за специфікацією, правки рецензента позначено; ідея RSS-джерела — скрипт аналізу тональності `analysis_tonality_2.py`. [`depression_dashboard`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_43_ai_dev_tools/depression_dashboard) — проєкт, який згенерував AI, разом з промптами (`prompts/`).
 - [Довідник: Claude Code](ai/claude_code.md) — звірений з установленим `claude` і з документацією.
 - Урок 26 — [валідація AI-коду](../m2/lesson_26.md); урок 42 — [тест конвеєра, мок і фейк, мінімальні версії](lesson_42.md).
 - Claude Code: [Best practices](https://code.claude.com/docs/en/best-practices), [Memory (CLAUDE.md)](https://code.claude.com/docs/en/memory), [Permissions](https://code.claude.com/docs/en/permissions), [Hooks](https://code.claude.com/docs/en/hooks), [Headless (`-p`)](https://code.claude.com/docs/en/headless), [Security](https://code.claude.com/docs/en/security).

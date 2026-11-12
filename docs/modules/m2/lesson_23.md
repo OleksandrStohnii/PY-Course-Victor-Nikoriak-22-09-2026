@@ -22,7 +22,7 @@
 
 **Задача розділу.** Звіт за вкладеним меню, сортування доставок і пошук комбінацій поїздок для ваучера. Повний код — у розділі [«Практика»](#practice).
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_23_practicum_recursion/note_lesson_23_recursion_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_23_practicum_recursion/note_lesson_23_recursion.ipynb){ .solutions-link }
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_23_practicum_recursion/note_lesson_23_recursion_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_23_practicum_recursion/note_lesson_23_recursion.ipynb){ .solutions-link }
 
 ## Пригадай
 
@@ -593,7 +593,7 @@ len(list(dishes(MENU)))         →  9
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_23_practicum_recursion/note_lesson_23_recursion_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_23_practicum_recursion/note_lesson_23_recursion.ipynb){ .solutions-link } — меню, сортування і ваучер: прогнози, лічильники викликів, вправи з перевірками.
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_23_practicum_recursion/note_lesson_23_recursion_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_23_practicum_recursion/note_lesson_23_recursion.ipynb){ .solutions-link } — меню, сортування і ваучер: прогнози, лічильники викликів, вправи з перевірками.
 - Наступне заняття — урок 24 «`@property`, декоратори класів, dunder»: як зробити так, щоб `sorted(deliveries)` і `len(menu)` працювали для наших класів.
 - Практикум П5 (урок 27): динамічне програмування — коли підзадачі повторюються.
 

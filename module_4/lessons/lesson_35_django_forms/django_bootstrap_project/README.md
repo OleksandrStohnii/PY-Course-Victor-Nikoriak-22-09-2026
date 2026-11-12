@@ -18,16 +18,16 @@
 
 | Крок | Що робимо | Читай теорію |
 |------|-----------|--------------|
-| А | HTML-структура, `<!DOCTYPE>`, семантика | [HTML_BASICS.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/html_basics_full/) §0–5 |
-| Б | Підключення Bootstrap CDN | [BOOTSTRAP_5.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/bootstrap_5_full/) §0–2 |
-| В | `base.html` — Template Inheritance, Sticky Footer | [DJANGO_TEMPLATES_BOOTSTRAP.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/django_templates_bootstrap_full/) §3–5, CSS_BASICS.md §9 |
-| Г | Navbar + Grid | [BOOTSTRAP_5.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/bootstrap_5_full/) §5–6 |
-| Д | Card Grid для нотаток | [BOOTSTRAP_5.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/bootstrap_5_full/) §6 |
-| Е | Форми + django-bootstrap5 | [BOOTSTRAP_5.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/bootstrap_5_full/) §9, [DJANGO_TEMPLATES_BOOTSTRAP.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/django_templates_bootstrap_full/) §7 |
-| Ж | Django Messages → Bootstrap Alerts | [BOOTSTRAP_5.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/bootstrap_5_full/) §4 |
-| З | Modal — підтвердження видалення | [BOOTSTRAP_5.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/bootstrap_5_full/) §8 |
-| И | Django Debug Toolbar | [DJANGO_TEMPLATES_BOOTSTRAP.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/django_templates_bootstrap_full/) §9 |
-| І | Unfold Admin — Tailwind-стилізований адмін | [DJANGO_ADMIN_UNFOLD.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/django_admin_unfold_full/) §2, §7 |
+| А | HTML-структура, `<!DOCTYPE>`, семантика | [HTML_BASICS.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/html_basics_full/) §0–5 |
+| Б | Підключення Bootstrap CDN | [BOOTSTRAP_5.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/bootstrap_5_full/) §0–2 |
+| В | `base.html` — Template Inheritance, Sticky Footer | [DJANGO_TEMPLATES_BOOTSTRAP.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/django_templates_bootstrap_full/) §3–5, CSS_BASICS.md §9 |
+| Г | Navbar + Grid | [BOOTSTRAP_5.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/bootstrap_5_full/) §5–6 |
+| Д | Card Grid для нотаток | [BOOTSTRAP_5.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/bootstrap_5_full/) §6 |
+| Е | Форми + django-bootstrap5 | [BOOTSTRAP_5.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/bootstrap_5_full/) §9, [DJANGO_TEMPLATES_BOOTSTRAP.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/django_templates_bootstrap_full/) §7 |
+| Ж | Django Messages → Bootstrap Alerts | [BOOTSTRAP_5.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/bootstrap_5_full/) §4 |
+| З | Modal — підтвердження видалення | [BOOTSTRAP_5.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/bootstrap_5_full/) §8 |
+| И | Django Debug Toolbar | [DJANGO_TEMPLATES_BOOTSTRAP.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/django_templates_bootstrap_full/) §9 |
+| І | Unfold Admin — Tailwind-стилізований адмін | [DJANGO_ADMIN_UNFOLD.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/django_admin_unfold_full/) §2, §7 |
 
 ---
 
@@ -158,7 +158,7 @@ python manage.py migrate
 У базі `db.sqlite3` створиться таблиця `hello_app_note` (вже описана в `models.py`)
 та всі стандартні Django-таблиці (`auth_user`, `django_session` тощо).
 
-> **Теорія:** [DJANGO_TEMPLATES_BOOTSTRAP.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/django_templates_bootstrap_full/) §0 —
+> **Теорія:** [DJANGO_TEMPLATES_BOOTSTRAP.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/django_templates_bootstrap_full/) §0 —
 > Django SSR lifecycle і де знаходиться модель у MVT.
 
 ---
@@ -200,7 +200,7 @@ python manage.py runserver
 ## Фаза А — Розуміємо наявний код
 
 > **Теорія перед початком:**
-> Прочитай [HTML_BASICS.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/html_basics_full/) §0–3 —
+> Прочитай [HTML_BASICS.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/html_basics_full/) §0–3 —
 > як браузер читає HTML, DOM pipeline, базова структура документа.
 
 ### Що вже є у проєкті
@@ -249,9 +249,9 @@ def note_list(request):
 ## Фаза Б — Підключення Bootstrap 5
 
 > **Теорія:**
-> Прочитай [BOOTSTRAP_5.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/bootstrap_5_full/) §0–2 —
+> Прочитай [BOOTSTRAP_5.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/bootstrap_5_full/) §0–2 —
 > навіщо Bootstrap, Mobile First філософія, як підключати через CDN.
-> Прочитай [CSS_BASICS.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/css_basics_full/) §0 —
+> Прочитай [CSS_BASICS.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/css_basics_full/) §0 —
 > CSS Rendering Pipeline, щоб розуміти чому Bootstrap CSS підключається в `<head>`.
 
 ### Крок Б1 — Оновлення settings.py
@@ -300,7 +300,7 @@ MESSAGE_TAGS = {
 > Django Messages (флеш-повідомлення після POST) мають свої рівні: `success`, `error`, тощо.
 > Bootstrap Alert використовує `alert-success`, `alert-danger`.
 > `MESSAGE_TAGS` робить маппінг між ними.
-> Докладніше: [BOOTSTRAP_5.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/bootstrap_5_full/) §4 — Bootstrap Alerts.
+> Докладніше: [BOOTSTRAP_5.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/bootstrap_5_full/) §4 — Bootstrap Alerts.
 
 ### Крок Б2 — Оновлення urls.py
 
@@ -322,9 +322,9 @@ urlpatterns = [
 ## Фаза В — Створення base.html
 
 > **Теорія:**
-> Прочитай [DJANGO_TEMPLATES_BOOTSTRAP.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/django_templates_bootstrap_full/) §3–5 —
+> Прочитай [DJANGO_TEMPLATES_BOOTSTRAP.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/django_templates_bootstrap_full/) §3–5 —
 > Template Inheritance, `{% extends %}`, `{% block %}`.
-> Прочитай [BOOTSTRAP_5.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/bootstrap_5_full/) §5 — Navbar компонент.
+> Прочитай [BOOTSTRAP_5.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/bootstrap_5_full/) §5 — Navbar компонент.
 
 Django шукає шаблони в `<app>/templates/`.
 Створимо `base.html` **за межами** `hello_app/templates/hello_app/` —
@@ -533,8 +533,8 @@ hello_app/templates/
 ## Фаза Г — Список нотаток з Bootstrap Cards
 
 > **Теорія:**
-> Прочитай [BOOTSTRAP_5.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/bootstrap_5_full/) §6 — Card Grid, `row-cols-*`, `h-100`.
-> Прочитай [CSS_BASICS.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/css_basics_full/) §9–10 — Flexbox та Grid (Bootstrap побудований на них).
+> Прочитай [BOOTSTRAP_5.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/bootstrap_5_full/) §6 — Card Grid, `row-cols-*`, `h-100`.
+> Прочитай [CSS_BASICS.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/css_basics_full/) §9–10 — Flexbox та Grid (Bootstrap побудований на них).
 
 ### Крок Г1 — Перепиши `hello_app/templates/hello_app/note_list.html`
 
@@ -699,9 +699,9 @@ hello_app/templates/
 ## Фаза Д — Форма нотатки з Bootstrap
 
 > **Теорія:**
-> Прочитай [BOOTSTRAP_5.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/bootstrap_5_full/) §9 — Bootstrap Forms.
-> Прочитай [DJANGO_TEMPLATES_BOOTSTRAP.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/django_templates_bootstrap_full/) §7 — Bootstrap Forms in Django.
-> Прочитай [HTML_BASICS.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/html_basics_full/) §5 — HTML Forms, input types.
+> Прочитай [BOOTSTRAP_5.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/bootstrap_5_full/) §9 — Bootstrap Forms.
+> Прочитай [DJANGO_TEMPLATES_BOOTSTRAP.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/django_templates_bootstrap_full/) §7 — Bootstrap Forms in Django.
+> Прочитай [HTML_BASICS.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/html_basics_full/) §5 — HTML Forms, input types.
 
 ### Крок Д1 — Створи `hello_app/forms.py`
 
@@ -873,8 +873,8 @@ urlpatterns = [
 ## Фаза Е — Шаблони для деталей, форми і видалення
 
 > **Теорія:**
-> Прочитай [BOOTSTRAP_5.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/bootstrap_5_full/) §9 — Form validation, invalid-feedback.
-> Прочитай [DJANGO_TEMPLATES_BOOTSTRAP.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/django_templates_bootstrap_full/) §7 — django-bootstrap5 тег.
+> Прочитай [BOOTSTRAP_5.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/bootstrap_5_full/) §9 — Form validation, invalid-feedback.
+> Прочитай [DJANGO_TEMPLATES_BOOTSTRAP.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/django_templates_bootstrap_full/) §7 — django-bootstrap5 тег.
 
 ### Крок Е1 — `hello_app/templates/hello_app/note_detail.html`
 
@@ -1041,7 +1041,7 @@ urlpatterns = [
 > {% bootstrap_form form %}
 > ```
 > Пакет `django-bootstrap5` автоматично додає всі Bootstrap класи, label, помилки.
-> Теорія: [DJANGO_TEMPLATES_BOOTSTRAP.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/django_templates_bootstrap_full/) §7 — django-bootstrap5.
+> Теорія: [DJANGO_TEMPLATES_BOOTSTRAP.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/django_templates_bootstrap_full/) §7 — django-bootstrap5.
 
 ### Крок Е3 — `hello_app/templates/hello_app/note_confirm_delete.html`
 
@@ -1112,7 +1112,7 @@ urlpatterns = [
 > Не потребує змін у логіці — тільки змінює успадкування та додає `UNFOLD` словник у `settings.py`.
 >
 > **Теорія:**
-> Прочитай [DJANGO_ADMIN_UNFOLD.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/django_admin_unfold_full/) §2 — ModelAdmin,
+> Прочитай [DJANGO_ADMIN_UNFOLD.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/django_admin_unfold_full/) §2 — ModelAdmin,
 > §7 — `UNFOLD` config, sidebar navigation.
 
 ### Крок Ж1 — Оновлення `hello_project/settings.py`
@@ -1273,8 +1273,8 @@ python manage.py runserver
 ## Фаза З — Django Debug Toolbar (SQL-панель)
 
 > **Теорія:**
-> Прочитай [DJANGO_TEMPLATES_BOOTSTRAP.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/django_templates_bootstrap_full/) §9 — DjDT.
-> Прочитай [DJANGO_ADMIN_UNFOLD.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/django_admin_unfold_full/) §5 — Query Architecture, N+1.
+> Прочитай [DJANGO_TEMPLATES_BOOTSTRAP.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/django_templates_bootstrap_full/) §9 — DjDT.
+> Прочитай [DJANGO_ADMIN_UNFOLD.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/django_admin_unfold_full/) §5 — Query Architecture, N+1.
 
 Toolbar вже підключений (ми додали в Settings і URLs).
 Зайди на **http://localhost:8000/notes/** — справа з'явиться чорна панель DJDT.
@@ -1364,32 +1364,32 @@ python manage.py runserver
 
 ### Рівень 1 — Розширення моделі
 Додай поля до `Note`: `is_public`, `category`, `tags`.
-Читай: [DJANGO_TEMPLATES_BOOTSTRAP.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/django_templates_bootstrap_full/) §2 — Context, Dot-Lookup.
+Читай: [DJANGO_TEMPLATES_BOOTSTRAP.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/django_templates_bootstrap_full/) §2 — Context, Dot-Lookup.
 
 ### Рівень 2 — Пошук і фільтрація
 Додай рядок пошуку у `note_list` view (`request.GET.get('q')`).
-Читай: [ADVANCED_TEMPLATES.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/advanced_templates_full/) §5 — SaaS Dashboard, filter form.
+Читай: [ADVANCED_TEMPLATES.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/advanced_templates_full/) §5 — SaaS Dashboard, filter form.
 
 ### Рівень 3 — Pagination
 Розбий список на сторінки через Django `Paginator`.
-Читай: [ADVANCED_TEMPLATES.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/advanced_templates_full/) §5 — `components/pagination.html`.
+Читай: [ADVANCED_TEMPLATES.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/advanced_templates_full/) §5 — `components/pagination.html`.
 
 ### Рівень 4 — Modal для видалення
 Замість окремої сторінки видалення — Bootstrap Modal прямо зі списку.
-Читай: [BOOTSTRAP_5.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/bootstrap_5_full/) §8 — Modal, JS Event Lifecycle.
+Читай: [BOOTSTRAP_5.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/bootstrap_5_full/) §8 — Modal, JS Event Lifecycle.
 
 ### Рівень 5 — Django Ninja API
 Додай REST endpoint `/api/notes/` через Django Ninja.
-Читай: [DJANGO_NINJA_TEMPLATES.md](https://nikoriakviktot.github.io/notes_chat_app/06_application_architecture/django_ninja_templates_full/) §1–4.
+Читай: [DJANGO_NINJA_TEMPLATES.md](https://nikoriakviktor.github.io/notes_chat_app/06_application_architecture/django_ninja_templates_full/) §1–4.
 
 ### Рівень 6 — Unfold Admin ✓ (вже реалізовано)
 `django-unfold` підключено. Наступний крок — розширити `UNFOLD` конфіг:
 кастомний дашборд (`DASHBOARD_CALLBACK`), кольори (`COLORS`), логотип (`SITE_LOGO`).
-Читай: [DJANGO_ADMIN_UNFOLD.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/django_admin_unfold_full/) §7–12.
+Читай: [DJANGO_ADMIN_UNFOLD.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/django_admin_unfold_full/) §7–12.
 
 ### Рівень 7 — HTMX живий пошук
 Замінити перезавантаження сторінки на HTMX partial renders.
-Читай: [ADVANCED_TEMPLATES.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/advanced_templates_full/) §7 — HTMX Architecture.
+Читай: [ADVANCED_TEMPLATES.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/advanced_templates_full/) §7 — HTMX Architecture.
 
 ---
 
@@ -1397,13 +1397,13 @@ python manage.py runserver
 
 | Питання | Файл |
 |---------|------|
-| Як браузер читає HTML? | [HTML_BASICS.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/html_basics_full/) §0 |
-| Що таке Box Model? | [CSS_BASICS.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/css_basics_full/) §6 |
-| Як працює Bootstrap Grid? | [BOOTSTRAP_5.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/bootstrap_5_full/) §2–3 |
-| Що таке Template Inheritance? | [DJANGO_TEMPLATES_BOOTSTRAP.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/django_templates_bootstrap_full/) §4 |
-| Як Django генерує HTML? | [DJANGO_TEMPLATES_BOOTSTRAP.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/django_templates_bootstrap_full/) §0 |
-| Що таке CSRF? | [DJANGO_TEMPLATES_BOOTSTRAP.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/django_templates_bootstrap_full/) §8 |
-| Як підключити django-bootstrap5? | [DJANGO_TEMPLATES_BOOTSTRAP.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/django_templates_bootstrap_full/) §7 |
-| Що таке N+1 query? | [DJANGO_ADMIN_UNFOLD.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/django_admin_unfold_full/) §5 |
-| Що таке Context Processor? | [ADVANCED_TEMPLATES.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/advanced_templates_full/) §1 |
-| Як зробити HTMX пошук? | [ADVANCED_TEMPLATES.md](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/advanced_templates_full/) §7 |
+| Як браузер читає HTML? | [HTML_BASICS.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/html_basics_full/) §0 |
+| Що таке Box Model? | [CSS_BASICS.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/css_basics_full/) §6 |
+| Як працює Bootstrap Grid? | [BOOTSTRAP_5.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/bootstrap_5_full/) §2–3 |
+| Що таке Template Inheritance? | [DJANGO_TEMPLATES_BOOTSTRAP.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/django_templates_bootstrap_full/) §4 |
+| Як Django генерує HTML? | [DJANGO_TEMPLATES_BOOTSTRAP.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/django_templates_bootstrap_full/) §0 |
+| Що таке CSRF? | [DJANGO_TEMPLATES_BOOTSTRAP.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/django_templates_bootstrap_full/) §8 |
+| Як підключити django-bootstrap5? | [DJANGO_TEMPLATES_BOOTSTRAP.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/django_templates_bootstrap_full/) §7 |
+| Що таке N+1 query? | [DJANGO_ADMIN_UNFOLD.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/django_admin_unfold_full/) §5 |
+| Що таке Context Processor? | [ADVANCED_TEMPLATES.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/advanced_templates_full/) §1 |
+| Як зробити HTMX пошук? | [ADVANCED_TEMPLATES.md](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/advanced_templates_full/) §7 |

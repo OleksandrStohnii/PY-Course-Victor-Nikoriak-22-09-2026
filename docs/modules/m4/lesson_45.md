@@ -21,9 +21,9 @@
 | **44** | **архітектура: CBV, правила доступу в selectors, PostgreSQL; каталог патернів обох проєктів** | **+ `tests_architecture.py`, `DATABASE_URL`** |
 | 45 | чат на WebSocket | — |
 
-Проєкт: [`crispy_notes_project`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_45_architecture_patterns/crispy_notes_project). Друга половина уроку — патерни агрегатора [`news_hub`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_44_llm_api/news_hub) з уроку 44; його код не змінюється.
+Проєкт: [`crispy_notes_project`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_45_architecture_patterns/crispy_notes_project). Друга половина уроку — патерни агрегатора [`news_hub`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_44_llm_api/news_hub) з уроку 44; його код не змінюється.
 
-Це **крок 3 Django-книги** — [«CRUD і архітектура»](https://nikoriakviktot.github.io/notes_chat_app/tutorials/03_crud_and_architecture/): services і selectors, class-based views, PostgreSQL. Теорію кроку тут не переказуємо: лише зміни в коді, їхні причини і те, що знайшли дорогою.
+Це **крок 3 Django-книги** — [«CRUD і архітектура»](https://nikoriakviktor.github.io/notes_chat_app/tutorials/03_crud_and_architecture/): services і selectors, class-based views, PostgreSQL. Теорію кроку тут не переказуємо: лише зміни в коді, їхні причини і те, що знайшли дорогою.
 
 **Що потрібно з попередніх уроків:** `services` / `selectors` і тонкий view (33–35); групи і правило «змінює лише автор» (40); класи, успадкування, MRO (уроки 20–21); декоратори (урок 10); `Depends`, репозиторій і `LLMClient` у `news_hub` (37–43).
 
@@ -35,7 +35,7 @@
 - підключити PostgreSQL через одну змінну середовища, не ламаючи SQLite для тестів і Colab;
 - впізнати в коді патерни Repository, Service layer, Strategy, Decorator, Factory, Dependency Injection, Unit of Work — і пояснити, яку проблему кожен розв'язує.
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_45_architecture_patterns/note_lesson_45_architecture_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_45_architecture_patterns/note_lesson_45_architecture.ipynb){ .solutions-link } — selectors без HTTP, життєвий цикл CBV, кількість SQL-запитів, патерни `news_hub`.
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_45_architecture_patterns/note_lesson_45_architecture_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_45_architecture_patterns/note_lesson_45_architecture.ipynb){ .solutions-link } — selectors без HTTP, життєвий цикл CBV, кількість SQL-запитів, патерни `news_hub`.
 
 ## Пригадай
 
@@ -175,7 +175,7 @@ flowchart TD
 
 Для Анни правдивий лише рядок з `shared=ann` — вона свій доступ отримує без помилки; падає саме **власник**. У `group` (FK) в кожного рядка одне значення — JOIN не множить рядків, `distinct()` не потрібен.
 
-Функції повертають **QuerySet**, а не список: view чи CBV далі дописує `.get(pk=…)`, `.annotate(…)`, `prefetch_related(…)`, а правило доступу вже вбудоване в SQL. Той самий прийом у книзі — [`UserQuerySetMixin`](https://nikoriakviktot.github.io/notes_chat_app/tutorials/03_crud_and_architecture/cbv/); тут його правило переїхало в selectors, щоб ним користувались і CBV, і функції, і API.
+Функції повертають **QuerySet**, а не список: view чи CBV далі дописує `.get(pk=…)`, `.annotate(…)`, `prefetch_related(…)`, а правило доступу вже вбудоване в SQL. Той самий прийом у книзі — [`UserQuerySetMixin`](https://nikoriakviktor.github.io/notes_chat_app/tutorials/03_crud_and_architecture/cbv/); тут його правило переїхало в selectors, щоб ним користувались і CBV, і функції, і API.
 
 Views тепер лише вибирають правило:
 
@@ -242,7 +242,7 @@ class ThinTransportLayerTests(TestCase):
                 self.assertIsNotNone(selectors.get_shopping_list_detail(self.ann, sl.pk))
 ```
 
-Поглиблено: [services і selectors — матриця відповідальності](https://nikoriakviktot.github.io/notes_chat_app/tutorials/03_crud_and_architecture/services_and_selectors/), [selectors: мова домену замість мови ORM](https://nikoriakviktot.github.io/notes_chat_app/06_application_architecture/django_selectors_full/).
+Поглиблено: [services і selectors — матриця відповідальності](https://nikoriakviktor.github.io/notes_chat_app/tutorials/03_crud_and_architecture/services_and_selectors/), [selectors: мова домену замість мови ORM](https://nikoriakviktor.github.io/notes_chat_app/06_application_architecture/django_selectors_full/).
 
 ## Рефакторинг 2. Class-based views { #refactor-2 }
 
@@ -410,7 +410,7 @@ flowchart TD
         return reverse('hello_app:note_create')
 ```
 
-Поглиблено: [CBV у Django-книзі — `as_view`, `dispatch`, generic views, `LoginRequiredMixin` і MRO, `UserQuerySetMixin`](https://nikoriakviktot.github.io/notes_chat_app/tutorials/03_crud_and_architecture/cbv/), [типові помилки кроку 3](https://nikoriakviktot.github.io/notes_chat_app/tutorials/03_crud_and_architecture/checkpoint/) (серед них `super().form_valid()` і `reverse()` в атрибуті класу).
+Поглиблено: [CBV у Django-книзі — `as_view`, `dispatch`, generic views, `LoginRequiredMixin` і MRO, `UserQuerySetMixin`](https://nikoriakviktor.github.io/notes_chat_app/tutorials/03_crud_and_architecture/cbv/), [типові помилки кроку 3](https://nikoriakviktor.github.io/notes_chat_app/tutorials/03_crud_and_architecture/checkpoint/) (серед них `super().form_valid()` і `reverse()` в атрибуті класу).
 
 ## Рефакторинг 3. PostgreSQL через `DATABASE_URL` { #refactor-3 }
 
@@ -490,7 +490,7 @@ N+1 (сторінка робить по запиту на кожен рядок)
 
 Кожна нотатка на сторінці дотягує записник, групу й теги окремими запитами — `3 × кількість нотаток` зверху. На 3 нотатках різниці майже не видно, тому тест і міряє на двох розмірах.
 
-Поглиблено: [PostgreSQL у кроці 3 книги](https://nikoriakviktot.github.io/notes_chat_app/tutorials/03_crud_and_architecture/postgresql/), [N+1, `select_related`, `prefetch_related`, `F()`, `transaction.atomic`](https://nikoriakviktot.github.io/notes_chat_app/tutorials/03_crud_and_architecture/queryset_deep/).
+Поглиблено: [PostgreSQL у кроці 3 книги](https://nikoriakviktor.github.io/notes_chat_app/tutorials/03_crud_and_architecture/postgresql/), [N+1, `select_related`, `prefetch_related`, `F()`, `transaction.atomic`](https://nikoriakviktor.github.io/notes_chat_app/tutorials/03_crud_and_architecture/queryset_deep/).
 
 ## Каталог патернів: два проєкти, одні ідеї { #patterns }
 
@@ -607,7 +607,7 @@ flowchart TD
     class SV,SEL,SEL2,M success
 ```
 
-Поглиблено: [архітектура застосунку — частина VI Django-книги](https://nikoriakviktot.github.io/notes_chat_app/06_application_architecture/), [services](https://nikoriakviktot.github.io/notes_chat_app/06_application_architecture/django_services_full/), [services, selectors і серіалізатори разом](https://nikoriakviktot.github.io/notes_chat_app/06_application_architecture/services_selectors_full/).
+Поглиблено: [архітектура застосунку — частина VI Django-книги](https://nikoriakviktor.github.io/notes_chat_app/06_application_architecture/), [services](https://nikoriakviktor.github.io/notes_chat_app/06_application_architecture/django_services_full/), [services, selectors і серіалізатори разом](https://nikoriakviktor.github.io/notes_chat_app/06_application_architecture/services_selectors_full/).
 
 ## Архітектура: до і після { #architecture }
 
@@ -799,14 +799,14 @@ MultipleObjectsReturned: get() returned more than one TodoList -- it returned 2!
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_45_architecture_patterns/note_lesson_45_architecture_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_45_architecture_patterns/note_lesson_45_architecture.ipynb){ .solutions-link }.
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_45_architecture_patterns/note_lesson_45_architecture_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_45_architecture_patterns/note_lesson_45_architecture.ipynb){ .solutions-link }.
 - Урок 46 — чат на WebSocket: ще один транспорт (consumer) над тими самими services і selectors.
 - Урок 48 — Telegram-бот агрегатора: ще один транспорт над `analyze_news` і `NewsRepository`.
 
 ## Документація і джерела
 
-- Код: [`crispy_notes_project`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_45_architecture_patterns/crispy_notes_project) — проєкт уроку 41 + CBV зі стартового `notes_project_cbv`; [`news_hub`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_44_llm_api/news_hub) уроку 44.
-- Django-книга, крок 3: [огляд](https://nikoriakviktot.github.io/notes_chat_app/tutorials/03_crud_and_architecture/), [services і selectors](https://nikoriakviktot.github.io/notes_chat_app/tutorials/03_crud_and_architecture/services_and_selectors/), [CBV](https://nikoriakviktot.github.io/notes_chat_app/tutorials/03_crud_and_architecture/cbv/), [QuerySet глибше](https://nikoriakviktot.github.io/notes_chat_app/tutorials/03_crud_and_architecture/queryset_deep/), [PostgreSQL](https://nikoriakviktot.github.io/notes_chat_app/tutorials/03_crud_and_architecture/postgresql/), [типові помилки](https://nikoriakviktot.github.io/notes_chat_app/tutorials/03_crud_and_architecture/checkpoint/); частина VI — [архітектура застосунку](https://nikoriakviktot.github.io/notes_chat_app/06_application_architecture/).
+- Код: [`crispy_notes_project`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_45_architecture_patterns/crispy_notes_project) — проєкт уроку 41 + CBV зі стартового `notes_project_cbv`; [`news_hub`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_44_llm_api/news_hub) уроку 44.
+- Django-книга, крок 3: [огляд](https://nikoriakviktor.github.io/notes_chat_app/tutorials/03_crud_and_architecture/), [services і selectors](https://nikoriakviktor.github.io/notes_chat_app/tutorials/03_crud_and_architecture/services_and_selectors/), [CBV](https://nikoriakviktor.github.io/notes_chat_app/tutorials/03_crud_and_architecture/cbv/), [QuerySet глибше](https://nikoriakviktor.github.io/notes_chat_app/tutorials/03_crud_and_architecture/queryset_deep/), [PostgreSQL](https://nikoriakviktor.github.io/notes_chat_app/tutorials/03_crud_and_architecture/postgresql/), [типові помилки](https://nikoriakviktor.github.io/notes_chat_app/tutorials/03_crud_and_architecture/checkpoint/); частина VI — [архітектура застосунку](https://nikoriakviktor.github.io/notes_chat_app/06_application_architecture/).
 - Django: [class-based views](https://docs.djangoproject.com/en/5.2/topics/class-based-views/), [generic editing views](https://docs.djangoproject.com/en/5.2/ref/class-based-views/generic-editing/), [`LoginRequiredMixin`](https://docs.djangoproject.com/en/5.2/topics/auth/default/#the-loginrequiredmixin-mixin), [`distinct()`](https://docs.djangoproject.com/en/5.2/ref/models/querysets/#distinct), [`assertNumQueries`](https://docs.djangoproject.com/en/5.2/topics/testing/tools/#django.test.TransactionTestCase.assertNumQueries), [PostgreSQL notes](https://docs.djangoproject.com/en/5.2/ref/databases/#postgresql-notes); [`url_has_allowed_host_and_scheme`](https://github.com/django/django/blob/stable/5.2.x/django/utils/http.py).
 - Python: [`ast`](https://docs.python.org/3/library/ast.html), [`urllib.parse.urlsplit`](https://docs.python.org/3/library/urllib.parse.html#urllib.parse.urlsplit), [MRO](https://docs.python.org/3/howto/mro.html).
 - Патерни: Martin Fowler — [Service Layer](https://martinfowler.com/eaaCatalog/serviceLayer.html), [Repository](https://martinfowler.com/eaaCatalog/repository.html), [Unit of Work](https://martinfowler.com/eaaCatalog/unitOfWork.html), [CQRS](https://martinfowler.com/bliki/CQRS.html); [refactoring.guru — Strategy, Decorator, Factory Method, Template Method](https://refactoring.guru/uk/design-patterns/catalog).

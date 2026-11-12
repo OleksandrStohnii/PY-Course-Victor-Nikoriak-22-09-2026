@@ -1,7 +1,7 @@
 """Розкодування синоптичних телеграм SYNOP (КН-01).
 
 Спрощена версія TelegramMeteoDecoder з проєкту викладача
-(https://github.com/NikoriakViktot/ogimet, telegram_decode/class_metedecode.py).
+(https://github.com/NikoriakViktor/ogimet, telegram_decode/class_metedecode.py).
 Сам розбір коду робить бібліотека pymetdecoder.
 """
 import math

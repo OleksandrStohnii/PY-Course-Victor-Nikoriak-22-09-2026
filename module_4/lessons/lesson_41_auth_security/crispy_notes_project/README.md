@@ -3,7 +3,7 @@
 > блок налаштувань безпеки. Урок 41 додає JWT для API (`djangorestframework-simplejwt`: `/api/token/`, `/api/token/refresh/`),
 > throttle на видачу токена, `SECRET_KEY`/`DEBUG` зі змінних середовища і тести `hello_app/tests_auth.py`.
 > Змінювати й видаляти нотатку — і на сторінках, і через API — може лише її автор (`403` для учасника групи).
-> Розбір змін: [урок 41 у книзі курсу](https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m4/lesson_40/).
+> Розбір змін: [урок 41 у книзі курсу](https://nikoriakviktor.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m4/lesson_40/).
 >
 > ```bash
 > pip install -r requirements.txt

@@ -106,7 +106,36 @@ body {
     border-bottom: 1px solid #30363d !important;
 }
 
-/* ── Dropdown-меню ────────────────────────────────────────────────────────── */
+/* ── Темна тема для компонентів Dash 4 ───────────────────────────────────────
+   У Dash 4 Dropdown і DatePicker — нові компоненти (класи .dash-dropdown-*,
+   .dash-datepicker-*). Кольори вони беруть із CSS-змінних --Dash-*, які Dash
+   задає на :root світлими. Перевизначаємо їх на body: усі елементи сторінки,
+   зокрема меню, що відкриваються поверх (portal), успадкують темні значення. */
+
+body {
+    --Dash-Fill-Inverse-Strong: #21262d;           /* фон поля й меню */
+    --Dash-Fill-Interactive-Strong: #58a6ff;       /* акцент: вибране, фокус */
+    --Dash-Fill-Interactive-Weak: rgba(88, 166, 255, 0.10);
+    --Dash-Fill-Primary-Hover: rgba(240, 246, 252, 0.06);
+    --Dash-Fill-Primary-Active: rgba(240, 246, 252, 0.10);
+    --Dash-Fill-Disabled: rgba(240, 246, 252, 0.05);
+    --Dash-Text-Strong: #e6edf3;
+    --Dash-Text-Primary: #c9d1d9;
+    --Dash-Text-Weak: #8b949e;
+    --Dash-Text-Disabled: #6e7681;
+    --Dash-Stroke-Strong: #484f58;
+    --Dash-Stroke-Weak: #30363d;
+    --Dash-Shading-Strong: rgba(0, 0, 0, 0.6);
+    --Dash-Shading-Weak: rgba(0, 0, 0, 0.4);
+}
+
+.dash-dropdown-search,
+.dash-datepicker-input {
+    background: #21262d;
+    color: #c9d1d9;
+}
+
+/* ── Dropdown-меню (старі класи, Dash ≤ 3) ───────────────────────────────── */
 
 .Select-control {
     background-color: #21262d !important;

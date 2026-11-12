@@ -15,7 +15,7 @@
 | 47 | Telegram-бот |
 | 48–50 | Docker, Compose, CI/CD |
 
-Проєкт: [`news_hub`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_39_fastapi_sqlalchemy/news_hub).
+Проєкт: [`news_hub`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_39_fastapi_sqlalchemy/news_hub).
 
 **Що потрібно з попередніх уроків:** SQL — таблиці, `UNIQUE`, `GROUP BY`, транзакції, параметри замість f-рядків (урок 30); `async`/`await` (27); FastAPI, `Depends`, `lifespan`, `TestClient` (37); `NewsItem` (36).
 
@@ -28,7 +28,7 @@
 - створити й застосувати міграцію Alembic;
 - пояснити, чому «перевір, а потім встав» ламається під навантаженням.
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_39_fastapi_sqlalchemy/note_lesson_39_sqlalchemy_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_39_fastapi_sqlalchemy/note_lesson_39_sqlalchemy.ipynb){ .solutions-link } — база й CRUD на SQLite, без встановлення PostgreSQL.
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_39_fastapi_sqlalchemy/note_lesson_39_sqlalchemy_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_39_fastapi_sqlalchemy/note_lesson_39_sqlalchemy.ipynb){ .solutions-link } — база й CRUD на SQLite, без встановлення PostgreSQL.
 
 **Довідник:** [FastAPI: архітектура, async і production-патерни](fastapi/fastapi_documentation.md) — розділи 6–8: пул з'єднань, Repository, Unit of Work.
 
@@ -657,12 +657,12 @@ IntegrityError duplicate key value violates unique constraint "news_url_key"
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_39_fastapi_sqlalchemy/note_lesson_39_sqlalchemy_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_39_fastapi_sqlalchemy/note_lesson_39_sqlalchemy.ipynb){ .solutions-link }.
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_39_fastapi_sqlalchemy/note_lesson_39_sqlalchemy_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_39_fastapi_sqlalchemy/note_lesson_39_sqlalchemy.ipynb){ .solutions-link }.
 - Урок 40 — middleware і Redis: кеш `GET /api/news` перед репозиторієм, rate limit на `POST /api/scrape`, фоновий збір.
 
 ## Документація і джерела
 
-- Код: [`news_hub`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_39_fastapi_sqlalchemy/news_hub) — шар бази зі стартового `production_bot` (`backend/core/database.py`, `backend/repositories/base.py`, `migrations/`, `docker-compose.yml`), API — з уроку 38.
+- Код: [`news_hub`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_39_fastapi_sqlalchemy/news_hub) — шар бази зі стартового `production_bot` (`backend/core/database.py`, `backend/repositories/base.py`, `migrations/`, `docker-compose.yml`), API — з уроку 38.
 - Довідник курсу: [FastAPI: архітектура, async і production-патерни](fastapi/fastapi_documentation.md), розділи 6–8.
 - SQLAlchemy 2.0: [ORM Quick Start](https://docs.sqlalchemy.org/en/20/orm/quickstart.html), [Declarative Mapping](https://docs.sqlalchemy.org/en/20/orm/declarative_tables.html), [Asynchronous I/O](https://docs.sqlalchemy.org/en/20/orm/extensions/asyncio.html), [Session Basics](https://docs.sqlalchemy.org/en/20/orm/session_basics.html), [INSERT…ON CONFLICT (PostgreSQL)](https://docs.sqlalchemy.org/en/20/dialects/postgresql.html#insert-on-conflict-upsert)
 - FastAPI: [SQL (Relational) Databases](https://fastapi.tiangolo.com/tutorial/sql-databases/), [Dependencies with yield](https://fastapi.tiangolo.com/tutorial/dependencies/dependencies-with-yield/)

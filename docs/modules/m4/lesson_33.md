@@ -19,7 +19,7 @@
 
 **Задача розділу.** Meteo API v2 і Streamlit-карта погоди. Повний приклад — у розділі [«Практика»](#practice).
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_33_rest_api_design/note_lesson_33_rest_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_33_rest_api_design/note_lesson_33_rest.ipynb){ .solutions-link } — сервер запускається прямо в ноутбуці.
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_33_rest_api_design/note_lesson_33_rest_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_33_rest_api_design/note_lesson_33_rest.ipynb){ .solutions-link } — сервер запускається прямо в ноутбуці.
 
 ## Пригадай
 
@@ -35,7 +35,7 @@
 
 ## Метеотелеграма: які дані віддає API
 
-Уся робота — у папці уроку [`lesson_33_rest_api_design`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_33_rest_api_design). Встанови залежності (у Colab це робить ноутбук):
+Уся робота — у папці уроку [`lesson_33_rest_api_design`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_33_rest_api_design). Встанови залежності (у Colab це робить ноутбук):
 
 ```bash
 pip install fastapi uvicorn pymetdecoder strawberry-graphql grpcio grpcio-tools websockets httpx requests
@@ -743,17 +743,17 @@ flowchart TD
 
 - **Шари, як в уроці 30.** `MeteoRepository` приховує, звідки дані. Перейти зі знімка CSV на MongoDB чи PostgreSQL — це заміна одного класу, а ендпоінти лишаються тими самими.
 - **API не знає про Streamlit.** Карта — лише один із клієнтів. Ноутбук, Telegram-бот чи інший сервіс ходять тими самими запитами.
-- **Клієнт-клас, як в уроці 32.** `MeteoClient` (файл [`weather_map/client.py`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_33_rest_api_design/weather_map/client.py)) знає адресу, тайм-аут, пагінацію і перетворює `404` на `StationNotFound`. Streamlit-код не містить жодного URL.
+- **Клієнт-клас, як в уроці 32.** `MeteoClient` (файл [`weather_map/client.py`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_33_rest_api_design/weather_map/client.py)) знає адресу, тайм-аут, пагінацію і перетворює `404` на `StationNotFound`. Streamlit-код не містить жодного URL.
 - **Дані із зовнішнього сайту — знімком.** API не ходить в ogimet на кожен запит клієнта: окремий скрипт раз на кілька годин завантажує телеграми. Якщо ogimet «ляже», карта продовжить працювати на останніх даних.
 
-**Карта погоди** — [`weather_map/app.py`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_33_rest_api_design/weather_map/app.py), на основі дашборду викладача: вкладки «Карта» (температура на станціях: синій — мороз, червоний — тепло), «Станція» (графіки температури й тиску) та «HTTP-інспектор» (останній запит клієнта). Запуск — два термінали:
+**Карта погоди** — [`weather_map/app.py`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_33_rest_api_design/weather_map/app.py), на основі дашборду викладача: вкладки «Карта» (температура на станціях: синій — мороз, червоний — тепло), «Станція» (графіки температури й тиску) та «HTTP-інспектор» (останній запит клієнта). Запуск — два термінали:
 
 ```bash
 uvicorn meteo_api.app:app --port 8032          # API: http://127.0.0.1:8032/docs
 streamlit run weather_map/app.py               # карта: http://localhost:8501
 ```
 
-Або обидва одразу через Docker Compose ([`docker-compose.yml`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_33_rest_api_design/docker-compose.yml); Docker — урок 49):
+Або обидва одразу через Docker Compose ([`docker-compose.yml`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_33_rest_api_design/docker-compose.yml); Docker — урок 49):
 
 ```bash
 docker compose up --build
@@ -902,7 +902,7 @@ print(response.status_code, response.json())
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_33_rest_api_design/note_lesson_33_rest_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_33_rest_api_design/note_lesson_33_rest.ipynb){ .solutions-link } — ресурси, коди, пагінація, `PATCH`, GraphQL і клієнт з перевірками.
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_33_rest_api_design/note_lesson_33_rest_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_33_rest_api_design/note_lesson_33_rest.ipynb){ .solutions-link } — ресурси, коди, пагінація, `PATCH`, GraphQL і клієнт з перевірками.
 - Наступний урок — 34, «Django intro: MVT, ORM, admin»: перший повноцінний вебфреймворк.
 - FastAPI зсередини — уроки 37–39 (Pydantic, FastAPI + OpenAPI + Postman, CRUD з базою даних). Автентифікація — урок 41, тестування API — урок 42, WebSocket-чат — урок 46, Telegram Bot API з webhook — урок 48.
 
@@ -913,4 +913,4 @@ print(response.status_code, response.json())
 - Інші типи: [JSON-RPC 2.0](https://www.jsonrpc.org/specification), [GraphQL](https://graphql.org/learn/), [gRPC](https://grpc.io/docs/what-is-grpc/introduction/) і [Protocol Buffers](https://protobuf.dev/), [WebSocket — RFC 6455](https://www.rfc-editor.org/rfc/rfc6455), [Server-Sent Events — стандарт HTML](https://html.spec.whatwg.org/multipage/server-sent-events.html)
 - Бібліотеки: [FastAPI](https://fastapi.tiangolo.com/), [Strawberry GraphQL](https://strawberry.rocks/docs), [grpcio](https://grpc.io/docs/languages/python/quickstart/), [websockets](https://websockets.readthedocs.io/), [pymetdecoder](https://pypi.org/project/pymetdecoder/), [Streamlit](https://docs.streamlit.io/), [OpenAPI](https://spec.openapis.org/oas/latest.html)
 - Дані: [ogimet.com](https://www.ogimet.com/) — телеграми SYNOP; код КН-01 / WMO FM 12 SYNOP
-- Проєкт викладача: [`NikoriakViktot/ogimet`](https://github.com/NikoriakViktot/ogimet) (перша версія API) і його розвиток — `ogimet-main` та клієнт `meteo_parser/telegram_filter.py`
+- Проєкт викладача: [`NikoriakViktor/ogimet`](https://github.com/NikoriakViktor/ogimet) (перша версія API) і його розвиток — `ogimet-main` та клієнт `meteo_parser/telegram_filter.py`

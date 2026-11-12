@@ -1,6 +1,6 @@
 # Урок 52. Робота над фінальним проєктом — інструменти аудиту
 
-Сторінка уроку в книзі: [Урок 52](https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m6/lesson_51/) — зріз курсу, аудит баз і застосунків `news_hub` та `crispy_notes_project`, рекомендації й вимоги до фінального проєкту.
+Сторінка уроку в книзі: [Урок 52](https://nikoriakviktor.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m5/lesson_51/) — зріз курсу, аудит баз і застосунків `news_hub` та `crispy_notes_project`, рекомендації й вимоги до фінального проєкту.
 
 | Файл | Що робить | Запуск (з кореня репозиторію) |
 |---|---|---|

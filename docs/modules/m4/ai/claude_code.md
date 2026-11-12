@@ -173,7 +173,7 @@ claude -r                            # вибрати розмову зі спи
 - Нових залежностей не додавай без пояснення.
 ```
 
-Повний файл проєкту — [`news_hub/CLAUDE.md`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_43_ai_dev_tools/news_hub/CLAUDE.md).
+Повний файл проєкту — [`news_hub/CLAUDE.md`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_43_ai_dev_tools/news_hub/CLAUDE.md).
 
 - **Імпорти:** `@README.md` або `@docs/deploy.md` у тексті CLAUDE.md підключає файл (до 4 рівнів вкладеності). У бектиках (`` `@README` ``) — просто текст.
 - **Правила для частини файлів:** `.claude/rules/*.md` з полем `paths:` у frontmatter — завантажуються, лише коли агент працює з відповідними файлами:
@@ -249,7 +249,7 @@ disable-model-invocation: true
 | `context: fork`, `agent` | виконати в окремому субагенті |
 | `paths` | активувати лише для відповідних файлів |
 
-Повний skill проєкту — [`.claude/skills/add-news-source/SKILL.md`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_43_ai_dev_tools/news_hub/.claude/skills/add-news-source/SKILL.md). Поглиблено: [Skills](https://code.claude.com/docs/en/skills).
+Повний skill проєкту — [`.claude/skills/add-news-source/SKILL.md`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_43_ai_dev_tools/news_hub/.claude/skills/add-news-source/SKILL.md). Поглиблено: [Skills](https://code.claude.com/docs/en/skills).
 
 ## 9. MCP — зовнішні інструменти
 

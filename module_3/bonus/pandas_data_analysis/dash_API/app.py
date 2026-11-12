@@ -11,6 +11,7 @@
 #   app.py
 #   └── layouts/main_layout.py  → побудова HTML-структури
 #   └── callbacks/tabs_callbacks.py → вся інтерактивна логіка
+#       └── callbacks/story.py      → вкладка «📖 Історія даних» (сторітелінг)
 #
 # Для запуску:
 #   cd dash_API

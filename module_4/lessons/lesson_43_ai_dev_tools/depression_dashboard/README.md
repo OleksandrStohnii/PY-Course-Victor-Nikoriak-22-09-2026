@@ -2,7 +2,7 @@
 
 > **Навчальний кейс, а не медичний інструмент.** Цей проєкт згенерував AI-асистент за
 > промптами з [`prompts/`](prompts/) (IDEA → ROADMAP → Prompts_Roadmap). Тести рецензії — `tests/test_review.py`.
-> Розбір — [урок 43 у книзі курсу](https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m4/lesson_42/).
+> Розбір — [урок 43 у книзі курсу](https://nikoriakviktor.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m4/lesson_42/).
 
 Датасет у репозиторій не входить: Student Depression Dataset (Kaggle) →
 `../data/Student Depression Dataset.csv` (або змінна `DATA_DIR`). Модель навчається при першому запуску бекенду.

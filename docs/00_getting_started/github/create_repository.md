@@ -54,4 +54,6 @@ git push -u origin main
 | `Updates were rejected because the remote contains work that you do not have` | На GitHub уже є commit (README створений при створенні репозиторію), якого немає локально | Або `git pull --allow-unrelated-histories origin main` і розв'яжи конфлікт, або створи репозиторій наступного разу без README/.gitignore (сценарій B) |
 | `Permission denied (publickey)` | Немає підключеного SSH-ключа, або URL через `https` замість `ssh` без збереженого логіна | Дивись [SSH-ключі](ssh_keys.md) |
 
+👉 Щоб власні проєкти було видно на твоїй сторінці GitHub — оформи [профіль із README-візитівкою](profile_readme.md) і закріпи їх там.
+
 👉 Структуру репозиторію, README і комітну гігієну для портфоліо — дивись [Урок 16](../../modules/m1/lesson_16.md).

@@ -1,6 +1,6 @@
 # dispatch — диспетчерська «Смачно + Таксі»
 
-Артефакт модуля 2, навчальний проєкт уроку 29 ([сторінка в книзі](https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m2/lesson_28/)).
+Артефакт модуля 2, навчальний проєкт уроку 29 ([сторінка в книзі](https://nikoriakviktor.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m2/lesson_28/)).
 
 ```text
 dispatch/

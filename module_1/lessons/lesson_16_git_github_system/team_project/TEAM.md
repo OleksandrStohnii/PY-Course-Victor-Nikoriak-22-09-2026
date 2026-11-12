@@ -298,7 +298,7 @@ RawOrder(total_bill=540.0, tip=50.0, size=2, timestamp=datetime.datetime(2024, 7
 
 Після зміни файлу треба вийти (`exit()`) і зайти знову: `import` не перечитує вже завантажений модуль.
 
-> Пригадай: [урок 13, розділи 5–6 — `if __name__ == "__main__"` і `sys.argv`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_13_modules_stdlib/note_lesson_13_modules_stdlib_student.ipynb): саме так `main.py` і `check.py` отримують аргументи з командного рядка.
+> Пригадай: [урок 13, розділи 5–6 — `if __name__ == "__main__"` і `sys.argv`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_13_modules_stdlib/note_lesson_13_modules_stdlib_student.ipynb): саме так `main.py` і `check.py` отримують аргументи з командного рядка.
 
 ---
 
@@ -340,7 +340,7 @@ flowchart TD
 
 **Навіщо:** у всіх має бути **один** спільний репозиторій з однаковим стартом: шаблоном, тестами й заглушками. Від цього коміту кожен відгалузиться.
 
-Нічого копіювати не треба: проєкт уже лежить у шаблоні **[NikoriakViktot/cafe-kasa-template](https://github.com/NikoriakViktot/cafe-kasa-template)**.
+Нічого копіювати не треба: проєкт уже лежить у шаблоні **[NikoriakViktor/cafe-kasa-template](https://github.com/NikoriakViktor/cafe-kasa-template)**.
 
 1. Відкрити шаблон → зелена кнопка **Use this template** → **Create a new repository**.
 2. Owner — свій акаунт, назва — наприклад `cafe-kasa-team-1`, **Public** → **Create repository**. Репозиторій команди з'явиться з одним комітом: шаблон, тести, заглушки.
@@ -348,7 +348,7 @@ flowchart TD
 4. *(Необов'язково, але корисно)* **Settings → Branches → Add rule** для `main`: «Require a pull request before merging». Тоді випадковий `git push` у `main` просто не пройде.
 5. Розподілити задачі й рецензентів. Простий спосіб — по колу: автор задачі N переглядає PR задачі N+1, автор задачі 6 — задачі 1.
 
-> Пригадай: [урок 16, розділ 1 «Ірина створює репозиторій» і розділ 9 «Тепер — командою на GitHub»](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_16_git_github_system/note_lesson_16_git_github_system_student.ipynb).
+> Пригадай: [урок 16, розділ 1 «Ірина створює репозиторій» і розділ 9 «Тепер — командою на GitHub»](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_16_git_github_system/note_lesson_16_git_github_system_student.ipynb).
 
 ### Етап 1 — кожен робить свою задачу у своїй гілці
 
@@ -384,7 +384,7 @@ git push -u origin task-3-loading
 
 **Навіщо PR:** це запит «візьміть мої зміни в `main`», і поки його не прийняли, ще одна людина може подивитися код. Рев'ю ловить те, чого тести не бачать: незрозумілі імена, зайві `print`, змінені чужі файли.
 
-1. Після `git push` GitHub покаже кнопку **Compare & pull request**. Base — `main`, compare — твоя гілка. У назві — номер задачі, в описі — що зроблено і що `python check.py N` проходить. Покроково — [у книзі: Pull Request](https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/00_getting_started/github/pull_request/).
+1. Після `git push` GitHub покаже кнопку **Compare & pull request**. Base — `main`, compare — твоя гілка. У назві — номер задачі, в описі — що зроблено і що `python check.py N` проходить. Покроково — [у книзі: Pull Request](https://nikoriakviktor.github.io/PY-Course-Victor-Nikoriak-22-09-2026/00_getting_started/github/pull_request/).
 2. Рецензент перевіряє за чеклистом:
    - [ ] у вкладці **Files changed** рівно два файли: свій `.py` і `TEAM.md`;
    - [ ] у `TEAM.md` додано один рядок у кінець, решта не змінена;
@@ -530,10 +530,10 @@ flowchart LR
 
 **Пригадай.**
 
-- [Урок 4 — `if` / `elif` / `else`, порядок умов](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_04_conditions_and_control/note_lesson_04_conditions_student.ipynb) · [книга](https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m1/lesson_04/)
-- [Урок 5 — кортеж, індекси](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_05_lists_tuples_sets/note_lesson_05_lists_tuples_sets_student.ipynb) · [книга](https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m1/lesson_05/)
-- [Урок 13, розділ 8 — `datetime` і `.weekday()`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_13_modules_stdlib/note_lesson_13_modules_stdlib_student.ipynb) · [книга](https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m1/lesson_13/)
-- [Урок 16, вправа 1](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_16_git_github_system/note_lesson_16_git_github_system_student.ipynb) — ти вже писав саме цю задачу в навчальному репозиторії.
+- [Урок 4 — `if` / `elif` / `else`, порядок умов](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_04_conditions_and_control/note_lesson_04_conditions_student.ipynb) · [книга](https://nikoriakviktor.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m1/lesson_04/)
+- [Урок 5 — кортеж, індекси](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_05_lists_tuples_sets/note_lesson_05_lists_tuples_sets_student.ipynb) · [книга](https://nikoriakviktor.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m1/lesson_05/)
+- [Урок 13, розділ 8 — `datetime` і `.weekday()`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_13_modules_stdlib/note_lesson_13_modules_stdlib_student.ipynb) · [книга](https://nikoriakviktor.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m1/lesson_13/)
+- [Урок 16, вправа 1](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_16_git_github_system/note_lesson_16_git_github_system_student.ipynb) — ти вже писав саме цю задачу в навчальному репозиторії.
 
 **Готово, коли:** `python check.py 1` → 2/2 `OK`; змінено лише `rules.py` і рядок у `TEAM.md`.
 
@@ -600,9 +600,9 @@ flowchart TD
 
 **Пригадай.**
 
-- [Урок 14, розділи 2 «Каса віддає рядки» і 5 «`raise`: правила кафе»](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_14_exceptions/note_lesson_14_exceptions_student.ipynb) — там `parse_line` будується крок за кроком · [книга](https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m1/lesson_14/)
-- [Урок 5, розділ 4 — `NamedTuple`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_05_lists_tuples_sets/note_lesson_05_lists_tuples_sets_student.ipynb)
-- [Урок 13, розділ 8 — `datetime.strptime`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_13_modules_stdlib/note_lesson_13_modules_stdlib_student.ipynb)
+- [Урок 14, розділи 2 «Каса віддає рядки» і 5 «`raise`: правила кафе»](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_14_exceptions/note_lesson_14_exceptions_student.ipynb) — там `parse_line` будується крок за кроком · [книга](https://nikoriakviktor.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m1/lesson_14/)
+- [Урок 5, розділ 4 — `NamedTuple`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_05_lists_tuples_sets/note_lesson_05_lists_tuples_sets_student.ipynb)
+- [Урок 13, розділ 8 — `datetime.strptime`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_13_modules_stdlib/note_lesson_13_modules_stdlib_student.ipynb)
 
 **Поглиблення (не обов'язково).** Повідомлення Python англійською (`could not convert string to float: '540,00'`) касир не зрозуміє. Можна зловити їх і підняти своє, українською, зберігши причину:
 
@@ -666,9 +666,9 @@ flowchart TD
 
 **Пригадай.**
 
-- [Урок 15, розділи 1 «Читаємо файл каси» і 4 «Шляхи і `FileNotFoundError`»](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_15_file_io_json/note_lesson_15_file_io_json_student.ipynb) · [книга](https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m1/lesson_15/)
-- [Урок 14, розділи 3 «`try` / `except`», 6 «Де ловити» і 7 «Антипатерн „підгузок“»](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_14_exceptions/note_lesson_14_exceptions_student.ipynb) — там є `load_orders` з `enumerate`
-- [Урок 6, розділ 7 — `for`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_06_dicts_loops_comprehensions/note_lesson_06_dicts_loops_comprehensions_student.ipynb)
+- [Урок 15, розділи 1 «Читаємо файл каси» і 4 «Шляхи і `FileNotFoundError`»](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_15_file_io_json/note_lesson_15_file_io_json_student.ipynb) · [книга](https://nikoriakviktor.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m1/lesson_15/)
+- [Урок 14, розділи 3 «`try` / `except`», 6 «Де ловити» і 7 «Антипатерн „підгузок“»](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_14_exceptions/note_lesson_14_exceptions_student.ipynb) — там є `load_orders` з `enumerate`
+- [Урок 6, розділ 7 — `for`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_06_dicts_loops_comprehensions/note_lesson_06_dicts_loops_comprehensions_student.ipynb)
 
 **Готово, коли:** `python check.py 3` → 3/3 `OK`.
 
@@ -731,9 +731,9 @@ flowchart LR
 
 **Пригадай.**
 
-- [Урок 6 — патерн Counting, «Leader algorithm: який день найприбутковіший?», `.get()`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_06_dicts_loops_comprehensions/note_lesson_06_dicts_loops_comprehensions_student.ipynb) · [книга](https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m1/lesson_06/)
-- [Урок 8 — функції `revenue_by_day` і `best_day` у звіті кафе](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_08_functions/note_lesson_08_functions_student.ipynb) · [книга](https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m1/lesson_08/)
-- [Урок 16, вправа 2](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_16_git_github_system/note_lesson_16_git_github_system_student.ipynb) — ти вже писав цю задачу в навчальному репозиторії.
+- [Урок 6 — патерн Counting, «Leader algorithm: який день найприбутковіший?», `.get()`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_06_dicts_loops_comprehensions/note_lesson_06_dicts_loops_comprehensions_student.ipynb) · [книга](https://nikoriakviktor.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m1/lesson_06/)
+- [Урок 8 — функції `revenue_by_day` і `best_day` у звіті кафе](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_08_functions/note_lesson_08_functions_student.ipynb) · [книга](https://nikoriakviktor.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m1/lesson_08/)
+- [Урок 16, вправа 2](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_16_git_github_system/note_lesson_16_git_github_system_student.ipynb) — ти вже писав цю задачу в навчальному репозиторії.
 
 **Готово, коли:** `python check.py 4` → 3/3 `OK`.
 
@@ -801,9 +801,9 @@ flowchart LR
 
 **Пригадай.**
 
-- [Урок 15, розділи 5 «JSON» («Що JSON вміє, а що ні») і 8 «Розібраний приклад: місячний звіт»](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_15_file_io_json/note_lesson_15_file_io_json_student.ipynb) — там дуже схожа `build_report` · [книга](https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m1/lesson_15/)
-- [Урок 6, розділ 9 — dict comprehension; `Counter`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_06_dicts_loops_comprehensions/note_lesson_06_dicts_loops_comprehensions_student.ipynb)
-- [Урок 13, розділ 8 — `collections.Counter`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_13_modules_stdlib/note_lesson_13_modules_stdlib_student.ipynb)
+- [Урок 15, розділи 5 «JSON» («Що JSON вміє, а що ні») і 8 «Розібраний приклад: місячний звіт»](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_15_file_io_json/note_lesson_15_file_io_json_student.ipynb) — там дуже схожа `build_report` · [книга](https://nikoriakviktor.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m1/lesson_15/)
+- [Урок 6, розділ 9 — dict comprehension; `Counter`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_06_dicts_loops_comprehensions/note_lesson_06_dicts_loops_comprehensions_student.ipynb)
+- [Урок 13, розділ 8 — `collections.Counter`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_13_modules_stdlib/note_lesson_13_modules_stdlib_student.ipynb)
 
 **Готово, коли:** `python check.py 5` → 2/2 `OK`.
 
@@ -860,9 +860,9 @@ flowchart LR
 
 **Пригадай.**
 
-- [Урок 15, розділ 5 «JSON», розділ 8 і шпаргалка: `json.dump`, `ensure_ascii`, `indent`, `:.2f`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_15_file_io_json/note_lesson_15_file_io_json_student.ipynb) · [книга](https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m1/lesson_15/)
-- [Урок 6, розділ 3 — ітерація по словнику, `.items()`; розділ 8 — comprehensions](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_06_dicts_loops_comprehensions/note_lesson_06_dicts_loops_comprehensions_student.ipynb)
-- [Урок 8, розділ 2 — `return` vs `print`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_08_functions/note_lesson_08_functions_student.ipynb)
+- [Урок 15, розділ 5 «JSON», розділ 8 і шпаргалка: `json.dump`, `ensure_ascii`, `indent`, `:.2f`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_15_file_io_json/note_lesson_15_file_io_json_student.ipynb) · [книга](https://nikoriakviktor.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m1/lesson_15/)
+- [Урок 6, розділ 3 — ітерація по словнику, `.items()`; розділ 8 — comprehensions](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_06_dicts_loops_comprehensions/note_lesson_06_dicts_loops_comprehensions_student.ipynb)
+- [Урок 8, розділ 2 — `return` vs `print`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_08_functions/note_lesson_08_functions_student.ipynb)
 
 **Готово, коли:** `python check.py 6` → 3/3 `OK`.
 
@@ -888,7 +888,7 @@ flowchart TD
     P --> Q["PR оновився: конфлікту немає"]
 ```
 
-Маркери конфлікту — це три службові рядки, які вставив Git: сім знаків `<` з назвою гілки, сім знаків `=` і сім знаків `>`. Між ними — твоя версія і версія з `main`. Потрібно залишити обидва рядки таблиці (у порядку номерів задач) і видалити всі три маркери. Як це виглядає — [урок 16, розділ 5 «Конфлікт» і вправа 3](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_16_git_github_system/note_lesson_16_git_github_system_student.ipynb).
+Маркери конфлікту — це три службові рядки, які вставив Git: сім знаків `<` з назвою гілки, сім знаків `=` і сім знаків `>`. Між ними — твоя версія і версія з `main`. Потрібно залишити обидва рядки таблиці (у порядку номерів задач) і видалити всі три маркери. Як це виглядає — [урок 16, розділ 5 «Конфлікт» і вправа 3](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_16_git_github_system/note_lesson_16_git_github_system_student.ipynb).
 
 Злякався посеред злиття? `git merge --abort` повертає все, як було до `git merge main`.
 
@@ -900,7 +900,7 @@ flowchart TD
 | `git push` → `Permission denied` | Не прийнято запрошення в Collaborators. Перевір пошту / сповіщення GitHub. |
 | Закомітив у `main` замість своєї гілки (ще не запушив) | `git switch -c task-N-…` — гілка створиться з цим комітом. Потім `git switch main` і `git reset --hard origin/main`, щоб `main` знову збігався з GitHub. |
 | `git status` показує чужі файли або `__pycache__/` | Не додавай їх: `git add` лише двох своїх файлів. `__pycache__/` має ігнорувати `.gitignore` — перевір `git check-ignore -v __pycache__`. |
-| У коміт потрапив `report.json` | `git rm --cached report.json` і коміт — [урок 16, вправа 4](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_16_git_github_system/note_lesson_16_git_github_system_student.ipynb). |
+| У коміт потрапив `report.json` | `git rm --cached report.json` і коміт — [урок 16, вправа 4](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_16_git_github_system/note_lesson_16_git_github_system_student.ipynb). |
 | `check.py N` пише `ще не зроблено` для **чужої** функції | У тебе стара версія тестів. `git pull` у `main` і `git merge main` у свою гілку. |
 | Окремо все `OK`, а `check.py all` — ❌ | Хтось розійшовся з контрактом. Читай повідомлення: там файл і рядок. Виправлення — у новій гілці `fix-…` і через PR. |
 | `ModuleNotFoundError: No module named 'models'` | Запускаєш не з кореня проєкту. `cd` туди, де лежить `check.py`. |

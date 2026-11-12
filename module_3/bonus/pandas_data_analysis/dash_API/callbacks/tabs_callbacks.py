@@ -2,7 +2,7 @@
 # callbacks/tabs_callbacks.py — Усі callbacks дашборду (tabs-архітектура)
 # =============================================================================
 # Архітектурний принцип:
-#   Тільки ДВА callbacks у цьому файлі:
+#   ДВА callbacks у цьому файлі (+ кнопки історії в callbacks/story.py):
 #
 #   1. update_unit_options — оновлює список одиниць виміру при зміні товару
 #      Input:  commodity-filter
@@ -56,6 +56,7 @@ from data_utils import (
     compute_correlation,
 )
 from config import PLOTLY_TEMPLATE, MAP_STYLE, COLOR_SCALE
+from callbacks.story import render_story, register_story_callbacks
 
 
 # =============================================================================
@@ -77,9 +78,9 @@ def register_tab_callbacks(app):
     # Пояснення:
     #   Коли користувач обирає інший товар, список доступних одиниць виміру
     #   змінюється. Наприклад:
-    #     - Sugar → тільки 'KG'
-    #     - Bread (rye) → 'KG' і 'Loaf'
-    #     - Milk → 'KG' і 'L'
+    #     - Цукор → тільки 'кг'
+    #     - Хліб житній → 'кг' і 'буханка'
+    #     - Молоко → 'кг' і 'л'
     #   Без цього callback'у користувач міг би обрати одиницю,
     #   яка відсутня для обраного товару, і отримати порожній графік.
 
@@ -131,8 +132,12 @@ def register_tab_callbacks(app):
         Кожна гілка if-elif обробляє окрему вкладку незалежно.
         """
 
+        # ── Вкладка 0: Історія даних (див. callbacks/story.py) ────────────
+        if tab == "story":
+            return render_story()
+
         # ── Вкладка 1: Огляд даних ────────────────────────────────────────
-        if tab == "overview":
+        elif tab == "overview":
             return _render_overview()
 
         # ── Вкладка 2: Ціни на товари ─────────────────────────────────────
@@ -161,6 +166,11 @@ def register_tab_callbacks(app):
 
         # Невідома вкладка — не повинно відбуватися, але захист обов'язковий
         return html.Div("Невідома вкладка")
+
+    # =========================================================================
+    # CALLBACK 3: Кнопки «Перевір сам» в кінці історії перемикають вкладку
+    # =========================================================================
+    register_story_callbacks(app)
 
 
 # =============================================================================
@@ -337,6 +347,10 @@ def _render_food(
             (ts_df["дата"] <= pd.to_datetime(end_date))
         ]
 
+    # Висновок одним реченням над графіком (takeaway) — читач бачить
+    # головне ще до того, як почне розглядати лінії.
+    takeaway = _food_takeaway(ts_df, commodity, unit)
+
     if ts_df.empty:
         fig_ts = _empty_figure("Немає даних для обраного товару/регіону/дат")
     else:
@@ -474,6 +488,8 @@ def _render_food(
             f"Товар: {commodity} ({unit}) | Регіон: {oblast_label}",
             style={"color": "#8b949e"},
         ),
+
+        _takeaway_box(takeaway),
 
         html.Div([
             dcc.Graph(figure=fig_ts, style={"marginBottom": "24px"}),
@@ -842,6 +858,16 @@ def _render_debt(indicator: str) -> html.Div:
 
         dcc.Graph(figure=fig),
 
+        # Легенда скорочень у назвах індикаторів (переклад — utils/translator.py)
+        html.P(
+            "Скорочення: ПБ — платіжний баланс; ВНД — валовий національний дохід; "
+            "ДГ — державний і держгарантований борг; ПНГ — приватний негарантований борг; "
+            "МБРР — Міжнародний банк реконструкції та розвитку; МАР — Міжнародна асоціація "
+            "розвитку; МФК — Міжнародна фінансова корпорація; ОДР — офіційна допомога розвитку. "
+            "«Чисті потоки» — отримане мінус повернене за рік.",
+            style={"color": "#8b949e", "fontSize": "12px", "marginTop": "8px"},
+        ),
+
         html.Details([
             html.Summary(
                 f"📋 Усі доступні індикатори ({len(all_indicators)})",
@@ -914,6 +940,9 @@ def _render_correlation(
 
     # Кореляція
     corr = compute_correlation(aligned)
+
+    # Висновок «хто швидше»: порівнюємо зростання ціни і курсу за той самий період
+    takeaway = _correlation_takeaway(aligned, commodity)
 
     # ── Графік 1: Порівняльний часовий ряд (подвійна вісь Y) ──
     fig_ts = go.Figure()
@@ -1003,6 +1032,8 @@ def _render_correlation(
             f"Товар: {commodity} ({unit}) | Вирівняних місячних спостережень: {corr['n']}",
             style={"color": "#8b949e"},
         ),
+
+        _takeaway_box(takeaway),
 
         # Результат кореляції — виділений блок
         html.Div([
@@ -1137,6 +1168,57 @@ def _render_methodology() -> html.Div:
 # =============================================================================
 # Допоміжна функція: порожній графік із повідомленням
 # =============================================================================
+
+def _food_takeaway(ts_df: pd.DataFrame, commodity: str, unit: str) -> str:
+    """
+    Одне речення-висновок для вкладки цін: як змінилась медіана від першого
+    до останнього місяця обраного періоду. Рахується з даних, а не пишеться руками.
+    """
+    ts = ts_df.dropna(subset=["медіана_ціни"])
+    if len(ts) < 2:
+        return ""
+    first, last = ts.iloc[0], ts.iloc[-1]
+    ratio = last["медіана_ціни"] / first["медіана_ціни"]
+    peak = ts.loc[ts["медіана_ціни"].idxmax()]
+    return (
+        f"{commodity} ({unit}): медіанна ціна змінилась з {first['медіана_ціни']:.1f} до "
+        f"{last['медіана_ціни']:.1f} грн ({ratio:.1f}×) за {first['дата']:%m.%Y}–{last['дата']:%m.%Y}; "
+        f"найдорожче було {peak['дата']:%m.%Y} — {peak['медіана_ціни']:.1f} грн."
+    )
+
+
+def _correlation_takeaway(aligned: pd.DataFrame, commodity: str) -> str:
+    """
+    Висновок для вкладки кореляції: що росло швидше — ціна чи долар.
+    Це простіше для читача, ніж коефіцієнт r, і не претендує на причинність.
+    """
+    a = aligned.dropna(subset=["медіана_ціни", "курс"])
+    if len(a) < 2:
+        return ""
+    price_pct = (a["медіана_ціни"].iloc[-1] / a["медіана_ціни"].iloc[0] - 1) * 100
+    rate_pct = (a["курс"].iloc[-1] / a["курс"].iloc[0] - 1) * 100
+    verdict = "швидше" if price_pct > rate_pct else "повільніше"
+    return (
+        f"За {a['дата'].iloc[0]:%m.%Y}–{a['дата'].iloc[-1]:%m.%Y} {commodity} подорожчав на "
+        f"{price_pct:+.0f}%, а долар — на {rate_pct:+.0f}%: ціна росла {verdict} за курс."
+    )
+
+
+def _takeaway_box(text: str) -> html.Div:
+    """Виділений рядок із висновком (порожній текст → нічого не показуємо)."""
+    if not text:
+        return html.Div()
+    return html.Div(
+        text,
+        style={
+            "borderLeft": "4px solid #f0883e",
+            "padding": "8px 14px",
+            "margin": "8px 0 16px 0",
+            "background": "#161b22",
+            "fontSize": "14px",
+        },
+    )
+
 
 def _empty_figure(message: str) -> go.Figure:
     """

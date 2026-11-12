@@ -23,7 +23,7 @@ and hydrological modeling for water systems.
 ## Professional Profiles
 
 - 💼 **LinkedIn** — [Viktor Nikoriak](https://www.linkedin.com/in/viktor-nikoriak-328404203/)
-- 💻 **GitHub** — [NikoriakViktot](https://github.com/NikoriakViktot)
+- 💻 **GitHub** — [NikoriakViktor](https://github.com/NikoriakViktor)
 - 🧬 **ORCID** — [0009-0007-9934-4151](https://orcid.org/0009-0007-9934-4151)
 - 📚 **Google Scholar** — [Scholar Profile](https://scholar.google.com/citations?user=oPSQ_5wAAAAJ&hl=uk)
 - 🌍 **GeoHydroAI Project** — [GeoHydroAI.org](https://GeoHydroAI.org)

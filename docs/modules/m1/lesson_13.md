@@ -15,9 +15,9 @@
 - працювати з датами через `datetime` і `timedelta`, рахувати через `Counter`, користуватися `calendar`, `statistics` і `random`;
 - приймати аргументи з командного рядка через `sys.argv`.
 
-**Задача розділу.** Перетворити ноутбук кафе на проєкт з чотирьох модулів, який друкує звіт за місяць командою `python main.py 2024 7`. Повний код — у розділі [«Практика»](#practice), готовий проєкт — у теці [`cafe_report/`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_1/lessons/lesson_13_modules_stdlib/cafe_report).
+**Задача розділу.** Перетворити ноутбук кафе на проєкт з чотирьох модулів, який друкує звіт за місяць командою `python main.py 2024 7`. Повний код — у розділі [«Практика»](#practice), готовий проєкт — у теці [`cafe_report/`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_1/lessons/lesson_13_modules_stdlib/cafe_report).
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_13_modules_stdlib/note_lesson_13_modules_stdlib_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_13_modules_stdlib/note_lesson_13_modules_stdlib.ipynb){ .solutions-link }
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_13_modules_stdlib/note_lesson_13_modules_stdlib_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_13_modules_stdlib/note_lesson_13_modules_stdlib.ipynb){ .solutions-link }
 
 ## Пригадай
 
@@ -47,7 +47,7 @@ cafe_report/
 └── main.py     ← точка входу: python main.py 2024 7
 ```
 
-Так модулі створює ноутбук заняття, і так працюють усі приклади до розділу «Практика». У готовій теці [`cafe_report/`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_1/lessons/lesson_13_modules_stdlib/cafe_report) ті самі чотири модулі розкладено ще й по **пакетах** — теках з модулями. Як це змінює імпорти, розберемо в [«Практиці»](#practice).
+Так модулі створює ноутбук заняття, і так працюють усі приклади до розділу «Практика». У готовій теці [`cafe_report/`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_1/lessons/lesson_13_modules_stdlib/cafe_report) ті самі чотири модулі розкладено ще й по **пакетах** — теках з модулями. Як це змінює імпорти, розберемо в [«Практиці»](#practice).
 
 Найпростіший модуль — правила кафе. У ньому немає жодного імпорту:
 
@@ -582,7 +582,7 @@ ValueError: invalid literal for int() with base 10: 'липень'
 
 ### Розібраний приклад: звіт кафе з чотирьох модулів
 
-Готовий проєкт лежить у теці [`cafe_report/`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_1/lessons/lesson_13_modules_stdlib/cafe_report). Модулі ті самі, що й вище, але кожен лежить у своїй теці:
+Готовий проєкт лежить у теці [`cafe_report/`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_1/lessons/lesson_13_modules_stdlib/cafe_report). Модулі ті самі, що й вище, але кожен лежить у своїй теці:
 
 ```text
 cafe_report/
@@ -760,7 +760,7 @@ python main.py 2024 7
 python -m reports.report
 ```
 
-Перевірки проєкту — у [`tests/test_cafe_report.py`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_13_modules_stdlib/cafe_report/tests/test_cafe_report.py). Це теж модуль: він імпортує `rules.rules`, `orders.orders`, `reports.report` і `main` і перевіряє їх `assert`-ами, зокрема що `import reports.report` нічого не друкує. Запуск з теки `cafe_report/`: `python -m tests.test_cafe_report`.
+Перевірки проєкту — у [`tests/test_cafe_report.py`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_13_modules_stdlib/cafe_report/tests/test_cafe_report.py). Це теж модуль: він імпортує `rules.rules`, `orders.orders`, `reports.report` і `main` і перевіряє їх `assert`-ами, зокрема що `import reports.report` нічого не друкує. Запуск з теки `cafe_report/`: `python -m tests.test_cafe_report`.
 
 Тека зветься `tests`, а не `test`: `test` — пакет стандартної бібліотеки, і своя тека з таким ім'ям його затінила б, як `calendar.py` вище.
 
@@ -992,8 +992,8 @@ print(random.__file__)
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_13_modules_stdlib/note_lesson_13_modules_stdlib_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_13_modules_stdlib/note_lesson_13_modules_stdlib.ipynb){ .solutions-link } — та сама історія кафе: модулі створюються прямо з ноутбука через `%%writefile`, з вправами й перевірками.
-- Довідник: [`notes_modules.ipynb`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_13_modules_stdlib/notes_modules.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_13_modules_stdlib/notes_modules.ipynb) — пакети й `__init__.py`, відносні імпорти та ще десяток модулів стандартної бібліотеки: `pathlib`, `re`, `itertools`, `functools`, `json`, `timeit`.
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_13_modules_stdlib/note_lesson_13_modules_stdlib_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_13_modules_stdlib/note_lesson_13_modules_stdlib.ipynb){ .solutions-link } — та сама історія кафе: модулі створюються прямо з ноутбука через `%%writefile`, з вправами й перевірками.
+- Довідник: [`notes_modules.ipynb`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_13_modules_stdlib/notes_modules.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_13_modules_stdlib/notes_modules.ipynb) — пакети й `__init__.py`, відносні імпорти та ще десяток модулів стандартної бібліотеки: `pathlib`, `re`, `itertools`, `functools`, `json`, `timeit`.
 - Наступне заняття: [Урок 14. Винятки](lesson_14.md). `python main.py 2024 липень` падає з `ValueError`, а `python main.py 2024 13` — з помилкою `calendar`. Навчимося перехоплювати такі помилки.
 - Урок 15 — файли й JSON: каса віддаватиме чеки не з генератора, а з файлу, і `datetime.strptime` знадобиться знову.
 

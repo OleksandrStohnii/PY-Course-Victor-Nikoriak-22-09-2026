@@ -12,6 +12,7 @@ from dash import html, dcc
 from data_utils import get_dataset, get_units_for_commodity, get_debt_indicators
 from layouts.sidebar import create_sidebar
 from layouts.tabs import create_tabs
+from utils.translator import ua_sort_key  # сортування за українською абеткою
 
 
 def create_layout() -> html.Div:
@@ -40,17 +41,17 @@ def create_layout() -> html.Div:
     debt_df    = get_dataset("debt")
 
     # Список товарів — відсортований алфавітно для зручного вибору
-    commodities = sorted(food_df["товар"].dropna().unique().tolist())
+    commodities = sorted(food_df["товар"].dropna().unique().tolist(), key=ua_sort_key)
 
     # Стандартний товар за замовчуванням
-    default_commodity = "Sugar"  # Цукор — присутній у всіх регіонах і датах
+    default_commodity = "Цукор"  # назви товарів уже українською (loader) — присутній у всіх регіонах і датах
 
     # Одиниці виміру для товару за замовчуванням
     default_units = get_units_for_commodity(food_df, default_commodity)
-    default_unit  = default_units[0] if default_units else "KG"
+    default_unit  = default_units[0] if default_units else "кг"
 
     # Список областей — виключаємо NaN (National Average не має області)
-    oblasts = sorted(food_df["область"].dropna().unique().tolist())
+    oblasts = sorted(food_df["область"].dropna().unique().tolist(), key=ua_sort_key)
 
     # Діапазон дат
     date_min = food_df["дата"].min()
@@ -62,7 +63,7 @@ def create_layout() -> html.Div:
     # Дефолтний індикатор — рахунок поточних операцій (BoP)
     # Це один з найбільш інформативних індикаторів платіжного балансу
     default_debt = next(
-        (i for i in debt_indicators if "Current account balance" in i),
+        (i for i in debt_indicators if i.startswith("Сальдо поточного рахунку")),
         debt_indicators[0] if debt_indicators else ""
     )
 

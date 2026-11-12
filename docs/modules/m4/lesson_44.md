@@ -26,7 +26,7 @@
 | 47 | Telegram-бот: `/news`, `/digest` |
 | 48–50 | Docker, Compose, CI/CD |
 
-Проєкт: [`news_hub`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_44_llm_api/news_hub).
+Проєкт: [`news_hub`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_44_llm_api/news_hub).
 
 **Що потрібно з попередніх уроків:** Pydantic і `ValidationError` (урок 37); `Depends` і `dependency_overrides` (37); міграції Alembic (38); Redis, `INCR` + `EXPIRE NX`, фонові задачі (39); мок і фейк зовнішньої межі, мінімальні версії (41); секрети лише в змінних середовища (40).
 
@@ -39,7 +39,7 @@
 - рахувати й економити токени: база, кеш за хешем тексту, rate limit;
 - тестувати код з LLM без мережі й ключа — і перевіряти контракт зі справжнім API.
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_44_llm_api/note_lesson_44_llm_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_44_llm_api/note_lesson_44_llm.ipynb){ .solutions-link } — вправи на `FakeLLM`, ключ не потрібен; з ключем Gemini — ще й справжні виклики.
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_44_llm_api/note_lesson_44_llm_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_44_llm_api/note_lesson_44_llm.ipynb){ .solutions-link } — вправи на `FakeLLM`, ключ не потрібен; з ключем Gemini — ще й справжні виклики.
 
 ## Пригадай
 
@@ -1020,13 +1020,13 @@ E   news_hub.llm.LLMUnavailable: gemini відхилив запит (400): Inval
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_44_llm_api/note_lesson_44_llm_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_44_llm_api/note_lesson_44_llm.ipynb){ .solutions-link }.
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_44_llm_api/note_lesson_44_llm_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_44_llm_api/note_lesson_44_llm.ipynb){ .solutions-link }.
 - Урок 45 — архітектура застосунків і патерни: `LLMClient` + `GuardedLLM` — це вже патерни «стратегія» й «декоратор».
 - Урок 48 — Telegram-бот: `/digest` збирає проаналізовані новини через той самий `analyze_news`.
 
 ## Документація і джерела
 
-- Код: [`news_hub`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_44_llm_api/news_hub) — `llm.py` з `ai_bot/app/services/ai_service.py`, `analysis.py` замість `news_dashboard/app/nlp.py` (прототип).
+- Код: [`news_hub`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_44_llm_api/news_hub) — `llm.py` з `ai_bot/app/services/ai_service.py`, `analysis.py` замість `news_dashboard/app/nlp.py` (прототип).
 - Gemini API: [генерація тексту](https://ai.google.dev/gemini-api/docs/text-generation), [structured output](https://ai.google.dev/gemini-api/docs/structured-output), [моделі](https://ai.google.dev/gemini-api/docs/models), [ліміти](https://ai.google.dev/gemini-api/docs/rate-limits), [ціни](https://ai.google.dev/gemini-api/docs/pricing), [помилки](https://ai.google.dev/gemini-api/docs/troubleshooting); SDK [google-genai](https://googleapis.github.io/python-genai/); ключ — [Google AI Studio](https://aistudio.google.com/apikey).
 - Anthropic: [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs), [помилки](https://platform.claude.com/docs/en/api/errors), [ціни](https://platform.claude.com/docs/en/about-claude/pricing); SDK [anthropic-sdk-python](https://github.com/anthropics/anthropic-sdk-python).
 - Безпека: [OWASP Top 10 for LLM Applications](https://genai.owasp.org/llm-top-10/), [LLM01 Prompt Injection](https://genai.owasp.org/llmrisk/llm01-prompt-injection/).

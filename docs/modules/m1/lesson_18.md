@@ -15,9 +15,9 @@
 - зібрати консольну систему з шести модулів, яка зберігає стан у JSON, пояснює помилки людською мовою і перевіряється тестами;
 - вести проєкт у власному репозиторії: гілки, коміти, Pull Request, README.
 
-**Задача розділу.** Фінальний проєкт [«Смачно + Таксі»](#project) у теці [`capstone/`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_1/lessons/lesson_18_module1_review/capstone).
+**Задача розділу.** Фінальний проєкт [«Смачно + Таксі»](#project) у теці [`capstone/`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_1/lessons/lesson_18_module1_review/capstone).
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_18_module1_review/note_lesson_18_review_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_18_module1_review/note_lesson_18_review.ipynb){ .solutions-link }
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_18_module1_review/note_lesson_18_review_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_18_module1_review/note_lesson_18_review.ipynb){ .solutions-link }
 
 ## Карта модуля
 
@@ -320,7 +320,7 @@ python check.py all    # усі частини + ця сесія адмініс�
 
 ### Як здавати
 
-1. Власний публічний репозиторій на GitHub ([інструкція](../../00_getting_started/github/create_repository.md)), у ньому вміст теки [`capstone/`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_1/lessons/lesson_18_module1_review/capstone) **без** `solution/`.
+1. Власний публічний репозиторій на GitHub ([інструкція](../../00_getting_started/github/create_repository.md)), у ньому вміст теки [`capstone/`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_1/lessons/lesson_18_module1_review/capstone) **без** `solution/`.
 2. Кожна частина — окрема гілка `part-N-…`, осмислені коміти, Pull Request у свій `main`, злиття. Так історія покаже, як система росла.
 3. `README.md` твого репозиторію: що вміє система, як запустити, приклад виводу `report`.
 4. Посилання на репозиторій — викладачеві.
@@ -358,8 +358,8 @@ python check.py all    # усі частини + ця сесія адмініс�
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_18_module1_review/note_lesson_18_review_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_18_module1_review/note_lesson_18_review.ipynb){ .solutions-link } — прогнози з усього модуля і запуск фінального проєкту в Colab.
-- Довідник: [`notes_module1_review.ipynb`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_18_module1_review/notes_module1_review.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_18_module1_review/notes_module1_review.ipynb) — докладний конспект усього модуля: велика картина, ментальна модель Python, чекліст. Нумерація уроків у ньому не збігається з нумерацією книги.
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_18_module1_review/note_lesson_18_review_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_18_module1_review/note_lesson_18_review.ipynb){ .solutions-link } — прогнози з усього модуля і запуск фінального проєкту в Colab.
+- Довідник: [`notes_module1_review.ipynb`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_18_module1_review/notes_module1_review.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_18_module1_review/notes_module1_review.ipynb) — докладний конспект усього модуля: велика картина, ментальна модель Python, чекліст. Нумерація уроків у ньому не збігається з нумерацією книги.
 - [Модуль 2](../m2_python_advanced.md) починається з уроку 19 «Функції як об'єкти першого класу»: функції, які приймають і повертають функції — те, що вже трапилося в декораторах уроку 10, стане основним інструментом.
 
 ## Документація і джерела

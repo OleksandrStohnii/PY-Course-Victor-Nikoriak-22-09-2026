@@ -25,7 +25,7 @@
 
 **Задача розділу.** Пакет `dispatch`: п'ять структур у підпакеті `structures` і сервіс `Dispatcher`, що ними користується. Запуск і тести — у розділі [«Практика»](#practice).
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_29_practicum_data_structures/note_lesson_29_structures_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_29_practicum_data_structures/note_lesson_29_structures.ipynb){ .solutions-link } · **Проєкт:** [`dispatch_project/`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_2/lessons/lesson_29_practicum_data_structures/dispatch_project)
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_29_practicum_data_structures/note_lesson_29_structures_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_29_practicum_data_structures/note_lesson_29_structures.ipynb){ .solutions-link } · **Проєкт:** [`dispatch_project/`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_2/lessons/lesson_29_practicum_data_structures/dispatch_project)
 
 ## Пригадай
 
@@ -858,8 +858,8 @@ def get(self, key, default=None):
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_29_practicum_data_structures/note_lesson_29_structures_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_29_practicum_data_structures/note_lesson_29_structures.ipynb){ .solutions-link } — стек, черга, купа, дерево й кеш з перевірками, а потім тести пакета `dispatch` з ноутбука.
-- Проєкт: [`dispatch_project/`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_2/lessons/lesson_29_practicum_data_structures/dispatch_project) — пакет, демо, 57 тестів, розділ «Спробуй зламати» в README.
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_29_practicum_data_structures/note_lesson_29_structures_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_29_practicum_data_structures/note_lesson_29_structures.ipynb){ .solutions-link } — стек, черга, купа, дерево й кеш з перевірками, а потім тести пакета `dispatch` з ноутбука.
+- Проєкт: [`dispatch_project/`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_2/lessons/lesson_29_practicum_data_structures/dispatch_project) — пакет, демо, 57 тестів, розділ «Спробуй зламати» в README.
 - Модуль 3 — бази даних. У уроці 31 Redis винесе ті самі ідеї за межі програми: списки Redis працюють як черги й стеки, відсортовані множини — як черга з пріоритетом, а сам Redis часто налаштовують як LRU-кеш.
 
 ## Документація і джерела

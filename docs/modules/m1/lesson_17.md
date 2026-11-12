@@ -16,7 +16,7 @@
 
 **Задача розділу.** Звіт диспетчера за зміну: пара поїздок для ваучера, найпопулярніший маршрут, постійні клієнти — кожне за один прохід по журналу. Повний код — у розділі [«Практика»](#practice).
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_17_practicum_hashing/note_lesson_17_hashing_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_17_practicum_hashing/note_lesson_17_hashing.ipynb){ .solutions-link }
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_17_practicum_hashing/note_lesson_17_hashing_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_17_practicum_hashing/note_lesson_17_hashing.ipynb){ .solutions-link }
 
 ## Пригадай
 
@@ -596,7 +596,7 @@ group_anagrams(["літо", "клоун", "тіло", "таксі", "уклон"
 
 ### Лабораторія: таксі
 
-Для показу на занятті є інтерактивний застосунок [`taxi_lab`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_1/lessons/lesson_17_practicum_hashing/taxi_lab) на Streamlit, чотири вкладки:
+Для показу на занятті є інтерактивний застосунок [`taxi_lab`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_1/lessons/lesson_17_practicum_hashing/taxi_lab) на Streamlit, чотири вкладки:
 
 - **хеш-таблиця зсередини** — наповнюєш таблицю справжніми зонами Нью-Йорка й бачиш комірки, колізії, розширення; кошики-списки або відкрита адресація, як у `dict`; погані хеш-функції перетворюють пошук на `O(n)`;
 - **list · tuple · set · dict** — властивості, що можна хешувати, гонка `x in …` до мільйона елементів і ціна побудови множини;
@@ -645,8 +645,8 @@ streamlit run app.py
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_17_practicum_hashing/note_lesson_17_hashing_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_17_practicum_hashing/note_lesson_17_hashing.ipynb){ .solutions-link } — та сама зміна диспетчера: прогнози, лічильники кроків, вправи з перевірками, хеш зсередини, пам'ять і DuckDB.
-- Лабораторія для заняття: [`taxi_lab`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_1/lessons/lesson_17_practicum_hashing/taxi_lab) — хеш-таблиця зсередини, пам'ять і 3 мільйони поїздок NYC у DuckDB.
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_17_practicum_hashing/note_lesson_17_hashing_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_17_practicum_hashing/note_lesson_17_hashing.ipynb){ .solutions-link } — та сама зміна диспетчера: прогнози, лічильники кроків, вправи з перевірками, хеш зсередини, пам'ять і DuckDB.
+- Лабораторія для заняття: [`taxi_lab`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_1/lessons/lesson_17_practicum_hashing/taxi_lab) — хеш-таблиця зсередини, пам'ять і 3 мільйони поїздок NYC у DuckDB.
 - Наступне заняття: [Урок 18. Огляд модуля 1](lesson_18.md) — усе разом: типи, колекції, функції, винятки, файли, Git і три практикуми.
 - У модулі 2 повернемося до hashable з іншого боку: як зробити ключем словника **власний** клас (`__hash__` і `__eq__`).
 

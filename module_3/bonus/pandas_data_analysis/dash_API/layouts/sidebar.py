@@ -11,6 +11,7 @@
 #   correlation → commodity-filter, unit-filter, oblast-filter, date-range
 #   exchange    → (не використовує — показує весь ряд)
 #   debt        → debt-indicator-filter
+#   story       → (не використовує — історія розповідає одну відповідь)
 #   overview    → (не використовує)
 #   methodology → (не використовує)
 #

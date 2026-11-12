@@ -19,7 +19,7 @@
 | 47 | Telegram-бот |
 | 48–50 | Docker, Compose, CI/CD |
 
-Проєкт: [`news_hub`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_40_middleware_redis/news_hub).
+Проєкт: [`news_hub`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_40_middleware_redis/news_hub).
 
 **Що потрібно з попередніх уроків:** Redis — ключі, `INCR`, `EXPIRE`/`TTL`, hash, pipeline, cache-aside (урок 31); декоратори й функції як значення (9, 18); FastAPI, `Depends`, `lifespan` (37); `get_db` і COMMIT до відповіді (38).
 
@@ -31,7 +31,7 @@
 - винести довгу роботу у фон (`202 Accepted` + статус задачі) і не загубити дані;
 - відрізнити фіксоване вікно rate limit від ковзного.
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_40_middleware_redis/note_lesson_40_redis_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_40_middleware_redis/note_lesson_40_redis.ipynb){ .solutions-link } — без сервера Redis: `fakeredis` у пам'яті.
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_40_middleware_redis/note_lesson_40_redis_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_40_middleware_redis/note_lesson_40_redis.ipynb){ .solutions-link } — без сервера Redis: `fakeredis` у пам'яті.
 
 ## Пригадай
 
@@ -619,12 +619,12 @@ with TestClient(app) as client:
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_40_middleware_redis/note_lesson_40_redis_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_40_middleware_redis/note_lesson_40_redis.ipynb){ .solutions-link }.
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_40_middleware_redis/note_lesson_40_redis_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_40_middleware_redis/note_lesson_40_redis.ipynb){ .solutions-link }.
 - Урок 41 — автентифікація й безпека (Django-гілка, нотатки). Агрегатор повернеться в уроці 42: тести API на тестовій базі й з підміною мережі.
 
 ## Документація і джерела
 
-- Код: [`news_hub`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_40_middleware_redis/news_hub) — Redis-клієнт з `production_bot/backend/core/redis.py`, rate limit з `ai_bot/app/middlewares/rate_limit.py` і `repositories/rate_limit_repo.py` (стартовий код), фоновий збір — з `news_dashboard/app/main.py`.
+- Код: [`news_hub`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_40_middleware_redis/news_hub) — Redis-клієнт з `production_bot/backend/core/redis.py`, rate limit з `ai_bot/app/middlewares/rate_limit.py` і `repositories/rate_limit_repo.py` (стартовий код), фоновий збір — з `news_dashboard/app/main.py`.
 - Урок 31 курсу — [Redis overview](../m3/lesson_31.md): cache-aside, `INCR`/`EXPIRE`, pipeline, sorted set.
 - FastAPI: [Middleware](https://fastapi.tiangolo.com/tutorial/middleware/), [Background Tasks](https://fastapi.tiangolo.com/tutorial/background-tasks/), [Custom Response](https://fastapi.tiangolo.com/advanced/custom-response/)
 - Redis: [INCR — pattern: rate limiter](https://redis.io/docs/latest/commands/incr/), [EXPIRE (опції NX/XX/GT/LT)](https://redis.io/docs/latest/commands/expire/), [Transactions](https://redis.io/docs/latest/develop/interact/transactions/), [KEYS — не для продакшену](https://redis.io/docs/latest/commands/keys/)

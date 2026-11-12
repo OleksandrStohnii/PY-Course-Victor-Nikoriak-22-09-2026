@@ -15,6 +15,7 @@
 # =============================================================================
 
 import pandas as pd
+from utils.translator import ua_sort_key  # сортування за українською абеткою
 import numpy as np
 from typing import Optional
 
@@ -37,9 +38,9 @@ def filter_food(
 
     Параметри:
         df                       — вихідний датафрейм food (після load_food)
-        commodity                — назва товару (наприклад, 'Sugar')
-        unit                     — одиниця виміру (наприклад, 'KG')
-        oblast                   — назва області (наприклад, 'Kyivska')
+        commodity                — назва товару (наприклад, 'Цукор')
+        unit                     — одиниця виміру (наприклад, 'кг')
+        oblast                   — назва області (наприклад, 'Київ')
         start_date               — початок діапазону дат
         end_date                 — кінець діапазону дат
         exclude_national_average — чи виключати рядки з ринком 'National Average'
@@ -88,7 +89,7 @@ def get_units_for_commodity(df: pd.DataFrame, commodity: str) -> list[str]:
 
     Чому це потрібно:
         Деякі товари мають декілька одиниць виміру в датасеті
-        (наприклад, Milk: 'KG' та 'L'; Bread (rye): 'KG' та 'Loaf').
+        (наприклад, Молоко: 'кг' та 'л'; Хліб житній: 'кг' та 'буханка').
         Перш ніж будувати будь-яку агрегацію, користувач МУСИТЬ обрати
         конкретну одиницю, щоб уникнути порівняння непорівнянних цін.
     """
@@ -312,7 +313,7 @@ def get_debt_indicators(df: pd.DataFrame) -> list[str]:
     Примітка: 59 індикаторів мають РІЗНУ економічну природу та одиниці виміру.
     Порівнювати їх між собою без методологічного обґрунтування некоректно.
     """
-    return sorted(df["індикатор"].dropna().unique().tolist())
+    return sorted(df["індикатор"].dropna().unique().tolist(), key=ua_sort_key)
 
 
 def get_debt_timeseries(

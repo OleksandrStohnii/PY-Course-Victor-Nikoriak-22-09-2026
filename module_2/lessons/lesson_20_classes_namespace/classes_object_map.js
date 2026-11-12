@@ -5,11 +5,11 @@
  * створення об'єкта через __new__ / __init__) описана тут. HTML лише підключає цей файл.
  *
  * Структура:
- *   1. Значення в стилі Python (int, bool, str, list, tuple) + repr()
- *   2. CLASSES — класи object, type, int, bool, str, list, tuple, Animal, Dog
+ *   1. Значення в стилі Python (int, bool, str, list, tuple, dict, set) + repr()
+ *   2. CLASSES — класи object, type, int, bool, str, list, tuple, dict, set, function, method, Animal, Dog
  *      з власними методами: що кожен робить з об'єктом і як його виконати
  *   3. mro() / lookup() — пошук методу по ланцюжку успадкування
- *   4. Екземпляри: n, flag, city, nums, point, cat, rex
+ *   4. Екземпляри: n, flag, city, nums, point, menu, tags, apply_discount, next_id, bark, cat, rex
  *   5. SVG-схема: стрілки __class__ (екземпляр) і __bases__ (успадкування)
  *   6. Панель класу / об'єкта з кнопками виклику методів
  *   7. Покрокове створення об'єкта: type.__call__ → __new__ → __init__
@@ -26,6 +26,9 @@ const L = v => ({ c: 'list', v });
 const T = v => ({ c: 'tuple', v });
 const F = v => ({ c: 'float', v });
 const N = { c: 'NoneType', v: null };
+// dict: v — масив пар [ключ, значення] у порядку додавання; set: v — масив унікальних елементів
+const D = pairs => ({ c: 'dict', v: pairs });
+const SE = items => { const s = { c: 'set', v: [] }; items.forEach(x => sAdd(s, x)); return s; };
 
 let idCounter = 0x7f3a10;
 function newId() { idCounter += 0x40; return '0x' + idCounter.toString(16); }
@@ -34,9 +37,14 @@ function repr(x) {
   switch (x.c) {
     case 'int': return String(x.v);
     case 'bool': return x.v ? 'True' : 'False';
-    case 'str': return "'" + x.v.replace(/\\/g, '\\\\').replace(/'/g, "\\'") + "'";
+    case 'str': {   // як у Python: є ' і немає " → беремо подвійні лапки
+      const t = x.v.replace(/\\/g, '\\\\');
+      return x.v.includes("'") && !x.v.includes('"') ? '"' + t + '"' : "'" + t.replace(/'/g, "\\'") + "'";
+    }
     case 'list': return '[' + x.v.map(repr).join(', ') + ']';
     case 'tuple': return x.v.length === 1 ? '(' + repr(x.v[0]) + ',)' : '(' + x.v.map(repr).join(', ') + ')';
+    case 'dict': return '{' + x.v.map(([k, v]) => repr(k) + ': ' + repr(v)).join(', ') + '}';
+    case 'set': return x.v.length ? '{' + x.v.map(repr).join(', ') + '}' : 'set()';
     case 'float': return Number.isInteger(x.v) ? x.v.toFixed(1) : String(x.v);
     case 'NoneType': return 'None';
     case 'function': return `<function ${x.qual || x.name} at ${x.id}>`;
@@ -46,7 +54,8 @@ function repr(x) {
   }
 }
 function clone(x) {
-  if (x.c === 'list' || x.c === 'tuple') return { ...x, v: x.v.map(clone) };
+  if (x.c === 'list' || x.c === 'tuple' || x.c === 'set') return { ...x, v: x.v.map(clone) };
+  if (x.c === 'dict') return { ...x, v: x.v.map(([k, v]) => [clone(k), clone(v)]) };
   if (x.dict) return { ...x, dict: { ...x.dict } };
   return { ...x };
 }
@@ -55,11 +64,36 @@ function eq(a, b) {
   if (num(a) !== undefined && num(b) !== undefined) return num(a) === num(b);
   if (a.c !== b.c) return false;
   if (a.c === 'list' || a.c === 'tuple') return a.v.length === b.v.length && a.v.every((e, i) => eq(e, b.v[i]));
+  // dict і set порівнюються БЕЗ урахування порядку
+  if (a.c === 'set') return a.v.length === b.v.length && a.v.every(e => b.v.some(f => eq(e, f)));
+  if (a.c === 'dict') return a.v.length === b.v.length && a.v.every(([k, v]) => { const i = dIdx(b, k); return i >= 0 && eq(v, b.v[i][1]); });
   if (a.dict) return a === b;
   return a.v === b.v;
 }
 class PyError extends Error { constructor(kind, msg) { super(msg); this.kind = kind; } }
 const toInt = x => Number(x.v);
+
+// Хешованість: змінні колекції не можуть бути ключем dict чи елементом set; кортеж — лише якщо всі елементи хешовані
+function unhashable(x) {
+  if (x.c === 'list' || x.c === 'dict' || x.c === 'set') return x.c;
+  if (x.c === 'tuple') { for (const e of x.v) { const bad = unhashable(e); if (bad) return bad; } }
+  return null;
+}
+const needHash = x => { const bad = unhashable(x); if (bad) throw new PyError('TypeError', `unhashable type: '${bad}'`); };
+const dIdx = (d, k) => d.v.findIndex(([kk]) => eq(kk, k));
+function dSet(d, k, val) { needHash(k); const i = dIdx(d, k); if (i >= 0) d.v[i][1] = val; else d.v.push([k, val]); }
+function sAdd(s, x) { needHash(x); if (s.v.some(e => eq(e, x))) return false; s.v.push(x); return true; }
+// елементи будь-якої колекції (для dict — ключі, як при ітерації)
+const itemsOf = it => it.c === 'dict' ? it.v.map(([k]) => k) : it.v;
+// пари для dict(...) / update(...): інший dict або колекція пар (ключ, значення)
+function pairsOf(it) {
+  if (it.c === 'dict') return it.v;
+  return it.v.map((e, i) => {
+    if ((e.c !== 'tuple' && e.c !== 'list') || e.v.length !== 2) throw new PyError('ValueError', `dictionary update sequence element #${i} has wrong length`);
+    return [e.v[0], e.v[1]];
+  });
+}
+const keyErr = k => new PyError('KeyError', repr(k));
 
 /* ===================== Рівні складності =====================
    beginner — об'єкт → клас → метод, створення через __new__/__init__, успадкування методів
@@ -242,13 +276,99 @@ const CLASSES = {
       { n: '__eq__', sig: '(self, other) → bool', kind: 'info', d: 'Оператор ==.', op: '{s} == {a0}', ex: [T([I(540), I(320)])],
         run: (s, o) => B(eq(s, o)) },
       { n: '__hash__', sig: '(self) → int', kind: 'info', d: 'Хеш з хешів УСІХ елементів. Працює, лише якщо кожен елемент хешований: hash((540, 320)) — так, hash(([1, 2], 540)) — TypeError. Сама незмінність кортежу цього не гарантує.', op: 'hash({s})', ex: [],
-        run: s => { const bad = s.v.find(e => e.c === 'list'); if (bad) throw new PyError('TypeError', "unhashable type: 'list'"); return I(s.v.reduce((h, e) => (h * 31 + (Number(e.v) || 7)) % 1000003, 3527)); } },
+        run: s => { needHash(s); return I(s.v.reduce((h, e) => (h * 31 + (Number(e.v) || 7)) % 1000003, 3527)); } },
       { n: '__repr__', sig: '(self) → str', kind: 'info', d: 'Текст (540, 320).', op: 'repr({s})', ex: [],
         run: s => S(repr(s)) },
       { n: 'count', sig: '(x) → int', kind: 'info', d: 'Скільки разів трапляється x.', ex: [I(540)],
         run: (s, x) => I(s.v.filter(e => eq(e, x)).length) },
       { n: 'index', sig: '(x) → int', kind: 'info', d: 'Позиція першого входження x.', ex: [I(320)],
         run: (s, x) => { const k = s.v.findIndex(e => eq(e, x)); if (k < 0) throw new PyError('ValueError', 'tuple.index(x): x not in tuple'); return I(k); } },
+    ],
+  },
+  dict: {
+    bases: ['object'], kind: 'cls',
+    about: "Словник: пари «ключ → значення». ЗМІННИЙ, як list: d[key] = value, update, pop змінюють той самий об'єкт. Ключі — лише ХЕШОВАНІ об'єкти (int, str, tuple…), бо dict шукає ключ за hash(). Порядок пар — порядок додавання (з Python 3.7).",
+    methods: [
+      { n: '__new__', sig: '(cls, ...)', kind: 'create', d: "Створює ПОРОЖНІЙ словник {} у пам'яті." },
+      { n: '__init__', sig: '(self, iterable=(), **kw)', kind: 'create', d: 'Заповнює словник парами з іншого dict або зі списку пар (ключ, значення). Повторний виклик НЕ очищає — лише додає/оновлює, як update.', op: '{s}.__init__({a0})', ex: [L([T([S('сік'), I(50)])])],
+        run: (s, it) => { if (it) pairsOf(it).forEach(([k, v]) => dSet(s, k, v)); return N; } },
+      { n: '__len__', sig: '(self) → int', kind: 'info', d: 'Функція len(): кількість ПАР.', op: 'len({s})', ex: [],
+        run: s => I(s.v.length) },
+      { n: '__getitem__', sig: '(self, key)', kind: 'info', d: 'Читання d[key]: повертає значення. Немає ключа → KeyError (на відміну від get).', op: '{s}[{a0}]', ex: [S('кава')],
+        run: (s, k) => { needHash(k); const i = dIdx(s, k); if (i < 0) throw keyErr(k); return s.v[i][1]; } },
+      { n: '__setitem__', sig: '(self, key, value)', kind: 'mut', d: 'Запис d[key] = value: є ключ — оновлює значення, немає — додає нову пару в кінець.', op: '{s}[{a0}] = {a1}', ex: [S('сік'), I(50)],
+        run: (s, k, v) => { dSet(s, k, v); return N; } },
+      { n: '__delitem__', sig: '(self, key)', kind: 'mut', d: 'Оператор del d[key]: видаляє пару. Немає ключа → KeyError.', op: 'del {s}[{a0}]', ex: [S('чай')],
+        run: (s, k) => { const i = dIdx(s, k); if (i < 0) throw keyErr(k); s.v.splice(i, 1); return N; } },
+      { n: '__contains__', sig: '(self, key) → bool', kind: 'info', d: 'Оператор in перевіряє КЛЮЧІ, а не значення.', op: '{a0} in {s}', ex: [S('кава')],
+        run: (s, k, ctx) => { ctx.notes.push(`in шукає серед ключів; щоб перевірити значення: 45 in ${varOf(s) || 'd'}.values()`); return B(dIdx(s, k) >= 0); } },
+      { n: '__eq__', sig: '(self, other) → bool', kind: 'info', d: 'Оператор ==: ті самі пари ключ → значення. Порядок НЕ важливий.', op: '{s} == {a0}', ex: [D([[S('чай'), I(30)], [S('кава'), I(45)]])],
+        run: (s, o, ctx) => { ctx.notes.push('пари записано в іншому порядку — для dict це не важливо'); return B(eq(s, o)); } },
+      { n: '__or__', sig: '(self, other) → dict', kind: 'new', d: 'Оператор | (Python 3.9+): НОВИЙ словник з парами обох; при однакових ключах перемагає правий.', op: '{s} | {a0}', ex: [D([[S('чай'), I(35)]])],
+        run: (s, o) => { if (o.c !== 'dict') throw new PyError('TypeError', `unsupported operand type(s) for |: 'dict' and '${o.c}'`); const r = D(s.v.map(([k, v]) => [k, v])); o.v.forEach(([k, v]) => dSet(r, k, v)); return r; } },
+      { n: '__repr__', sig: '(self) → str', kind: 'info', d: "Текст {'кава': 45, 'чай': 30}.", op: 'repr({s})', ex: [],
+        run: s => S(repr(s)) },
+      { n: '__hash__', sig: '= None', kind: 'none', d: 'Вимкнено (= None): словник змінний, тому сам не може бути ключем іншого dict чи елементом set.', op: 'hash({s})', ex: [],
+        run: () => { throw new PyError('TypeError', "unhashable type: 'dict'"); } },
+      { n: 'get', sig: '(key, default=None)', kind: 'info', d: 'Як d[key], але без KeyError: немає ключа → повертає default.', ex: [S('сік'), I(0)],
+        run: (s, k, dflt, ctx) => { const i = dIdx(s, k); if (i >= 0) return s.v[i][1]; ctx.notes.push(`ключа ${repr(k)} немає → повернуто default; словник не змінився`); return dflt && dflt.c ? dflt : N; } },
+      { n: 'keys', sig: '() → dict_keys', kind: 'info', d: "«Вікно» на ключі, а не копія: змінився словник — змінилось і вікно. list(d.keys()) — справжній список.", ex: [],
+        run: s => ({ c: 'raw', tn: 'dict_keys', text: `dict_keys([${s.v.map(([k]) => repr(k)).join(', ')}])` }) },
+      { n: 'values', sig: '() → dict_values', kind: 'info', d: '«Вікно» на значення.', ex: [],
+        run: s => ({ c: 'raw', tn: 'dict_values', text: `dict_values([${s.v.map(([, v]) => repr(v)).join(', ')}])` }) },
+      { n: 'items', sig: '() → dict_items', kind: 'info', d: '«Вікно» на пари (ключ, значення) — саме його перебирають у for k, v in d.items().', ex: [],
+        run: s => ({ c: 'raw', tn: 'dict_items', text: `dict_items([${s.v.map(([k, v]) => `(${repr(k)}, ${repr(v)})`).join(', ')}])` }) },
+      { n: 'update', sig: '(other) → None', kind: 'mut', d: 'Додає пари з іншого словника в ТОЙ САМИЙ dict; однакові ключі перезаписує.', ex: [D([[S('чай'), I(35)], [S('сік'), I(50)]])],
+        run: (s, o) => { pairsOf(o).forEach(([k, v]) => dSet(s, k, v)); return N; } },
+      { n: 'setdefault', sig: '(key, default=None)', kind: 'mut', d: 'Є ключ — повертає значення. Немає — ДОДАЄ key: default і повертає default.', ex: [S('сік'), I(50)],
+        run: (s, k, dflt) => { const i = dIdx(s, k); if (i >= 0) return s.v[i][1]; dSet(s, k, dflt || N); return dflt || N; } },
+      { n: 'pop', sig: '(key)', kind: 'mut', d: 'Вилучає пару І повертає значення. Немає ключа → KeyError.', ex: [S('чай')],
+        run: (s, k) => { const i = dIdx(s, k); if (i < 0) throw keyErr(k); return s.v.splice(i, 1)[0][1]; } },
+      { n: 'clear', sig: '() → None', kind: 'mut', d: 'Видаляє всі пари.', ex: [],
+        run: s => { s.v = []; return N; } },
+      { n: 'copy', sig: '() → dict', kind: 'new', d: "ПОВЕРХНЕВА копія: новий словник (новий id), але ключі й значення — ті самі об'єкти.", ex: [],
+        run: (s, ctx) => { ctx.notes.push('поверхнева копія: новий лише сам словник; значення-списки були б спільними'); return D(s.v.map(([k, v]) => [k, v])); } },
+    ],
+  },
+  set: {
+    bases: ['object'], kind: 'cls',
+    about: "Множина: лише УНІКАЛЬНІ елементи, без порядку й без індексів (s[0] → TypeError). ЗМІННА: add, remove, update змінюють той самий об'єкт. Елементи — лише хешовані об'єкти. Незмінна версія — frozenset (вона хешована).",
+    methods: [
+      { n: '__new__', sig: '(cls, ...)', kind: 'create', d: "Створює ПОРОЖНЮ множину set(). Увага: {} — це порожній dict, а не set!" },
+      { n: '__init__', sig: '(self, iterable=())', kind: 'create', d: 'Очищає й заповнює множину елементами; дублікати відкидаються.', op: '{s}.__init__({a0})', ex: [L([S('кава'), S('кава'), S('чай')])],
+        run: (s, it, ctx) => { s.v = []; const all = it ? itemsOf(it) : []; all.forEach(x => sAdd(s, x)); if (all.length > s.v.length) ctx.notes.push(`дублікатів відкинуто: ${all.length - s.v.length}`); return N; } },
+      { n: '__len__', sig: '(self) → int', kind: 'info', d: 'Функція len(): кількість УНІКАЛЬНИХ елементів.', op: 'len({s})', ex: [],
+        run: s => I(s.v.length) },
+      { n: '__contains__', sig: '(self, x) → bool', kind: 'info', d: 'Оператор in. Дуже швидкий: шукає за hash(), а не перебором, як list.', op: '{a0} in {s}', ex: [S('кава')],
+        run: (s, x) => { needHash(x); return B(s.v.some(e => eq(e, x))); } },
+      { n: '__eq__', sig: '(self, other) → bool', kind: 'info', d: 'Оператор ==: ті самі елементи. Порядок НЕ важливий.', op: '{s} == {a0}', ex: [SE([S('гаряче'), S('кава')])],
+        run: (s, o, ctx) => { ctx.notes.push('елементи записано в іншому порядку — у множини порядку немає'); return B(eq(s, o)); } },
+      { n: '__or__', sig: '(self, other) → set', kind: 'new', d: 'Оператор | — об\'єднання: НОВА множина з елементами обох.', op: '{s} | {a0}', ex: [SE([S('чай')])],
+        run: (s, o) => { const r = SE(s.v); itemsOf(o).forEach(x => sAdd(r, x)); return r; } },
+      { n: '__and__', sig: '(self, other) → set', kind: 'new', d: 'Оператор & — перетин: НОВА множина зі спільних елементів.', op: '{s} & {a0}', ex: [SE([S('кава'), S('чай')])],
+        run: (s, o) => SE(s.v.filter(e => itemsOf(o).some(f => eq(e, f)))) },
+      { n: '__sub__', sig: '(self, other) → set', kind: 'new', d: 'Оператор - — різниця: НОВА множина з елементів, яких немає в other.', op: '{s} - {a0}', ex: [SE([S('кава')])],
+        run: (s, o) => SE(s.v.filter(e => !itemsOf(o).some(f => eq(e, f)))) },
+      { n: '__repr__', sig: '(self) → str', kind: 'info', d: "Текст {'кава', 'гаряче'}; порожня множина — set().", op: 'repr({s})', ex: [],
+        run: s => S(repr(s)) },
+      { n: '__hash__', sig: '= None', kind: 'none', d: 'Вимкнено (= None): множина змінна. Множина множин — лише через frozenset.', op: 'hash({s})', ex: [],
+        run: () => { throw new PyError('TypeError', "unhashable type: 'set'"); } },
+      { n: 'add', sig: '(x) → None', kind: 'mut', d: 'Додає елемент у ТУ САМУ множину. Якщо він уже є — нічого не відбувається.', ex: [S('чай')],
+        run: (s, x, ctx) => { if (!sAdd(s, x)) ctx.notes.push(`${repr(x)} уже є в множині — дубліката не буде`); return N; } },
+      { n: 'update', sig: '(iterable) → None', kind: 'mut', d: 'Додає всі елементи з іншої колекції; дублікати пропускає.', ex: [L([S('кава'), S('чай')])],
+        run: (s, it, ctx) => { const skip = itemsOf(it).filter(x => !sAdd(s, x)); if (skip.length) ctx.notes.push(`пропущено, бо вже були: ${skip.map(repr).join(', ')}`); return N; } },
+      { n: 'remove', sig: '(x) → None', kind: 'mut', d: 'Видаляє елемент. Немає — KeyError.', ex: [S('гаряче')],
+        run: (s, x) => { const k = s.v.findIndex(e => eq(e, x)); if (k < 0) throw keyErr(x); s.v.splice(k, 1); return N; } },
+      { n: 'discard', sig: '(x) → None', kind: 'mut', d: 'Як remove, але БЕЗ помилки, якщо елемента немає.', ex: [S('сік')],
+        run: (s, x, ctx) => { const k = s.v.findIndex(e => eq(e, x)); if (k < 0) ctx.notes.push(`${repr(x)} немає — discard мовчки нічого не робить (remove дав би KeyError)`); else s.v.splice(k, 1); return N; } },
+      { n: 'pop', sig: '() → object', kind: 'mut', d: 'Вилучає й повертає ДОВІЛЬНИЙ елемент — який саме, не гарантовано.', ex: [],
+        run: s => { if (!s.v.length) throw new PyError('KeyError', "'pop from an empty set'"); return s.v.shift(); } },
+      { n: 'clear', sig: '() → None', kind: 'mut', d: 'Видаляє всі елементи.', ex: [],
+        run: s => { s.v = []; return N; } },
+      { n: 'issubset', sig: '(other) → bool', kind: 'info', d: 'Чи всі елементи є в other (оператор <=).', ex: [SE([S('кава'), S('гаряче'), S('чай')])],
+        run: (s, o) => B(s.v.every(e => itemsOf(o).some(f => eq(e, f)))) },
+      { n: 'copy', sig: '() → set', kind: 'new', d: 'Поверхнева копія: нова множина (новий id) з тими самими елементами.', ex: [],
+        run: s => SE(s.v) },
     ],
   },
   function: {
@@ -359,6 +479,8 @@ function makeInstances() {
     city:  { ...S('Київ Поділ'), id: newId() },
     nums:  { ...L([I(540), I(320)]), id: newId() },
     point: { ...T([I(540), I(320)]), id: newId() },
+    menu:  { ...D([[S('кава'), I(45)], [S('чай'), I(30)]]), id: newId() },
+    tags:  { ...SE([S('кава'), S('гаряче')]), id: newId() },
     cat:   { c: 'Animal', dict: { name: S('Мурка') }, id: newId() },
     rex:   { c: 'Dog', dict: { name: S('Рекс') }, id: newId() },
   };
@@ -384,10 +506,10 @@ function makeAll() {
   };
   const speak = CLASSES.Dog.methods.find(m => m.n === 'speak');
   const bark = { c: 'method', self: o.rex, fq: 'Dog.speak', fid: '0x7f3a0c', call: (args, ctx) => speak.run(o.rex, ctx), id: newId(), label: 'rex.speak' };
-  return { n: o.n, flag: o.flag, city: o.city, nums: o.nums, point: o.point, apply_discount: disc, next_id: counter, bark, cat: o.cat, rex: o.rex };
+  return { n: o.n, flag: o.flag, city: o.city, nums: o.nums, point: o.point, menu: o.menu, tags: o.tags, apply_discount: disc, next_id: counter, bark, cat: o.cat, rex: o.rex };
 }
 let INST = makeAll();
-const INST_SRC = { n: '540', flag: 'True', city: "'Київ Поділ'", nums: '[540, 320]', point: '(540, 320)', cat: "Animal('Мурка')", rex: "Dog('Рекс')",
+const INST_SRC = { n: '540', flag: 'True', city: "'Київ Поділ'", nums: '[540, 320]', point: '(540, 320)', menu: "{'кава': 45, 'чай': 30}", tags: "{'кава', 'гаряче'}", cat: "Animal('Мурка')", rex: "Dog('Рекс')",
   apply_discount: 'def apply_discount(bill, percent=10): ...', next_id: 'make_counter()', bark: 'rex.speak' };
 const INST_HDR = { apply_discount: 'apply_discount  ← створено оператором def' };
 // стан об'єкта: значення або __dict__ для власних класів
@@ -411,12 +533,13 @@ function callMethod(self, name, args, ctx, nested) {
 
 /* ===================== SVG-схема ===================== */
 const NODES = {
-  object: { x: 560, y: 40 }, type: { x: 1060, y: 40 },
-  int: { x: 100, y: 150 }, str: { x: 250, y: 150 }, list: { x: 380, y: 150 }, tuple: { x: 505, y: 150 },
-  function: { x: 650, y: 150 }, method: { x: 810, y: 150 }, Animal: { x: 960, y: 150 },
-  bool: { x: 150, y: 262 }, Dog: { x: 1060, y: 262 },
+  object: { x: 640, y: 40 }, type: { x: 1300, y: 40 },
+  int: { x: 90, y: 150 }, str: { x: 220, y: 150 }, list: { x: 340, y: 150 }, tuple: { x: 460, y: 150 },
+  dict: { x: 590, y: 150 }, set: { x: 720, y: 150 },
+  function: { x: 860, y: 150 }, method: { x: 1010, y: 150 }, Animal: { x: 1160, y: 150 },
+  bool: { x: 140, y: 262 }, Dog: { x: 1260, y: 262 },
 };
-const INST_POS = { n: 45, flag: 150, city: 265, nums: 385, point: 505, apply_discount: 618, next_id: 762, bark: 880, cat: 985, rex: 1110 };
+const INST_POS = { n: 40, flag: 140, city: 250, nums: 365, point: 480, menu: 610, tags: 740, apply_discount: 870, next_id: 1010, bark: 1135, cat: 1245, rex: 1360 };
 const INST_Y = 385, H = 32;
 const svg = document.getElementById('map');
 const NS = 'http://www.w3.org/2000/svg';
@@ -463,8 +586,8 @@ function drawMap() {
   if (ADV()) {
   el('path', { d: `M${t.x + 22},${t.y - H / 2} C${t.x + 40},${t.y - 50} ${t.x + 85},${t.y - 30} ${t.x + w('type') / 2 + 1},${t.y - 4}`, class: 'edge meta', style: 'opacity:.9', 'marker-end': 'url(#arrM)' }, gE);
   el('text', { x: t.x - 30, y: t.y + 34, 'font-size': 11, fill: '#6741d9' }, gE).textContent = 'type(type) is type';
-  el('text', { x: 760, y: 26, 'font-size': 11, fill: '#6741d9' }, gE).textContent = 'type(object) is type';
-  el('text', { x: 770, y: 58, 'font-size': 11, fill: '#495057' }, gE).textContent = 'type успадковує object';
+  el('text', { x: 840, y: 26, 'font-size': 11, fill: '#6741d9' }, gE).textContent = 'type(object) is type';
+  el('text', { x: 850, y: 58, 'font-size': 11, fill: '#495057' }, gE).textContent = 'type успадковує object';
   }
 
   // екземпляр → клас
@@ -497,6 +620,11 @@ function drawMap() {
     if (!instVisible(k)) continue;
     const o = INST[k];
     let val = o.label || (o.dict && o.dict.name ? `${o.c}(${repr(o.dict.name)})` : repr(o));
+    // довгий dict / set: перший елемент + «…», щоб дужки лишились видно
+    if (val.length > 15 && (o.c === 'dict' || o.c === 'set') && o.v.length > 1) {
+      const first = o.c === 'dict' ? `${repr(o.v[0][0])}: ${repr(o.v[0][1])}` : repr(o.v[0]);
+      val = `{${first}, …}`;
+    }
     if (val.length > 15) val = val.slice(0, 14) + '…';
     const ww = Math.max(64, 14 + 7.4 * Math.max(val.length, k.length));
     const g = el('g', { class: 'node inst', 'data-n': 'i-' + k }, gN);
@@ -718,7 +846,7 @@ function renderInstance(k) {
   const counts = {}; list.forEach(x => counts[x.where] = (counts[x.where] || 0) + 1);
   const dictRow = o.dict
     ? `<code>${k}.__dict__</code></td><td><code>{${Object.entries(o.dict).map(([a, v]) => `'${a}': ${esc(repr(v))}`).join(', ')}}</code> — власні атрибути екземпляра`
-    : `<code>${k}.__dict__</code></td><td><span class="muted">немає — у вбудованих типів атрибути екземпляра не зберігаються, лише значення</span>`;
+    : `<code>${k}.__dict__</code></td><td><span class="muted">немає — у вбудованих типів атрибути екземпляра не зберігаються, лише значення${o.c === 'dict' ? `. Не плутайте: ${k} сам є словником (його пари — це дані), але <code>${k}.__dict__</code> — простір імен атрибутів, якого в dict немає` : ''}</span>`;
   document.getElementById('details').innerHTML = `
     <h2>Об'єкт <code>${esc(INST_HDR[k] || `${k} = ${INST_SRC[k]}`)}</code></h2>
     <div class="grid2">
@@ -739,7 +867,7 @@ function renderInstance(k) {
           <button class="btn" id="lookBtn">Шукати</button>
         </div>
         <datalist id="allNames">${[...new Set(Object.values(CLASSES).flatMap(c => c.methods.map(m => m.n)))].map(n => `<option value="${n}">`).join('')}</datalist>
-        <div class="muted" style="font-size:13px">Спробуйте <code>append</code> для <code>point</code> або <code>speak</code> для <code>rex</code> і <code>cat</code>.</div>
+        <div class="muted" style="font-size:13px">Спробуйте <code>append</code> для <code>point</code> чи <code>tags</code>, або <code>speak</code> для <code>rex</code> і <code>cat</code>.</div>
         <div id="lookOut"></div>
         <div class="console" id="log">${lastLog || '<span class="c"># натисніть ▶ біля методу нижче — тут з\'явиться результат</span>'}</div>
       </div>
@@ -772,7 +900,7 @@ function lookName(k, name) {
   const first = k + '.__dict__';
   if (!r.m) {
     out.innerHTML = `${chainHtml(r.chain, -1, first)}<p>❌ <code>AttributeError: '${o.c}' object has no attribute '${esc(name)}'</code><br>
-      Python перевірив усі класи з MRO і не знайшов <code>${esc(name)}</code>.${own('type', name) ? `<br>💡 <code>${esc(name)}</code> є в <code>type</code> — це метод <b>класу як об'єкта</b>: <code>${o.c}.${esc(name)}</code> працює, бо <code>type(${o.c}) is type</code>. Але <code>${k}</code> — екземпляр <code>${o.c}</code>, а не <code>type</code>, тож шукає лише в <code>${mro(o.c).join(' → ')}</code>.${name === '__call__' ? ` Тому <code>${o.c}(...)</code> працює, а <code>${k}()</code> → <code>TypeError: '${o.c}' object is not callable</code>.` : ''}` : ''}${o.c === 'tuple' && ['append', 'sort', 'pop', 'remove', 'insert', 'extend', 'clear', 'reverse'].includes(name) ? ' Кортеж незмінний — методів, що змінюють його, просто немає.' : ''}${o.c === 'str' && ['append', 'sort'].includes(name) ? ' Рядок незмінний.' : ''}</p>${simpl}`;
+      Python перевірив усі класи з MRO і не знайшов <code>${esc(name)}</code>.${own('type', name) ? `<br>💡 <code>${esc(name)}</code> є в <code>type</code> — це метод <b>класу як об'єкта</b>: <code>${o.c}.${esc(name)}</code> працює, бо <code>type(${o.c}) is type</code>. Але <code>${k}</code> — екземпляр <code>${o.c}</code>, а не <code>type</code>, тож шукає лише в <code>${mro(o.c).join(' → ')}</code>.${name === '__call__' ? ` Тому <code>${o.c}(...)</code> працює, а <code>${k}()</code> → <code>TypeError: '${o.c}' object is not callable</code>.` : ''}` : ''}${o.c === 'tuple' && ['append', 'sort', 'pop', 'remove', 'insert', 'extend', 'clear', 'reverse'].includes(name) ? ' Кортеж незмінний — методів, що змінюють його, просто немає.' : ''}${o.c === 'str' && ['append', 'sort'].includes(name) ? ' Рядок незмінний.' : ''}${o.c === 'set' && ['__getitem__', '__setitem__', 'append', 'index', 'sort', 'insert'].includes(name) ? ` Множина не має порядку й індексів: ${k}[0] → <code>TypeError: 'set' object is not subscriptable</code>. Додавати — <code>add</code>, перебирати — <code>for x in ${k}</code>.` : ''}${o.c === 'dict' && ['append', 'insert', 'extend', 'add', 'index', 'sort'].includes(name) ? ` У словнику немає позицій — є ключі. Додати пару: <code>${k}[key] = value</code> або <code>update</code>.` : ''}</p>${simpl}`;
     return;
   }
   out.innerHTML = `${chainHtml(r.chain, r.idx, first)}
@@ -820,12 +948,16 @@ function runMethod(k, name) {
 
 /* ===================== Вкладка «Створення об'єкта» ===================== */
 const PRESETS = [
-  { code: "rex2 = Dog('Бобік')", cls: 'Dog', afterNew: () => '<__main__.Dog object>  __dict__ = {}', afterInit: () => "__dict__ = {'name': 'Бобік'}",
+  { code: "rex2 = Dog('Бобік')", cls: 'Dog', empty: true, afterNew: () => '<__main__.Dog object>  __dict__ = {}', afterInit: () => "__dict__ = {'name': 'Бобік'}",
     initNote: "Animal.__init__(rex2, 'Бобік') виконує self.name = 'Бобік'" },
-  { code: "nums2 = list((540, 320))", cls: 'list', afterNew: () => '[]', afterInit: () => '[540, 320]',
+  { code: "nums2 = list((540, 320))", cls: 'list', empty: true, afterNew: () => '[]', afterInit: () => '[540, 320]',
     newNote: 'list.__new__ створює ПОРОЖНІЙ список', initNote: 'list.__init__ заповнює список елементами з (540, 320)' },
   { code: "point2 = tuple([540, 320])", cls: 'tuple', afterNew: () => '(540, 320)', afterInit: () => '(540, 320)',
     newNote: 'tuple.__new__ створює кортеж ОДРАЗУ з елементами — потім змінити буде неможливо', initNote: 'object.__init__ нічого не робить: у tuple власного __init__ немає' },
+  { code: "menu2 = dict([('кава', 45), ('чай', 30)])", cls: 'dict', empty: true, afterNew: () => '{}', afterInit: () => "{'кава': 45, 'чай': 30}",
+    newNote: 'dict.__new__ створює ПОРОЖНІЙ словник', initNote: "dict.__init__ додає пари з [('кава', 45), ('чай', 30)]: перший елемент кожної пари — ключ, другий — значення" },
+  { code: "tags2 = set(['кава', 'кава', 'чай'])", cls: 'set', empty: true, afterNew: () => 'set()', afterInit: () => "{'кава', 'чай'}",
+    newNote: 'set.__new__ створює ПОРОЖНЮ множину set()', initNote: "set.__init__ додає елементи з ['кава', 'кава', 'чай']; другий 'кава' — дублікат, його відкинуто" },
   { code: "n2 = int('540')", cls: 'int', afterNew: () => '540', afterInit: () => '540',
     newNote: "int.__new__ перетворює рядок '540' на число 540", initNote: 'object.__init__ нічого не робить: число вже готове' },
   { code: "s2 = str(540)", cls: 'str', afterNew: () => "'540'", afterInit: () => "'540'",
@@ -1017,7 +1149,7 @@ function renderCreate() {
     } else if (cs === 1) {
       body = `<p>Python робить дві речі по черзі:</p>
         <ol>
-          <li><code>__new__</code> <b>створює</b> об'єкт: <span class="objstate ${p.cls === 'list' || p.cls === 'Dog' ? 'empty' : ''}">${esc(p.afterNew())}</span></li>
+          <li><code>__new__</code> <b>створює</b> об'єкт: <span class="objstate ${p.empty ? 'empty' : ''}">${esc(p.afterNew())}</span></li>
           <li><code>__init__</code> <b>заповнює</b> його: <span class="objstate">${esc(p.afterInit())}</span>${it.where !== p.cls && p.cls === 'Dog' ? ` — у <code>Dog</code> власного <code>__init__</code> немає, він <b>успадкований</b> від <code>Animal</code>` : ''}</li>
         </ol>
         ${IMMUTABLE.has(p.cls) ? `<p>💡 <code>${p.cls}</code> — <b>незмінний</b> тип: усю роботу робить <code>__new__</code>, бо змінити об'єкт після створення вже не можна. <code>__init__</code> нічого не додає.</p>` : ''}`;
@@ -1044,7 +1176,7 @@ function renderCreate() {
     body = `<p>Python шукає <code>__new__</code> за MRO класу <code>${p.cls}</code>:</p>${chainHtml(chain, nw.idx)}
       <p>Знайдено в <code>${nw.where}</code> → виконується <code>${nw.where}.__new__(${p.cls}, ...)</code>.
       ${p.newNote ? esc(p.newNote) + '.' : `${nw.where === 'object' ? "У Dog і Animal немає __new__, тому працює object.__new__: виділяє пам'ять під новий порожній об'єкт класу Dog." : ''}`}</p>
-      <p>Стан після <code>__new__</code>: <span class="objstate ${p.cls === 'list' || p.cls === 'Dog' ? 'empty' : ''}">${esc(p.afterNew())}</span></p>`;
+      <p>Стан після <code>__new__</code>: <span class="objstate ${p.empty ? 'empty' : ''}">${esc(p.afterNew())}</span></p>`;
   } else if (cs === 2) {
     highlightChain(chain, it.idx);
     body = `<p>Тепер Python шукає <code>__init__</code>:</p>${chainHtml(chain, it.idx)}

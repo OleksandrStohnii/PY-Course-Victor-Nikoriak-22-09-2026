@@ -5,7 +5,7 @@
 Перейди у репозиторій курсу:
 
 ```
-https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026
+https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026
 ```
 
 Натисни кнопку **Fork**.
@@ -45,7 +45,7 @@ https://github.com/student123/PY-Course-Victor-Nikoriak-22-09-2026
 Ти працюєш **тільки у своєму fork**:
 
 ```
-NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026  → repo викладача
+NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026  → repo викладача
 your-username/PY-Course-Victor-Nikoriak-22-09-2026   → твій fork
 ```
 
@@ -64,7 +64,7 @@ github.com/<your-username>/PY-Course-Victor-Nikoriak-22-09-2026
 У Terminal:
 
 ```bash
-git remote add upstream https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026.git
+git remote add upstream https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026.git
 ```
 
 Перевірка:

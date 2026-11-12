@@ -7,7 +7,7 @@
 Сьогодні так запускаються обидва проєкти курсу:
 
 - **`news_hub`**: nginx → API → PostgreSQL + Redis; міграції — окремим кроком; Telegram-бот. Основа — `docker-compose.yml` зі стартового `production_bot`;
-- **`crispy_notes_project`** (Django, чат на WebSocket): nginx → daphne → PostgreSQL + Redis. Основа — `Dockerfile`, `entrypoint.sh`, `nginx.conf` і `docker-compose.yml` з [Django-книги](https://nikoriakviktot.github.io/notes_chat_app/) (кроки 8–9).
+- **`crispy_notes_project`** (Django, чат на WebSocket): nginx → daphne → PostgreSQL + Redis. Основа — `Dockerfile`, `entrypoint.sh`, `nginx.conf` і `docker-compose.yml` з [Django-книги](https://nikoriakviktor.github.io/notes_chat_app/) (кроки 8–9).
 
 Як і раніше, спершу запускаємо старі файли **без змін** і дивимось, що ламається. Потім виправляємо — і показуємо, як це все переноситься на сервер.
 
@@ -17,7 +17,7 @@
 | **49** | **Compose для обох проєктів; nginx; реальний IP клієнта; деплой і бекап** |
 | 50 | CI/CD: тести й збірка образу на кожен PR |
 
-Проєкти: [`news_hub`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_5/lessons/lesson_50_compose_deploy/news_hub), [`crispy_notes_project`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_5/lessons/lesson_50_compose_deploy/crispy_notes_project).
+Проєкти: [`news_hub`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_5/lessons/lesson_50_compose_deploy/news_hub), [`crispy_notes_project`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_5/lessons/lesson_50_compose_deploy/crispy_notes_project).
 
 **Що потрібно з попередніх уроків:** образ, том, мережа, `/health` і `/health/ready` (48); rate limit входу (39, 46); webhook Telegram (47); чат на WebSocket і channel layer (45); `set -euo pipefail` ([бонус Linux](bonus_linux.md#pipes)).
 
@@ -29,7 +29,7 @@
 - розділити «випуск» (міграції, статика) і «роботу» (сервер) — щоб масштабувати без гонок;
 - розгорнути стек на сервері, оновити його, зробити бекап і відновитись з нього.
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_5/lessons/lesson_50_compose_deploy/note_lesson_50_compose_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_5/lessons/lesson_50_compose_deploy/note_lesson_50_compose.ipynb){ .solutions-link } — читаємо `docker-compose.yml` як дані: порядок запуску за `depends_on` (топологічне сортування), підстановка `${VAR}`, IP клієнта за `X-Forwarded-For`. Docker для ноутбука не потрібен.
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_5/lessons/lesson_50_compose_deploy/note_lesson_50_compose_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_5/lessons/lesson_50_compose_deploy/note_lesson_50_compose.ipynb){ .solutions-link } — читаємо `docker-compose.yml` як дані: порядок запуску за `depends_on` (топологічне сортування), підстановка `${VAR}`, IP клієнта за `X-Forwarded-For`. Docker для ноутбука не потрібен.
 
 ## Пригадай
 
@@ -570,7 +570,7 @@ adduser deploy && usermod -aG docker deploy      # docker — фактично r
 ufw allow OpenSSH && ufw allow 80,443/tcp && ufw enable
 
 # 2. від deploy
-git clone https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026.git /srv/course
+git clone https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026.git /srv/course
 cd /srv/course/module_5/lessons/lesson_50_compose_deploy/news_hub
 cp .env.example .env && chmod 600 .env && nano .env
 docker compose up -d --build --wait
@@ -835,13 +835,13 @@ $ curl localhost:8000/health/ready
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_5/lessons/lesson_50_compose_deploy/note_lesson_50_compose_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_5/lessons/lesson_50_compose_deploy/note_lesson_50_compose.ipynb){ .solutions-link }.
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_5/lessons/lesson_50_compose_deploy/note_lesson_50_compose_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_5/lessons/lesson_50_compose_deploy/note_lesson_50_compose.ipynb){ .solutions-link }.
 - Урок 51: те, що тут перевіряли руками, — тести, типи, збірка образу, smoke-запуск — робить GitHub Actions на кожен PR.
 
 ## Документація і джерела
 
-- Код: [`news_hub`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_5/lessons/lesson_50_compose_deploy/news_hub) — `docker-compose.yml` і `nginx.conf` зі стартового `production_bot`; [`crispy_notes_project`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_5/lessons/lesson_50_compose_deploy/crispy_notes_project) — Docker-файли з Django-книги [notes_chat_app](https://nikoriakviktot.github.io/notes_chat_app/).
-- Поглиблено в Django-книзі: крок 8–9 — Docker Compose, entrypoint, nginx, PostgreSQL, Redis, production checklist ([розділ «Деплой»](https://nikoriakviktot.github.io/notes_chat_app/)).
+- Код: [`news_hub`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_5/lessons/lesson_50_compose_deploy/news_hub) — `docker-compose.yml` і `nginx.conf` зі стартового `production_bot`; [`crispy_notes_project`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_5/lessons/lesson_50_compose_deploy/crispy_notes_project) — Docker-файли з Django-книги [notes_chat_app](https://nikoriakviktor.github.io/notes_chat_app/).
+- Поглиблено в Django-книзі: крок 8–9 — Docker Compose, entrypoint, nginx, PostgreSQL, Redis, production checklist ([розділ «Деплой»](https://nikoriakviktor.github.io/notes_chat_app/)).
 - Docker Compose: [Compose file reference](https://docs.docker.com/reference/compose-file/), [services: depends_on, healthcheck, profiles](https://docs.docker.com/reference/compose-file/services/), [interpolation](https://docs.docker.com/reference/compose-file/interpolation/), [`.env` і env_file](https://docs.docker.com/compose/how-tos/environment-variables/), [networks](https://docs.docker.com/reference/compose-file/networks/), [startup order](https://docs.docker.com/compose/how-tos/startup-order/).
 - Docker і firewall: [Packet filtering and firewalls](https://docs.docker.com/engine/network/packet-filtering-firewalls/).
 - nginx: [ngx_http_proxy_module](https://nginx.org/en/docs/http/ngx_http_proxy_module.html), [WebSocket proxying](https://nginx.org/en/docs/http/websocket.html), [variables](https://nginx.org/en/docs/varindex.html).

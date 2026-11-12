@@ -1,6 +1,6 @@
 # hello_project — урок 34
 
-Проєкт, який будує [урок 34 «Django intro: MVT, ORM, admin»](https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m4/lesson_33/) — кроки 1–2 маршруту [Zero to Hero](https://nikoriakviktot.github.io/notes_chat_app/tutorials/) Django-книги. Стан — після розібраного прикладу (`is_pinned`) і «Знайди помилку» (`priority`).
+Проєкт, який будує [урок 34 «Django intro: MVT, ORM, admin»](https://nikoriakviktor.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m4/lesson_33/) — кроки 1–2 маршруту [Zero to Hero](https://nikoriakviktor.github.io/notes_chat_app/tutorials/) Django-книги. Стан — після розібраного прикладу (`is_pinned`) і «Знайди помилку» (`priority`).
 
 ```bash
 python -m venv venv

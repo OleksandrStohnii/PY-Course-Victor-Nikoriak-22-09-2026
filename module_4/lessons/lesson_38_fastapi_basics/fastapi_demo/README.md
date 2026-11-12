@@ -22,4 +22,4 @@ python load_test.py                  # в іншому терміналі: 5 т�
 
 Або `docker compose up --build` — API на http://localhost:8001/docs, Streamlit-панель на http://localhost:8534.
 
-Розбір — [урок 38 у книзі курсу](https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m4/lesson_37/).
+Розбір — [урок 38 у книзі курсу](https://nikoriakviktor.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m4/lesson_37/).

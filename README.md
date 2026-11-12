@@ -10,7 +10,7 @@
 
 ## 📖 Книга курсу
 
-Повна теорія, довідники та інструкції — у [книзі курсу на GitHub Pages](https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/).
+Повна теорія, довідники та інструкції — у [книзі курсу на GitHub Pages](https://nikoriakviktor.github.io/PY-Course-Victor-Nikoriak-22-09-2026/).
 
 [Вихідні файли книги](docs/index.md)
 
@@ -19,6 +19,7 @@
 - [Як користуватися курсом](docs/00_getting_started/README.md)
 - [Ноутбуки в Google Colab](docs/00_getting_started/colab.md)
 - [SSH-ключі для GitHub](docs/00_getting_started/github/ssh_keys.md)
+- [Профіль GitHub: README-візитівка](docs/00_getting_started/github/profile_readme.md)
 - [Здача домашніх робіт](docs/00_getting_started/homework_workflow.md)
 - [Часті проблеми](docs/00_getting_started/troubleshooting.md)
 
@@ -56,7 +57,7 @@ cd PY-Course-Victor-Nikoriak-22-09-2026
 Додайте репозиторій викладача як `upstream`:
 
 ```bash
-git remote add upstream https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026.git
+git remote add upstream https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026.git
 ```
 
 Перевірте:

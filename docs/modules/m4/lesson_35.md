@@ -5,8 +5,8 @@
 | Етап | Проєкт у папці уроку | Що змінюємо | Крок книги |
 |---|---|---|---|
 | 0. Старт | `hello_project` уроку 34 | — | 1–2 |
-| 1. Bootstrap CRUD | [`django_bootstrap_project`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_35_django_forms/django_bootstrap_project) | ModelForm, CRUD-views, PRG, повідомлення, `base.html` + Bootstrap 5 | [2](https://nikoriakviktot.github.io/notes_chat_app/tutorials/02_first_model/) |
-| 2. Crispy Dashboard | [`crispy_notes_project`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_35_django_forms/crispy_notes_project) | 3-рівневі шаблони, `{% crispy form %}`, context processor, компоненти | [4](https://nikoriakviktot.github.io/notes_chat_app/tutorials/04_templates_and_forms/) |
+| 1. Bootstrap CRUD | [`django_bootstrap_project`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_35_django_forms/django_bootstrap_project) | ModelForm, CRUD-views, PRG, повідомлення, `base.html` + Bootstrap 5 | [2](https://nikoriakviktor.github.io/notes_chat_app/tutorials/02_first_model/) |
+| 2. Crispy Dashboard | [`crispy_notes_project`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_35_django_forms/crispy_notes_project) | 3-рівневі шаблони, `{% crispy form %}`, context processor, компоненти | [4](https://nikoriakviktor.github.io/notes_chat_app/tutorials/04_templates_and_forms/) |
 
 Обидва проєкти — готовий стартовий код; у кожного є покроковий `README.md` (фази А–З і кроки 0–9). На цій сторінці — **що саме змінилося, навіщо і як перевірити**. Теорія HTML, CSS, Bootstrap і форм — у розділах книги за посиланнями «Поглиблено».
 
@@ -21,7 +21,7 @@
 - перенести розмітку форми з шаблону в `FormHelper` + `Layout` (`{% crispy form %}`);
 - пояснити, навіщо context processor і що таке CSRF.
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_35_django_forms/note_lesson_35_forms_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_35_django_forms/note_lesson_35_forms.ipynb){ .solutions-link } — форми, CRUD і PRG на `django_bootstrap_project` з перевірками.
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_35_django_forms/note_lesson_35_forms_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_35_django_forms/note_lesson_35_forms.ipynb){ .solutions-link } — форми, CRUD і PRG на `django_bootstrap_project` з перевірками.
 
 ## Пригадай
 
@@ -61,7 +61,7 @@ flowchart TD
 
 ## Рефакторинг 1. Голий HTML → Bootstrap CRUD { #refactor-1 }
 
-Проєкт: [`django_bootstrap_project`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_35_django_forms/django_bootstrap_project), покрокова інструкція — його [`README.md`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_35_django_forms/django_bootstrap_project/README.md) (фази А–З).
+Проєкт: [`django_bootstrap_project`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_35_django_forms/django_bootstrap_project), покрокова інструкція — його [`README.md`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_35_django_forms/django_bootstrap_project/README.md) (фази А–З).
 
 ### Що змінилося
 
@@ -341,12 +341,12 @@ Destroying test database for alias 'default'...
 ```
 
 !!! tip "Поглиблено"
-    - Книга, крок 2: [ModelForm і CRUD](https://nikoriakviktot.github.io/notes_chat_app/tutorials/02_first_model/modelform_and_crud/), [контрольна точка](https://nikoriakviktot.github.io/notes_chat_app/tutorials/02_first_model/checkpoint/)
-    - Теорія: [HTML](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/html_basics_full/), [CSS](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/css_basics_full/), [Bootstrap 5](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/bootstrap_5_full/), [Django Templates + Bootstrap](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/django_templates_bootstrap_full/), [Django Forms](https://nikoriakviktot.github.io/notes_chat_app/04_forms_and_validation/django_forms_full/), [Unfold Admin](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/django_admin_unfold_full/)
+    - Книга, крок 2: [ModelForm і CRUD](https://nikoriakviktor.github.io/notes_chat_app/tutorials/02_first_model/modelform_and_crud/), [контрольна точка](https://nikoriakviktor.github.io/notes_chat_app/tutorials/02_first_model/checkpoint/)
+    - Теорія: [HTML](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/html_basics_full/), [CSS](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/css_basics_full/), [Bootstrap 5](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/bootstrap_5_full/), [Django Templates + Bootstrap](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/django_templates_bootstrap_full/), [Django Forms](https://nikoriakviktor.github.io/notes_chat_app/04_forms_and_validation/django_forms_full/), [Unfold Admin](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/django_admin_unfold_full/)
 
 ## Рефакторинг 2. Bootstrap → Crispy Dashboard { #refactor-2 }
 
-Проєкт: [`crispy_notes_project`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_35_django_forms/crispy_notes_project), покрокова інструкція — його [`README.md`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_35_django_forms/crispy_notes_project/README.md) (розділи 01–05 і кроки 0–9).
+Проєкт: [`crispy_notes_project`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_35_django_forms/crispy_notes_project), покрокова інструкція — його [`README.md`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_35_django_forms/crispy_notes_project/README.md) (розділи 01–05 і кроки 0–9).
 
 Що муляє після рефакторингу 1:
 
@@ -455,7 +455,7 @@ flowchart TD
 
 `{% crispy form %}` сам генерує `<form>`, `{% csrf_token %}`, `fieldset`, сітку `row`/`col`, класи `form-control`/`form-select`, помилки й кнопку — за описом у `Layout`. Перевірка даних (`is_valid()`, `cleaned_data`) не змінилася: `FormHelper` впливає лише на **вигляд**.
 
-Три рівні рендерингу форми — від `{{ form.as_p }}` (без стилів) через ручний Bootstrap HTML (рефакторинг 1) до crispy — детально порівняно в [`README.md` проєкту, розділ 03](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_35_django_forms/crispy_notes_project/README.md#03--forms-evolution).
+Три рівні рендерингу форми — від `{{ form.as_p }}` (без стилів) через ручний Bootstrap HTML (рефакторинг 1) до crispy — детально порівняно в [`README.md` проєкту, розділ 03](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_35_django_forms/crispy_notes_project/README.md#03--forms-evolution).
 
 ### Context processor: sidebar без участі view
 
@@ -555,8 +555,8 @@ sidebar       → ['Навчання', 'Подорожі']
 ![Форма нової нотатки в crispy_notes_project: sidebar з записниками й тегами, fieldset-и форми](img/lesson_35_crispy_form.png)
 
 !!! tip "Поглиблено"
-    - Книга, крок 4: [Template Inheritance](https://nikoriakviktot.github.io/notes_chat_app/tutorials/04_templates_and_forms/template_inheritance/), [Forms Evolution](https://nikoriakviktot.github.io/notes_chat_app/tutorials/04_templates_and_forms/forms_evolution/), [Crispy Forms](https://nikoriakviktot.github.io/notes_chat_app/tutorials/04_templates_and_forms/crispy_forms/), [Dashboard Architecture](https://nikoriakviktot.github.io/notes_chat_app/tutorials/04_templates_and_forms/dashboard_architecture/), [Context Processor](https://nikoriakviktot.github.io/notes_chat_app/tutorials/04_templates_and_forms/context_processor/), [Компоненти](https://nikoriakviktot.github.io/notes_chat_app/tutorials/04_templates_and_forms/components/), [контрольна точка](https://nikoriakviktot.github.io/notes_chat_app/tutorials/04_templates_and_forms/checkpoint/)
-    - Теорія: [Crispy Forms](https://nikoriakviktot.github.io/notes_chat_app/04_forms_and_validation/crispy_forms_full/), [Advanced Templates](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/advanced_templates_full/)
+    - Книга, крок 4: [Template Inheritance](https://nikoriakviktor.github.io/notes_chat_app/tutorials/04_templates_and_forms/template_inheritance/), [Forms Evolution](https://nikoriakviktor.github.io/notes_chat_app/tutorials/04_templates_and_forms/forms_evolution/), [Crispy Forms](https://nikoriakviktor.github.io/notes_chat_app/tutorials/04_templates_and_forms/crispy_forms/), [Dashboard Architecture](https://nikoriakviktor.github.io/notes_chat_app/tutorials/04_templates_and_forms/dashboard_architecture/), [Context Processor](https://nikoriakviktor.github.io/notes_chat_app/tutorials/04_templates_and_forms/context_processor/), [Компоненти](https://nikoriakviktor.github.io/notes_chat_app/tutorials/04_templates_and_forms/components/), [контрольна точка](https://nikoriakviktor.github.io/notes_chat_app/tutorials/04_templates_and_forms/checkpoint/)
+    - Теорія: [Crispy Forms](https://nikoriakviktor.github.io/notes_chat_app/04_forms_and_validation/crispy_forms_full/), [Advanced Templates](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/advanced_templates_full/)
 
 ## Архітектура: як змінився запит { #architecture }
 
@@ -744,13 +744,13 @@ if form.is_valid():
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_35_django_forms/note_lesson_35_forms_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_35_django_forms/note_lesson_35_forms.ipynb){ .solutions-link }.
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_35_django_forms/note_lesson_35_forms_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_35_django_forms/note_lesson_35_forms.ipynb){ .solutions-link }.
 - Урок 36 — наступний рефакторинг того самого застосунку: нотатки віддаємо як REST API (DRF), не чіпаючи моделей.
 - Урок 41 — вхід, реєстрація, власник і спільний доступ (крок 5 книги); урок 45 — services/selectors і CBV (крок 3).
 
 ## Документація і джерела
 
-- Код: [`django_bootstrap_project`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_35_django_forms/django_bootstrap_project) і [`crispy_notes_project`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_35_django_forms/crispy_notes_project) — стартовий код; у курсі додано тести.
-- Django-книга: [крок 2](https://nikoriakviktot.github.io/notes_chat_app/tutorials/02_first_model/), [крок 4](https://nikoriakviktot.github.io/notes_chat_app/tutorials/04_templates_and_forms/), [Django Forms](https://nikoriakviktot.github.io/notes_chat_app/04_forms_and_validation/django_forms_full/), [Crispy Forms](https://nikoriakviktot.github.io/notes_chat_app/04_forms_and_validation/crispy_forms_full/), [Bootstrap 5](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/bootstrap_5_full/)
+- Код: [`django_bootstrap_project`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_35_django_forms/django_bootstrap_project) і [`crispy_notes_project`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_35_django_forms/crispy_notes_project) — стартовий код; у курсі додано тести.
+- Django-книга: [крок 2](https://nikoriakviktor.github.io/notes_chat_app/tutorials/02_first_model/), [крок 4](https://nikoriakviktor.github.io/notes_chat_app/tutorials/04_templates_and_forms/), [Django Forms](https://nikoriakviktor.github.io/notes_chat_app/04_forms_and_validation/django_forms_full/), [Crispy Forms](https://nikoriakviktor.github.io/notes_chat_app/04_forms_and_validation/crispy_forms_full/), [Bootstrap 5](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/bootstrap_5_full/)
 - Django: [Working with forms](https://docs.djangoproject.com/en/5.2/topics/forms/), [ModelForm](https://docs.djangoproject.com/en/5.2/topics/forms/modelforms/), [The messages framework](https://docs.djangoproject.com/en/5.2/ref/contrib/messages/), [Template inheritance](https://docs.djangoproject.com/en/5.2/ref/templates/language/#template-inheritance), [Context processors](https://docs.djangoproject.com/en/5.2/ref/templates/api/#writing-your-own-context-processors), [CSRF protection](https://docs.djangoproject.com/en/5.2/ref/csrf/)
 - [Bootstrap 5.3](https://getbootstrap.com/docs/5.3/getting-started/introduction/), [django-crispy-forms](https://django-crispy-forms.readthedocs.io/), [crispy-bootstrap5](https://github.com/django-crispy-forms/crispy-bootstrap5), [Post/Redirect/Get](https://en.wikipedia.org/wiki/Post/Redirect/Get)

@@ -9,11 +9,11 @@ Google Colab запускає Jupyter-ноутбуки просто в брау�
 **Спосіб 2 — адреса вручну.** Відкрий ноутбук на GitHub і в адресі заміни `https://github.com/` на `https://colab.research.google.com/github/`:
 
 ```text
-https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_03_variables_and_data_types/note_lesson_variables.ipynb
-https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_03_variables_and_data_types/note_lesson_variables.ipynb
+https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_03_variables_and_data_types/note_lesson_variables.ipynb
+https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_03_variables_and_data_types/note_lesson_variables.ipynb
 ```
 
-**Спосіб 3 — із самого Colab.** File → Open notebook → вкладка **GitHub** → введи `NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026` → обери файл.
+**Спосіб 3 — із самого Colab.** File → Open notebook → вкладка **GitHub** → введи `NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026` → обери файл.
 
 Уроки лежать у `module_N/lessons/lesson_NN_<тема>/`, де `NN` — номер уроку за програмою курсу.
 
@@ -190,7 +190,7 @@ Colab має вбудовані AI-функції: кнопка Gemini (ікон
 Деякі уроки імпортують `.py`-файли або читають дані з тієї ж папки. Наприклад, ноутбук `file_json_example.ipynb` з уроку 15 читає `restaurant_info.txt` та `orders.csv`. У Colab є лише сам ноутбук, тому додай на його початок клітинку:
 
 ```python
-!git clone --depth 1 https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026.git course
+!git clone --depth 1 https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026.git course
 %cd course/module_1/lessons/lesson_15_file_io_json
 ```
 
@@ -203,7 +203,7 @@ Colab має вбудовані AI-функції: кнопка Gemini (ікон
 ## Для викладача: як не зламати посилання
 
 - **Джерело правди — репозиторій на GitHub.** Кнопку Colab (перша клітинка з `id: view-in-github`) і `metadata.lms` генерує скрипт. Вручну їх не редагуй.
-- **Зберігаєш зміни з Colab:** File → Save a copy in GitHub → репозиторій `NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026`, гілка `main`. У полі **File path** вкажи повний шлях, наприклад `module_1/lessons/lesson_08_functions/note_lesson_08_functions.ipynb`. За замовчуванням Colab підставляє лише ім'я файлу, і тоді ноутбук потрапляє в корінь репозиторію, і посилання на нього ламаються. Галочку «Include a link to Colaboratory» не знімай.
+- **Зберігаєш зміни з Colab:** File → Save a copy in GitHub → репозиторій `NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026`, гілка `main`. У полі **File path** вкажи повний шлях, наприклад `module_1/lessons/lesson_08_functions/note_lesson_08_functions.ipynb`. За замовчуванням Colab підставляє лише ім'я файлу, і тоді ноутбук потрапляє в корінь репозиторію, і посилання на нього ламаються. Галочку «Include a link to Colaboratory» не знімай.
 - **Додав, переніс або перейменував ноутбук** — запусти:
 
     ```bash

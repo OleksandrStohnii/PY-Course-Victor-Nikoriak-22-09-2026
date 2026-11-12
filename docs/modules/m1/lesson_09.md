@@ -19,9 +19,9 @@
 
 **Задача розділу.** Чотири задачі диспетчера таксі, для кожної — повільне і швидке рішення. Одну розберемо в тексті, решту дослідиш у лабораторії.
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_09_practicum_big_o/note_lesson_09_big_o_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_09_practicum_big_o/note_lesson_09_big_o.ipynb){ .solutions-link }
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_09_practicum_big_o/note_lesson_09_big_o_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_09_practicum_big_o/note_lesson_09_big_o.ipynb){ .solutions-link }
 
-**Лабораторія:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_09_practicum_big_o/lab_lesson_09_taxi_big_o_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_09_practicum_big_o/lab_lesson_09_taxi_big_o.ipynb){ .solutions-link }
+**Лабораторія:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_09_practicum_big_o/lab_lesson_09_taxi_big_o_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_09_practicum_big_o/lab_lesson_09_taxi_big_o.ipynb){ .solutions-link }
 
 ## Пригадай
 
@@ -574,14 +574,14 @@ def fragment_e(data):
 
 ### Лабораторія: таксі
 
-У ноутбуці [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_09_practicum_big_o/lab_lesson_09_taxi_big_o_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_09_practicum_big_o/lab_lesson_09_taxi_big_o.ipynb){ .solutions-link } — чотири задачі диспетчера:
+У ноутбуці [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_09_practicum_big_o/lab_lesson_09_taxi_big_o_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_09_practicum_big_o/lab_lesson_09_taxi_big_o.ipynb){ .solutions-link } — чотири задачі диспетчера:
 
 1. повторний номер поїздки;
 2. водії двох змін;
 3. клієнти для розсилки;
 4. найшвидше повернення клієнта: найменша відстань між двома поїздками одного клієнта.
 
-Для кожної спершу записуєш прогноз, потім дослід подвоєння на n = 500, 1000, 2000, 4000 показує таблицю кроків і графік. Наприкінці — оцінка часу для міста з мільйоном поїздок. Для показу на занятті той самий дослід є в інтерактивному застосунку [`taxi_lab`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_1/lessons/lesson_09_practicum_big_o/taxi_lab) на Streamlit.
+Для кожної спершу записуєш прогноз, потім дослід подвоєння на n = 500, 1000, 2000, 4000 показує таблицю кроків і графік. Наприкінці — оцінка часу для міста з мільйоном поїздок. Для показу на занятті той самий дослід є в інтерактивному застосунку [`taxi_lab`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_1/lessons/lesson_09_practicum_big_o/taxi_lab) на Streamlit.
 
 ### Спробуй самостійно: три базові задачі
 
@@ -654,8 +654,8 @@ caesar_encode("xyz", 3) → 'abc'
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_09_practicum_big_o/note_lesson_09_big_o_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_09_practicum_big_o/note_lesson_09_big_o.ipynb){ .solutions-link } — FizzBuzz, паліндром, шифр Цезаря з перевірками.
-- Лабораторія: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_09_practicum_big_o/lab_lesson_09_taxi_big_o_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_09_practicum_big_o/lab_lesson_09_taxi_big_o.ipynb){ .solutions-link } — чотири задачі диспетчера, дослід подвоєння, «місто росте».
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_09_practicum_big_o/note_lesson_09_big_o_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_09_practicum_big_o/note_lesson_09_big_o.ipynb){ .solutions-link } — FizzBuzz, паліндром, шифр Цезаря з перевірками.
+- Лабораторія: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_09_practicum_big_o/lab_lesson_09_taxi_big_o_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_09_practicum_big_o/lab_lesson_09_taxi_big_o.ipynb){ .solutions-link } — чотири задачі диспетчера, дослід подвоєння, «місто росте».
 - Довідник: [Python Helper Toolkit](../../reference/python_core/introspection_debug_tools.md) — вбудовані функції, якими зручно досліджувати код.
 - Наступний урок: [Урок 10. Декоратори](lesson_10.md). Лінію «скільки роботи» продовжить [Практикум 2. Пошук](lesson_12.md): як використати властивості даних, наприклад відсортованість, щоб робити ще менше кроків.
 

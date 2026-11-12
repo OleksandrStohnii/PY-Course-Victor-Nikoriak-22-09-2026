@@ -1,6 +1,6 @@
 # Алгоритмічне мислення у Python — Урок 5: зміна в кафе
 
-> Схеми до розповіді заняття [`konspekt_lesson_05_cafe_story.ipynb`](konspekt_lesson_05_cafe_story.ipynb) і книги ([урок 5](https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m1/lesson_05/)). Тільки `list`, `tuple` (+ `NamedTuple`), `set` і цикл `while`. План заняття — [`agenda.md`](agenda.md).
+> Схеми до розповіді заняття [`konspekt_lesson_05_cafe_story.ipynb`](konspekt_lesson_05_cafe_story.ipynb) і книги ([урок 5](https://nikoriakviktor.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m1/lesson_05/)). Тільки `list`, `tuple` (+ `NamedTuple`), `set` і цикл `while`. План заняття — [`agenda.md`](agenda.md).
 
 ## Завдання
 

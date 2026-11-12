@@ -22,7 +22,7 @@
 
 **Задача розділу.** База диспетчерської: ресторани, кур'єри, замовлення — і звіти для власниці. Повний приклад — у розділі [«Практика»](#practice).
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_3/lessons/lesson_30_sql_basics/note_lesson_30_sql_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_3/lessons/lesson_30_sql_basics/note_lesson_30_sql.ipynb){ .solutions-link } — з кліткою, що встановлює PostgreSQL прямо в Colab.
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_3/lessons/lesson_30_sql_basics/note_lesson_30_sql_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_3/lessons/lesson_30_sql_basics/note_lesson_30_sql.ipynb){ .solutions-link } — з кліткою, що встановлює PostgreSQL прямо в Colab.
 
 ## Пригадай
 
@@ -1103,7 +1103,7 @@ ORDER BY c.name;
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_3/lessons/lesson_30_sql_basics/note_lesson_30_sql_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_3/lessons/lesson_30_sql_basics/note_lesson_30_sql.ipynb){ .solutions-link } — встановлення PostgreSQL у Colab, запити з перевірками, ін'єкція і параметри, репозиторій.
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_3/lessons/lesson_30_sql_basics/note_lesson_30_sql_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_3/lessons/lesson_30_sql_basics/note_lesson_30_sql.ipynb){ .solutions-link } — встановлення PostgreSQL у Colab, запити з перевірками, ін'єкція і параметри, репозиторій.
 - Наступний урок — 31, Redis: база в пам'яті для кешу, черг і лічильників — ті самі структури з уроку 29, але спільні для багатьох програм.
 - У модулі 4 до бази під'єднаються веб-застосунки: ORM у Django (урок 34) і SQLAlchemy / SQLModel у FastAPI (урок 39) пишуть SQL за тебе — але читати й перевіряти його доведеться самому.
 

@@ -9,9 +9,9 @@
 | урок 34 | `hello_project` | модель, адмінка, сторінка списку |
 | урок 35, рефакторинг 1 | `django_bootstrap_project` | форми, CRUD, PRG, Bootstrap |
 | урок 35, рефакторинг 2 | `crispy_notes_project` | crispy, dashboard, services/selectors, вхід |
-| **урок 36, рефакторинг 3** | [`crispy_notes_project` + API](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_36_drf_fastapi/crispy_notes_project) | **DRF: `/api/notes/` поверх тих самих services і selectors** |
+| **урок 36, рефакторинг 3** | [`crispy_notes_project` + API](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_36_drf_fastapi/crispy_notes_project) | **DRF: `/api/notes/` поверх тих самих services і selectors** |
 
-Код API — з Django-книги ([`notes_app/api.py`](https://github.com/NikoriakViktot/notes_chat_app/blob/main/notes_app/api.py) застосунку Notes Chat App), доповнений до повного CRUD; теорія DRF — у главі книги [REST API: Django REST Framework](https://nikoriakviktot.github.io/notes_chat_app/06_application_architecture/drf_rest_api_full/).
+Код API — з Django-книги ([`notes_app/api.py`](https://github.com/NikoriakViktor/notes_chat_app/blob/main/notes_app/api.py) застосунку Notes Chat App), доповнений до повного CRUD; теорія DRF — у главі книги [REST API: Django REST Framework](https://nikoriakviktor.github.io/notes_chat_app/06_application_architecture/drf_rest_api_full/).
 
 **Що потрібно з попередніх уроків:** проєкт `crispy_notes_project` (урок 35: форми, services/selectors, `@login_required`), REST: ресурси, методи, коди (урок 33), `requests` і `curl` (урок 32).
 
@@ -24,7 +24,7 @@
 - отримати OpenAPI-схему API;
 - порівняти Django + DRF і FastAPI і обрати інструмент під задачу.
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_36_drf_fastapi/note_lesson_36_drf_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_36_drf_fastapi/note_lesson_36_drf.ipynb){ .solutions-link } — серіалізатори й API з перевірками.
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_36_drf_fastapi/note_lesson_36_drf_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_36_drf_fastapi/note_lesson_36_drf.ipynb){ .solutions-link } — серіалізатори й API з перевірками.
 
 ## Пригадай
 
@@ -361,12 +361,12 @@ Destroying test database for alias 'default'...
 ```
 
 !!! tip "Поглиблено"
-    - Django-книга: [REST API: Django REST Framework](https://nikoriakviktot.github.io/notes_chat_app/06_application_architecture/drf_rest_api_full/) — `APIView.dispatch()` зсередини, об'єктні права, Input/Output-серіалізатори; [Serializers — Transport Layer](https://nikoriakviktot.github.io/notes_chat_app/06_application_architecture/django_serializers_full/); [Services і Selectors](https://nikoriakviktot.github.io/notes_chat_app/06_application_architecture/services_selectors_full/)
+    - Django-книга: [REST API: Django REST Framework](https://nikoriakviktor.github.io/notes_chat_app/06_application_architecture/drf_rest_api_full/) — `APIView.dispatch()` зсередини, об'єктні права, Input/Output-серіалізатори; [Serializers — Transport Layer](https://nikoriakviktor.github.io/notes_chat_app/06_application_architecture/django_serializers_full/); [Services і Selectors](https://nikoriakviktor.github.io/notes_chat_app/06_application_architecture/services_selectors_full/)
     - DRF: [Serializers](https://www.django-rest-framework.org/api-guide/serializers/), [ViewSets](https://www.django-rest-framework.org/api-guide/viewsets/), [Routers](https://www.django-rest-framework.org/api-guide/routers/), [Permissions](https://www.django-rest-framework.org/api-guide/permissions/); [drf-spectacular](https://drf-spectacular.readthedocs.io/)
 
 ## Django + DRF чи FastAPI { #architecture }
 
-Той самий API нотаток на FastAPI — [`fastapi_notes.py`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_36_drf_fastapi/fastapi_notes.py) у папці уроку: ті самі поля, обмеження й адреси. Дані тут у словнику в пам'яті — база для FastAPI (SQLAlchemy) — урок 39.
+Той самий API нотаток на FastAPI — [`fastapi_notes.py`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_36_drf_fastapi/fastapi_notes.py) у папці уроку: ті самі поля, обмеження й адреси. Дані тут у словнику в пам'яті — база для FastAPI (SQLAlchemy) — урок 39.
 
 ```python title="fastapi_notes.py (скорочено)"
 class NoteIn(BaseModel):
@@ -584,14 +584,14 @@ title + updated_at → змінився updated_at? True
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_36_drf_fastapi/note_lesson_36_drf_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_36_drf_fastapi/note_lesson_36_drf.ipynb){ .solutions-link }.
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_36_drf_fastapi/note_lesson_36_drf_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_36_drf_fastapi/note_lesson_36_drf.ipynb){ .solutions-link }.
 - Урок 37 — типізація й Pydantic на першому кроці новинного агрегатора; урок 38 — FastAPI, Postman і OpenAPI.
 - Урок 41 — вхід за токенами для API й спільний доступ до нотаток.
 
 ## Документація і джерела
 
-- Код: [`crispy_notes_project`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_36_drf_fastapi/crispy_notes_project) — проєкт уроку 35 + `api.py` з Django-книги ([`notes_app/api.py`](https://github.com/NikoriakViktot/notes_chat_app/blob/main/notes_app/api.py)), доповнений до CRUD. Порівняльний [`fastapi_notes.py`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_36_drf_fastapi/fastapi_notes.py).
-- Django-книга: [REST API: Django REST Framework](https://nikoriakviktot.github.io/notes_chat_app/06_application_architecture/drf_rest_api_full/), [Serializers — Transport Layer](https://nikoriakviktot.github.io/notes_chat_app/06_application_architecture/django_serializers_full/)
+- Код: [`crispy_notes_project`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_36_drf_fastapi/crispy_notes_project) — проєкт уроку 35 + `api.py` з Django-книги ([`notes_app/api.py`](https://github.com/NikoriakViktor/notes_chat_app/blob/main/notes_app/api.py)), доповнений до CRUD. Порівняльний [`fastapi_notes.py`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_36_drf_fastapi/fastapi_notes.py).
+- Django-книга: [REST API: Django REST Framework](https://nikoriakviktor.github.io/notes_chat_app/06_application_architecture/drf_rest_api_full/), [Serializers — Transport Layer](https://nikoriakviktor.github.io/notes_chat_app/06_application_architecture/django_serializers_full/)
 - DRF: [Quickstart](https://www.django-rest-framework.org/tutorial/quickstart/), [Serializers](https://www.django-rest-framework.org/api-guide/serializers/), [ViewSets](https://www.django-rest-framework.org/api-guide/viewsets/), [Routers](https://www.django-rest-framework.org/api-guide/routers/), [Authentication](https://www.django-rest-framework.org/api-guide/authentication/), [Permissions](https://www.django-rest-framework.org/api-guide/permissions/), [Testing](https://www.django-rest-framework.org/api-guide/testing/), [Browsable API](https://www.django-rest-framework.org/topics/browsable-api/)
 - Django: [`Model.save(update_fields=…)`](https://docs.djangoproject.com/en/5.2/ref/models/instances/#specifying-which-fields-to-save), [`DateField.auto_now`](https://docs.djangoproject.com/en/5.2/ref/models/fields/#django.db.models.DateField.auto_now)
 - [drf-spectacular](https://drf-spectacular.readthedocs.io/); FastAPI: [Tutorial](https://fastapi.tiangolo.com/tutorial/), [Alternatives, Inspiration and Comparisons](https://fastapi.tiangolo.com/alternatives/)

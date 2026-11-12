@@ -6,7 +6,7 @@
 
 Сьогодні обидва проєкти курсу отримують справжні workflows GitHub Actions. Вони вже працюють на PR, у якому з'явився цей урок, — і все, що на сторінці названо «прогоном CI», взято з їхніх журналів.
 
-Основа — `.github/workflows/django-tests.yml` з [Django-книги](https://nikoriakviktot.github.io/notes_chat_app/) (крок 8: тести й CI).
+Основа — `.github/workflows/django-tests.yml` з [Django-книги](https://nikoriakviktor.github.io/notes_chat_app/) (крок 8: тести й CI).
 
 | Урок | Крок |
 |---|---|
@@ -14,7 +14,7 @@
 | 49 | Compose для обох проєктів; nginx; деплой і бекап |
 | **50** | **CI на кожен PR: тести ×2 версії Python, мінімальні версії, PostgreSQL, типи, образ + smoke; CD: образ у ghcr.io з `main`** |
 
-Проєкти: [`news_hub`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_5/lessons/lesson_51_ci_cd/news_hub), [`crispy_notes_project`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_5/lessons/lesson_51_ci_cd/crispy_notes_project). Workflows: [`.github/workflows/news_hub.yml`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/.github/workflows/news_hub.yml), [`.github/workflows/crispy_notes.yml`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/.github/workflows/crispy_notes.yml).
+Проєкти: [`news_hub`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_5/lessons/lesson_51_ci_cd/news_hub), [`crispy_notes_project`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_5/lessons/lesson_51_ci_cd/crispy_notes_project). Workflows: [`.github/workflows/news_hub.yml`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/.github/workflows/news_hub.yml), [`.github/workflows/crispy_notes.yml`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/.github/workflows/crispy_notes.yml).
 
 **Що потрібно з попередніх уроків:** pytest, маркери й фікстури (25, 41); Git, гілки й pull request (15); тести образу (48); Compose, `.env`, smoke-перевірки (49); коди виходу ([бонус Linux](bonus_linux.md#pipes)).
 
@@ -26,7 +26,7 @@
 - давати workflow лише потрібні права й не світити секрети в журналах;
 - публікувати образ у реєстр з `main`.
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_5/lessons/lesson_51_ci_cd/note_lesson_51_ci_cd_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_5/lessons/lesson_51_ci_cd/note_lesson_51_ci_cd.ipynb){ .solutions-link } — workflow як дані: чи запуститься він на цей PR, у якому порядку підуть jobs, що розгорне matrix, які права отримає токен.
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_5/lessons/lesson_51_ci_cd/note_lesson_51_ci_cd_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_5/lessons/lesson_51_ci_cd/note_lesson_51_ci_cd.ipynb){ .solutions-link } — workflow як дані: чи запуститься він на цей PR, у якому порядку підуть jobs, що розгорне matrix, які права отримає токен.
 
 ## Пригадай
 
@@ -357,7 +357,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
 ```
 
-На PR цей job — `skipped` (видно на графі вище). Тег `sha-5c6f1b3` відповідає на питання «яка версія зараз на сервері?»: кожен образ прив'язаний до коміту. `metadata-action` сам переводить `NikoriakViktot` у нижній регістр — `docker push ghcr.io/NikoriakViktot/…` реєстр відхилив би.
+На PR цей job — `skipped` (видно на графі вище). Тег `sha-5c6f1b3` відповідає на питання «яка версія зараз на сервері?»: кожен образ прив'язаний до коміту. `metadata-action` сам переводить `NikoriakViktor` у нижній регістр — `docker push ghcr.io/NikoriakViktor/…` реєстр відхилив би.
 
 !!! note "Що з цього перевірено"
     Усі jobs, крім `publish`, пройшли на справжньому PR цього уроку (див. [Тести](#tests)). `publish` запускається лише на push у `main`, тому на PR він `skipped`; його кроки — стандартні дії Docker, синтаксис перевірено `actionlint`. Автоматичний деплой на сервер у workflow не входить — див. [Як обрати](#how-to-choose).
@@ -452,7 +452,7 @@ flowchart TD
 Статус CI видно не лише в PR. GitHub віддає SVG-бейдж для кожного workflow:
 
 ```markdown
-[![news_hub — CI/CD](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/actions/workflows/news_hub.yml/badge.svg)](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/actions/workflows/news_hub.yml)
+[![news_hub — CI/CD](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/actions/workflows/news_hub.yml/badge.svg)](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/actions/workflows/news_hub.yml)
 ```
 
 Адреса складається з імені файлу workflow; за замовчуванням бейдж показує статус останнього прогону на гілці за замовчуванням (`main`), `?branch=…` — іншої гілки. Він зелений лише після першого прогону в `main`: доки урок не злитий, прогонів там немає.
@@ -541,12 +541,12 @@ jobs:
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_5/lessons/lesson_51_ci_cd/note_lesson_51_ci_cd_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_5/lessons/lesson_51_ci_cd/note_lesson_51_ci_cd.ipynb){ .solutions-link }.
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_5/lessons/lesson_51_ci_cd/note_lesson_51_ci_cd_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_5/lessons/lesson_51_ci_cd/note_lesson_51_ci_cd.ipynb){ .solutions-link }.
 - Модуль 6 — капстоун: власний проєкт з тестами, Docker, Compose і CI з перших днів.
 
 ## Документація і джерела
 
-- Код: workflows [`news_hub.yml`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/.github/workflows/news_hub.yml) і [`crispy_notes.yml`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/.github/workflows/crispy_notes.yml) — з `.github/workflows/django-tests.yml` Django-книги [notes_chat_app](https://nikoriakviktot.github.io/notes_chat_app/); проєкти — [`lesson_51_ci_cd`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_5/lessons/lesson_51_ci_cd).
+- Код: workflows [`news_hub.yml`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/.github/workflows/news_hub.yml) і [`crispy_notes.yml`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/.github/workflows/crispy_notes.yml) — з `.github/workflows/django-tests.yml` Django-книги [notes_chat_app](https://nikoriakviktor.github.io/notes_chat_app/); проєкти — [`lesson_51_ci_cd`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_5/lessons/lesson_51_ci_cd).
 - GitHub Actions: [workflow syntax](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions), [events that trigger workflows (`pull_request`, `paths`)](https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows), [service containers](https://docs.github.com/en/actions/use-cases-and-examples/using-containerized-services/about-service-containers), [`GITHUB_TOKEN`](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication), [secrets](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions), [workflow commands (`add-mask`)](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions), [status badge](https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/monitoring-workflows/adding-a-workflow-status-badge).
 - Дії: [actions/checkout](https://github.com/actions/checkout), [actions/setup-python](https://github.com/actions/setup-python), [astral-sh/setup-uv](https://github.com/astral-sh/setup-uv), [docker/build-push-action](https://github.com/docker/build-push-action), [docker/metadata-action](https://github.com/docker/metadata-action). Реєстр: [GitHub Container Registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).
 - uv: [resolution strategies (`--resolution lowest-direct`)](https://docs.astral.sh/uv/concepts/resolution/). actionlint: [rhysd/actionlint](https://github.com/rhysd/actionlint).

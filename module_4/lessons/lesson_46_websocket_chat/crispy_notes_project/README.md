@@ -5,7 +5,7 @@
 > самими selectors і services (урок 45): право писати перевіряється на кожне повідомлення, вилученого з групи
 > від'єднує, WebSocket приймається лише з наших сторінок (`AllowedHostsOriginValidator`).
 > Channel layer — Redis за `REDIS_URL`, без нього — у пам'яті процесу.
-> Розбір: [урок 46 у книзі курсу](https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m4/lesson_45/).
+> Розбір: [урок 46 у книзі курсу](https://nikoriakviktor.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m4/lesson_45/).
 >
 > ```bash
 > pip install -r requirements.txt
@@ -29,7 +29,7 @@
 > - база — з `DATABASE_URL` (`hello_project/database.py`): PostgreSQL 16 у `docker-compose.yml`, без змінної — SQLite.
 >
 > Розбір змін і каталог патернів (разом з `news_hub` FastAPI-гілки):
-> [урок 45 у книзі курсу](https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m4/lesson_44/).
+> [урок 45 у книзі курсу](https://nikoriakviktor.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m4/lesson_44/).
 >
 > ```bash
 > pip install -r requirements.txt

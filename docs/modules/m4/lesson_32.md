@@ -24,7 +24,7 @@
 
 **Задача розділу.** Клієнт до API ресторанів: список, статуси, створення замовлень, обробка збоїв. Повний приклад — у розділі [«Практика»](#practice).
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_32_http_requests/note_lesson_32_http_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_32_http_requests/note_lesson_32_http.ipynb){ .solutions-link } — з навчальним сервером, який запускається прямо в ноутбуці.
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_32_http_requests/note_lesson_32_http_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_32_http_requests/note_lesson_32_http.ipynb){ .solutions-link } — з навчальним сервером, який запускається прямо в ноутбуці.
 
 ## Пригадай
 
@@ -40,7 +40,7 @@
 
 ## Навчальний сервер
 
-Справжні API ресторанів вимагають реєстрації, змінюють дані й інколи не працюють. Тому для уроку є **навчальний API** диспетчерської — файл [`smachno_api.py`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_32_http_requests/smachno_api.py). Він написаний лише на стандартній бібліотеці й запускається у фоновому потоці прямо в твоїй програмі. Як він влаштований усередині, розберемо в уроках 33–39; сьогодні це просто «той бік».
+Справжні API ресторанів вимагають реєстрації, змінюють дані й інколи не працюють. Тому для уроку є **навчальний API** диспетчерської — файл [`smachno_api.py`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_32_http_requests/smachno_api.py). Він написаний лише на стандартній бібліотеці й запускається у фоновому потоці прямо в твоїй програмі. Як він влаштований усередині, розберемо в уроках 33–39; сьогодні це просто «той бік».
 
 | Запит | Що робить |
 |---|---|
@@ -1077,7 +1077,7 @@ KeyError: 'name'
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_32_http_requests/note_lesson_32_http_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_32_http_requests/note_lesson_32_http.ipynb){ .solutions-link } — запити, помилки, повтори, одночасні запити й клієнт-клас з перевірками.
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_32_http_requests/note_lesson_32_http_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_32_http_requests/note_lesson_32_http.ipynb){ .solutions-link } — запити, помилки, повтори, одночасні запити й клієнт-клас з перевірками.
 - Наступний урок — 33, «REST: принципи дизайну API»: подивимось з іншого боку — як спроєктувати шляхи, методи й коди власного API, щоб ним було зручно користуватися.
 - Далі — Django (уроки 34–35) і DRF / FastAPI (урок 36): як написати сервер на кшталт `smachno_api.py` на справжньому фреймворку.
 

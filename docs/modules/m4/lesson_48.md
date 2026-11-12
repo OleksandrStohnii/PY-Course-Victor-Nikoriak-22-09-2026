@@ -18,7 +18,7 @@
 | **47** | **Telegram-бот: `/news`, `/digest`, підписки й сповіщення, webhook у FastAPI** |
 | 48–50 | Docker, Compose, CI/CD |
 
-Проєкт: [`news_hub`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_48_telegram_bot/news_hub).
+Проєкт: [`news_hub`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_48_telegram_bot/news_hub).
 
 **Що потрібно з попередніх уроків:** HTTP-запит і JSON (урок 32); `async`/`await` (27); `Depends` і `BackgroundTasks` (37, 39); rate limit на Redis (39); тести з локальним aiohttp-сервером (41); `analyze_news` (43); секрет webhook і `compare_digest` (46).
 
@@ -31,7 +31,7 @@
 - приймати webhook Telegram у FastAPI;
 - тестувати бота без мережі й токена — на двійнику Telegram Bot API.
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_48_telegram_bot/note_lesson_48_telegram_bot_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_48_telegram_bot/note_lesson_48_telegram_bot.ipynb){ .solutions-link } — бот розмовляє з двійником Telegram прямо в ноутбуці, без токена й мережі.
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_48_telegram_bot/note_lesson_48_telegram_bot_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_48_telegram_bot/note_lesson_48_telegram_bot.ipynb){ .solutions-link } — бот розмовляє з двійником Telegram прямо в ноутбуці, без токена й мережі.
 
 ## Пригадай
 
@@ -630,12 +630,12 @@ async def test_start_greets_user():
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_48_telegram_bot/note_lesson_48_telegram_bot_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_48_telegram_bot/note_lesson_48_telegram_bot.ipynb){ .solutions-link }.
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_48_telegram_bot/note_lesson_48_telegram_bot_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_48_telegram_bot/note_lesson_48_telegram_bot.ipynb){ .solutions-link }.
 - Уроки 49–51 — Docker, Compose, CI/CD: `news_hub`, PostgreSQL, Redis і бот у контейнерах; `BOT_TOKEN` і секрети — у змінних середовища, не в образі.
 
 ## Документація і джерела
 
-- Код: [`news_hub`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_48_telegram_bot/news_hub) — `bot/` з `ai_bot/app/` і `echo_bot/`, `notify.py` з `production_bot/backend/workers/notifications.py`, webhook — з `production_bot/backend/api/webhook.py`.
+- Код: [`news_hub`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_48_telegram_bot/news_hub) — `bot/` з `ai_bot/app/` і `echo_bot/`, `notify.py` з `production_bot/backend/workers/notifications.py`, webhook — з `production_bot/backend/api/webhook.py`.
 - Telegram: [Bot API](https://core.telegram.org/bots/api), [HTML style](https://core.telegram.org/bots/api#html-style), [setWebhook](https://core.telegram.org/bots/api#setwebhook), [webhooks](https://core.telegram.org/bots/webhooks), [Bots FAQ: ліміти](https://core.telegram.org/bots/faq#my-bot-is-hitting-limits-how-do-i-avoid-this), [локальний Bot API server](https://github.com/tdlib/telegram-bot-api), [@BotFather](https://core.telegram.org/bots/features#botfather).
 - aiogram 3: [документація](https://docs.aiogram.dev/en/latest/), [Router](https://docs.aiogram.dev/en/latest/dispatcher/router.html), [Middlewares](https://docs.aiogram.dev/en/latest/dispatcher/middlewares.html), [Dependency injection](https://docs.aiogram.dev/en/latest/dispatcher/dependency_injection.html), [webhook](https://docs.aiogram.dev/en/latest/dispatcher/webhook.html).
 - Уроки курсу: [39 — Redis і rate limit](lesson_40.md), [43 — LLM API](lesson_44.md), [46 — Security advanced](lesson_47.md).

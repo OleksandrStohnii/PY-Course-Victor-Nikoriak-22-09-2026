@@ -20,7 +20,7 @@
 | 47 | Telegram-бот |
 | 48–50 | Docker, Compose, CI/CD |
 
-Проєкт: [`news_hub`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_42_api_testing/news_hub).
+Проєкт: [`news_hub`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_42_api_testing/news_hub).
 
 **Що потрібно з попередніх уроків:** pytest, fixtures, `parametrize`, mock і правило «patch where used», покриття, піраміда тестів (урок 26); `asyncio.gather` (27); `TestClient` і `dependency_overrides` (37); `get_db` і COMMIT (38); `fakeredis` і rate limit (39).
 
@@ -32,7 +32,7 @@
 - підняти фейковий HTTP-сервер для тесту та тестувати API асинхронно через `httpx.AsyncClient`;
 - читати звіт покриття гілок і перетворювати червоні рядки на тести.
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_42_api_testing/note_lesson_42_testing_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_42_api_testing/note_lesson_42_testing.ipynb){ .solutions-link } — pytest запускається з ноутбука, без серверів.
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_42_api_testing/note_lesson_42_testing_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_42_api_testing/note_lesson_42_testing.ipynb){ .solutions-link } — pytest запускається з ноутбука, без серверів.
 
 ## Пригадай
 
@@ -56,7 +56,7 @@
 | ноутбук web scraping | справжній фрагмент стрічки rbc.ua (клітинка 44), демо-розмітка (клітинка 12) | `tests/fixtures/*.html` |
 | урок 40 курсу | 41 тест у трьох файлах, `TestClient`, fakeredis | основа; нічого не видалено |
 
-Теорію тестування з цих файлів тепер містить частина VIII [Django-книги](https://nikoriakviktot.github.io/notes_chat_app/08_testing_and_quality/). Тут — лише те, що з'являється в проєкті.
+Теорію тестування з цих файлів тепер містить частина VIII [Django-книги](https://nikoriakviktor.github.io/notes_chat_app/08_testing_and_quality/). Тут — лише те, що з'являється в проєкті.
 
 ## Рефакторинг 1. Шари тестів: unit і integration { #refactor-1 }
 
@@ -112,7 +112,7 @@ $ pytest -q -p no:cacheprovider -m unit
 
 Unit-тести ганяють після кожної зміни — вони йдуть близько секунди. Повний набір — перед комітом і в CI (урок 51).
 
-Поглиблено: [піраміда тестів](https://nikoriakviktot.github.io/notes_chat_app/08_testing_and_quality/testing_foundations_full/), [маркери й конфігурація pytest](https://nikoriakviktot.github.io/notes_chat_app/08_testing_and_quality/pytest_basics_full/).
+Поглиблено: [піраміда тестів](https://nikoriakviktor.github.io/notes_chat_app/08_testing_and_quality/testing_foundations_full/), [маркери й конфігурація pytest](https://nikoriakviktor.github.io/notes_chat_app/08_testing_and_quality/pytest_basics_full/).
 
 ## Рефакторинг 2. Збережені сторінки замість рядків у тесті { #refactor-2 }
 
@@ -272,7 +272,7 @@ flowchart TD
 
 Тест `test_patch_where_used` робить те саме з `fetch_one`: після патча `news_hub.parser` мок не викликано жодного разу, і `fetch_one` розібрав сторінку справжнім парсером.
 
-Поглиблено: [Mock і patch](https://nikoriakviktot.github.io/notes_chat_app/08_testing_and_quality/mocking_and_patching_full/).
+Поглиблено: [Mock і patch](https://nikoriakviktor.github.io/notes_chat_app/08_testing_and_quality/mocking_and_patching_full/).
 
 ## Рефакторинг 4. Фейк замість моку: локальний HTTP-сервер { #refactor-4 }
 
@@ -454,7 +454,7 @@ async def test_concurrent_requests_hit_rate_limit_exactly(aclient: httpx.AsyncCl
 | одночасні запити | ні, по одному | `asyncio.gather` |
 | коли | більшість тестів API | конкурентність, async-стан застосунку |
 
-Поглиблено: [async-тести й клієнти](https://nikoriakviktot.github.io/notes_chat_app/08_testing_and_quality/pytest_basics_full/); FastAPI — [Async Tests](https://fastapi.tiangolo.com/advanced/async-tests/).
+Поглиблено: [async-тести й клієнти](https://nikoriakviktor.github.io/notes_chat_app/08_testing_and_quality/pytest_basics_full/); FastAPI — [Async Tests](https://fastapi.tiangolo.com/advanced/async-tests/).
 
 ## Рефакторинг 6. Покриття: що тести не зачепили { #refactor-6 }
 
@@ -824,15 +824,15 @@ for item in raw:
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_42_api_testing/note_lesson_42_testing_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_42_api_testing/note_lesson_42_testing.ipynb){ .solutions-link }.
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_42_api_testing/note_lesson_42_testing_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_42_api_testing/note_lesson_42_testing.ipynb){ .solutions-link }.
 - Урок 43 — AI-інструменти розробника і як перевіряти згенерований код. Тести цього уроку — перший інструмент такої перевірки.
 - Урок 44 — Gemini в агрегаторі; виклик LLM API — ще одна зовнішня межа, яку мокатимемо за сьогоднішніми правилами.
 
 ## Документація і джерела
 
-- Код: [`news_hub`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_42_api_testing/news_hub) — тести уроку 40, перебудовані за `TESTING_FOUNDATIONS.md`, `MOCKING_AND_PATCHING.md`, `TEST_DATA_AND_FIXTURES.md`; HTML-фікстури — з ноутбука web scraping.
+- Код: [`news_hub`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_42_api_testing/news_hub) — тести уроку 40, перебудовані за `TESTING_FOUNDATIONS.md`, `MOCKING_AND_PATCHING.md`, `TEST_DATA_AND_FIXTURES.md`; HTML-фікстури — з ноутбука web scraping.
 - Урок 26 курсу — [pytest і тестування](../m2/lesson_26.md): fixtures, `parametrize`, mock, покриття, піраміда тестів.
-- Django-книга, частина VIII: [основи тестування](https://nikoriakviktot.github.io/notes_chat_app/08_testing_and_quality/testing_foundations_full/), [pytest](https://nikoriakviktot.github.io/notes_chat_app/08_testing_and_quality/pytest_basics_full/), [Mock і patch](https://nikoriakviktot.github.io/notes_chat_app/08_testing_and_quality/mocking_and_patching_full/), [тестові дані й фікстури](https://nikoriakviktot.github.io/notes_chat_app/08_testing_and_quality/test_data_and_fixtures_full/), [практика](https://nikoriakviktot.github.io/notes_chat_app/08_testing_and_quality/testing_practice_project_full/).
+- Django-книга, частина VIII: [основи тестування](https://nikoriakviktor.github.io/notes_chat_app/08_testing_and_quality/testing_foundations_full/), [pytest](https://nikoriakviktor.github.io/notes_chat_app/08_testing_and_quality/pytest_basics_full/), [Mock і patch](https://nikoriakviktor.github.io/notes_chat_app/08_testing_and_quality/mocking_and_patching_full/), [тестові дані й фікстури](https://nikoriakviktor.github.io/notes_chat_app/08_testing_and_quality/test_data_and_fixtures_full/), [практика](https://nikoriakviktor.github.io/notes_chat_app/08_testing_and_quality/testing_practice_project_full/).
 - pytest: [markers](https://docs.pytest.org/en/stable/how-to/mark.html), [hooks: pytest_collection_modifyitems](https://docs.pytest.org/en/stable/reference/reference.html#pytest.hookspec.pytest_collection_modifyitems), [monkeypatch](https://docs.pytest.org/en/stable/how-to/monkeypatch.html); [pytest-asyncio](https://pytest-asyncio.readthedocs.io/); [pytest-cov](https://pytest-cov.readthedocs.io/).
 - Python: [unittest.mock — where to patch](https://docs.python.org/3/library/unittest.mock.html#where-to-patch), [AsyncMock](https://docs.python.org/3/library/unittest.mock.html#unittest.mock.AsyncMock).
 - FastAPI: [Testing](https://fastapi.tiangolo.com/tutorial/testing/), [Async Tests](https://fastapi.tiangolo.com/advanced/async-tests/), [Testing Dependencies with Overrides](https://fastapi.tiangolo.com/advanced/testing-dependencies/); HTTPX: [ASGI transport](https://www.python-httpx.org/advanced/transports/#asgi-transport).

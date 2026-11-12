@@ -1408,8 +1408,8 @@ crispy_notes_project/
 
 | Файл | Опис |
 |------|------|
-| [`../DESIGN_FOUNDATIONS.md`](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/design_foundations_full/) | UX, CRAP, Bootstrap, ієрархія шаблонів, Crispy — теорія |
-| [`../CRISPY_FORMS.md`](https://nikoriakviktot.github.io/notes_chat_app/04_forms_and_validation/crispy_forms_full/) | Повний довідник: FormHelper, Layout, Bootstrap компоненти, Dynamic API |
-| [`../ADVANCED_TEMPLATES.md §3`](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/advanced_templates_full/) | FormHelper + Layout — деталі |
-| [`../ADVANCED_TEMPLATES.md §5`](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/advanced_templates_full/) | SaaS Dashboard Architecture |
+| [`../DESIGN_FOUNDATIONS.md`](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/design_foundations_full/) | UX, CRAP, Bootstrap, ієрархія шаблонів, Crispy — теорія |
+| [`../CRISPY_FORMS.md`](https://nikoriakviktor.github.io/notes_chat_app/04_forms_and_validation/crispy_forms_full/) | Повний довідник: FormHelper, Layout, Bootstrap компоненти, Dynamic API |
+| [`../ADVANCED_TEMPLATES.md §3`](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/advanced_templates_full/) | FormHelper + Layout — деталі |
+| [`../ADVANCED_TEMPLATES.md §5`](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/advanced_templates_full/) | SaaS Dashboard Architecture |
 | README стартового `notes_project` | ORM, Services/Selectors, міграції — фундамент цього проєкту |

@@ -21,7 +21,7 @@
 
 **Задача розділу.** Оформлення замовлення: промокод із реєстру, вартість доставки за районом і округлення — як конвеєр з функцій, а команди системи — як словник. Повний код — у розділі [«Практика»](#practice).
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_19_functions_first_class/note_lesson_19_functions_first_class_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_19_functions_first_class/note_lesson_19_functions_first_class.ipynb){ .solutions-link }
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_19_functions_first_class/note_lesson_19_functions_first_class_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_19_functions_first_class/note_lesson_19_functions_first_class.ipynb){ .solutions-link }
 
 ## Пригадай
 
@@ -1212,7 +1212,7 @@ SMS: D-3: за зміну 500 грн
 
 `shift_messages` змінює `totals`, але це її **власна** локальна змінна, створена в цьому виклику, — ззовні цього не видно, тож функція чиста. Ядро тестується одним `assert`, а канал виводу міняється аргументом. Так побудований і `checkout` з практики нижче: він **повертає** ціну, а не друкує її.
 
-Поглиблення: [Pure Functions & Immutability](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_19_functions_first_class/pattern_05_pure_functions.md) — від проблеми до «pure core» покроково.
+Поглиблення: [Pure Functions & Immutability](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_19_functions_first_class/pattern_05_pure_functions.md) — від проблеми до «pure core» покроково.
 
 ## Практика { #practice }
 
@@ -1442,8 +1442,8 @@ print(sorted(districts, key=len(districts)))
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_19_functions_first_class/note_lesson_19_functions_first_class_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_19_functions_first_class/note_lesson_19_functions_first_class.ipynb){ .solutions-link } — сервіс доставки: прогнози, вправи з перевірками, три баги і міні-проєкт — конвеєр для промокодів.
-- Поглиблення — п'ять патернів покроково, «від проблеми до рішення»: [Callback](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_19_functions_first_class/pattern_01_callback.md), [Function Factory](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_19_functions_first_class/pattern_02_factory.md), [Decorator](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_19_functions_first_class/pattern_03_decorator.md), [Pipeline](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_19_functions_first_class/pattern_04_pipeline.md), [Pure Functions](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_19_functions_first_class/pattern_05_pure_functions.md).
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_19_functions_first_class/note_lesson_19_functions_first_class_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_19_functions_first_class/note_lesson_19_functions_first_class.ipynb){ .solutions-link } — сервіс доставки: прогнози, вправи з перевірками, три баги і міні-проєкт — конвеєр для промокодів.
+- Поглиблення — п'ять патернів покроково, «від проблеми до рішення»: [Callback](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_19_functions_first_class/pattern_01_callback.md), [Function Factory](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_19_functions_first_class/pattern_02_factory.md), [Decorator](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_19_functions_first_class/pattern_03_decorator.md), [Pipeline](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_19_functions_first_class/pattern_04_pipeline.md), [Pure Functions](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_19_functions_first_class/pattern_05_pure_functions.md).
 - Наступне заняття — урок 20 «Класи, простір імен». Лічильник `make_counter` — це дані й функція разом. Клас зробить це явно: дані — атрибути, функції — методи.
 
 ## Документація і джерела

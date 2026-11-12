@@ -16,9 +16,9 @@
 - розв'язувати конфлікт злиття й пояснювати, чому код різних людей не конфліктує, коли кожен працює у своєму файлі;
 - писати функцію за контрактом так, щоб проєкт працював після злиття всіх частин.
 
-**Задача розділу.** Командою з 4–6 людей зібрати проєкт [`team_project/`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_1/lessons/lesson_16_git_github_system/team_project) — шість взаємозалежних задач — так, щоб у `main` пройшло `python check.py all`. Інструкція — у розділі [«Практика»](#practice).
+**Задача розділу.** Командою з 4–6 людей зібрати проєкт [`team_project/`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_1/lessons/lesson_16_git_github_system/team_project) — шість взаємозалежних задач — так, щоб у `main` пройшло `python check.py all`. Інструкція — у розділі [«Практика»](#practice).
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_16_git_github_system/note_lesson_16_git_github_system_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_16_git_github_system/note_lesson_16_git_github_system.ipynb){ .solutions-link }
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_16_git_github_system/note_lesson_16_git_github_system_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_16_git_github_system/note_lesson_16_git_github_system.ipynb){ .solutions-link }
 
 ## Пригадай
 
@@ -536,7 +536,7 @@ git merge --no-ff task-4-stats
 
 Команда з 4–6 людей. У маленькій команді хтось бере дві задачі.
 
-1. **Лідер** відкриває шаблон [NikoriakViktot/cafe-kasa-template](https://github.com/NikoriakViktot/cafe-kasa-template) → **Use this template** → **Create a new repository** → назва, наприклад `cafe-kasa-team-1`, **Public**. Репозиторій команди з'являється з першим комітом: шаблон, тести, заглушки. Копіювати файли вручну не треба. Дорожня карта команди, як запускати перевірки і розбір кожної задачі — у `TEAM.md` репозиторію.
+1. **Лідер** відкриває шаблон [NikoriakViktor/cafe-kasa-template](https://github.com/NikoriakViktor/cafe-kasa-template) → **Use this template** → **Create a new repository** → назва, наприклад `cafe-kasa-team-1`, **Public**. Репозиторій команди з'являється з першим комітом: шаблон, тести, заглушки. Копіювати файли вручну не треба. Дорожня карта команди, як запускати перевірки і розбір кожної задачі — у `TEAM.md` репозиторію.
 2. Лідер додає команду: **Settings → Collaborators → Add people** ([документація GitHub](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/repository-access-and-collaboration/inviting-collaborators-to-a-personal-repository)). Кожен приймає запрошення й клонує репозиторій.
 3. Команда розподіляє задачі 1–6. Кожен:
     - `git switch main` і `git pull`, потім `git switch -c task-N-назва`;
@@ -605,7 +605,7 @@ git merge --no-ff task-4-stats
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_16_git_github_system/note_lesson_16_git_github_system_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_16_git_github_system/note_lesson_16_git_github_system.ipynb){ .solutions-link } — двоє в одному репозиторії: гілки, злиття, конфлікт, `.gitignore`, з перевірками.
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_16_git_github_system/note_lesson_16_git_github_system_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_16_git_github_system/note_lesson_16_git_github_system.ipynb){ .solutions-link } — двоє в одному репозиторії: гілки, злиття, конфлікт, `.gitignore`, з перевірками.
 - Інструкції: [Як створити свій репозиторій](../../00_getting_started/github/create_repository.md), [Pull Request](../../00_getting_started/github/pull_request.md), [Git шпаргалка](../../git-cheatsheet.md).
 - Наступне заняття: [Урок 17. Практикум 3. Хеш-структури](lesson_17.md). А капстоун-проєкт [уроку 18](lesson_18.md) ти так само вестимеш у власному репозиторії з гілками й комітами.
 

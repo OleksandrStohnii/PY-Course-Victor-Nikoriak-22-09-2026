@@ -18,7 +18,7 @@
 
 **Задача розділу.** Звіт за доставками різних типів, в якому сервіс не знає, які саме типи існують. Повний код — у розділі [«Практика»](#practice).
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_21_inheritance_polymorphism/note_lesson_21_inheritance_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_21_inheritance_polymorphism/note_lesson_21_inheritance.ipynb){ .solutions-link }
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_21_inheritance_polymorphism/note_lesson_21_inheritance_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_21_inheritance_polymorphism/note_lesson_21_inheritance.ipynb){ .solutions-link }
 
 ## Пригадай
 
@@ -501,8 +501,8 @@ Delivery(2, "Поділ", night(courier_pricing), "Кур'єр").fare()  →  52
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_21_inheritance_polymorphism/note_lesson_21_inheritance_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_21_inheritance_polymorphism/note_lesson_21_inheritance.ipynb){ .solutions-link } — доставки різних типів: прогнози, вправи з перевірками, пастки міксинів і сигнатур.
-- Практикум на реальних даних: [`lab_lesson_21_titanic_inheritance.ipynb`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_21_inheritance_polymorphism/lab_lesson_21_titanic_inheritance.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_21_inheritance_polymorphism/lab_lesson_21_titanic_inheritance.ipynb) — «Жінки та діти — першими»: ієрархія пасажирів «Титаніка», MRO як маршрут, композиція проти наслідування.
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_21_inheritance_polymorphism/note_lesson_21_inheritance_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_21_inheritance_polymorphism/note_lesson_21_inheritance.ipynb){ .solutions-link } — доставки різних типів: прогнози, вправи з перевірками, пастки міксинів і сигнатур.
+- Практикум на реальних даних: [`lab_lesson_21_titanic_inheritance.ipynb`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_21_inheritance_polymorphism/lab_lesson_21_titanic_inheritance.ipynb) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_2/lessons/lesson_21_inheritance_polymorphism/lab_lesson_21_titanic_inheritance.ipynb) — «Жінки та діти — першими»: ієрархія пасажирів «Титаніка», MRO як маршрут, композиція проти наслідування.
 - Наступне заняття — урок 22 «Інкапсуляція, область видимості»: як не дати коду ззовні записати в доставку від'ємну ціну.
 
 ## Документація і джерела

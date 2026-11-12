@@ -3,7 +3,7 @@
 Цей розділ — усе, що потрібно налаштувати перед першим заняттям і під час курсу.
 
 1. [Встановлення Git](git_setup.md) — один раз, перед стартом.
-2. [GitHub](github/README.md) — SSH-ключ, fork, clone (докладніше, ніж тут).
+2. [GitHub](github/README.md) — SSH-ключ, fork, clone (докладніше, ніж тут), а також [README-візитівка профілю](github/profile_readme.md).
 3. [Налаштування середовища](environment_setup.md) — venv, залежності, Jupyter.
 4. [Ноутбуки в Google Colab](colab.md) — як відкрити урок без встановлення Python, зберегти копію, ставити бібліотеки, працювати з файлами й Drive.
 5. [Jupyter локально](jupyter.md) — Notebook і JupyterLab на своєму комп'ютері: запуск, кернели, `%pip`, термінал, гарячі клавіші.

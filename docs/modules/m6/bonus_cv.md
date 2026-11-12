@@ -10,8 +10,8 @@
 | Крок | Матеріал | Що там |
 |---|---|---|
 | 1 | [довідник «Сильне CV»](cv/cv_tutorial.md) | Professional Summary, формула пункту, сильні дієслова, чесні метрики, порядок проєктів, Skills, розриви сторінок, адаптація під вакансію, ATS |
-| 2 | [`cv_maker/`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_6/bonus/cv_maker) | `cv_template.html` — шаблон для свого CV; `generate_cv_pdf.py` і `generate_cv_pdf_chromium.py`; README |
-| 3 | [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/bonus/cv_maker/note_bonus_cv_maker_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/bonus/cv_maker/note_bonus_cv_maker.ipynb){ .solutions-link } | 6 вправ: перевірка пунктів CV, лише чесні числа, CV як дані → HTML з екрануванням, PDF |
+| 2 | [`cv_maker/`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_6/bonus/cv_maker) | `cv_template.html` — шаблон для свого CV; `generate_cv_pdf.py` і `generate_cv_pdf_chromium.py`; README |
+| 3 | [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/bonus/cv_maker/note_bonus_cv_maker_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_6/bonus/cv_maker/note_bonus_cv_maker.ipynb){ .solutions-link } | 6 вправ: перевірка пунктів CV, лише чесні числа, CV як дані → HTML з екрануванням, PDF |
 
 **Після уроку ти зможеш:**
 
@@ -146,6 +146,6 @@ CV генерується з даних Python-функцією, яка вста
 
 ## Документація і джерела
 
-- Код: [`cv_maker`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_6/bonus/cv_maker) — README, туторіал, HTML-CV викладача, `generate_cv_pdf.py`.
+- Код: [`cv_maker`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_6/bonus/cv_maker) — README, туторіал, HTML-CV викладача, `generate_cv_pdf.py`.
 - [pdfkit](https://pypi.org/project/pdfkit/), [wkhtmltopdf](https://wkhtmltopdf.org/), [Playwright для Python: `page.pdf()`](https://playwright.dev/python/docs/api/class-page#page-pdf).
 - CSS для друку: [`break-inside` / `page-break-inside`](https://developer.mozilla.org/en-US/docs/Web/CSS/break-inside).

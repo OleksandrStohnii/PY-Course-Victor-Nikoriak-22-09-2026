@@ -16,7 +16,7 @@
 
 **Задача розділу.** Чотири питання диспетчера таксі — чотири властивості даних — чотири стратегії. Практика — автодоповнення адреси в застосунку таксі.
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_12_practicum_search/note_lesson_12_search_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_12_practicum_search/note_lesson_12_search.ipynb){ .solutions-link }
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_12_practicum_search/note_lesson_12_search_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_12_practicum_search/note_lesson_12_search.ipynb){ .solutions-link }
 
 ## Пригадай
 
@@ -529,7 +529,7 @@ first_at_or_after([], 5)        → 0
 
 ### Лабораторія: таксі
 
-Для показу на занятті є інтерактивний застосунок [`taxi_lab`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_1/lessons/lesson_12_practicum_search/taxi_lab) на Streamlit:
+Для показу на занятті є інтерактивний застосунок [`taxi_lab`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_1/lessons/lesson_12_practicum_search/taxi_lab) на Streamlit:
 
 - **місії диспетчера** — чотири задачі уроку: спершу визначаєш, що відомо про дані, потім прогнозуєш, як зростуть кроки при подвоєнні даних (+1 / ×2 / ×4), і перевіряєш дослідом. Для кожної задачі — готові інструменти Python і бібліотек з часом підготовки та запиту;
 - **гонка пошуків** — шість способів знайти момент у журналі від 1 000 до 1 000 000 записів, багато запитів одразу з `numpy`, пастка невідсортованих даних і питання «чи варто спершу відсортувати».
@@ -571,8 +571,8 @@ streamlit run app.py
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_12_practicum_search/note_lesson_12_search_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_12_practicum_search/note_lesson_12_search.ipynb){ .solutions-link } — зміна диспетчера таксі: чотири задачі, чотири стратегії, лічильники кроків, готові інструменти Python і бібліотек.
-- Лабораторія для заняття: [`taxi_lab`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_1/lessons/lesson_12_practicum_search/taxi_lab) — місії диспетчера й гонка пошуків на Streamlit.
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_12_practicum_search/note_lesson_12_search_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_1/lessons/lesson_12_practicum_search/note_lesson_12_search.ipynb){ .solutions-link } — зміна диспетчера таксі: чотири задачі, чотири стратегії, лічильники кроків, готові інструменти Python і бібліотек.
+- Лабораторія для заняття: [`taxi_lab`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_1/lessons/lesson_12_practicum_search/taxi_lab) — місії диспетчера й гонка пошуків на Streamlit.
 - Наступне заняття: [Урок 13. Модулі та стандартна бібліотека](lesson_13.md). Модуль `bisect` — лише один з багатьох готових інструментів.
 - Лінію «алгоритм залежить від представлення даних» продовжить [Практикум 3. Хеш-структури](lesson_17.md): пошук за `O(1)` через `dict` і `set`.
 

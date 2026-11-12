@@ -4,7 +4,7 @@
 
 HTTP так не вміє: розмову завжди починає браузер — «запитав → отримав». Щоб дізнатися про нове повідомлення, довелося б питати сервер щосекунди. **WebSocket** — постійний двосторонній канал: відкривається одним HTTP-запитом і лишається відкритим, писати в нього може і браузер, і сервер (урок 33, «WebSocket і SSE»).
 
-Стартовий код чату — це крок 7B [Django-книги](https://nikoriakviktot.github.io/notes_chat_app/tutorials/07_async_django/): Django Channels, consumer, channel layer, JS-клієнт. Переносячи його в проєкт уроку 45, перевіряємо тим самим правилом: **consumer — ще один транспорт** над тими самими selectors і services. Дві знахідки дорогою:
+Стартовий код чату — це крок 7B [Django-книги](https://nikoriakviktor.github.io/notes_chat_app/tutorials/07_async_django/): Django Channels, consumer, channel layer, JS-клієнт. Переносячи його в проєкт уроку 45, перевіряємо тим самим правилом: **consumer — ще один транспорт** над тими самими selectors і services. Дві знахідки дорогою:
 
 - учасник, якого вилучили з групи, з відкритою вкладкою далі **читає й пише** в чат;
 - будь-який сайт, відкритий у браузері учасника, може під'єднатися до чату від його імені.
@@ -17,7 +17,7 @@ HTTP так не вміє: розмову завжди починає брауз
 | **45** | **груповий чат на WebSocket: ASGI, Channels, consumer, channel layer (Redis)** | **+ `consumers.py`, `asgi.py`, `ChatMessage`** |
 | 48–49 | Docker, деплой | — |
 
-Проєкт: [`crispy_notes_project`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_46_websocket_chat/crispy_notes_project).
+Проєкт: [`crispy_notes_project`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_46_websocket_chat/crispy_notes_project).
 
 **Що потрібно з попередніх уроків:** `asyncio`, `await`, цикл подій (урок 28); WebSocket і SSE серед типів API (32); Redis (30, 39); групи й правило «бачить група, змінює автор» (40); selectors / services і тест архітектури (44).
 
@@ -30,7 +30,7 @@ HTTP так не вміє: розмову завжди починає брауз
 - захистити WebSocket: автентифікація, права на кожне повідомлення, перевірка `Origin`;
 - тестувати consumer без браузера і сервера — `WebsocketCommunicator`.
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_46_websocket_chat/note_lesson_46_chat_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_46_websocket_chat/note_lesson_46_chat.ipynb){ .solutions-link } — чат з кількома «браузерами» прямо в ноутбуці, без сервера.
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_46_websocket_chat/note_lesson_46_chat_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_46_websocket_chat/note_lesson_46_chat.ipynb){ .solutions-link } — чат з кількома «браузерами» прямо в ноутбуці, без сервера.
 
 ## Пригадай
 
@@ -84,7 +84,7 @@ sequenceDiagram
 
 Polling робить сотні порожніх запитів і все одно запізнюється. WebSocket тримає одне з'єднання на вкладку, а сервер пише в нього, щойно є що сказати. Ціна — сервер тримає тисячі відкритих з'єднань. Потік на кожне (WSGI) цього не витримає; потрібен цикл подій — **ASGI**.
 
-Поглиблено: [WebSocket-протокол і цикл подій](https://nikoriakviktot.github.io/notes_chat_app/tutorials/07_async_django/7b_websocket_protocol/).
+Поглиблено: [WebSocket-протокол і цикл подій](https://nikoriakviktor.github.io/notes_chat_app/tutorials/07_async_django/7b_websocket_protocol/).
 
 ## Рефакторинг 1. ASGI і Channels { #refactor-1 }
 
@@ -146,7 +146,7 @@ else:
     CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}}
 ```
 
-Поглиблено: [ASGI-стек](https://nikoriakviktot.github.io/notes_chat_app/tutorials/07_async_django/7b_asgi_stack/), [налаштування Channels](https://nikoriakviktot.github.io/notes_chat_app/tutorials/07_async_django/7b_channels_settings/).
+Поглиблено: [ASGI-стек](https://nikoriakviktor.github.io/notes_chat_app/tutorials/07_async_django/7b_asgi_stack/), [налаштування Channels](https://nikoriakviktor.github.io/notes_chat_app/tutorials/07_async_django/7b_channels_settings/).
 
 ## Рефакторинг 2. Consumer — ще один транспорт { #refactor-2 }
 
@@ -291,7 +291,7 @@ flowchart TD
 
 `type: 'chat_message'` у `group_send` — ім'я **методу**, який channel layer викличе в кожному consumer групи (`chat.message` теж стане `chat_message`). Consumer Анни не надсилає своє повідомлення напряму — воно приходить до неї тим самим шляхом, що й до Олени, вже з `id` і часом із бази.
 
-Поглиблено: [consumer: життєвий цикл, `database_sync_to_async`, `group_send`](https://nikoriakviktot.github.io/notes_chat_app/tutorials/07_async_django/7b_consumer/).
+Поглиблено: [consumer: життєвий цикл, `database_sync_to_async`, `group_send`](https://nikoriakviktor.github.io/notes_chat_app/tutorials/07_async_django/7b_consumer/).
 
 ## Рефакторинг 3. Права — на кожне повідомлення { #refactor-3 }
 
@@ -395,7 +395,7 @@ flowchart TD
 
 Налаштування клієнт бере зі сторінки: `group.pk` і ім'я — у `data-*` атрибутах прихованого `#chat-config`, без inline `<script>`. Пояснення в шаблоні — у `{% comment %} … {% endcomment %}`: коментар `{# … #}` у Django лише **однорядковий**, багаторядковий потрапляє в HTML як текст. У шаблоні чату це не косметика. Слово `<script>` у такому «коментарі» браузер прочитав би як справжній тег, і все до наступного `</script>`, разом з `#chat-config`, стало б кодом JS. Тест `test_template_comments_are_not_rendered` перевіряє, що на сторінці немає `{#`.
 
-Поглиблено: [JS-клієнт: статус, перепідключення, `escapeHtml`](https://nikoriakviktot.github.io/notes_chat_app/tutorials/07_async_django/7b_websocket_client/).
+Поглиблено: [JS-клієнт: статус, перепідключення, `escapeHtml`](https://nikoriakviktor.github.io/notes_chat_app/tutorials/07_async_django/7b_websocket_client/).
 
 ## Рефакторинг 4. Звідки прийшло з'єднання: `Origin` { #refactor-4 }
 
@@ -438,7 +438,7 @@ Channel layer — поштова служба між consumers: `group_add` пі
 
 Ті самі 76 тестів проходять з обома шарами. Це також перевірка, що в подіях немає нічого, чого не можна передати через Redis: там лише JSON-сумісні значення (`user_id`, рядки, ISO-час), а не об'єкти моделей.
 
-Поглиблено: [Redis і Channel Layer](https://nikoriakviktot.github.io/notes_chat_app/tutorials/09_deployment/redis/).
+Поглиблено: [Redis і Channel Layer](https://nikoriakviktor.github.io/notes_chat_app/tutorials/09_deployment/redis/).
 
 ## Архітектура { #architecture }
 
@@ -677,14 +677,14 @@ async def test_non_member_rejected(self):
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_46_websocket_chat/note_lesson_46_chat_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_46_websocket_chat/note_lesson_46_chat.ipynb){ .solutions-link }.
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_46_websocket_chat/note_lesson_46_chat_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_46_websocket_chat/note_lesson_46_chat.ipynb){ .solutions-link }.
 - Урок 47 — Security advanced: CSWSH і права на кожне повідомлення — частина ширшої картини.
 - Уроки 49–50 — Docker і деплой: кілька процесів сервера, Redis як channel layer, `DJANGO_ALLOWED_HOSTS`.
 
 ## Документація і джерела
 
-- Код: [`crispy_notes_project`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_46_websocket_chat/crispy_notes_project) — проєкт уроку 45 + чат зі стартового `notes_chat_app`.
-- Django-книга, крок 7B: [огляд кроку](https://nikoriakviktot.github.io/notes_chat_app/tutorials/07_async_django/), [WebSocket-протокол](https://nikoriakviktot.github.io/notes_chat_app/tutorials/07_async_django/7b_websocket_protocol/), [ASGI-стек](https://nikoriakviktot.github.io/notes_chat_app/tutorials/07_async_django/7b_asgi_stack/), [налаштування Channels](https://nikoriakviktot.github.io/notes_chat_app/tutorials/07_async_django/7b_channels_settings/), [consumer](https://nikoriakviktot.github.io/notes_chat_app/tutorials/07_async_django/7b_consumer/), [JS-клієнт](https://nikoriakviktot.github.io/notes_chat_app/tutorials/07_async_django/7b_websocket_client/), [чекпоінт](https://nikoriakviktot.github.io/notes_chat_app/tutorials/07_async_django/checkpoint/); [тести consumers](https://nikoriakviktot.github.io/notes_chat_app/tutorials/06_testing/test_consumers/); [Redis і Channel Layer](https://nikoriakviktot.github.io/notes_chat_app/tutorials/09_deployment/redis/).
+- Код: [`crispy_notes_project`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_46_websocket_chat/crispy_notes_project) — проєкт уроку 45 + чат зі стартового `notes_chat_app`.
+- Django-книга, крок 7B: [огляд кроку](https://nikoriakviktor.github.io/notes_chat_app/tutorials/07_async_django/), [WebSocket-протокол](https://nikoriakviktor.github.io/notes_chat_app/tutorials/07_async_django/7b_websocket_protocol/), [ASGI-стек](https://nikoriakviktor.github.io/notes_chat_app/tutorials/07_async_django/7b_asgi_stack/), [налаштування Channels](https://nikoriakviktor.github.io/notes_chat_app/tutorials/07_async_django/7b_channels_settings/), [consumer](https://nikoriakviktor.github.io/notes_chat_app/tutorials/07_async_django/7b_consumer/), [JS-клієнт](https://nikoriakviktor.github.io/notes_chat_app/tutorials/07_async_django/7b_websocket_client/), [чекпоінт](https://nikoriakviktor.github.io/notes_chat_app/tutorials/07_async_django/checkpoint/); [тести consumers](https://nikoriakviktor.github.io/notes_chat_app/tutorials/06_testing/test_consumers/); [Redis і Channel Layer](https://nikoriakviktor.github.io/notes_chat_app/tutorials/09_deployment/redis/).
 - Django Channels: [tutorial](https://channels.readthedocs.io/en/latest/tutorial/index.html), [consumers](https://channels.readthedocs.io/en/latest/topics/consumers.html), [channel layers](https://channels.readthedocs.io/en/latest/topics/channel_layers.html), [security — `AllowedHostsOriginValidator`](https://channels.readthedocs.io/en/latest/topics/security.html), [testing — `WebsocketCommunicator`](https://channels.readthedocs.io/en/latest/topics/testing.html), [database access](https://channels.readthedocs.io/en/latest/topics/databases.html).
 - Протокол: [RFC 6455 — The WebSocket Protocol](https://www.rfc-editor.org/rfc/rfc6455) (коди закриття — §7.4; 4000–4999 — для застосунків); [MDN — WebSocket API](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket); [OWASP — Cross-Site WebSocket Hijacking](https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/10-Testing_WebSockets).
 - Урок 28 курсу — [asyncio](../m2/lesson_28.md); урок 33 — [типи API: WebSocket і SSE](lesson_33.md); урок 45 — [архітектура](lesson_45.md).

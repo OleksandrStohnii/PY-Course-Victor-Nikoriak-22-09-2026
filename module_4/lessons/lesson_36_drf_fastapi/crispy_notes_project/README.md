@@ -1,7 +1,7 @@
 > **Урок 36 курсу — рефакторинг 3: + REST API.** Це `crispy_notes_project` з уроку 35 (туторіал нижче — без змін) плюс Django REST Framework:
 > `hello_app/api.py` (серіалізатори й `NoteViewSet` поверх `services`/`selectors`), `/api/notes/` і `/api/schema/` у `hello_project/urls.py`,
 > `REST_FRAMEWORK` у `settings.py`, тести `hello_app/tests_api.py`.
-> Розбір змін: [урок 36 у книзі курсу](https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m4/lesson_35/).
+> Розбір змін: [урок 36 у книзі курсу](https://nikoriakviktor.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m4/lesson_35/).
 >
 > ```bash
 > pip install -r requirements.txt
@@ -1420,8 +1420,8 @@ crispy_notes_project/
 
 | Файл | Опис |
 |------|------|
-| [`../DESIGN_FOUNDATIONS.md`](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/design_foundations_full/) | UX, CRAP, Bootstrap, ієрархія шаблонів, Crispy — теорія |
-| [`../CRISPY_FORMS.md`](https://nikoriakviktot.github.io/notes_chat_app/04_forms_and_validation/crispy_forms_full/) | Повний довідник: FormHelper, Layout, Bootstrap компоненти, Dynamic API |
-| [`../ADVANCED_TEMPLATES.md §3`](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/advanced_templates_full/) | FormHelper + Layout — деталі |
-| [`../ADVANCED_TEMPLATES.md §5`](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/advanced_templates_full/) | SaaS Dashboard Architecture |
+| [`../DESIGN_FOUNDATIONS.md`](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/design_foundations_full/) | UX, CRAP, Bootstrap, ієрархія шаблонів, Crispy — теорія |
+| [`../CRISPY_FORMS.md`](https://nikoriakviktor.github.io/notes_chat_app/04_forms_and_validation/crispy_forms_full/) | Повний довідник: FormHelper, Layout, Bootstrap компоненти, Dynamic API |
+| [`../ADVANCED_TEMPLATES.md §3`](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/advanced_templates_full/) | FormHelper + Layout — деталі |
+| [`../ADVANCED_TEMPLATES.md §5`](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/advanced_templates_full/) | SaaS Dashboard Architecture |
 | README стартового `notes_project` | ORM, Services/Selectors, міграції — фундамент цього проєкту |

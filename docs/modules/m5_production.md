@@ -9,4 +9,4 @@
 | [49. Docker Compose + деплой](m5/lesson_50.md) | уся система однією командою: nginx, API, міграції, PostgreSQL, Redis, бот; той самий підхід для Django-проєкту (кроки 8–9 книги); деплой, бекап | `news_hub`, `crispy_notes_project` |
 | [50. CI/CD (GitHub Actions)](m5/lesson_51.md) | тести, типи й збірка образу на кожен PR; публікація образу | обидва |
 
-Кожен урок — рефакторинг стартового коду (`production_bot`) і Django-книги ([notes_chat_app](https://nikoriakviktot.github.io/notes_chat_app/)): спершу запускаємо його як є і дивимось, що ламається, потім виправляємо — з реальним виводом.
+Кожен урок — рефакторинг стартового коду (`production_bot`) і Django-книги ([notes_chat_app](https://nikoriakviktor.github.io/notes_chat_app/)): спершу запускаємо його як є і дивимось, що ламається, потім виправляємо — з реальним виводом.

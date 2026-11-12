@@ -8,7 +8,7 @@
 > - база — з `DATABASE_URL` (`hello_project/database.py`): PostgreSQL 16 у `docker-compose.yml`, без змінної — SQLite.
 >
 > Розбір змін і каталог патернів (разом з `news_hub` FastAPI-гілки):
-> [урок 45 у книзі курсу](https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m4/lesson_44/).
+> [урок 45 у книзі курсу](https://nikoriakviktor.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m4/lesson_44/).
 >
 > ```bash
 > pip install -r requirements.txt

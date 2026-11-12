@@ -1,7 +1,7 @@
 """Завантажити знімок телеграм SYNOP з ogimet.com для станцій уроку.
 
 Логіка — з TelegramProcessor.get_station_data проєкту викладача
-(https://github.com/NikoriakViktot/ogimet), виправлена за уроком 31:
+(https://github.com/NikoriakViktor/ogimet), виправлена за уроком 31:
 тайм-аут, перевірка статусу, пауза між запитами, чесний User-Agent замість fake_useragent.
 
     python -m meteo_api.fetch_snapshot --days 3        # → meteo_api/data/synop_ua.csv
@@ -21,7 +21,7 @@ STATIONS_UA = {
     "Полтава": "33506", "Одеса": "33837", "Чернігів": "33135", "Суми": "33275",
     "Рівне": "33301", "Житомир": "33325", "Тернопіль": "33415", "Хмельницький": "33429",
 }
-HEADERS = {"User-Agent": "py-course-lesson-32 (educational; github.com/NikoriakViktot)"}
+HEADERS = {"User-Agent": "py-course-lesson-32 (educational; github.com/NikoriakViktor)"}
 
 
 def fetch_station(session, wmo, begin, end):

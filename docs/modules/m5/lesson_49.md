@@ -15,7 +15,7 @@
 | 49 | Compose: API, міграції, PostgreSQL, Redis, nginx, бот — однією командою; деплой |
 | 50 | CI/CD: тести й збірка образу на кожен PR |
 
-Проєкт: [`news_hub`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_5/lessons/lesson_49_docker/news_hub).
+Проєкт: [`news_hub`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_5/lessons/lesson_49_docker/news_hub).
 
 **Що потрібно з попередніх уроків:** змінні середовища і секрети (уроки 44, 47); Alembic (38); Redis (39); `/health` і lifespan FastAPI (37, 47). Процеси, сигнали й права файлів — у [бонус-уроці Linux](bonus_linux.md): контейнер — це процес Linux.
 
@@ -28,7 +28,7 @@
 - пояснити, чому `docker stop` зупиняє один контейнер за секунду, а інший — за десять;
 - перевірити образ тестами.
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_5/lessons/lesson_49_docker/note_lesson_49_docker_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_5/lessons/lesson_49_docker/note_lesson_49_docker.ipynb){ .solutions-link }. У Colab немає Docker, тому в ноутбуці — те, що можна перевірити без нього: `.dockerignore`, кеш шарів, змінні середовища, сигнали. Команди Docker — з реальним виводом, щоб повторити локально.
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_5/lessons/lesson_49_docker/note_lesson_49_docker_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_5/lessons/lesson_49_docker/note_lesson_49_docker.ipynb){ .solutions-link }. У Colab немає Docker, тому в ноутбуці — те, що можна перевірити без нього: `.dockerignore`, кеш шарів, змінні середовища, сигнали. Команди Docker — з реальним виводом, щоб повторити локально.
 
 ## Пригадай
 
@@ -701,12 +701,12 @@ $ docker inspect -f '{{.State.ExitCode}}' fb
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_5/lessons/lesson_49_docker/note_lesson_49_docker_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_5/lessons/lesson_49_docker/note_lesson_49_docker.ipynb){ .solutions-link }.
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_5/lessons/lesson_49_docker/note_lesson_49_docker_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_5/lessons/lesson_49_docker/note_lesson_49_docker.ipynb){ .solutions-link }.
 - Урок 50: мережа, том, порядок запуску (спершу база, потім міграції, потім API) і nginx — в одному `docker-compose.yml`; той самий підхід для Django-проєкту нотаток; деплой на сервер.
 
 ## Документація і джерела
 
-- Код: [`news_hub`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_5/lessons/lesson_49_docker/news_hub) — `Dockerfile` зі стартового `production_bot`.
+- Код: [`news_hub`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_5/lessons/lesson_49_docker/news_hub) — `Dockerfile` зі стартового `production_bot`.
 - Docker: [Dockerfile reference](https://docs.docker.com/reference/dockerfile/), [build cache](https://docs.docker.com/build/cache/), [.dockerignore](https://docs.docker.com/build/concepts/context/#dockerignore-files), [best practices](https://docs.docker.com/build/building/best-practices/), [HEALTHCHECK](https://docs.docker.com/reference/dockerfile/#healthcheck), [shell і exec форми](https://docs.docker.com/reference/dockerfile/#shell-and-exec-form), [volumes](https://docs.docker.com/engine/storage/volumes/), [networking](https://docs.docker.com/engine/network/), [`docker run --env-file`](https://docs.docker.com/reference/cli/docker/container/run/#env).
 - Python-образи: [python на Docker Hub](https://hub.docker.com/_/python) (варіанти `slim`, `alpine`).
 - uvicorn: [deployment](https://www.uvicorn.org/deployment/), [налаштування](https://www.uvicorn.org/settings/) (`--workers`: «Defaults to the $WEB_CONCURRENCY environment variable if available, or 1»). FastAPI: [FastAPI in Containers](https://fastapi.tiangolo.com/deployment/docker/).

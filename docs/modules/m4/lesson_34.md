@@ -4,7 +4,7 @@
 
 А якщо потрібен **сайт для людей**: сторінки з HTML, база даних, вхід для адміністратора, панель, де можна додати чи виправити запис без жодного SQL? Писати все це самому — тижні роботи. Для цього є **Django** — вебфреймворк «з батарейками в комплекті»: ORM для бази даних, міграції, шаблони, адмін-панель, авторизація, захист від типових атак — усе в одному пакеті.
 
-З цього уроку ми будуємо **застосунок нотаток**. Він ростиме з уроку в урок: форми й Bootstrap (урок 35), API (урок 36), вхід і права (урок 41), тести (урок 42), чат на WebSocket (урок 46), Docker і деплой (уроки 49–50) — аж до повного [**Notes Chat App**](https://github.com/NikoriakViktot/notes_chat_app) викладача. Сьогодні — перший крок: проєкт, сторінки, модель `Note`, ORM і адмінка.
+З цього уроку ми будуємо **застосунок нотаток**. Він ростиме з уроку в урок: форми й Bootstrap (урок 35), API (урок 36), вхід і права (урок 41), тести (урок 42), чат на WebSocket (урок 46), Docker і деплой (уроки 49–50) — аж до повного [**Notes Chat App**](https://github.com/NikoriakViktor/notes_chat_app) викладача. Сьогодні — перший крок: проєкт, сторінки, модель `Note`, ORM і адмінка.
 
 **Що потрібно з попередніх уроків:** віртуальне середовище й `pip` (урок 2), класи (урок 20), SQL: таблиці, ключі, `SELECT … WHERE` (урок 30), HTTP-запит і відповідь (урок 32), REST (урок 33).
 
@@ -19,10 +19,10 @@
 
 **Задача розділу.** Сайт нотаток `hello_project` з адмін-панеллю, а в практиці — «закріплені» нотатки. Повний приклад — у розділі [«Практика»](#practice).
 
-**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_34_django_intro/note_lesson_34_django_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_34_django_intro/note_lesson_34_django.ipynb){ .solutions-link } — Django, ORM і адмінка прямо в ноутбуці.
+**Ноутбук заняття:** [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_34_django_intro/note_lesson_34_django_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_34_django_intro/note_lesson_34_django.ipynb){ .solutions-link } — Django, ORM і адмінка прямо в ноутбуці.
 
 !!! info "Книга Django"
-    Цей урок — стислий вхід у тему. Кожен розділ має посилання **«Поглиблено»** на [Django-книгу викладача](https://nikoriakviktot.github.io/notes_chat_app/): там той самий проєкт розібрано детальніше, а маршрут [Zero to Hero](https://nikoriakviktot.github.io/notes_chat_app/tutorials/) веде від цього уроку до готового застосунку з чатом. Урок 34 — це кроки 1–2 цього маршруту.
+    Цей урок — стислий вхід у тему. Кожен розділ має посилання **«Поглиблено»** на [Django-книгу викладача](https://nikoriakviktor.github.io/notes_chat_app/): там той самий проєкт розібрано детальніше, а маршрут [Zero to Hero](https://nikoriakviktor.github.io/notes_chat_app/tutorials/) веде від цього уроку до готового застосунку з чатом. Урок 34 — це кроки 1–2 цього маршруту.
 
 ## Пригадай
 
@@ -133,7 +133,7 @@ Running migrations:
 ```
 
 !!! tip "Поглиблено"
-    Книга: [Середовище та запуск](https://nikoriakviktot.github.io/notes_chat_app/tutorials/01_hello_django/environment/), [Структура проєкту](https://nikoriakviktot.github.io/notes_chat_app/02_django_core/project_structure_full/), [Команди manage.py](https://nikoriakviktot.github.io/notes_chat_app/02_django_core/management_commands_full/).
+    Книга: [Середовище та запуск](https://nikoriakviktor.github.io/notes_chat_app/tutorials/01_hello_django/environment/), [Структура проєкту](https://nikoriakviktor.github.io/notes_chat_app/02_django_core/project_structure_full/), [Команди manage.py](https://nikoriakviktor.github.io/notes_chat_app/02_django_core/management_commands_full/).
 
 ## MVT: як Django відповідає на запит
 
@@ -240,7 +240,7 @@ $ curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1:8000/weather/
 - `runserver` сам перезапускається, коли ти змінюєш `.py`-файли, — перезапускати вручну не треба.
 
 !!! tip "Поглиблено"
-    Книга: [URLs та Views](https://nikoriakviktot.github.io/notes_chat_app/tutorials/01_hello_django/urls_and_views/), [URL routing](https://nikoriakviktot.github.io/notes_chat_app/02_django_core/url_routing_full/), [Views](https://nikoriakviktot.github.io/notes_chat_app/02_django_core/views_full/), [Життєвий цикл запиту](https://nikoriakviktot.github.io/notes_chat_app/02_django_core/request_lifecycle/).
+    Книга: [URLs та Views](https://nikoriakviktor.github.io/notes_chat_app/tutorials/01_hello_django/urls_and_views/), [URL routing](https://nikoriakviktor.github.io/notes_chat_app/02_django_core/url_routing_full/), [Views](https://nikoriakviktor.github.io/notes_chat_app/02_django_core/views_full/), [Життєвий цикл запиту](https://nikoriakviktor.github.io/notes_chat_app/02_django_core/request_lifecycle/).
 
 ## Модель і міграції
 
@@ -337,7 +337,7 @@ flowchart TD
 - Файли міграцій **комітять у git**: з ними база кожного розробника й сервера має ту саму структуру.
 
 !!! tip "Поглиблено"
-    Книга: [Моделі і міграції](https://nikoriakviktot.github.io/notes_chat_app/tutorials/02_first_model/models_and_migrations/), [Django models](https://nikoriakviktot.github.io/notes_chat_app/03_database_and_orm/django_models/), [Міграції детально](https://nikoriakviktot.github.io/notes_chat_app/03_database_and_orm/django_migrations_full/).
+    Книга: [Моделі і міграції](https://nikoriakviktor.github.io/notes_chat_app/tutorials/02_first_model/models_and_migrations/), [Django models](https://nikoriakviktor.github.io/notes_chat_app/03_database_and_orm/django_models/), [Міграції детально](https://nikoriakviktor.github.io/notes_chat_app/03_database_and_orm/django_migrations_full/).
 
 ## ORM: SQL мовою Python
 
@@ -490,7 +490,7 @@ print(list(Note.objects.values_list("title", "content")))
 - `values_list` — лише потрібні колонки, кортежами, без створення об'єктів `Note`.
 
 !!! tip "Поглиблено"
-    Книга: [Django ORM](https://nikoriakviktot.github.io/notes_chat_app/03_database_and_orm/django_orm_full/), [ORM у схемах](https://nikoriakviktot.github.io/notes_chat_app/03_database_and_orm/orm_mermaid_full/), [Оптимізація запитів](https://nikoriakviktot.github.io/notes_chat_app/03_database_and_orm/query_optimization/).
+    Книга: [Django ORM](https://nikoriakviktor.github.io/notes_chat_app/03_database_and_orm/django_orm_full/), [ORM у схемах](https://nikoriakviktor.github.io/notes_chat_app/03_database_and_orm/orm_mermaid_full/), [Оптимізація запитів](https://nikoriakviktor.github.io/notes_chat_app/03_database_and_orm/query_optimization/).
 
 ## Шаблон: дані з бази на сторінці
 
@@ -572,7 +572,7 @@ $ curl -s http://127.0.0.1:8000/notes/
 ```
 
 !!! tip "Поглиблено"
-    Книга: [Шаблони](https://nikoriakviktot.github.io/notes_chat_app/tutorials/01_hello_django/templates/), [Django templates](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/django_templates_full/). Base-шаблон, Bootstrap і форми — урок 35.
+    Книга: [Шаблони](https://nikoriakviktor.github.io/notes_chat_app/tutorials/01_hello_django/templates/), [Django templates](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/django_templates_full/). Base-шаблон, Bootstrap і форми — урок 35.
 
 ## Адмін-панель
 
@@ -626,7 +626,7 @@ True False
 `pbkdf2_sha256` — алгоритм: сотні тисяч раундів хешування із сіллю, щоб підбирати паролі було дорого. Докладно — в уроці 41.
 
 !!! tip "Поглиблено"
-    Книга: [Django Admin (крок 1)](https://nikoriakviktot.github.io/notes_chat_app/tutorials/01_hello_django/admin/), [Кастомний ModelAdmin (крок 2)](https://nikoriakviktot.github.io/notes_chat_app/tutorials/02_first_model/django_admin/), [Django Admin детально](https://nikoriakviktot.github.io/notes_chat_app/05_frontend_and_templates/django_admin_full/).
+    Книга: [Django Admin (крок 1)](https://nikoriakviktor.github.io/notes_chat_app/tutorials/01_hello_django/admin/), [Кастомний ModelAdmin (крок 2)](https://nikoriakviktor.github.io/notes_chat_app/tutorials/02_first_model/django_admin/), [Django Admin детально](https://nikoriakviktor.github.io/notes_chat_app/05_frontend_and_templates/django_admin_full/).
 
 ## Архітектура: проєкт, застосунки і шлях до Notes Chat App { #architecture }
 
@@ -659,7 +659,7 @@ flowchart TD
 - **База даних — налаштування, а не код.** Моделі й ORM однакові для SQLite і PostgreSQL: змінюється лише `DATABASES` у `settings.py`. Розробляємо на SQLite, у production — PostgreSQL (уроки 39, 49).
 - **Адмінка — для персоналу, не для користувачів.** Вона швидко дає робочий інструмент власникові сервісу, але сторінки для відвідувачів пишемо самі (урок 35).
 
-Звідки й куди рухається цей проєкт — маршрут [Zero to Hero](https://nikoriakviktot.github.io/notes_chat_app/tutorials/) Django-книги й уроки курсу:
+Звідки й куди рухається цей проєкт — маршрут [Zero to Hero](https://nikoriakviktor.github.io/notes_chat_app/tutorials/) Django-книги й уроки курсу:
 
 ```mermaid
 flowchart TD
@@ -684,7 +684,7 @@ flowchart TD
 ```
 
 !!! tip "Поглиблено"
-    Книга: [Архітектура Django](https://nikoriakviktot.github.io/notes_chat_app/02_django_core/django_architecture_full/), [Notes Chat App: архітектура](https://nikoriakviktot.github.io/notes_chat_app/12_final_project/architecture/), [Domain model](https://nikoriakviktot.github.io/notes_chat_app/12_final_project/domain_model/).
+    Книга: [Архітектура Django](https://nikoriakviktor.github.io/notes_chat_app/02_django_core/django_architecture_full/), [Notes Chat App: архітектура](https://nikoriakviktor.github.io/notes_chat_app/12_final_project/architecture/), [Domain model](https://nikoriakviktor.github.io/notes_chat_app/12_final_project/domain_model/).
 
 ## Практика { #practice }
 
@@ -914,12 +914,12 @@ print(Note.objects.first().get_priority_display())
 
 ### Що далі
 
-- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_34_django_intro/note_lesson_34_django_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_34_django_intro/note_lesson_34_django.ipynb){ .solutions-link } — ORM, view, шаблон і адмінка з перевірками.
-- Готовий проєкт уроку — [`hello_project`](https://github.com/NikoriakViktot/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_34_django_intro/hello_project) у папці уроку.
+- Ноутбук заняття: [Відкрити вправи в Colab](https://colab.research.google.com/github/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_34_django_intro/note_lesson_34_django_student.ipynb){ .md-button .md-button--primary } [Переглянути розв’язки](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/blob/main/module_4/lessons/lesson_34_django_intro/note_lesson_34_django.ipynb){ .solutions-link } — ORM, view, шаблон і адмінка з перевірками.
+- Готовий проєкт уроку — [`hello_project`](https://github.com/NikoriakViktor/PY-Course-Victor-Nikoriak-22-09-2026/tree/main/module_4/lessons/lesson_34_django_intro/hello_project) у папці уроку.
 - Наступний урок — 35, «Django: forms, HTML practice»: base-шаблон, Bootstrap, `ModelForm` і повний CRUD нотаток — крок 4 маршруту Zero to Hero.
-- Книга: контрольні точки [кроку 1](https://nikoriakviktot.github.io/notes_chat_app/tutorials/01_hello_django/checkpoint/) і [кроку 2](https://nikoriakviktot.github.io/notes_chat_app/tutorials/02_first_model/checkpoint/) — чеклисти й типові помилки.
+- Книга: контрольні точки [кроку 1](https://nikoriakviktor.github.io/notes_chat_app/tutorials/01_hello_django/checkpoint/) і [кроку 2](https://nikoriakviktor.github.io/notes_chat_app/tutorials/02_first_model/checkpoint/) — чеклисти й типові помилки.
 
 ## Документація і джерела
 
 - Django: [Tutorial part 1 — Requests and responses](https://docs.djangoproject.com/en/5.2/intro/tutorial01/), [part 2 — Models and the admin site](https://docs.djangoproject.com/en/5.2/intro/tutorial02/), [Models](https://docs.djangoproject.com/en/5.2/topics/db/models/), [Making queries](https://docs.djangoproject.com/en/5.2/topics/db/queries/), [QuerySet API](https://docs.djangoproject.com/en/5.2/ref/models/querysets/), [Migrations](https://docs.djangoproject.com/en/5.2/topics/migrations/), [Templates](https://docs.djangoproject.com/en/5.2/topics/templates/), [The admin site](https://docs.djangoproject.com/en/5.2/ref/contrib/admin/), [FAQ: MTV](https://docs.djangoproject.com/en/5.2/faq/general/#django-appears-to-be-a-mvc-framework-but-you-call-the-controller-the-view-and-the-view-the-template-how-come-you-don-t-use-the-standard-names), [версії й підтримка](https://www.djangoproject.com/download/#supported-versions)
-- Книга викладача: [Django-книга і маршрут Zero to Hero](https://nikoriakviktot.github.io/notes_chat_app/) — репозиторій [`NikoriakViktot/notes_chat_app`](https://github.com/NikoriakViktot/notes_chat_app)
+- Книга викладача: [Django-книга і маршрут Zero to Hero](https://nikoriakviktor.github.io/notes_chat_app/) — репозиторій [`NikoriakViktor/notes_chat_app`](https://github.com/NikoriakViktor/notes_chat_app)

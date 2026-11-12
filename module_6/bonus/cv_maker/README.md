@@ -5,7 +5,7 @@
 > - `generate_cv_pdf_chromium.py` — той самий PDF через Chromium (Playwright), якщо `wkhtmltopdf` не встановлюється;
 > - ноутбук `note_bonus_cv_maker.ipynb` — CV як дані: перевірка формулювань, HTML з екрануванням, PDF.
 >
-> Розбір: [бонус «CV розробника» у книзі курсу](https://nikoriakviktot.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m6/bonus_cv/),
+> Розбір: [бонус «CV розробника» у книзі курсу](https://nikoriakviktor.github.io/PY-Course-Victor-Nikoriak-22-09-2026/modules/m6/bonus_cv/),
 > туторіал з формулюваннями — `CV_mini_tutorial_UA.md` (і сторінка «Довідник: сильне CV» у книзі).
 
 # CV Maker: генератор CV з HTML у PDF
