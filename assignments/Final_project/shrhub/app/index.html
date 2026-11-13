@@ -10,12 +10,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Prata&display=swap" rel="stylesheet">
 <style>
+
 /* Закрытый клуб: зелёное сукно, латунь и слоновая кость. Одна колонка; серия побед стоит в центре как клубный герб между двойными латунными линейками. */
-:root{--bg:#0a0a0a;--card:#141414;--card2:#1e1e1e;--line:#2b2b2b;--text:#f3f0e8;--muted:#9b978e;--up:#4fd18b;--down:#e5566b;--gold:#d4af5f;--goldHi:#f3dc9a;--vio:#d4af5f;--onGold:#1a1405;--onUp:#06200f;
-  --rail:#000;--side:#0f0f0f;--panel:#070707;--bar:#050505;--goldA:rgba(212,175,95,.4);--hov:rgba(255,255,255,.05);--sel:rgba(255,255,255,.09);--sep:rgba(0,0,0,.6);--edge:rgba(255,255,255,.04);--scrimc:rgba(0,0,0,.8);--off:#5c5a55;--glow:#1b1b1b;
+:root{--bg:#0b0e11;--card:#161a1e;--card2:#1e2329;--line:#2b3139;--text:#eaecef;--muted:#848e9c;--up:#2ebd85;--down:#f6465d;--gold:#f0b90b;--goldHi:#ffd44d;--vio:#f0b90b;--onGold:#121416;--onUp:#06200f;
+  --rail:#05080a;--side:#12161a;--panel:#0b0e11;--bar:#0b0e11;--goldA:rgba(240,185,11,.4);--hov:rgba(255,255,255,.05);--sel:rgba(255,255,255,.09);--sep:rgba(0,0,0,.6);--edge:rgba(255,255,255,.04);--scrimc:rgba(0,0,0,.8);--off:#5e6673;--glow:#1b2026;
   --display:'Prata',Georgia,'Times New Roman',serif;--body:'Jost',system-ui,-apple-system,'Segoe UI',sans-serif;color-scheme:dark}
-body.light{--bg:#f6f5f1;--card:#fff;--card2:#efede7;--line:#dedad1;--text:#17150f;--muted:#6a665d;--up:#13915a;--down:#c9354d;--gold:#9c7726;--goldHi:#c9a14a;--vio:#9c7726;--onGold:#fff;--onUp:#fff;
-  --rail:#e4e1d9;--side:#eeebe4;--panel:#e5e2da;--bar:#fff;--goldA:rgba(156,119,38,.35);--hov:rgba(0,0,0,.04);--sel:rgba(0,0,0,.08);--sep:rgba(0,0,0,.08);--edge:rgba(0,0,0,0);--scrimc:rgba(20,18,12,.45);--off:#b3afa6;--glow:#ffffff;color-scheme:light}
+body.light{--bg:#fafafa;--card:#fff;--card2:#f0f1f2;--line:#e4e6e8;--text:#1e2329;--muted:#707a8a;--up:#0e9e6e;--down:#e03146;--gold:#b58900;--goldHi:#d8a90c;--vio:#b58900;--onGold:#fff;--onUp:#fff;
+  --rail:#eef0f2;--side:#f3f4f6;--panel:#eef0f2;--bar:#fff;--goldA:rgba(181,137,0,.35);--hov:rgba(0,0,0,.04);--sel:rgba(0,0,0,.08);--sep:rgba(0,0,0,.08);--edge:rgba(0,0,0,0);--scrimc:rgba(20,18,12,.45);--off:#b3afa6;--glow:#ffffff;color-scheme:light}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;font-family:var(--body);font-size:15px;background:var(--bg);color:var(--text);min-height:100vh;user-select:none}
 button,input{font-family:inherit}
@@ -36,8 +37,18 @@ button,input{font-family:inherit}
 .card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:14px;margin-bottom:10px}
 .ph{display:flex;justify-content:space-between;align-items:center}
 .pick{background:transparent;border:1px solid var(--gold);color:var(--text);border-radius:3px;padding:7px 12px;font-family:var(--display);font-size:16px}
-.price{font-family:var(--display);font-size:22px;font-variant-numeric:tabular-nums}
-canvas{width:100%;height:110px;display:block;margin-top:8px}
+.price{font-family:var(--display);font-size:24px;font-variant-numeric:tabular-nums;line-height:1.15}
+.pbox{text-align:right}
+.pchg{font-size:13px;font-weight:600;font-variant-numeric:tabular-nums;min-height:16px}
+canvas{width:100%;height:188px;display:block;margin-top:6px}
+.tfs{display:flex;gap:4px;margin-top:10px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.tfs::-webkit-scrollbar{display:none}
+.tfs:empty{display:none}
+.tfs button{flex:0 0 auto;padding:5px 11px;font-size:12px;font-family:var(--body);border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:4px;cursor:pointer;white-space:nowrap}
+.tfs button.on{color:var(--gold);border-color:var(--gold)}
+.st24{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:6px}
+.st24:empty{display:none}
+.st24 b{font-weight:600}
 .go{display:flex;gap:10px;margin-top:10px}
 .go button{flex:1;border:none;border-radius:4px;padding:16px 0;font-family:var(--display);font-size:20px;cursor:pointer;transition:transform .06s}
 .go button:active{transform:scale(.97)}
@@ -81,12 +92,19 @@ input[type=range]{width:100%;margin:12px 0 4px;accent-color:var(--gold)}
 .modal .box{background:var(--card);border:1px solid var(--goldA);border-radius:8px;padding:22px;max-width:360px;width:100%;text-align:center;max-height:86vh;display:flex;flex-direction:column;overflow-y:auto}
 .em{font-size:48px}
 .list{overflow-y:auto;text-align:left;margin-top:8px;flex:1}
-.ci{display:flex;align-items:center;gap:8px;padding:10px 4px;border-bottom:1px solid var(--line);font-size:14px;font-variant-numeric:tabular-nums}
-.ci .r{width:26px;color:var(--muted);font-size:12px}.ci .s{font-weight:600;width:62px}.ci .nm{flex:1;color:var(--muted);font-size:12px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.ci{display:flex;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid var(--line);font-size:14px;font-variant-numeric:tabular-nums}
+.ci .pr{flex:1;min-width:0}
+.ci .pr b{font-weight:600;font-size:15px}
+.ci .pr span{color:var(--muted);font-size:12px}
+.ci .pr em{display:block;font-style:normal;color:var(--muted);font-size:11px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;margin-top:1px}
+.ci .px{text-align:right;font-weight:600}
+.ci .pct{flex:0 0 74px;text-align:center;padding:6px 0;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:var(--up)}
+.ci .pct.dn{background:var(--down)}
+.ci .pct.na{background:transparent;color:var(--muted)}
 .ci.lock{opacity:.45}
 .sb{height:6px;background:var(--down);overflow:hidden;margin-top:12px}.sb i{display:block;height:100%;background:var(--up)}
 .sl{display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-top:5px;font-variant-numeric:tabular-nums}
-.sep{padding:10px 4px 6px;font-family:var(--display);font-size:14px;color:var(--gold)}
+.sep{padding:12px 4px 6px;font-size:12px;font-weight:600;letter-spacing:.04em;color:var(--muted);text-transform:uppercase}
 .shop{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}.shop:last-child{border:none}
 .shop .i{font-size:24px}.shop .d{flex:1;font-size:14px;font-weight:500}
 #toast{position:fixed;left:50%;top:14px;transform:translateX(-50%);background:var(--card);border:1px solid var(--goldA);padding:10px 16px;border-radius:4px;font-size:14px;font-weight:500;opacity:0;transition:opacity .3s;pointer-events:none;z-index:30;max-width:90%;text-align:center}
@@ -222,11 +240,12 @@ body{overflow:hidden;background:var(--bg)}
   .chh{padding-left:10px}
   .chh .topic{display:none}
   .chh b{flex:1;overflow:hidden;text-overflow:ellipsis}
-  .tabs{display:flex;flex:none;border-top:1px solid var(--goldA);background:var(--bar);padding-bottom:env(safe-area-inset-bottom)}
-  .tabs button{flex:1;min-width:0;background:none;border:none;color:var(--muted);padding:8px 0 10px;font-size:11px;font-weight:500;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .tabs button span{display:block;font-size:19px;filter:grayscale(1);opacity:.7;position:relative;margin-bottom:2px}
+  .tabs{display:flex;flex:none;border-top:1px solid var(--goldA);background:var(--bar);padding-bottom:calc(env(safe-area-inset-bottom,0px) + 14px)}
+  .tabs button{flex:1;min-width:0;background:none;border:none;color:var(--muted);padding:7px 0 2px;font-size:11px;font-weight:500;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .tabs button span{display:block;font-size:25px;line-height:1.1;filter:grayscale(1);opacity:.85;position:relative;margin-bottom:3px}
   .tabs button.on{color:var(--gold)}
-  .tabs button.on span{filter:none;opacity:1}
+  .tabs button.on span{filter:none;opacity:1;transform:translateY(-1px)}
+  .tabs .tabimg{width:26px;height:26px;border-radius:7px;object-fit:cover;display:block;margin:0 auto}
   .tabs i{position:absolute;top:-4px;left:50%;margin-left:6px;background:var(--down);color:#fff;font-style:normal;font-size:10px;line-height:15px;border-radius:8px;padding:0 5px;font-weight:600}
 }
 @media (min-width:761px){.scrim{display:none}}
@@ -263,11 +282,46 @@ body{overflow:hidden;background:var(--bg)}
 .srv img{width:100%;height:100%;border-radius:inherit;object-fit:cover;display:block}
 .srv.on img{opacity:.92}
 .splash{width:min(260px,70vw);border-radius:14px;margin:10px auto 8px;display:block;box-shadow:0 6px 24px #0008}
-.bemb{width:30px;height:30px;border-radius:8px;object-fit:cover;vertical-align:middle;margin-right:10px}
+.bemb{width:38px;height:38px;border-radius:10px;object-fit:cover;vertical-align:middle;margin-right:12px}
 .aimg{width:100%;height:100%;border-radius:inherit;object-fit:cover;display:block}
 .srvh .bemb{margin-right:8px}
 
 
+
+
+.pfh{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-weight:600;font-size:16px;margin-bottom:4px}
+.pfh span:last-child{font-size:14px;white-space:nowrap}
+
+.tips{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:10px 0}
+.tips summary{cursor:pointer;font-weight:600;list-style:none}
+.tips summary::-webkit-details-marker{display:none}
+.tips summary::after{content:'▾';float:right;color:var(--muted)}
+.tips[open] summary::after{content:'▴'}
+.tips ol{margin:10px 0 8px;padding-left:20px}
+.tips li{margin:0 0 8px;font-size:14px;line-height:1.5}
+.tips li::marker{color:var(--gold);font-weight:600}
+
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 12px}
+.tile{display:flex;flex-direction:column;align-items:flex-start;gap:0;padding:10px 13px 12px;border-radius:12px;
+  border:1px solid var(--line);background:linear-gradient(158deg,var(--card2) 0%,var(--card) 70%);
+  color:var(--text);text-align:left;cursor:pointer;font-family:var(--body);min-height:96px;position:relative;overflow:hidden}
+.tile::before{content:'';position:absolute;inset:0 0 auto;height:1px;background:linear-gradient(90deg,transparent,var(--edge),transparent)}
+.tile:active{transform:scale(.985)}
+.tile i{font-size:22px;font-style:normal;line-height:1}
+.tile b{font-size:14px;font-weight:600;margin-top:6px;line-height:1.2}
+.tile small{font-size:11px;color:var(--muted);line-height:1.35;margin-top:3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tile.wide{grid-column:1/-1;min-height:0;flex-direction:column;align-items:center;text-align:center;gap:2px;padding:14px 16px 16px}
+.tile.wide i{font-size:28px}
+.tile.wide b{margin-top:7px;font-size:16px}
+.tile.wide small{margin-top:5px;-webkit-line-clamp:3}
+.tile.hot{border-color:var(--gold);background:linear-gradient(158deg,rgba(240,185,11,.1),var(--card) 70%)}
+.tile.hot b{color:var(--goldHi)}
+
+.whatis{background:var(--card2);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:10px 12px;margin:0 0 10px;font-size:13px;line-height:1.5;color:var(--muted)}
+
+.rate{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:13px;color:var(--muted)}
+.rate b{color:var(--text);font-size:15px}
+.rate select{margin-left:auto;padding:4px 6px}
 
 </style>
 </head>
@@ -289,9 +343,11 @@ body{overflow:hidden;background:var(--bg)}
     <div class="rec" id="rec"></div>
     <div id="rank" style="margin:0 0 12px"></div>
     <div class="card">
-      <div class="ph"><button class="pick" id="pick">BTC ▾</button><div class="price" id="price">—</div></div>
+      <div class="ph"><button class="pick" id="pick">BTC ▾</button><div class="pbox"><div class="price" id="price">—</div><div class="pchg" id="pchg"></div></div></div>
       <div id="mine"></div>
+      <div class="tfs" id="tfs"></div>
       <canvas id="cv"></canvas>
+      <div class="st24" id="st24"></div>
       <div id="sent"></div>
       <div id="ask"><div class="muted" style="text-align:center;margin-top:10px" id="q"></div>
         <div class="go"><button class="bU" id="bU"></button><button class="bD" id="bD"></button></div></div>
@@ -316,6 +372,7 @@ body{overflow:hidden;background:var(--bg)}
   <div class="page" id="p-robot"><div id="robot"></div></div>
   <div class="page" id="p-video"><div id="video"></div></div>
   <div class="page" id="p-shop"><div id="shop"></div></div>
+  <div class="page" id="p-calc"><div id="calc"></div></div>
   <div class="page" id="p-me"><div id="me"></div></div>
   <div class="page" id="p-rules"><div id="rules"></div></div>
     </div></div>
@@ -346,6 +403,44 @@ from:['от','від','from'],start:['старт','старт','start'],target:[
 sent_lock:['🔒 Настроение игроков по {0}: сколько быков и медведей и их средние цели. Открывается по подписке.','🔒 Настрій гравців щодо {0}: скільки биків і ведмедів та їхні середні цілі. Відкривається за підпискою.','🔒 Player sentiment on {0}: how many bulls and bears, and their average targets. Opens with a subscription.'],
 sent_avg:['Средняя цель: быки {0}, медведи {1}','Середня ціль: бики {0}, ведмеді {1}','Average target: bulls {0}, bears {1}'],
 sent_n:['{0} прогнозов за час, боты (демо). Это статистика, а не совет.','{0} прогнозів за годину, боти (демо). Це статистика, а не порада.','{0} forecasts this hour, bots (demo). This is a statistic, not advice.'],
+ca_tips:["Как покупать с головой", "Як купувати з головою", "How to buy sensibly"],
+ca_t1:["Покупай частями. Пять спокойных покупок по графику обычно лучше одной крупной на эмоциях.", "Купуй частинами. П'ять спокійних купівель за графіком зазвичай краще за одну велику на емоціях.", "Buy in parts. Five calm buys on a schedule usually beat one big emotional one."],
+ca_t2:["Средняя цена — это факт, а не цель. Докупать только ради красивой средней — частая ошибка: так ты увеличиваешь ставку на то, что уже падает.", "Середня ціна — це факт, а не мета. Докуповувати лише заради гарної середньої — часта помилка: так ти збільшуєш ставку на те, що вже падає.", "Your average is a fact, not a goal. Buying more just to pull it down is a common mistake: it raises your bet on something already falling."],
+ca_t3:["Включай комиссию биржи в сумму покупки, иначе средняя выйдет красивее, чем на самом деле.", "Включай комісію біржі в суму купівлі, інакше середня вийде гарнішою, ніж насправді.", "Include the exchange fee in the amount, or your average will look better than it is."],
+ca_t4:["Записывай сразу после покупки. Через неделю цену уже не вспомнишь.", "Записуй одразу після купівлі. За тиждень ціну вже не пригадаєш.", "Log it right after you buy. In a week you will not remember the price."],
+ca_t5:["Только спот и только та сумма, потерю которой переживёшь.", "Тільки спот і тільки та сума, втрату якої переживеш.", "Spot only, and only money you can afford to lose entirely."],
+ca_tn:["Это общие правила метода, а не совет, что покупать. Решение всегда твоё.", "Це загальні правила методу, а не порада, що купувати. Рішення завжди твоє.", "These are general method rules, not advice on what to buy. The decision is always yours."],
+nav_calc:["SHR", "SHR", "SHR"],
+home_add:["📲 Поставить на экран телефона","📲 Поставити на екран телефона","📲 Add to home screen"],
+home_d:["Иконка на рабочем столе, запуск в одно касание. Вход и покупки остаются твоими.","Іконка на робочому столі, запуск в один дотик. Вхід і покупки лишаються твоїми.","An icon on your home screen, one tap to open. Your login and purchases stay with you."],
+home_ok:["Готово, иконка на экране","Готово, іконка на екрані","Done, the icon is on your screen"],
+ca_rate:["Курс USDT","Курс USDT","USDT rate"],
+ca_what:["SHR — это твоя средняя цена входа: по какой цене в среднем тебе достались монеты, которые ты уже купил.","SHR — це твоя середня ціна входу: за якою ціною в середньому тобі дісталися монети, які ти вже купив.","SHR is your average entry: what the coins you already bought cost you on average."],
+ch_calc:["shr", "shr", "shr"],
+ca_h:["Средняя цена покупки", "Середня ціна купівлі", "Average entry price"],
+ca_d:["Записывай свои покупки на бирже — посчитаю среднюю цену входа и результат.", "Записуй свої купівлі на біржі — порахую середню ціну входу та результат.", "Log your exchange buys and I will work out your average entry and result."],
+ca_store:["Записи портфеля хранятся на наших серверах, чтобы не потеряться при переустановке.", "Записи портфеля зберігаються на наших серверах, щоб не загубитися при перевстановленні.", "Portfolio records are stored on our servers so they survive a reinstall."],
+ca_sum:["Сумма в $", "Сума в $", "Amount in $"],
+ca_price:["Цена покупки", "Ціна купівлі", "Buy price"],
+ca_add:["Записать покупку", "Записати купівлю", "Log the buy"],
+ca_done:["Покупка {0} записана", "Купівлю {0} записано", "{0} buy logged"],
+ca_none:["Пока ничего не записано. Добавь первую покупку.", "Поки нічого не записано. Додай першу купівлю.", "Nothing logged yet. Add your first buy."],
+ca_avg:["средняя", "середня", "avg"],
+ca_inv:["Вложено", "Вкладено", "Invested"],
+ca_have:["на руках", "на руках", "holding"],
+ca_now:["Сейчас", "Зараз", "Now"],
+ca_by:["по", "по", "at"],
+ca_del:["Удалить", "Видалити", "Delete"],
+ca_total:["Всего по портфелю", "Усього по портфелю", "Portfolio total"],
+ca_if:["Что если докуплю", "Що як докуплю", "What if I buy more"],
+ca_ifr:["Новая средняя: {0}", "Нова середня: {0}", "New average: {0}"],
+ca_note:["Это калькулятор, а не биржа. Покупки ты делаешь сам, мы только считаем.", "Це калькулятор, а не біржа. Купівлі ти робиш сам, ми лише рахуємо.", "This is a calculator, not an exchange. You buy elsewhere, we only do the maths."],
+ca_bad:["Впиши сумму и цену", "Впиши суму й ціну", "Enter an amount and a price"],
+ca_lim:["Больше 300 записей не влезет", "Більше 300 записів не влізе", "300 records is the limit"],
+ca_lock:["Монета не в твоём тарифе — открой её или смени тариф", "Монета не у твоєму тарифі — відкрий її або зміни тариф", "This coin is outside your plan — unlock it or change plan"],
+sent_real:['{0} прогнозов игроков за этот час. Это статистика, а не совет.','{0} прогнозів гравців за цю годину. Це статистика, а не порада.','{0} player forecasts this hour. A statistic, not advice.'],
+sent_none:['За этот час прогнозов ещё нет. Сделай первый.','За цю годину прогнозів ще немає. Зроби перший.','No forecasts this hour yet. Be the first.'],
+inclub:['{0} в клубе сейчас','{0} у клубі зараз','{0} in the club right now'],
 spot:['🛒 Купить {0} на споте','🛒 Купити {0} на споті','🛒 Buy {0} on spot'],
 spot_d:['Здесь будет партнёрская ссылка на спотовый раздел биржи. В демо она не подключена. Игра не даёт инвестиционных советов. Решение о покупке только твоё.','Тут буде партнерське посилання на спотовий розділ біржі. У демо воно не підключене. Гра не дає інвестиційних порад. Рішення про купівлю лише твоє.','A partner link to an exchange spot market will go here. It is not connected in the demo. The game gives no investment advice. The decision to buy is yours alone.'],
 got:['Понятно','Зрозуміло','Got it'],
@@ -806,28 +901,28 @@ av_up:"Fotoğraf yükle",av_del:"Fotoğrafı kaldır",my_page:"Sayfam",my_page_d
 };
 
 
-Object.assign(X[3],{sp_h:"Wsparcie",sp_d:"Odpowiadają ludzie z zespołu SHRhub, zwykle w ciągu dnia. Nie doradzamy, co kupować.",sp_ph:"Opisz problem",sp_sent:"Wiadomość wysłana do wsparcia",sp_demo:"W demo wiadomości nigdzie nie trafiają. W Telegramie dotrą do czatu wsparcia.",sp_faq:"Częste pytania",sp_q4:"Co, jeśli zakup się nie odblokował?",sp_a4:"Uruchom grę ponownie. Jeśli to nie pomoże, napisz do nas: podaj, co i kiedy kupiłeś, sprawdzimy płatność i odblokujemy ręcznie.",sp_q5:"Jak anulować subskrypcję?",sp_a5:"W Telegramie: Ustawienia → Moje gwiazdki → subskrypcje. Anulowanie działa do końca opłaconego miesiąca.",ob_h:"Pierwsze kroki",ob0:"Zrób pierwszą prognozę",ob1:"Ustaw cel cenowy",ob2:"Dołącz do klanu lub załóż własny",ob3:"Zagraj rozdanie przy stole",ob4:"Poszukaj zgubionego pendrive'a",ob_rew:"Nagroda za wszystkie kroki: 500 żetonów i 2 złote wiadomości",ob_go:"Przejdź",ch_usb:"pendrive",us_h:"Zgubiony pendrive",us_d:"Podobno gdzieś na wysypisku leży pendrive z tysiącami bitcoinów, wyrzucony wiele lat temu. Codziennie chowa się w nowym miejscu. Masz 5 prób: kop i śledź podpowiedzi.",us_note:"Nagroda jest w grze: 300 żetonów, odznaka 💾 i złota wiadomość. Prawdziwych bitcoinów na pendrivie nie ma 😄",us_left:"Pozostało prób: {0}",us_hot:"🔥 Gorąco! Pendrive jest tuż obok",us_warm:"♨️ Ciepło",us_cold:"❄️ Zimno",us_found:"Znalazłeś pendrive!",us_rew:"+300 żetonów, odznaka 💾 i złota wiadomość",us_tom:"Próby się skończyły. Jutro pendrive schowa się gdzie indziej.",us_done:"Pendrive znaleziony. Jutro znów się zgubi.",us_total:"Znalezione pendrive'y: {0}",us_shovel:"Złota łopata",us_shovel_d:"Kop stylowo. Tylko wygląd.",ch_table:"stół",tb_h:"Stół prognoz",tb_d:"Jak w pokerze: sześciu graczy wrzuca żetony do puli i potajemnie wybiera byki lub niedźwiedzie. Możesz podbić, by wyrzucić rywali, albo spasować. Po 15 sekundach cena odkrywa karty, a trafni dzielą pulę.",tb_note:"Żetony są tylko do gry: nie można ich kupić, sprzedać, przekazać ani wypłacić. To nie pieniądze.",tb_chips:"Żetony: {0}",tb_sit:"Usiądź: ante {0}",tb_need:"Potrzebujesz co najmniej {0} żetonów",tb_refill:"Odbierz 1000 żetonów (raz dziennie)",tb_refilled:"Żetony uzupełnione",tb_ref_no:"Dziś już odebrano. Wróć jutro.",tb_pot:"Pula",tb_pick:"Twój tajny wybór dla {0}",tb_check:"Zostań",tb_raise:"Podbij +{0}",tb_fold:"Pas",tb_fly:"Wybory złożone, czekamy na cenę",tb_win:"Zgarniasz {0}",tb_lose:"Pula trafiła do rywali",tb_allfold:"Wszyscy spasowali. Pula jest twoja: {0}",tb_split:"Nikt nie trafił, żetony zwrócone",tb_out:"Spasowałeś i straciłeś tylko ante",tb_folded:"pas",tb_next:"Następne rozdanie",tb_leave:"Wstań od stołu",tb_top:"Liderzy żetonów",tb_stat:"Rozdań: {0}, wygranych: {1}",tb_felt:"Czarno-złote sukno",tb_felt_d:"Wygląd stołu. Tylko wygląd.",tb_demo:"Demo: przeciwnicy to boty, rozdanie trwa 15 sekund.",ch_news:"wiadomości",nw_h:"Aktualności",nw_d:"Wiadomości piszą członkowie klubu. Nie są sprawdzane przez redakcję i nie są poradą kupna ani sprzedaży. Linki i reklamy są zabronione.",nw_new:"Dodaj wiadomość",nw_pt:"Nagłówek",nw_pb:"Treść",nw_send:"Opublikuj",nw_need:"Nagłówek od 5 znaków, treść od 10",nw_done:"Wiadomość opublikowana",nw_pin:"Przypnij na dobę: {0} ⭐",nw_pinned:"przypięte",nw_del:"Usuń",n0:"Rekord klubu: seria 23 trafnych prognoz",n0b:"SatoshiJr trzymał serię prawie dobę. Kto ją pobije?",n1:"Wojny klanów otwarte dla wszystkich",n1b:"Zbierz klan, znajdź przeciwnika i broń twierdzy prognozami.",n2:"Moje doświadczenie: robot „pod prąd” na spokojnym rynku",n2b:"5 prognoz w dzień, 3 trafne. To gra, nie porada, ale ciekawa obserwacja.",ch_robot:"robot",rb_h:"Robot prognostyczny",rb_d:"Robot sam robi prognozy według twojej strategii, gdy cię nie ma. Każda trafna prognoza daje 1 punkt tobie i klanowi, a w czasie wojny uderza w twierdzę rywala. Serii nie rusza.",rb_note:"Robot robi tylko prognozy w grze. Nie handluje, nie łączy się z giełdami i nie zarządza pieniędzmi.",rb_on:"Włącz robota",rb_off:"Wyłącz robota",rb_strat:"Strategia",rs_trend:"Z trendem",rs_contra:"Pod prąd",rs_crowd:"Z tłumem",rs_trend_d:"Cena rosła: byki. Spadała: niedźwiedzie.",rs_contra_d:"Robot czeka na odwrócenie i gra przeciw ostatniemu ruchowi.",rs_crowd_d:"Robot staje po stronie większości graczy.",rb_coin:"Moneta",rb_left:"Dziś: {0} z {1} prognoz",rb_more:"W planie Pro i wyższych robot robi 24 prognozy dziennie zamiast 5.",rb_stats:"Prognoz: {0}, trafnych: {1}, punktów: {2}",rb_log:"Dziennik robota",rb_wait:"Czeka na wynik",rb_idle:"Robot wyłączony",rb_lim:"Dzienny limit wyczerpany",rb_ok:"trafnie, +1",rb_no:"pudło",rb_skin:"Skórki robota",rb_skin_d:"Trzy dodatkowe wyglądy. Tylko wygląd.",rb_demo:"Demo: robot prognozuje co 20 sekund. W prawdziwej grze raz na godzinę.",pv_what:"Jakie dane są przechowywane",pv_list:"Przechowujemy: imię w klubie, awatar, język i motyw, prognozy i punkty, zakupy, wiadomości na czatach. Nie zbieramy: numeru telefonu, lokalizacji, dokumentów, danych kart, kontaktów.",pv_copy:"Skopiuj moje dane",pv_copied:"Twoje dane skopiowano",ch_war:"wojna",war_h:"Wojna klanów",war_d:"Każdy klan ma twierdzę o wytrzymałości {0}. Atakuj prognozami: trafna prognoza uderza w twierdzę rywala, a im większy ruch ceny, tym większe obrażenia. Trafne prognozy godzinne też zadają obrażenia. Wygrywa klan, którego twierdza przetrwa.",war_demo:"Demo: wojna trwa 3 minuty, atak 15 sekund. W prawdziwej grze wojna trwa dobę, atak 15 minut. Przeciwnicy to boty.",war_find:"⚔️ Znajdź przeciwnika",war_left:"zostało {0}",war_atk:"Twoje ataki: {0}",war_pick:"Dokąd pójdzie {0} w 15 sekund?",war_fly:"Atak w locie…",war_hit:"{0} zadaje {1} obrażeń",war_miss:"{0} pudłuje",war_hour:"{0}: trafna prognoza godzinna, {1} obrażeń",war_my:"Twoje obrażenia: {0}",war_win:"Zwycięstwo!",war_lose:"Porażka",war_draw:"Remis",war_tr:"Trofea klanu: {0}",war_chest:"Skrzynia zwycięzcy: 2 złote wiadomości",war_hist:"Ostatnie wojny",war_out:"Ataki się skończyły. Pomagaj klanowi prognozami godzinnymi.",war_live:"Trwa wojna z „{0}”",war_ban:"Sztandar bojowy klanu",war_ban_d:"Sztandar na ekranie wojny i w rankingu. Tylko ozdoba, nie wpływa na obrażenia.",trophies:"trofeów",mic_h:"Drobiazgi za 10–100 ⭐",gm:"Złota wiadomość",gm_d:"Wiadomość na czacie wyróżni się złotem. {0} ⭐ za wiadomość.",gm_on:"Następna wiadomość będzie złota",gm_free:"darmowych: {0}",gift:"Prezent",gift_h:"Prezent dla {0}",gift_d:"Prezent pojawi się na czacie i w profilu odbiorcy. To ozdoba bez wartości pieniężnej.",g0:"Róża",g1:"Szampan",g2:"Supersamochód",gift_msg:"daje {0}: {1}",gifts_n:"wysłanych prezentów",gift_how:"Naciśnij 🎁 przy wiadomości dowolnego członka na czacie.",frame:"Złota ramka awatara",frame_d:"Widoczna na czatach i na liście członków.",th_plat:"Platyna",th_emer:"Szmaragd",th_prem:"Motyw premium",th_prem_d:"Własna kolorystyka całego klubu.",owned:"Kupione",apply:"Włącz",buy:"Kup",pass_h:"Tygodniowa przepustka klubu",pass_d:"Zadania tygodnia odblokowują nagrody do profilu. Tylko ozdoby: nie wpływają na punkty ani ranking.",pt0:"Zrób 10 prognoz",pt1:"Napisz 5 wiadomości na czatach",pt2:"Ustaw 3 cele cenowe",pr0:"3 złote wiadomości",pr1:"odznaka 🏅",pr2:"motyw „Szmaragd”",reward:"Nagroda: {0}",claim:"Odbierz",claimed:"Odebrane",pass_buy:"Odblokuj przepustkę: {0} ⭐",pass_on:"Przepustka aktywna do końca tygodnia",pass_need:"Nagrody odbierają posiadacze przepustki",theme:"Motyw",th_dark:"Ciemny",th_light:"Jasny",nav_chats:"Czaty",cat_game:"Gra",cat_talk:"Społeczność",cat_media:"Media",cat_club:"Klub",ch_game:"prognozy",ch_an:"analityka",ch_general:"ogólny",ch_room:"sala-{0}",ch_video:"wideo",ch_shop:"sklep",ch_me:"profil",ch_rules:"zasady",ch_clan:"czat-klanu",ch_crank:"ranking",ch_join:"dołącz-do-klanu",online:"Online — {0}",offline:"Offline — {0}",typing:"{0} pisze…",st_play:"prognozuje {0}",members_h:"Członkowie",write:"Napisz na",gen_d:"Czat całego klubu.",room_d:"Rozmowy o {0}. Bez linków i bez namawiania do zakupu.",game_d:"Byki czy niedźwiedzie: jedna prognoza na godzinę",rules:"Zasady klubu",r2:"To gra: nie ma zakładów ani nagród pieniężnych.",r3:"Tylko spot. Żadnej dźwigni ani kontraktów futures.",r4:"Prognozy graczy to statystyka, a nie porada zakupowa.",r5:"Administracja nigdy nie prosi o przelew pieniędzy. Kto prosi, ten oszust: naciśnij 🚩.",sc_h:'Pojedyncza moneta',sc_d:'Odblokuj dowolną monetę spoza swojego planu i śledź ją: prognozy, wykres i nastroje graczy.',sc_buy:'Odblokuj {0}: {1} ⭐ miesięcznie',sc_usd:'około $2.99 dla gracza',sc_on:'{0} odblokowana, jest w „Moich monetach”',sc_off:'Wyłącz',sc_none:'Na razie brak. Kliknij zablokowaną monetę na liście, aby ją odblokować.',mine:'Moje monety',plans:'Zobacz plany',disc:"SHRhub to platforma do gry, nie giełda. Nie można tu kupić ani sprzedać kryptowalut. Nic w grze nie jest zachętą do działania.",accp:"Oczekiwano {0}%, wyszło {1}%.",
+Object.assign(X[3],{home_add:"📲 Dodaj na ekran telefonu",home_d:"Ikona na pulpicie, uruchomienie jednym dotknięciem. Logowanie i zakupy zostają twoje.",home_ok:"Gotowe, ikona jest na ekranie",ca_rate:"Kurs USDT",ca_what:"SHR to twoja średnia cena wejścia: ile średnio kosztowały monety, które już kupiłeś.",nav_calc:"SHR",ca_tips:"Jak kupować z głową",ca_t1:"Kupuj partiami. Pięć spokojnych zakupów według planu zwykle bije jeden duży pod wpływem emocji.",ca_t2:"Średnia to fakt, nie cel. Dokupowanie tylko po to, by ją obniżyć, to częsty błąd: zwiększasz zakład na coś, co już spada.",ca_t3:"Wliczaj prowizję giełdy w kwotę, inaczej średnia wyjdzie ładniejsza niż w rzeczywistości.",ca_t4:"Zapisuj od razu po zakupie. Za tydzień nie przypomnisz sobie ceny.",ca_t5:"Tylko spot i tylko kwota, której stratę zniesiesz.",ca_tn:"To ogólne zasady metody, a nie porada, co kupować. Decyzja zawsze należy do ciebie.",nav_calc:"Kalkulator",ch_calc:"shr",ca_h:"Średnia cena zakupu",ca_d:"Zapisuj swoje zakupy na giełdzie — policzę średnią cenę wejścia i wynik.",ca_store:"Zapisy portfela trzymamy na naszych serwerach, by nie zginęły po reinstalacji.",ca_sum:"Kwota w $",ca_price:"Cena zakupu",ca_add:"Zapisz zakup",ca_done:"Zakup {0} zapisany",ca_none:"Nic jeszcze nie zapisano. Dodaj pierwszy zakup.",ca_avg:"średnia",ca_inv:"Wpłacono",ca_have:"w posiadaniu",ca_now:"Teraz",ca_by:"po",ca_del:"Usuń",ca_total:"Razem w portfelu",ca_if:"A gdybym dokupił",ca_ifr:"Nowa średnia: {0}",ca_note:"To kalkulator, nie giełda. Kupujesz sam, my tylko liczymy.",ca_bad:"Wpisz kwotę i cenę",ca_lim:"Limit to 300 zapisów",ca_lock:"Ta moneta jest poza twoim planem",sent_real:"{0} prognoz graczy w tej godzinie. To statystyka, nie porada.",sent_none:"W tej godzinie nie ma jeszcze prognoz. Zrób pierwszą.",inclub:"{0} w klubie teraz",sp_h:"Wsparcie",sp_d:"Odpowiadają ludzie z zespołu SHRhub, zwykle w ciągu dnia. Nie doradzamy, co kupować.",sp_ph:"Opisz problem",sp_sent:"Wiadomość wysłana do wsparcia",sp_demo:"W demo wiadomości nigdzie nie trafiają. W Telegramie dotrą do czatu wsparcia.",sp_faq:"Częste pytania",sp_q4:"Co, jeśli zakup się nie odblokował?",sp_a4:"Uruchom grę ponownie. Jeśli to nie pomoże, napisz do nas: podaj, co i kiedy kupiłeś, sprawdzimy płatność i odblokujemy ręcznie.",sp_q5:"Jak anulować subskrypcję?",sp_a5:"W Telegramie: Ustawienia → Moje gwiazdki → subskrypcje. Anulowanie działa do końca opłaconego miesiąca.",ob_h:"Pierwsze kroki",ob0:"Zrób pierwszą prognozę",ob1:"Ustaw cel cenowy",ob2:"Dołącz do klanu lub załóż własny",ob3:"Zagraj rozdanie przy stole",ob4:"Poszukaj zgubionego pendrive'a",ob_rew:"Nagroda za wszystkie kroki: 500 żetonów i 2 złote wiadomości",ob_go:"Przejdź",ch_usb:"pendrive",us_h:"Zgubiony pendrive",us_d:"Podobno gdzieś na wysypisku leży pendrive z tysiącami bitcoinów, wyrzucony wiele lat temu. Codziennie chowa się w nowym miejscu. Masz 5 prób: kop i śledź podpowiedzi.",us_note:"Nagroda jest w grze: 300 żetonów, odznaka 💾 i złota wiadomość. Prawdziwych bitcoinów na pendrivie nie ma 😄",us_left:"Pozostało prób: {0}",us_hot:"🔥 Gorąco! Pendrive jest tuż obok",us_warm:"♨️ Ciepło",us_cold:"❄️ Zimno",us_found:"Znalazłeś pendrive!",us_rew:"+300 żetonów, odznaka 💾 i złota wiadomość",us_tom:"Próby się skończyły. Jutro pendrive schowa się gdzie indziej.",us_done:"Pendrive znaleziony. Jutro znów się zgubi.",us_total:"Znalezione pendrive'y: {0}",us_shovel:"Złota łopata",us_shovel_d:"Kop stylowo. Tylko wygląd.",ch_table:"stół",tb_h:"Stół prognoz",tb_d:"Jak w pokerze: sześciu graczy wrzuca żetony do puli i potajemnie wybiera byki lub niedźwiedzie. Możesz podbić, by wyrzucić rywali, albo spasować. Po 15 sekundach cena odkrywa karty, a trafni dzielą pulę.",tb_note:"Żetony są tylko do gry: nie można ich kupić, sprzedać, przekazać ani wypłacić. To nie pieniądze.",tb_chips:"Żetony: {0}",tb_sit:"Usiądź: ante {0}",tb_need:"Potrzebujesz co najmniej {0} żetonów",tb_refill:"Odbierz 1000 żetonów (raz dziennie)",tb_refilled:"Żetony uzupełnione",tb_ref_no:"Dziś już odebrano. Wróć jutro.",tb_pot:"Pula",tb_pick:"Twój tajny wybór dla {0}",tb_check:"Zostań",tb_raise:"Podbij +{0}",tb_fold:"Pas",tb_fly:"Wybory złożone, czekamy na cenę",tb_win:"Zgarniasz {0}",tb_lose:"Pula trafiła do rywali",tb_allfold:"Wszyscy spasowali. Pula jest twoja: {0}",tb_split:"Nikt nie trafił, żetony zwrócone",tb_out:"Spasowałeś i straciłeś tylko ante",tb_folded:"pas",tb_next:"Następne rozdanie",tb_leave:"Wstań od stołu",tb_top:"Liderzy żetonów",tb_stat:"Rozdań: {0}, wygranych: {1}",tb_felt:"Czarno-złote sukno",tb_felt_d:"Wygląd stołu. Tylko wygląd.",tb_demo:"Demo: przeciwnicy to boty, rozdanie trwa 15 sekund.",ch_news:"wiadomości",nw_h:"Aktualności",nw_d:"Wiadomości piszą członkowie klubu. Nie są sprawdzane przez redakcję i nie są poradą kupna ani sprzedaży. Linki i reklamy są zabronione.",nw_new:"Dodaj wiadomość",nw_pt:"Nagłówek",nw_pb:"Treść",nw_send:"Opublikuj",nw_need:"Nagłówek od 5 znaków, treść od 10",nw_done:"Wiadomość opublikowana",nw_pin:"Przypnij na dobę: {0} ⭐",nw_pinned:"przypięte",nw_del:"Usuń",n0:"Rekord klubu: seria 23 trafnych prognoz",n0b:"SatoshiJr trzymał serię prawie dobę. Kto ją pobije?",n1:"Wojny klanów otwarte dla wszystkich",n1b:"Zbierz klan, znajdź przeciwnika i broń twierdzy prognozami.",n2:"Moje doświadczenie: robot „pod prąd” na spokojnym rynku",n2b:"5 prognoz w dzień, 3 trafne. To gra, nie porada, ale ciekawa obserwacja.",ch_robot:"robot",rb_h:"Robot prognostyczny",rb_d:"Robot sam robi prognozy według twojej strategii, gdy cię nie ma. Każda trafna prognoza daje 1 punkt tobie i klanowi, a w czasie wojny uderza w twierdzę rywala. Serii nie rusza.",rb_note:"Robot robi tylko prognozy w grze. Nie handluje, nie łączy się z giełdami i nie zarządza pieniędzmi.",rb_on:"Włącz robota",rb_off:"Wyłącz robota",rb_strat:"Strategia",rs_trend:"Z trendem",rs_contra:"Pod prąd",rs_crowd:"Z tłumem",rs_trend_d:"Cena rosła: byki. Spadała: niedźwiedzie.",rs_contra_d:"Robot czeka na odwrócenie i gra przeciw ostatniemu ruchowi.",rs_crowd_d:"Robot staje po stronie większości graczy.",rb_coin:"Moneta",rb_left:"Dziś: {0} z {1} prognoz",rb_more:"W planie Pro i wyższych robot robi 24 prognozy dziennie zamiast 5.",rb_stats:"Prognoz: {0}, trafnych: {1}, punktów: {2}",rb_log:"Dziennik robota",rb_wait:"Czeka na wynik",rb_idle:"Robot wyłączony",rb_lim:"Dzienny limit wyczerpany",rb_ok:"trafnie, +1",rb_no:"pudło",rb_skin:"Skórki robota",rb_skin_d:"Trzy dodatkowe wyglądy. Tylko wygląd.",rb_demo:"Demo: robot prognozuje co 20 sekund. W prawdziwej grze raz na godzinę.",pv_what:"Jakie dane są przechowywane",pv_list:"Przechowujemy: imię w klubie, awatar, język i motyw, prognozy i punkty, zakupy, wiadomości na czatach. Nie zbieramy: numeru telefonu, lokalizacji, dokumentów, danych kart, kontaktów.",pv_copy:"Skopiuj moje dane",pv_copied:"Twoje dane skopiowano",ch_war:"wojna",war_h:"Wojna klanów",war_d:"Każdy klan ma twierdzę o wytrzymałości {0}. Atakuj prognozami: trafna prognoza uderza w twierdzę rywala, a im większy ruch ceny, tym większe obrażenia. Trafne prognozy godzinne też zadają obrażenia. Wygrywa klan, którego twierdza przetrwa.",war_demo:"Demo: wojna trwa 3 minuty, atak 15 sekund. W prawdziwej grze wojna trwa dobę, atak 15 minut. Przeciwnicy to boty.",war_find:"⚔️ Znajdź przeciwnika",war_left:"zostało {0}",war_atk:"Twoje ataki: {0}",war_pick:"Dokąd pójdzie {0} w 15 sekund?",war_fly:"Atak w locie…",war_hit:"{0} zadaje {1} obrażeń",war_miss:"{0} pudłuje",war_hour:"{0}: trafna prognoza godzinna, {1} obrażeń",war_my:"Twoje obrażenia: {0}",war_win:"Zwycięstwo!",war_lose:"Porażka",war_draw:"Remis",war_tr:"Trofea klanu: {0}",war_chest:"Skrzynia zwycięzcy: 2 złote wiadomości",war_hist:"Ostatnie wojny",war_out:"Ataki się skończyły. Pomagaj klanowi prognozami godzinnymi.",war_live:"Trwa wojna z „{0}”",war_ban:"Sztandar bojowy klanu",war_ban_d:"Sztandar na ekranie wojny i w rankingu. Tylko ozdoba, nie wpływa na obrażenia.",trophies:"trofeów",mic_h:"Drobiazgi za 10–100 ⭐",gm:"Złota wiadomość",gm_d:"Wiadomość na czacie wyróżni się złotem. {0} ⭐ za wiadomość.",gm_on:"Następna wiadomość będzie złota",gm_free:"darmowych: {0}",gift:"Prezent",gift_h:"Prezent dla {0}",gift_d:"Prezent pojawi się na czacie i w profilu odbiorcy. To ozdoba bez wartości pieniężnej.",g0:"Róża",g1:"Szampan",g2:"Supersamochód",gift_msg:"daje {0}: {1}",gifts_n:"wysłanych prezentów",gift_how:"Naciśnij 🎁 przy wiadomości dowolnego członka na czacie.",frame:"Złota ramka awatara",frame_d:"Widoczna na czatach i na liście członków.",th_plat:"Platyna",th_emer:"Szmaragd",th_prem:"Motyw premium",th_prem_d:"Własna kolorystyka całego klubu.",owned:"Kupione",apply:"Włącz",buy:"Kup",pass_h:"Tygodniowa przepustka klubu",pass_d:"Zadania tygodnia odblokowują nagrody do profilu. Tylko ozdoby: nie wpływają na punkty ani ranking.",pt0:"Zrób 10 prognoz",pt1:"Napisz 5 wiadomości na czatach",pt2:"Ustaw 3 cele cenowe",pr0:"3 złote wiadomości",pr1:"odznaka 🏅",pr2:"motyw „Szmaragd”",reward:"Nagroda: {0}",claim:"Odbierz",claimed:"Odebrane",pass_buy:"Odblokuj przepustkę: {0} ⭐",pass_on:"Przepustka aktywna do końca tygodnia",pass_need:"Nagrody odbierają posiadacze przepustki",theme:"Motyw",th_dark:"Ciemny",th_light:"Jasny",nav_chats:"Czaty",cat_game:"Gra",cat_talk:"Społeczność",cat_media:"Media",cat_club:"Klub",ch_game:"prognozy",ch_an:"analityka",ch_general:"ogólny",ch_room:"sala-{0}",ch_video:"wideo",ch_shop:"sklep",ch_me:"profil",ch_rules:"zasady",ch_clan:"czat-klanu",ch_crank:"ranking",ch_join:"dołącz-do-klanu",online:"Online — {0}",offline:"Offline — {0}",typing:"{0} pisze…",st_play:"prognozuje {0}",members_h:"Członkowie",write:"Napisz na",gen_d:"Czat całego klubu.",room_d:"Rozmowy o {0}. Bez linków i bez namawiania do zakupu.",game_d:"Byki czy niedźwiedzie: jedna prognoza na godzinę",rules:"Zasady klubu",r2:"To gra: nie ma zakładów ani nagród pieniężnych.",r3:"Tylko spot. Żadnej dźwigni ani kontraktów futures.",r4:"Prognozy graczy to statystyka, a nie porada zakupowa.",r5:"Administracja nigdy nie prosi o przelew pieniędzy. Kto prosi, ten oszust: naciśnij 🚩.",sc_h:'Pojedyncza moneta',sc_d:'Odblokuj dowolną monetę spoza swojego planu i śledź ją: prognozy, wykres i nastroje graczy.',sc_buy:'Odblokuj {0}: {1} ⭐ miesięcznie',sc_usd:'około $2.99 dla gracza',sc_on:'{0} odblokowana, jest w „Moich monetach”',sc_off:'Wyłącz',sc_none:'Na razie brak. Kliknij zablokowaną monetę na liście, aby ją odblokować.',mine:'Moje monety',plans:'Zobacz plany',disc:"SHRhub to platforma do gry, nie giełda. Nie można tu kupić ani sprzedać kryptowalut. Nic w grze nie jest zachętą do działania.",accp:"Oczekiwano {0}%, wyszło {1}%.",
 rk0:"Nowicjusz",rk1:"Obserwator",rk2:"Analityk",rk3:"Strateg",rk4:"Snajper",rk5:"Legenda klubu",rk_next:"do rangi „{0}” brakuje {1} pkt",rk_max:"najwyższa ranga",days:"Dni z rzędu w klubie: {0}",
 an_h:"Analityka",an_d:"Liczona z twoich zakończonych prognoz.",an_none:"Zrób pierwszą prognozę, a pojawi się tu analiza.",an_bull:"skuteczność z bykami",an_bear:"skuteczność z niedźwiedziami",an_err:"średni błąd celu",an_ppf:"punktów na prognozę",an_last:"Ostatnie prognozy",an_coin:"Według monet",
 pv_h:"Prywatność",pv_anon:"Ukryj imię w rankingach i czacie",pv_stats:"Ukryj moje statystyki przed innymi",pv_d:"W demo wszystkie dane są przechowywane tylko na tym urządzeniu i nigdzie nie są wysyłane.",pv_del:"Usuń wszystkie moje dane",pv_del_q:"Usunąć profil, postępy i ustawienia? Tego nie da się cofnąć.",pv_del_ok:"Usuń",pv_done:"Dane usunięte",anon:"Członek {0}",
 
 sp_q1:"Jak liczone są punkty?",sp_q2:"Co to jest spot?",sp_q3:"Jak działają klany?",sp_a1:"1 punkt za właściwą stronę i do 9 dodatkowych za dokładność: im bliżej twój cel do rzeczywistej zmiany ceny, tym więcej.",sp_a2:"Spot to zwykły zakup monety za własne pieniądze, bez pożyczonych środków. SHRhub to gra: niczego się tu nie kupuje ani nie sprzedaje.",sp_a3:"Klan ma do 20 osób, punkty wszystkich członków się sumują. Ranking klanów zeruje się co tydzień.",
 as_note:"Pomocnik nie udziela porad inwestycyjnych."});
-Object.assign(X[4],{sp_h:"Support",sp_d:"Es antworten echte Leute vom SHRhub-Team, meist innerhalb eines Tages. Wir beraten nicht, was man kaufen soll.",sp_ph:"Beschreib das Problem",sp_sent:"Nachricht an den Support gesendet",sp_demo:"In der Demo gehen Nachrichten nirgendwohin. In Telegram landen sie im Support-Chat.",sp_faq:"Häufige Fragen",sp_q4:"Was, wenn ein Kauf nicht freigeschaltet wurde?",sp_a4:"Starte das Spiel neu. Hilft das nicht, schreib uns, was du wann gekauft hast: Wir prüfen die Zahlung und schalten es manuell frei.",sp_q5:"Wie kündige ich ein Abo?",sp_a5:"In Telegram: Einstellungen → Meine Stars → Abos. Die Kündigung gilt zum Ende des bezahlten Monats.",ob_h:"Erste Schritte",ob0:"Gib deine erste Prognose ab",ob1:"Setze ein Kursziel",ob2:"Tritt einem Clan bei oder gründe einen",ob3:"Spiel eine Runde am Tisch",ob4:"Such den verlorenen USB-Stick",ob_rew:"Belohnung für alle Schritte: 500 Chips und 2 goldene Nachrichten",ob_go:"Los",ch_usb:"usb-stick",us_h:"Der verlorene USB-Stick",us_d:"Angeblich liegt irgendwo auf einer Müllhalde ein USB-Stick mit Tausenden Bitcoins, vor vielen Jahren weggeworfen. Jeden Tag versteckt er sich neu. Du hast 5 Versuche: grabe und achte auf die Hinweise.",us_note:"Die Belohnung ist im Spiel: 300 Chips, ein 💾-Abzeichen und eine goldene Nachricht. Echte Bitcoins sind nicht drauf 😄",us_left:"Versuche übrig: {0}",us_hot:"🔥 Heiß! Der Stick ist ganz nah",us_warm:"♨️ Warm",us_cold:"❄️ Kalt",us_found:"Du hast den Stick gefunden!",us_rew:"+300 Chips, 💾-Abzeichen und eine goldene Nachricht",us_tom:"Keine Versuche mehr. Morgen versteckt sich der Stick neu.",us_done:"Stick gefunden. Morgen geht er wieder verloren.",us_total:"Gefundene Sticks: {0}",us_shovel:"Goldene Schaufel",us_shovel_d:"Grabe mit Stil. Nur Optik.",ch_table:"tisch",tb_h:"Prognose-Tisch",tb_d:"Wie beim Poker: Sechs Spieler setzen Chips in den Pot und wählen verdeckt Bullen oder Bären. Du kannst erhöhen, um Gegner zu verdrängen, oder passen. Nach 15 Sekunden deckt der Preis auf, wer richtig lag, teilt den Pot.",tb_note:"Chips sind Spielchips: Man kann sie nicht kaufen, verkaufen, übertragen oder auszahlen. Sie sind kein Geld.",tb_chips:"Chips: {0}",tb_sit:"Platz nehmen: Ante {0}",tb_need:"Du brauchst mindestens {0} Chips",tb_refill:"1000 Chips holen (einmal täglich)",tb_refilled:"Chips aufgefüllt",tb_ref_no:"Heute schon abgeholt. Komm morgen wieder.",tb_pot:"Pot",tb_pick:"Deine verdeckte Wahl für {0}",tb_check:"Bleiben",tb_raise:"Erhöhen +{0}",tb_fold:"Passen",tb_fly:"Gewählt, wir warten auf den Preis",tb_win:"Du gewinnst {0}",tb_lose:"Der Pot geht an die Gegner",tb_allfold:"Alle haben gepasst. Der Pot gehört dir: {0}",tb_split:"Niemand lag richtig, Chips zurück",tb_out:"Du hast gepasst und nur das Ante verloren",tb_folded:"passt",tb_next:"Nächste Runde",tb_leave:"Tisch verlassen",tb_top:"Chip-Rangliste",tb_stat:"Runden: {0}, gewonnen: {1}",tb_felt:"Schwarz-goldener Filz",tb_felt_d:"Tischdesign. Nur Optik.",tb_demo:"Demo: Gegner sind Bots, eine Runde dauert 15 Sekunden.",ch_news:"news",nw_h:"Newsfeed",nw_d:"Die News schreiben Clubmitglieder. Sie sind nicht redaktionell geprüft und keine Kauf- oder Verkaufsempfehlung. Links und Werbung sind verboten.",nw_new:"News posten",nw_pt:"Überschrift",nw_pb:"Text",nw_send:"Veröffentlichen",nw_need:"Überschrift ab 5 Zeichen, Text ab 10",nw_done:"News veröffentlicht",nw_pin:"Einen Tag anheften: {0} ⭐",nw_pinned:"angeheftet",nw_del:"Löschen",n0:"Clubrekord: 23 richtige Prognosen in Folge",n0b:"SatoshiJr hielt die Serie fast einen Tag. Wer schlägt das?",n1:"Clan-Kriege sind für alle offen",n1b:"Sammle einen Clan, finde einen Gegner und verteidige die Festung mit Prognosen.",n2:"Meine Erfahrung: Roboter gegen den Trend bei ruhigem Markt",n2b:"5 Prognosen am Tag, 3 richtig. Ein Spiel, kein Rat, aber interessant.",ch_robot:"roboter",rb_h:"Prognose-Roboter",rb_d:"Der Roboter gibt nach deiner Strategie Prognosen ab, während du weg bist. Jede richtige Prognose bringt dir und dem Clan 1 Punkt und trifft im Krieg die gegnerische Festung. Deine Serie bleibt unberührt.",rb_note:"Der Roboter gibt nur Spielprognosen ab. Er handelt nicht, verbindet sich nicht mit Börsen und verwaltet kein Geld.",rb_on:"Roboter einschalten",rb_off:"Roboter ausschalten",rb_strat:"Strategie",rs_trend:"Mit dem Trend",rs_contra:"Gegen den Trend",rs_crowd:"Mit der Masse",rs_trend_d:"Preis stieg: Bullen. Fiel: Bären.",rs_contra_d:"Der Roboter erwartet eine Wende und geht gegen die letzte Bewegung.",rs_crowd_d:"Der Roboter folgt der Mehrheit der Spieler.",rb_coin:"Coin",rb_left:"Heute: {0} von {1} Prognosen",rb_more:"Ab Pro macht der Roboter 24 Prognosen am Tag statt 5.",rb_stats:"Prognosen: {0}, richtig: {1}, Punkte: {2}",rb_log:"Roboter-Protokoll",rb_wait:"Wartet auf das Ergebnis",rb_idle:"Roboter ist aus",rb_lim:"Tageslimit erreicht",rb_ok:"richtig, +1",rb_no:"daneben",rb_skin:"Roboter-Looks",rb_skin_d:"Drei zusätzliche Looks. Nur Optik.",rb_demo:"Demo: Der Roboter tippt alle 20 Sekunden. Im echten Spiel einmal pro Stunde.",pv_what:"Welche Daten gespeichert werden",pv_list:"Gespeichert: Clubname, Avatar, Sprache und Design, Prognosen und Punkte, Käufe, Chatnachrichten. Nicht erhoben: Telefonnummer, Standort, Dokumente, Kartendaten, Kontakte.",pv_copy:"Meine Daten kopieren",pv_copied:"Deine Daten wurden kopiert",ch_war:"krieg",war_h:"Clan-Krieg",war_d:"Jeder Clan hat eine Festung mit {0} Stärke. Greif mit Prognosen an: Eine richtige Prognose trifft die gegnerische Festung, je stärker sich der Preis bewegt, desto mehr Schaden. Richtige Stundenprognosen richten ebenfalls Schaden an. Es gewinnt der Clan, dessen Festung steht.",war_demo:"Demo: Ein Krieg dauert 3 Minuten, ein Angriff 15 Sekunden. Im echten Spiel dauert ein Krieg einen Tag, ein Angriff 15 Minuten. Gegner sind Bots.",war_find:"⚔️ Gegner finden",war_left:"noch {0}",war_atk:"Deine Angriffe: {0}",war_pick:"Wohin geht {0} in 15 Sekunden?",war_fly:"Angriff unterwegs…",war_hit:"{0} macht {1} Schaden",war_miss:"{0} verfehlt",war_hour:"{0}: richtige Stundenprognose, {1} Schaden",war_my:"Dein Schaden: {0}",war_win:"Sieg!",war_lose:"Niederlage",war_draw:"Unentschieden",war_tr:"Clan-Trophäen: {0}",war_chest:"Siegertruhe: 2 goldene Nachrichten",war_hist:"Letzte Kriege",war_out:"Keine Angriffe mehr. Hilf deinem Clan mit Stundenprognosen.",war_live:"Krieg gegen „{0}“",war_ban:"Kriegsbanner des Clans",war_ban_d:"Ein Banner im Kriegsbildschirm und in der Rangliste. Nur Deko, kein Einfluss auf den Schaden.",trophies:"Trophäen",mic_h:"Kleinigkeiten für 10–100 ⭐",gm:"Goldene Nachricht",gm_d:"Deine Chatnachricht leuchtet golden. {0} ⭐ pro Nachricht.",gm_on:"Deine nächste Nachricht wird golden",gm_free:"gratis: {0}",gift:"Geschenk",gift_h:"Ein Geschenk für {0}",gift_d:"Das Geschenk erscheint im Chat und im Profil des Empfängers. Es ist Deko und hat keinen Geldwert.",g0:"Rose",g1:"Champagner",g2:"Supersportwagen",gift_msg:"schenkt {0}: {1}",gifts_n:"gesendete Geschenke",gift_how:"Tippe im Chat neben einer Nachricht auf 🎁.",frame:"Goldener Avatar-Rahmen",frame_d:"Sichtbar in Chats und in der Mitgliederliste.",th_plat:"Platin",th_emer:"Smaragd",th_prem:"Premium-Design",th_prem_d:"Ein eigenes Farbschema für den ganzen Club.",owned:"Gekauft",apply:"Verwenden",buy:"Kaufen",pass_h:"Wöchentlicher Clubpass",pass_d:"Wochenaufgaben schalten Profilbelohnungen frei. Nur Deko: kein Einfluss auf Punkte oder Rangliste.",pt0:"Gib 10 Prognosen ab",pt1:"Schreib 5 Chatnachrichten",pt2:"Setze 3 Kursziele",pr0:"3 goldene Nachrichten",pr1:"🏅-Abzeichen",pr2:"Smaragd-Design",reward:"Belohnung: {0}",claim:"Abholen",claimed:"Erhalten",pass_buy:"Pass holen: {0} ⭐",pass_on:"Pass aktiv bis Wochenende",pass_need:"Belohnungen gibt es mit dem Pass",theme:"Design",th_dark:"Dunkel",th_light:"Hell",nav_chats:"Chats",cat_game:"Spiel",cat_talk:"Community",cat_media:"Medien",cat_club:"Club",ch_game:"prognosen",ch_an:"analyse",ch_general:"allgemein",ch_room:"{0}-raum",ch_video:"videos",ch_shop:"shop",ch_me:"profil",ch_rules:"regeln",ch_clan:"clan-chat",ch_crank:"rangliste",ch_join:"clan-beitreten",online:"Online — {0}",offline:"Offline — {0}",typing:"{0} schreibt…",st_play:"tippt {0}",members_h:"Mitglieder",write:"Nachricht an",gen_d:"Chat für den ganzen Club.",room_d:"Gespräche über {0}. Keine Links und keine Kaufaufrufe.",game_d:"Bullen oder Bären: eine Prognose pro Stunde",rules:"Clubregeln",r2:"Das ist ein Spiel: keine Wetten und keine Geldpreise.",r3:"Nur Spot. Kein Hebel und keine Futures.",r4:"Prognosen der Spieler sind Statistik, keine Kaufempfehlung.",r5:"Die Administration bittet nie um Geld. Wer darum bittet, ist ein Betrüger: tippe auf 🚩.",sc_h:'Einzelner Coin',sc_d:'Schalte einen beliebigen Coin außerhalb deines Tarifs frei und verfolge ihn: Prognosen, Chart und Spielerstimmung.',sc_buy:'{0} freischalten: {1} ⭐ pro Monat',sc_usd:'etwa $2.99 für den Spieler',sc_on:'{0} freigeschaltet, steht unter „Meine Coins“',sc_off:'Entfernen',sc_none:'Noch keiner. Tippe in der Liste auf einen gesperrten Coin, um ihn freizuschalten.',mine:'Meine Coins',plans:'Tarife ansehen',disc:"SHRhub ist eine Spieleplattform, keine Börse. Hier kann man keine Kryptowährung kaufen oder verkaufen. Nichts im Spiel ist eine Handlungsaufforderung.",accp:"Erwartet {0}%, tatsächlich {1}%.",
+Object.assign(X[4],{home_add:"📲 Zum Homescreen hinzufügen",home_d:"Ein Symbol auf dem Startbildschirm, Start mit einem Tipp. Login und Käufe bleiben deine.",home_ok:"Fertig, das Symbol ist da",ca_rate:"USDT-Kurs",ca_what:"SHR ist dein Durchschnittseinstieg: was die bereits gekauften Coins im Schnitt gekostet haben.",nav_calc:"SHR",ca_tips:"Wie man mit Kopf kauft",ca_t1:"Kauf in Teilen. Fünf ruhige Käufe nach Plan schlagen meist einen großen aus dem Bauch.",ca_t2:"Dein Schnitt ist eine Tatsache, kein Ziel. Nachkaufen nur, um ihn zu drücken, ist ein häufiger Fehler: Du erhöhst die Wette auf etwas, das bereits fällt.",ca_t3:"Rechne die Börsengebühr in den Betrag ein, sonst sieht dein Schnitt besser aus, als er ist.",ca_t4:"Trag es direkt nach dem Kauf ein. In einer Woche weißt du den Preis nicht mehr.",ca_t5:"Nur Spot und nur Geld, dessen Verlust du verkraftest.",ca_tn:"Das sind allgemeine Regeln der Methode, kein Rat, was zu kaufen ist. Die Entscheidung bleibt deine.",nav_calc:"Rechner",ch_calc:"shr",ca_h:"Durchschnittlicher Einstiegspreis",ca_d:"Trag deine Käufe an der Börse ein — ich rechne Einstiegspreis und Ergebnis aus.",ca_store:"Portfolio-Einträge liegen auf unseren Servern, damit sie eine Neuinstallation überstehen.",ca_sum:"Betrag in $",ca_price:"Kaufpreis",ca_add:"Kauf eintragen",ca_done:"Kauf {0} eingetragen",ca_none:"Noch nichts eingetragen. Füge den ersten Kauf hinzu.",ca_avg:"Schnitt",ca_inv:"Investiert",ca_have:"im Bestand",ca_now:"Jetzt",ca_by:"zu",ca_del:"Löschen",ca_total:"Portfolio gesamt",ca_if:"Was, wenn ich nachkaufe",ca_ifr:"Neuer Schnitt: {0}",ca_note:"Das ist ein Rechner, keine Börse. Gekauft wird woanders, wir rechnen nur.",ca_bad:"Betrag und Preis eintragen",ca_lim:"Mehr als 300 Einträge gehen nicht",ca_lock:"Dieser Coin liegt außerhalb deines Tarifs",sent_real:"{0} Spielerprognosen in dieser Stunde. Eine Statistik, kein Rat.",sent_none:"Für diese Stunde gibt es noch keine Prognosen. Mach die erste.",inclub:"{0} gerade im Club",sp_h:"Support",sp_d:"Es antworten echte Leute vom SHRhub-Team, meist innerhalb eines Tages. Wir beraten nicht, was man kaufen soll.",sp_ph:"Beschreib das Problem",sp_sent:"Nachricht an den Support gesendet",sp_demo:"In der Demo gehen Nachrichten nirgendwohin. In Telegram landen sie im Support-Chat.",sp_faq:"Häufige Fragen",sp_q4:"Was, wenn ein Kauf nicht freigeschaltet wurde?",sp_a4:"Starte das Spiel neu. Hilft das nicht, schreib uns, was du wann gekauft hast: Wir prüfen die Zahlung und schalten es manuell frei.",sp_q5:"Wie kündige ich ein Abo?",sp_a5:"In Telegram: Einstellungen → Meine Stars → Abos. Die Kündigung gilt zum Ende des bezahlten Monats.",ob_h:"Erste Schritte",ob0:"Gib deine erste Prognose ab",ob1:"Setze ein Kursziel",ob2:"Tritt einem Clan bei oder gründe einen",ob3:"Spiel eine Runde am Tisch",ob4:"Such den verlorenen USB-Stick",ob_rew:"Belohnung für alle Schritte: 500 Chips und 2 goldene Nachrichten",ob_go:"Los",ch_usb:"usb-stick",us_h:"Der verlorene USB-Stick",us_d:"Angeblich liegt irgendwo auf einer Müllhalde ein USB-Stick mit Tausenden Bitcoins, vor vielen Jahren weggeworfen. Jeden Tag versteckt er sich neu. Du hast 5 Versuche: grabe und achte auf die Hinweise.",us_note:"Die Belohnung ist im Spiel: 300 Chips, ein 💾-Abzeichen und eine goldene Nachricht. Echte Bitcoins sind nicht drauf 😄",us_left:"Versuche übrig: {0}",us_hot:"🔥 Heiß! Der Stick ist ganz nah",us_warm:"♨️ Warm",us_cold:"❄️ Kalt",us_found:"Du hast den Stick gefunden!",us_rew:"+300 Chips, 💾-Abzeichen und eine goldene Nachricht",us_tom:"Keine Versuche mehr. Morgen versteckt sich der Stick neu.",us_done:"Stick gefunden. Morgen geht er wieder verloren.",us_total:"Gefundene Sticks: {0}",us_shovel:"Goldene Schaufel",us_shovel_d:"Grabe mit Stil. Nur Optik.",ch_table:"tisch",tb_h:"Prognose-Tisch",tb_d:"Wie beim Poker: Sechs Spieler setzen Chips in den Pot und wählen verdeckt Bullen oder Bären. Du kannst erhöhen, um Gegner zu verdrängen, oder passen. Nach 15 Sekunden deckt der Preis auf, wer richtig lag, teilt den Pot.",tb_note:"Chips sind Spielchips: Man kann sie nicht kaufen, verkaufen, übertragen oder auszahlen. Sie sind kein Geld.",tb_chips:"Chips: {0}",tb_sit:"Platz nehmen: Ante {0}",tb_need:"Du brauchst mindestens {0} Chips",tb_refill:"1000 Chips holen (einmal täglich)",tb_refilled:"Chips aufgefüllt",tb_ref_no:"Heute schon abgeholt. Komm morgen wieder.",tb_pot:"Pot",tb_pick:"Deine verdeckte Wahl für {0}",tb_check:"Bleiben",tb_raise:"Erhöhen +{0}",tb_fold:"Passen",tb_fly:"Gewählt, wir warten auf den Preis",tb_win:"Du gewinnst {0}",tb_lose:"Der Pot geht an die Gegner",tb_allfold:"Alle haben gepasst. Der Pot gehört dir: {0}",tb_split:"Niemand lag richtig, Chips zurück",tb_out:"Du hast gepasst und nur das Ante verloren",tb_folded:"passt",tb_next:"Nächste Runde",tb_leave:"Tisch verlassen",tb_top:"Chip-Rangliste",tb_stat:"Runden: {0}, gewonnen: {1}",tb_felt:"Schwarz-goldener Filz",tb_felt_d:"Tischdesign. Nur Optik.",tb_demo:"Demo: Gegner sind Bots, eine Runde dauert 15 Sekunden.",ch_news:"news",nw_h:"Newsfeed",nw_d:"Die News schreiben Clubmitglieder. Sie sind nicht redaktionell geprüft und keine Kauf- oder Verkaufsempfehlung. Links und Werbung sind verboten.",nw_new:"News posten",nw_pt:"Überschrift",nw_pb:"Text",nw_send:"Veröffentlichen",nw_need:"Überschrift ab 5 Zeichen, Text ab 10",nw_done:"News veröffentlicht",nw_pin:"Einen Tag anheften: {0} ⭐",nw_pinned:"angeheftet",nw_del:"Löschen",n0:"Clubrekord: 23 richtige Prognosen in Folge",n0b:"SatoshiJr hielt die Serie fast einen Tag. Wer schlägt das?",n1:"Clan-Kriege sind für alle offen",n1b:"Sammle einen Clan, finde einen Gegner und verteidige die Festung mit Prognosen.",n2:"Meine Erfahrung: Roboter gegen den Trend bei ruhigem Markt",n2b:"5 Prognosen am Tag, 3 richtig. Ein Spiel, kein Rat, aber interessant.",ch_robot:"roboter",rb_h:"Prognose-Roboter",rb_d:"Der Roboter gibt nach deiner Strategie Prognosen ab, während du weg bist. Jede richtige Prognose bringt dir und dem Clan 1 Punkt und trifft im Krieg die gegnerische Festung. Deine Serie bleibt unberührt.",rb_note:"Der Roboter gibt nur Spielprognosen ab. Er handelt nicht, verbindet sich nicht mit Börsen und verwaltet kein Geld.",rb_on:"Roboter einschalten",rb_off:"Roboter ausschalten",rb_strat:"Strategie",rs_trend:"Mit dem Trend",rs_contra:"Gegen den Trend",rs_crowd:"Mit der Masse",rs_trend_d:"Preis stieg: Bullen. Fiel: Bären.",rs_contra_d:"Der Roboter erwartet eine Wende und geht gegen die letzte Bewegung.",rs_crowd_d:"Der Roboter folgt der Mehrheit der Spieler.",rb_coin:"Coin",rb_left:"Heute: {0} von {1} Prognosen",rb_more:"Ab Pro macht der Roboter 24 Prognosen am Tag statt 5.",rb_stats:"Prognosen: {0}, richtig: {1}, Punkte: {2}",rb_log:"Roboter-Protokoll",rb_wait:"Wartet auf das Ergebnis",rb_idle:"Roboter ist aus",rb_lim:"Tageslimit erreicht",rb_ok:"richtig, +1",rb_no:"daneben",rb_skin:"Roboter-Looks",rb_skin_d:"Drei zusätzliche Looks. Nur Optik.",rb_demo:"Demo: Der Roboter tippt alle 20 Sekunden. Im echten Spiel einmal pro Stunde.",pv_what:"Welche Daten gespeichert werden",pv_list:"Gespeichert: Clubname, Avatar, Sprache und Design, Prognosen und Punkte, Käufe, Chatnachrichten. Nicht erhoben: Telefonnummer, Standort, Dokumente, Kartendaten, Kontakte.",pv_copy:"Meine Daten kopieren",pv_copied:"Deine Daten wurden kopiert",ch_war:"krieg",war_h:"Clan-Krieg",war_d:"Jeder Clan hat eine Festung mit {0} Stärke. Greif mit Prognosen an: Eine richtige Prognose trifft die gegnerische Festung, je stärker sich der Preis bewegt, desto mehr Schaden. Richtige Stundenprognosen richten ebenfalls Schaden an. Es gewinnt der Clan, dessen Festung steht.",war_demo:"Demo: Ein Krieg dauert 3 Minuten, ein Angriff 15 Sekunden. Im echten Spiel dauert ein Krieg einen Tag, ein Angriff 15 Minuten. Gegner sind Bots.",war_find:"⚔️ Gegner finden",war_left:"noch {0}",war_atk:"Deine Angriffe: {0}",war_pick:"Wohin geht {0} in 15 Sekunden?",war_fly:"Angriff unterwegs…",war_hit:"{0} macht {1} Schaden",war_miss:"{0} verfehlt",war_hour:"{0}: richtige Stundenprognose, {1} Schaden",war_my:"Dein Schaden: {0}",war_win:"Sieg!",war_lose:"Niederlage",war_draw:"Unentschieden",war_tr:"Clan-Trophäen: {0}",war_chest:"Siegertruhe: 2 goldene Nachrichten",war_hist:"Letzte Kriege",war_out:"Keine Angriffe mehr. Hilf deinem Clan mit Stundenprognosen.",war_live:"Krieg gegen „{0}“",war_ban:"Kriegsbanner des Clans",war_ban_d:"Ein Banner im Kriegsbildschirm und in der Rangliste. Nur Deko, kein Einfluss auf den Schaden.",trophies:"Trophäen",mic_h:"Kleinigkeiten für 10–100 ⭐",gm:"Goldene Nachricht",gm_d:"Deine Chatnachricht leuchtet golden. {0} ⭐ pro Nachricht.",gm_on:"Deine nächste Nachricht wird golden",gm_free:"gratis: {0}",gift:"Geschenk",gift_h:"Ein Geschenk für {0}",gift_d:"Das Geschenk erscheint im Chat und im Profil des Empfängers. Es ist Deko und hat keinen Geldwert.",g0:"Rose",g1:"Champagner",g2:"Supersportwagen",gift_msg:"schenkt {0}: {1}",gifts_n:"gesendete Geschenke",gift_how:"Tippe im Chat neben einer Nachricht auf 🎁.",frame:"Goldener Avatar-Rahmen",frame_d:"Sichtbar in Chats und in der Mitgliederliste.",th_plat:"Platin",th_emer:"Smaragd",th_prem:"Premium-Design",th_prem_d:"Ein eigenes Farbschema für den ganzen Club.",owned:"Gekauft",apply:"Verwenden",buy:"Kaufen",pass_h:"Wöchentlicher Clubpass",pass_d:"Wochenaufgaben schalten Profilbelohnungen frei. Nur Deko: kein Einfluss auf Punkte oder Rangliste.",pt0:"Gib 10 Prognosen ab",pt1:"Schreib 5 Chatnachrichten",pt2:"Setze 3 Kursziele",pr0:"3 goldene Nachrichten",pr1:"🏅-Abzeichen",pr2:"Smaragd-Design",reward:"Belohnung: {0}",claim:"Abholen",claimed:"Erhalten",pass_buy:"Pass holen: {0} ⭐",pass_on:"Pass aktiv bis Wochenende",pass_need:"Belohnungen gibt es mit dem Pass",theme:"Design",th_dark:"Dunkel",th_light:"Hell",nav_chats:"Chats",cat_game:"Spiel",cat_talk:"Community",cat_media:"Medien",cat_club:"Club",ch_game:"prognosen",ch_an:"analyse",ch_general:"allgemein",ch_room:"{0}-raum",ch_video:"videos",ch_shop:"shop",ch_me:"profil",ch_rules:"regeln",ch_clan:"clan-chat",ch_crank:"rangliste",ch_join:"clan-beitreten",online:"Online — {0}",offline:"Offline — {0}",typing:"{0} schreibt…",st_play:"tippt {0}",members_h:"Mitglieder",write:"Nachricht an",gen_d:"Chat für den ganzen Club.",room_d:"Gespräche über {0}. Keine Links und keine Kaufaufrufe.",game_d:"Bullen oder Bären: eine Prognose pro Stunde",rules:"Clubregeln",r2:"Das ist ein Spiel: keine Wetten und keine Geldpreise.",r3:"Nur Spot. Kein Hebel und keine Futures.",r4:"Prognosen der Spieler sind Statistik, keine Kaufempfehlung.",r5:"Die Administration bittet nie um Geld. Wer darum bittet, ist ein Betrüger: tippe auf 🚩.",sc_h:'Einzelner Coin',sc_d:'Schalte einen beliebigen Coin außerhalb deines Tarifs frei und verfolge ihn: Prognosen, Chart und Spielerstimmung.',sc_buy:'{0} freischalten: {1} ⭐ pro Monat',sc_usd:'etwa $2.99 für den Spieler',sc_on:'{0} freigeschaltet, steht unter „Meine Coins“',sc_off:'Entfernen',sc_none:'Noch keiner. Tippe in der Liste auf einen gesperrten Coin, um ihn freizuschalten.',mine:'Meine Coins',plans:'Tarife ansehen',disc:"SHRhub ist eine Spieleplattform, keine Börse. Hier kann man keine Kryptowährung kaufen oder verkaufen. Nichts im Spiel ist eine Handlungsaufforderung.",accp:"Erwartet {0}%, tatsächlich {1}%.",
 rk0:"Neuling",rk1:"Beobachter",rk2:"Analyst",rk3:"Stratege",rk4:"Scharfschütze",rk5:"Clublegende",rk_next:"bis zum Rang „{0}“ fehlen {1} Punkte",rk_max:"höchster Rang",days:"Tage in Folge im Club: {0}",
 an_h:"Analyse",an_d:"Berechnet aus deinen abgeschlossenen Prognosen.",an_none:"Gib deine erste Prognose ab, dann erscheint hier die Auswertung.",an_bull:"Trefferquote mit Bullen",an_bear:"Trefferquote mit Bären",an_err:"mittlerer Zielfehler",an_ppf:"Punkte pro Prognose",an_last:"Letzte Prognosen",an_coin:"Nach Coins",
 pv_h:"Privatsphäre",pv_anon:"Namen in Ranglisten und Chat verbergen",pv_stats:"Meine Statistik vor anderen verbergen",pv_d:"In der Demo liegen alle Daten nur auf diesem Gerät und werden nirgendwohin gesendet.",pv_del:"Alle meine Daten löschen",pv_del_q:"Profil, Fortschritt und Einstellungen löschen? Das lässt sich nicht rückgängig machen.",pv_del_ok:"Löschen",pv_done:"Daten gelöscht",anon:"Mitglied {0}",
 
 sp_q1:"Wie werden Punkte berechnet?",sp_q2:"Was ist Spot?",sp_q3:"Wie funktionieren Clans?",sp_a1:"1 Punkt für die richtige Seite und bis zu 9 zusätzlich für Genauigkeit: Je näher dein Ziel an der echten Preisänderung liegt, desto mehr.",sp_a2:"Spot ist der normale Kauf eines Coins mit eigenem Geld, ohne geliehene Mittel. SHRhub ist ein Spiel: Hier wird nichts gekauft oder verkauft.",sp_a3:"Ein Clan hat bis zu 20 Mitglieder, die Punkte aller werden addiert. Die Clan-Rangliste wird wöchentlich zurückgesetzt.",
 as_note:"Der Helfer gibt keine Anlageberatung."});
-Object.assign(X[5],{sp_h:"Soporte",sp_d:"Responden personas del equipo de SHRhub, normalmente en un día. No aconsejamos qué comprar.",sp_ph:"Describe el problema",sp_sent:"Mensaje enviado al soporte",sp_demo:"En la demo los mensajes no van a ninguna parte. En Telegram llegan al chat de soporte.",sp_faq:"Preguntas frecuentes",sp_q4:"¿Y si una compra no se activó?",sp_a4:"Reinicia el juego. Si no funciona, escríbenos qué compraste y cuándo: revisaremos el pago y lo activaremos a mano.",sp_q5:"¿Cómo cancelo la suscripción?",sp_a5:"En Telegram: Ajustes → Mis estrellas → suscripciones. La cancelación surte efecto al final del mes pagado.",ob_h:"Primeros pasos",ob0:"Haz tu primer pronóstico",ob1:"Fija un precio objetivo",ob2:"Únete a un clan o crea uno",ob3:"Juega una mano en la mesa",ob4:"Busca el pendrive perdido",ob_rew:"Premio por todos los pasos: 500 fichas y 2 mensajes dorados",ob_go:"Ir",ch_usb:"pendrive",us_h:"El pendrive perdido",us_d:"Dicen que en algún vertedero hay un pendrive con miles de bitcoins, tirado hace muchos años. Cada día se esconde en un sitio nuevo. Tienes 5 intentos: cava y sigue las pistas.",us_note:"El premio es del juego: 300 fichas, insignia 💾 y un mensaje dorado. En el pendrive no hay bitcoins de verdad 😄",us_left:"Intentos restantes: {0}",us_hot:"🔥 ¡Caliente! El pendrive está al lado",us_warm:"♨️ Templado",us_cold:"❄️ Frío",us_found:"¡Encontraste el pendrive!",us_rew:"+300 fichas, insignia 💾 y un mensaje dorado",us_tom:"Sin intentos. Mañana el pendrive se esconde en otro sitio.",us_done:"Pendrive encontrado. Mañana se pierde otra vez.",us_total:"Pendrives encontrados: {0}",us_shovel:"Pala dorada",us_shovel_d:"Cava con estilo. Solo apariencia.",ch_table:"mesa",tb_h:"Mesa de pronósticos",tb_d:"Como en el póker: seis jugadores ponen fichas en el bote y eligen en secreto toros u osos. Puedes subir para echar a los rivales o retirarte. A los 15 segundos el precio descubre las cartas y quienes acertaron reparten el bote.",tb_note:"Las fichas son del juego: no se pueden comprar, vender, transferir ni retirar. No son dinero.",tb_chips:"Fichas: {0}",tb_sit:"Sentarse: ante {0}",tb_need:"Necesitas al menos {0} fichas",tb_refill:"Recibir 1000 fichas (una vez al día)",tb_refilled:"Fichas recargadas",tb_ref_no:"Ya las recibiste hoy. Vuelve mañana.",tb_pot:"Bote",tb_pick:"Tu elección secreta sobre {0}",tb_check:"Seguir",tb_raise:"Subir +{0}",tb_fold:"Retirarse",tb_fly:"Elecciones hechas, esperando el precio",tb_win:"Te llevas {0}",tb_lose:"El bote se lo llevan los rivales",tb_allfold:"Todos se retiraron. El bote es tuyo: {0}",tb_split:"Nadie acertó, fichas devueltas",tb_out:"Te retiraste y solo perdiste el ante",tb_folded:"se retira",tb_next:"Siguiente mano",tb_leave:"Dejar la mesa",tb_top:"Líderes en fichas",tb_stat:"Manos: {0}, ganadas: {1}",tb_felt:"Tapete negro y oro",tb_felt_d:"Aspecto de la mesa. Solo apariencia.",tb_demo:"Demo: los rivales son bots, una mano dura 15 segundos.",ch_news:"noticias",nw_h:"Noticias",nw_d:"Las noticias las escriben los miembros. No están verificadas y no son un consejo de compra o venta. No se permiten enlaces ni publicidad.",nw_new:"Publicar noticia",nw_pt:"Titular",nw_pb:"Texto",nw_send:"Publicar",nw_need:"Titular de 5+ caracteres, texto de 10+",nw_done:"Noticia publicada",nw_pin:"Fijar un día: {0} ⭐",nw_pinned:"fijado",nw_del:"Borrar",n0:"Récord del club: racha de 23 aciertos",n0b:"SatoshiJr mantuvo la racha casi un día. ¿Quién la supera?",n1:"Las guerras de clanes están abiertas",n1b:"Reúne un clan, busca rival y defiende tu fortaleza con pronósticos.",n2:"Mi experiencia: el robot contra la tendencia en un mercado tranquilo",n2b:"5 pronósticos en un día, 3 aciertos. Es un juego, no un consejo, pero curioso.",ch_robot:"robot",rb_h:"Robot de pronósticos",rb_d:"El robot hace pronósticos con tu estrategia mientras no estás. Cada acierto da 1 punto a ti y a tu clan, y en guerra golpea la fortaleza rival. No toca tu racha.",rb_note:"El robot solo hace pronósticos del juego. No opera, no se conecta a exchanges ni maneja dinero.",rb_on:"Encender el robot",rb_off:"Apagar el robot",rb_strat:"Estrategia",rs_trend:"Con la tendencia",rs_contra:"Contra la tendencia",rs_crowd:"Con la multitud",rs_trend_d:"El precio subía: toros. Bajaba: osos.",rs_contra_d:"El robot espera un giro y va contra el último movimiento.",rs_crowd_d:"El robot se pone del lado de la mayoría.",rb_coin:"Moneda",rb_left:"Hoy: {0} de {1} pronósticos",rb_more:"Con Pro o superior el robot hace 24 pronósticos al día en vez de 5.",rb_stats:"Pronósticos: {0}, aciertos: {1}, puntos: {2}",rb_log:"Registro del robot",rb_wait:"Esperando el resultado",rb_idle:"El robot está apagado",rb_lim:"Límite diario alcanzado",rb_ok:"acierto, +1",rb_no:"fallo",rb_skin:"Aspectos del robot",rb_skin_d:"Tres aspectos extra. Solo apariencia.",rb_demo:"Demo: el robot pronostica cada 20 segundos. En el juego real, una vez por hora.",pv_what:"Qué datos se guardan",pv_list:"Se guarda: nombre en el club, avatar, idioma y tema, pronósticos y puntos, compras, mensajes de chat. No se recoge: teléfono, ubicación, documentos, datos de tarjeta, contactos.",pv_copy:"Copiar mis datos",pv_copied:"Tus datos se han copiado",ch_war:"guerra",war_h:"Guerra de clanes",war_d:"Cada clan tiene una fortaleza con {0} de resistencia. Ataca con pronósticos: un pronóstico acertado golpea la fortaleza rival, y cuanto mayor es el movimiento del precio, más daño. Los pronósticos por hora acertados también hacen daño. Gana el clan cuya fortaleza resiste.",war_demo:"Demo: una guerra dura 3 minutos y un ataque 15 segundos. En el juego real la guerra dura un día y un ataque 15 minutos. Los rivales son bots.",war_find:"⚔️ Buscar rival",war_left:"quedan {0}",war_atk:"Tus ataques: {0}",war_pick:"¿Hacia dónde irá {0} en 15 segundos?",war_fly:"Ataque en camino…",war_hit:"{0} hace {1} de daño",war_miss:"{0} falla",war_hour:"{0}: pronóstico por hora acertado, {1} de daño",war_my:"Tu daño: {0}",war_win:"¡Victoria!",war_lose:"Derrota",war_draw:"Empate",war_tr:"Trofeos del clan: {0}",war_chest:"Cofre del ganador: 2 mensajes dorados",war_hist:"Últimas guerras",war_out:"No te quedan ataques. Ayuda a tu clan con pronósticos por hora.",war_live:"En guerra con «{0}»",war_ban:"Estandarte de guerra del clan",war_ban_d:"Un estandarte en la pantalla de guerra y en la clasificación. Solo decorativo, no afecta al daño.",trophies:"trofeos",mic_h:"Extras por 10–100 ⭐",gm:"Mensaje dorado",gm_d:"Tu mensaje en el chat destaca en dorado. {0} ⭐ por mensaje.",gm_on:"Tu próximo mensaje será dorado",gm_free:"gratis: {0}",gift:"Regalo",gift_h:"Un regalo para {0}",gift_d:"El regalo aparece en el chat y en el perfil de quien lo recibe. Es decorativo y no tiene valor en dinero.",g0:"Rosa",g1:"Champán",g2:"Superdeportivo",gift_msg:"regala a {0}: {1}",gifts_n:"regalos enviados",gift_how:"Pulsa 🎁 junto al mensaje de cualquier miembro en el chat.",frame:"Marco dorado del avatar",frame_d:"Se ve en los chats y en la lista de miembros.",th_plat:"Platino",th_emer:"Esmeralda",th_prem:"Tema premium",th_prem_d:"Tu propia paleta para todo el club.",owned:"Comprado",apply:"Usar",buy:"Comprar",pass_h:"Pase semanal del club",pass_d:"Las tareas semanales desbloquean premios para el perfil. Solo decorativos: no afectan a puntos ni clasificación.",pt0:"Haz 10 pronósticos",pt1:"Escribe 5 mensajes en los chats",pt2:"Fija 3 precios objetivo",pr0:"3 mensajes dorados",pr1:"insignia 🏅",pr2:"tema Esmeralda",reward:"Premio: {0}",claim:"Recoger",claimed:"Recogido",pass_buy:"Conseguir el pase: {0} ⭐",pass_on:"Pase activo hasta el final de la semana",pass_need:"Los premios son para quien tiene el pase",theme:"Tema",th_dark:"Oscuro",th_light:"Claro",nav_chats:"Chats",cat_game:"Juego",cat_talk:"Comunidad",cat_media:"Multimedia",cat_club:"Club",ch_game:"pronósticos",ch_an:"analítica",ch_general:"general",ch_room:"sala-{0}",ch_video:"vídeos",ch_shop:"tienda",ch_me:"perfil",ch_rules:"normas",ch_clan:"chat-del-clan",ch_crank:"clasificación",ch_join:"unirse-a-un-clan",online:"En línea — {0}",offline:"Desconectados — {0}",typing:"{0} está escribiendo…",st_play:"pronostica {0}",members_h:"Miembros",write:"Escribe en",gen_d:"Chat de todo el club.",room_d:"Charla sobre {0}. Sin enlaces ni llamadas a comprar.",game_d:"Toros u osos: un pronóstico por hora",rules:"Normas del club",r2:"Es un juego: no hay apuestas ni premios en dinero.",r3:"Solo spot. Sin apalancamiento y sin futuros.",r4:"Los pronósticos de los jugadores son estadísticas, no consejos de compra.",r5:"La administración nunca pide dinero. Quien lo pide es un estafador: pulsa 🚩.",sc_h:'Moneda suelta',sc_d:'Desbloquea cualquier moneda fuera de tu plan y síguela: pronósticos, gráfico y sentimiento de los jugadores.',sc_buy:'Desbloquear {0}: {1} ⭐ al mes',sc_usd:'unos $2.99 para el jugador',sc_on:'{0} desbloqueada, está en «Mis monedas»',sc_off:'Quitar',sc_none:'Aún ninguna. Toca una moneda bloqueada en la lista para desbloquearla.',mine:'Mis monedas',plans:'Ver planes',disc:"SHRhub es una plataforma de juego, no un exchange. Aquí no se puede comprar ni vender criptomonedas. Nada en el juego es una invitación a actuar.",accp:"Esperabas {0}%, fue {1}%.",
+Object.assign(X[5],{home_add:"📲 Añadir a la pantalla de inicio",home_d:"Un icono en tu pantalla, se abre con un toque. Tu cuenta y tus compras siguen contigo.",home_ok:"Listo, el icono está en tu pantalla",ca_rate:"Tipo USDT",ca_what:"SHR es tu entrada media: cuánto te costaron de media las monedas que ya compraste.",nav_calc:"SHR",ca_tips:"Cómo comprar con cabeza",ca_t1:"Compra por partes. Cinco compras tranquilas según un plan suelen ganar a una grande por impulso.",ca_t2:"Tu media es un hecho, no un objetivo. Comprar más solo para bajarla es un error común: aumentas la apuesta por algo que ya cae.",ca_t3:"Incluye la comisión del exchange en el importe o tu media saldrá mejor de lo que es.",ca_t4:"Anótalo justo después de comprar. En una semana no recordarás el precio.",ca_t5:"Solo spot y solo dinero cuya pérdida puedas asumir.",ca_tn:"Son reglas generales del método, no un consejo sobre qué comprar. La decisión siempre es tuya.",nav_calc:"Calculadora",ch_calc:"shr",ca_h:"Precio medio de compra",ca_d:"Anota tus compras en el exchange y calculo tu precio medio y el resultado.",ca_store:"Los registros de la cartera se guardan en nuestros servidores para no perderse al reinstalar.",ca_sum:"Importe en $",ca_price:"Precio de compra",ca_add:"Anotar compra",ca_done:"Compra de {0} anotada",ca_none:"Aún no hay nada. Añade tu primera compra.",ca_avg:"media",ca_inv:"Invertido",ca_have:"en cartera",ca_now:"Ahora",ca_by:"a",ca_del:"Borrar",ca_total:"Total de la cartera",ca_if:"Y si compro más",ca_ifr:"Nueva media: {0}",ca_note:"Esto es una calculadora, no un exchange. Tú compras, nosotros solo calculamos.",ca_bad:"Escribe importe y precio",ca_lim:"El límite son 300 registros",ca_lock:"Esta moneda está fuera de tu plan",sent_real:"{0} pronósticos de jugadores esta hora. Una estadística, no un consejo.",sent_none:"Aún no hay pronósticos esta hora. Haz el primero.",inclub:"{0} en el club ahora",sp_h:"Soporte",sp_d:"Responden personas del equipo de SHRhub, normalmente en un día. No aconsejamos qué comprar.",sp_ph:"Describe el problema",sp_sent:"Mensaje enviado al soporte",sp_demo:"En la demo los mensajes no van a ninguna parte. En Telegram llegan al chat de soporte.",sp_faq:"Preguntas frecuentes",sp_q4:"¿Y si una compra no se activó?",sp_a4:"Reinicia el juego. Si no funciona, escríbenos qué compraste y cuándo: revisaremos el pago y lo activaremos a mano.",sp_q5:"¿Cómo cancelo la suscripción?",sp_a5:"En Telegram: Ajustes → Mis estrellas → suscripciones. La cancelación surte efecto al final del mes pagado.",ob_h:"Primeros pasos",ob0:"Haz tu primer pronóstico",ob1:"Fija un precio objetivo",ob2:"Únete a un clan o crea uno",ob3:"Juega una mano en la mesa",ob4:"Busca el pendrive perdido",ob_rew:"Premio por todos los pasos: 500 fichas y 2 mensajes dorados",ob_go:"Ir",ch_usb:"pendrive",us_h:"El pendrive perdido",us_d:"Dicen que en algún vertedero hay un pendrive con miles de bitcoins, tirado hace muchos años. Cada día se esconde en un sitio nuevo. Tienes 5 intentos: cava y sigue las pistas.",us_note:"El premio es del juego: 300 fichas, insignia 💾 y un mensaje dorado. En el pendrive no hay bitcoins de verdad 😄",us_left:"Intentos restantes: {0}",us_hot:"🔥 ¡Caliente! El pendrive está al lado",us_warm:"♨️ Templado",us_cold:"❄️ Frío",us_found:"¡Encontraste el pendrive!",us_rew:"+300 fichas, insignia 💾 y un mensaje dorado",us_tom:"Sin intentos. Mañana el pendrive se esconde en otro sitio.",us_done:"Pendrive encontrado. Mañana se pierde otra vez.",us_total:"Pendrives encontrados: {0}",us_shovel:"Pala dorada",us_shovel_d:"Cava con estilo. Solo apariencia.",ch_table:"mesa",tb_h:"Mesa de pronósticos",tb_d:"Como en el póker: seis jugadores ponen fichas en el bote y eligen en secreto toros u osos. Puedes subir para echar a los rivales o retirarte. A los 15 segundos el precio descubre las cartas y quienes acertaron reparten el bote.",tb_note:"Las fichas son del juego: no se pueden comprar, vender, transferir ni retirar. No son dinero.",tb_chips:"Fichas: {0}",tb_sit:"Sentarse: ante {0}",tb_need:"Necesitas al menos {0} fichas",tb_refill:"Recibir 1000 fichas (una vez al día)",tb_refilled:"Fichas recargadas",tb_ref_no:"Ya las recibiste hoy. Vuelve mañana.",tb_pot:"Bote",tb_pick:"Tu elección secreta sobre {0}",tb_check:"Seguir",tb_raise:"Subir +{0}",tb_fold:"Retirarse",tb_fly:"Elecciones hechas, esperando el precio",tb_win:"Te llevas {0}",tb_lose:"El bote se lo llevan los rivales",tb_allfold:"Todos se retiraron. El bote es tuyo: {0}",tb_split:"Nadie acertó, fichas devueltas",tb_out:"Te retiraste y solo perdiste el ante",tb_folded:"se retira",tb_next:"Siguiente mano",tb_leave:"Dejar la mesa",tb_top:"Líderes en fichas",tb_stat:"Manos: {0}, ganadas: {1}",tb_felt:"Tapete negro y oro",tb_felt_d:"Aspecto de la mesa. Solo apariencia.",tb_demo:"Demo: los rivales son bots, una mano dura 15 segundos.",ch_news:"noticias",nw_h:"Noticias",nw_d:"Las noticias las escriben los miembros. No están verificadas y no son un consejo de compra o venta. No se permiten enlaces ni publicidad.",nw_new:"Publicar noticia",nw_pt:"Titular",nw_pb:"Texto",nw_send:"Publicar",nw_need:"Titular de 5+ caracteres, texto de 10+",nw_done:"Noticia publicada",nw_pin:"Fijar un día: {0} ⭐",nw_pinned:"fijado",nw_del:"Borrar",n0:"Récord del club: racha de 23 aciertos",n0b:"SatoshiJr mantuvo la racha casi un día. ¿Quién la supera?",n1:"Las guerras de clanes están abiertas",n1b:"Reúne un clan, busca rival y defiende tu fortaleza con pronósticos.",n2:"Mi experiencia: el robot contra la tendencia en un mercado tranquilo",n2b:"5 pronósticos en un día, 3 aciertos. Es un juego, no un consejo, pero curioso.",ch_robot:"robot",rb_h:"Robot de pronósticos",rb_d:"El robot hace pronósticos con tu estrategia mientras no estás. Cada acierto da 1 punto a ti y a tu clan, y en guerra golpea la fortaleza rival. No toca tu racha.",rb_note:"El robot solo hace pronósticos del juego. No opera, no se conecta a exchanges ni maneja dinero.",rb_on:"Encender el robot",rb_off:"Apagar el robot",rb_strat:"Estrategia",rs_trend:"Con la tendencia",rs_contra:"Contra la tendencia",rs_crowd:"Con la multitud",rs_trend_d:"El precio subía: toros. Bajaba: osos.",rs_contra_d:"El robot espera un giro y va contra el último movimiento.",rs_crowd_d:"El robot se pone del lado de la mayoría.",rb_coin:"Moneda",rb_left:"Hoy: {0} de {1} pronósticos",rb_more:"Con Pro o superior el robot hace 24 pronósticos al día en vez de 5.",rb_stats:"Pronósticos: {0}, aciertos: {1}, puntos: {2}",rb_log:"Registro del robot",rb_wait:"Esperando el resultado",rb_idle:"El robot está apagado",rb_lim:"Límite diario alcanzado",rb_ok:"acierto, +1",rb_no:"fallo",rb_skin:"Aspectos del robot",rb_skin_d:"Tres aspectos extra. Solo apariencia.",rb_demo:"Demo: el robot pronostica cada 20 segundos. En el juego real, una vez por hora.",pv_what:"Qué datos se guardan",pv_list:"Se guarda: nombre en el club, avatar, idioma y tema, pronósticos y puntos, compras, mensajes de chat. No se recoge: teléfono, ubicación, documentos, datos de tarjeta, contactos.",pv_copy:"Copiar mis datos",pv_copied:"Tus datos se han copiado",ch_war:"guerra",war_h:"Guerra de clanes",war_d:"Cada clan tiene una fortaleza con {0} de resistencia. Ataca con pronósticos: un pronóstico acertado golpea la fortaleza rival, y cuanto mayor es el movimiento del precio, más daño. Los pronósticos por hora acertados también hacen daño. Gana el clan cuya fortaleza resiste.",war_demo:"Demo: una guerra dura 3 minutos y un ataque 15 segundos. En el juego real la guerra dura un día y un ataque 15 minutos. Los rivales son bots.",war_find:"⚔️ Buscar rival",war_left:"quedan {0}",war_atk:"Tus ataques: {0}",war_pick:"¿Hacia dónde irá {0} en 15 segundos?",war_fly:"Ataque en camino…",war_hit:"{0} hace {1} de daño",war_miss:"{0} falla",war_hour:"{0}: pronóstico por hora acertado, {1} de daño",war_my:"Tu daño: {0}",war_win:"¡Victoria!",war_lose:"Derrota",war_draw:"Empate",war_tr:"Trofeos del clan: {0}",war_chest:"Cofre del ganador: 2 mensajes dorados",war_hist:"Últimas guerras",war_out:"No te quedan ataques. Ayuda a tu clan con pronósticos por hora.",war_live:"En guerra con «{0}»",war_ban:"Estandarte de guerra del clan",war_ban_d:"Un estandarte en la pantalla de guerra y en la clasificación. Solo decorativo, no afecta al daño.",trophies:"trofeos",mic_h:"Extras por 10–100 ⭐",gm:"Mensaje dorado",gm_d:"Tu mensaje en el chat destaca en dorado. {0} ⭐ por mensaje.",gm_on:"Tu próximo mensaje será dorado",gm_free:"gratis: {0}",gift:"Regalo",gift_h:"Un regalo para {0}",gift_d:"El regalo aparece en el chat y en el perfil de quien lo recibe. Es decorativo y no tiene valor en dinero.",g0:"Rosa",g1:"Champán",g2:"Superdeportivo",gift_msg:"regala a {0}: {1}",gifts_n:"regalos enviados",gift_how:"Pulsa 🎁 junto al mensaje de cualquier miembro en el chat.",frame:"Marco dorado del avatar",frame_d:"Se ve en los chats y en la lista de miembros.",th_plat:"Platino",th_emer:"Esmeralda",th_prem:"Tema premium",th_prem_d:"Tu propia paleta para todo el club.",owned:"Comprado",apply:"Usar",buy:"Comprar",pass_h:"Pase semanal del club",pass_d:"Las tareas semanales desbloquean premios para el perfil. Solo decorativos: no afectan a puntos ni clasificación.",pt0:"Haz 10 pronósticos",pt1:"Escribe 5 mensajes en los chats",pt2:"Fija 3 precios objetivo",pr0:"3 mensajes dorados",pr1:"insignia 🏅",pr2:"tema Esmeralda",reward:"Premio: {0}",claim:"Recoger",claimed:"Recogido",pass_buy:"Conseguir el pase: {0} ⭐",pass_on:"Pase activo hasta el final de la semana",pass_need:"Los premios son para quien tiene el pase",theme:"Tema",th_dark:"Oscuro",th_light:"Claro",nav_chats:"Chats",cat_game:"Juego",cat_talk:"Comunidad",cat_media:"Multimedia",cat_club:"Club",ch_game:"pronósticos",ch_an:"analítica",ch_general:"general",ch_room:"sala-{0}",ch_video:"vídeos",ch_shop:"tienda",ch_me:"perfil",ch_rules:"normas",ch_clan:"chat-del-clan",ch_crank:"clasificación",ch_join:"unirse-a-un-clan",online:"En línea — {0}",offline:"Desconectados — {0}",typing:"{0} está escribiendo…",st_play:"pronostica {0}",members_h:"Miembros",write:"Escribe en",gen_d:"Chat de todo el club.",room_d:"Charla sobre {0}. Sin enlaces ni llamadas a comprar.",game_d:"Toros u osos: un pronóstico por hora",rules:"Normas del club",r2:"Es un juego: no hay apuestas ni premios en dinero.",r3:"Solo spot. Sin apalancamiento y sin futuros.",r4:"Los pronósticos de los jugadores son estadísticas, no consejos de compra.",r5:"La administración nunca pide dinero. Quien lo pide es un estafador: pulsa 🚩.",sc_h:'Moneda suelta',sc_d:'Desbloquea cualquier moneda fuera de tu plan y síguela: pronósticos, gráfico y sentimiento de los jugadores.',sc_buy:'Desbloquear {0}: {1} ⭐ al mes',sc_usd:'unos $2.99 para el jugador',sc_on:'{0} desbloqueada, está en «Mis monedas»',sc_off:'Quitar',sc_none:'Aún ninguna. Toca una moneda bloqueada en la lista para desbloquearla.',mine:'Mis monedas',plans:'Ver planes',disc:"SHRhub es una plataforma de juego, no un exchange. Aquí no se puede comprar ni vender criptomonedas. Nada en el juego es una invitación a actuar.",accp:"Esperabas {0}%, fue {1}%.",
 rk0:"Novato",rk1:"Observador",rk2:"Analista",rk3:"Estratega",rk4:"Francotirador",rk5:"Leyenda del club",rk_next:"faltan {1} puntos para el rango «{0}»",rk_max:"rango máximo",days:"Días seguidos en el club: {0}",
 an_h:"Analítica",an_d:"Se calcula con tus pronósticos terminados.",an_none:"Haz tu primer pronóstico y aquí aparecerá el análisis.",an_bull:"precisión con los toros",an_bear:"precisión con los osos",an_err:"error medio del objetivo",an_ppf:"puntos por pronóstico",an_last:"Últimos pronósticos",an_coin:"Por moneda",
 pv_h:"Privacidad",pv_anon:"Ocultar mi nombre en clasificaciones y chat",pv_stats:"Ocultar mis estadísticas a los demás",pv_d:"En la demo todos los datos se guardan solo en este dispositivo y no se envían a ningún sitio.",pv_del:"Borrar todos mis datos",pv_del_q:"¿Borrar perfil, progreso y ajustes? No se puede deshacer.",pv_del_ok:"Borrar",pv_done:"Datos borrados",anon:"Miembro {0}",
 
 sp_q1:"¿Cómo se calculan los puntos?",sp_q2:"¿Qué es spot?",sp_q3:"¿Cómo funcionan los clanes?",sp_a1:"1 punto por acertar el lado y hasta 9 más por precisión: cuanto más cerca esté tu objetivo del cambio real del precio, más puntos.",sp_a2:"Spot es la compra normal de una moneda con tu propio dinero, sin fondos prestados. SHRhub es un juego: aquí no se compra ni se vende nada.",sp_a3:"Un clan tiene hasta 20 personas y los puntos de todos se suman. La clasificación de clanes se reinicia cada semana.",
 as_note:"El ayudante no da consejos de inversión."});
-Object.assign(X[6],{sp_h:"Destek",sp_d:"SHRhub ekibinden gerçek kişiler yanıtlar, genelde bir gün içinde. Ne alınacağı konusunda tavsiye vermeyiz.",sp_ph:"Sorunu anlat",sp_sent:"Mesaj destek ekibine gönderildi",sp_demo:"Demoda mesajlar hiçbir yere gitmez. Telegram'da destek sohbetine ulaşır.",sp_faq:"Sık sorulanlar",sp_q4:"Satın alma açılmadıysa ne yapmalı?",sp_a4:"Oyunu yeniden başlat. Yardımcı olmazsa bize yaz: ne zaman ne aldığını belirt, ödemeyi kontrol edip elle açalım.",sp_q5:"Aboneliği nasıl iptal ederim?",sp_a5:"Telegram'da: Ayarlar → Yıldızlarım → abonelikler. İptal, ödenen ayın sonunda geçerli olur.",ob_h:"İlk adımlar",ob0:"İlk tahminini yap",ob1:"Bir fiyat hedefi koy",ob2:"Bir klana katıl ya da kur",ob3:"Masada bir el oyna",ob4:"Kayıp belleği ara",ob_rew:"Tüm adımların ödülü: 500 fiş ve 2 altın mesaj",ob_go:"Git",ch_usb:"flash-bellek",us_h:"Kayıp flash bellek",us_d:"Derler ki yıllar önce atılmış, içinde binlerce bitcoin olan bir flash bellek bir çöplükte duruyor. Her gün yeni bir yere saklanır. 5 hakkın var: kaz ve ipuçlarını izle.",us_note:"Ödül oyun içidir: 300 fiş, 💾 rozeti ve bir altın mesaj. Bellekte gerçek bitcoin yok 😄",us_left:"Kalan hak: {0}",us_hot:"🔥 Sıcak! Bellek hemen yanında",us_warm:"♨️ Ilık",us_cold:"❄️ Soğuk",us_found:"Belleği buldun!",us_rew:"+300 fiş, 💾 rozeti ve bir altın mesaj",us_tom:"Hakkın bitti. Yarın bellek yeni bir yere saklanacak.",us_done:"Bellek bulundu. Yarın yine kaybolacak.",us_total:"Bulunan bellek: {0}",us_shovel:"Altın kürek",us_shovel_d:"Şık kaz. Yalnızca görünüş.",ch_table:"masa",tb_h:"Tahmin masası",tb_d:"Poker gibi: altı oyuncu pota fiş koyar ve gizlice boğa ya da ayı seçer. Rakipleri düşürmek için artırabilir ya da çekilebilirsin. 15 saniye sonra fiyat kartları açar, bilenler potu paylaşır.",tb_note:"Fişler oyun fişidir: satın alınamaz, satılamaz, devredilemez, çekilemez. Para değildir.",tb_chips:"Fiş: {0}",tb_sit:"Otur: ante {0}",tb_need:"En az {0} fiş gerekli",tb_refill:"1000 fiş al (günde bir)",tb_refilled:"Fişler yenilendi",tb_ref_no:"Bugün zaten aldın. Yarın gel.",tb_pot:"Pot",tb_pick:"{0} için gizli seçimin",tb_check:"Kal",tb_raise:"Artır +{0}",tb_fold:"Çekil",tb_fly:"Seçimler yapıldı, fiyat bekleniyor",tb_win:"{0} senin",tb_lose:"Pot rakiplere gitti",tb_allfold:"Herkes çekildi. Pot senin: {0}",tb_split:"Kimse bilemedi, fişler iade edildi",tb_out:"Çekildin, yalnızca anteyi kaybettin",tb_folded:"çekildi",tb_next:"Sonraki el",tb_leave:"Masadan kalk",tb_top:"Fiş liderleri",tb_stat:"El: {0}, kazanılan: {1}",tb_felt:"Siyah-altın çuha",tb_felt_d:"Masa görünümü. Yalnızca görünüş.",tb_demo:"Demo: rakipler bot, bir el 15 saniye sürer.",ch_news:"haberler",nw_h:"Haber akışı",nw_d:"Haberleri kulüp üyeleri yazar. Editör denetiminden geçmez, al-sat tavsiyesi değildir. Bağlantı ve reklam yasaktır.",nw_new:"Haber yaz",nw_pt:"Başlık",nw_pb:"Haber metni",nw_send:"Yayınla",nw_need:"Başlık en az 5, metin en az 10 karakter",nw_done:"Haber yayınlandı",nw_pin:"Bir gün sabitle: {0} ⭐",nw_pinned:"sabitlendi",nw_del:"Sil",n0:"Kulüp rekoru: üst üste 23 doğru tahmin",n0b:"SatoshiJr seriyi neredeyse bir gün korudu. Kim geçecek?",n1:"Klan savaşları herkese açık",n1b:"Klanını topla, rakip bul ve kaleni tahminlerle savun.",n2:"Deneyimim: sakin piyasada trende karşı robot",n2b:"Günde 5 tahmin, 3 doğru. Bu bir oyun, tavsiye değil, ama ilginç.",ch_robot:"robot",rb_h:"Tahmin robotu",rb_d:"Robot sen yokken stratejine göre tahmin yapar. Her doğru tahmin sana ve klanına 1 puan verir, savaşta rakip kaleye vurur. Serine dokunmaz.",rb_note:"Robot yalnızca oyun tahmini yapar. İşlem yapmaz, borsalara bağlanmaz, para yönetmez.",rb_on:"Robotu aç",rb_off:"Robotu kapat",rb_strat:"Strateji",rs_trend:"Trendle",rs_contra:"Trende karşı",rs_crowd:"Kalabalıkla",rs_trend_d:"Fiyat yükseliyorsa boğa, düşüyorsa ayı.",rs_contra_d:"Robot dönüş bekler ve son harekete karşı gider.",rs_crowd_d:"Robot oyuncuların çoğunluğunu izler.",rb_coin:"Coin",rb_left:"Bugün: {1} tahminden {0}",rb_more:"Pro ve üzeri planlarda robot günde 5 yerine 24 tahmin yapar.",rb_stats:"Tahmin: {0}, doğru: {1}, puan: {2}",rb_log:"Robot günlüğü",rb_wait:"Sonucu bekliyor",rb_idle:"Robot kapalı",rb_lim:"Günlük sınır doldu",rb_ok:"doğru, +1",rb_no:"ıska",rb_skin:"Robot görünümleri",rb_skin_d:"Üç ek görünüm. Yalnızca görünüş.",rb_demo:"Demo: robot 20 saniyede bir tahmin yapar. Gerçek oyunda saatte bir.",pv_what:"Hangi veriler saklanır",pv_list:"Saklanan: kulüp adı, avatar, dil ve tema, tahminler ve puanlar, alımlar, sohbet mesajları. Toplanmayan: telefon numarası, konum, belgeler, kart bilgileri, rehber.",pv_copy:"Verilerimi kopyala",pv_copied:"Verilerin kopyalandı",ch_war:"savaş",war_h:"Klan savaşı",war_d:"Her klanın {0} dayanıklılıkta bir kalesi var. Tahminlerle saldır: doğru tahmin rakibin kalesine vurur, fiyat hareketi ne kadar büyükse hasar o kadar büyük. Doğru saatlik tahminler de hasar verir. Kalesi ayakta kalan klan kazanır.",war_demo:"Demo: savaş 3 dakika, saldırı 15 saniye sürer. Gerçek oyunda savaş bir gün, saldırı 15 dakika sürer. Rakipler bottur.",war_find:"⚔️ Rakip bul",war_left:"kalan {0}",war_atk:"Saldırıların: {0}",war_pick:"{0} 15 saniyede nereye gider?",war_fly:"Saldırı yolda…",war_hit:"{0} {1} hasar verir",war_miss:"{0} ıskalar",war_hour:"{0}: doğru saatlik tahmin, {1} hasar",war_my:"Senin hasarın: {0}",war_win:"Zafer!",war_lose:"Yenilgi",war_draw:"Berabere",war_tr:"Klan kupaları: {0}",war_chest:"Kazanan sandığı: 2 altın mesaj",war_hist:"Son savaşlar",war_out:"Saldırın kalmadı. Klanına saatlik tahminlerle yardım et.",war_live:"“{0}” ile savaşta",war_ban:"Klan savaş sancağı",war_ban_d:"Savaş ekranında ve sıralamada bir sancak. Yalnızca süs, hasarı etkilemez.",trophies:"kupa",mic_h:"10–100 ⭐ küçük ekstralar",gm:"Altın mesaj",gm_d:"Sohbetteki mesajın altınla öne çıkar. Mesaj başına {0} ⭐.",gm_on:"Sonraki mesajın altın olacak",gm_free:"ücretsiz: {0}",gift:"Hediye",gift_h:"{0} için hediye",gift_d:"Hediye sohbette ve alıcının profilinde görünür. Süstür, parasal değeri yoktur.",g0:"Gül",g1:"Şampanya",g2:"Süper araba",gift_msg:"{0} kişisine hediye: {1}",gifts_n:"gönderilen hediye",gift_how:"Sohbette bir üyenin mesajının yanındaki 🎁 düğmesine bas.",frame:"Altın avatar çerçevesi",frame_d:"Sohbetlerde ve üye listesinde görünür.",th_plat:"Platin",th_emer:"Zümrüt",th_prem:"Premium tema",th_prem_d:"Tüm kulüp için kendi renk şeman.",owned:"Alındı",apply:"Kullan",buy:"Satın al",pass_h:"Haftalık kulüp kartı",pass_d:"Haftalık görevler profil ödülleri açar. Yalnızca süs: puanı ve sıralamayı etkilemez.",pt0:"10 tahmin yap",pt1:"Sohbetlere 5 mesaj yaz",pt2:"3 fiyat hedefi koy",pr0:"3 altın mesaj",pr1:"🏅 rozeti",pr2:"Zümrüt tema",reward:"Ödül: {0}",claim:"Al",claimed:"Alındı",pass_buy:"Kartı al: {0} ⭐",pass_on:"Kart hafta sonuna kadar etkin",pass_need:"Ödüller kart sahipleri içindir",theme:"Tema",th_dark:"Koyu",th_light:"Açık",nav_chats:"Sohbetler",cat_game:"Oyun",cat_talk:"Topluluk",cat_media:"Medya",cat_club:"Kulüp",ch_game:"tahminler",ch_an:"analiz",ch_general:"genel",ch_room:"{0}-odası",ch_video:"videolar",ch_shop:"mağaza",ch_me:"profil",ch_rules:"kurallar",ch_clan:"klan-sohbeti",ch_crank:"sıralama",ch_join:"klana-katıl",online:"Çevrimiçi — {0}",offline:"Çevrimdışı — {0}",typing:"{0} yazıyor…",st_play:"{0} tahmin ediyor",members_h:"Üyeler",write:"Mesaj yaz:",gen_d:"Tüm kulübün sohbeti.",room_d:"{0} sohbeti. Bağlantı ve alım çağrısı yok.",game_d:"Boğa mı ayı mı: saatte bir tahmin",rules:"Kulüp kuralları",r2:"Bu bir oyundur: bahis ve para ödülü yoktur.",r3:"Yalnızca spot. Kaldıraç ve vadeli işlem yok.",r4:"Oyuncu tahminleri istatistiktir, alım tavsiyesi değildir.",r5:"Yönetim asla para istemez. İsteyen dolandırıcıdır: 🚩 düğmesine bas.",sc_h:'Tek coin',sc_d:'Planının dışındaki herhangi bir coini aç ve takip et: tahminler, grafik ve oyuncu eğilimi.',sc_buy:'{0} aç: ayda {1} ⭐',sc_usd:'oyuncu için yaklaşık $2.99',sc_on:'{0} açıldı, “Coinlerim” bölümünde',sc_off:'Kaldır',sc_none:'Henüz yok. Açmak için listede kilitli bir coine dokun.',mine:'Coinlerim',plans:'Planları gör',disc:"SHRhub bir oyun platformudur, borsa değildir. Burada kripto para alınıp satılamaz. Oyundaki hiçbir şey harekete geçme çağrısı değildir.",accp:"Beklenen {0}%, gerçekleşen {1}%.",
+Object.assign(X[6],{home_add:"📲 Ana ekrana ekle",home_d:"Ana ekranda bir simge, tek dokunuşla açılır. Girişin ve satın almaların seninle kalır.",home_ok:"Tamam, simge ana ekranda",ca_rate:"USDT kuru",ca_what:"SHR ortalama girişin: zaten aldığın coinler sana ortalama kaça geldi.",nav_calc:"SHR",ca_tips:"Kafayla nasıl alınır",ca_t1:"Parça parça al. Plana göre beş sakin alım, duyguyla yapılan tek büyük alımı genelde yener.",ca_t2:"Ortalaman bir gerçek, hedef değil. Sırf onu düşürmek için almak sık yapılan hatadır: zaten düşen şeye bahsi artırırsın.",ca_t3:"Borsa komisyonunu tutara kat, yoksa ortalaman olduğundan güzel görünür.",ca_t4:"Alır almaz kaydet. Bir hafta sonra fiyatı hatırlamazsın.",ca_t5:"Sadece spot ve sadece kaybını kaldırabileceğin para.",ca_tn:"Bunlar yöntemin genel kuralları, ne alınacağına dair tavsiye değil. Karar her zaman senin.",nav_calc:"Hesap",ch_calc:"shr",ca_h:"Ortalama alış fiyatı",ca_d:"Borsadaki alımlarını yaz, ortalama giriş fiyatını ve sonucu hesaplayayım.",ca_store:"Portföy kayıtları, yeniden kurulumda kaybolmasın diye sunucularımızda tutulur.",ca_sum:"Tutar ($)",ca_price:"Alış fiyatı",ca_add:"Alımı kaydet",ca_done:"{0} alımı kaydedildi",ca_none:"Henüz kayıt yok. İlk alımını ekle.",ca_avg:"ortalama",ca_inv:"Yatırılan",ca_have:"elde",ca_now:"Şimdi",ca_by:"fiyattan",ca_del:"Sil",ca_total:"Portföy toplamı",ca_if:"Daha alırsam ne olur",ca_ifr:"Yeni ortalama: {0}",ca_note:"Bu bir hesaplayıcı, borsa değil. Alımı sen yaparsın, biz sadece hesaplarız.",ca_bad:"Tutar ve fiyat gir",ca_lim:"En fazla 300 kayıt",ca_lock:"Bu coin planının dışında",sent_real:"{0} oyuncu tahmini bu saatte. İstatistik, tavsiye değil.",sent_none:"Bu saatte henüz tahmin yok. İlkini sen yap.",inclub:"{0} şu an kulüpte",sp_h:"Destek",sp_d:"SHRhub ekibinden gerçek kişiler yanıtlar, genelde bir gün içinde. Ne alınacağı konusunda tavsiye vermeyiz.",sp_ph:"Sorunu anlat",sp_sent:"Mesaj destek ekibine gönderildi",sp_demo:"Demoda mesajlar hiçbir yere gitmez. Telegram'da destek sohbetine ulaşır.",sp_faq:"Sık sorulanlar",sp_q4:"Satın alma açılmadıysa ne yapmalı?",sp_a4:"Oyunu yeniden başlat. Yardımcı olmazsa bize yaz: ne zaman ne aldığını belirt, ödemeyi kontrol edip elle açalım.",sp_q5:"Aboneliği nasıl iptal ederim?",sp_a5:"Telegram'da: Ayarlar → Yıldızlarım → abonelikler. İptal, ödenen ayın sonunda geçerli olur.",ob_h:"İlk adımlar",ob0:"İlk tahminini yap",ob1:"Bir fiyat hedefi koy",ob2:"Bir klana katıl ya da kur",ob3:"Masada bir el oyna",ob4:"Kayıp belleği ara",ob_rew:"Tüm adımların ödülü: 500 fiş ve 2 altın mesaj",ob_go:"Git",ch_usb:"flash-bellek",us_h:"Kayıp flash bellek",us_d:"Derler ki yıllar önce atılmış, içinde binlerce bitcoin olan bir flash bellek bir çöplükte duruyor. Her gün yeni bir yere saklanır. 5 hakkın var: kaz ve ipuçlarını izle.",us_note:"Ödül oyun içidir: 300 fiş, 💾 rozeti ve bir altın mesaj. Bellekte gerçek bitcoin yok 😄",us_left:"Kalan hak: {0}",us_hot:"🔥 Sıcak! Bellek hemen yanında",us_warm:"♨️ Ilık",us_cold:"❄️ Soğuk",us_found:"Belleği buldun!",us_rew:"+300 fiş, 💾 rozeti ve bir altın mesaj",us_tom:"Hakkın bitti. Yarın bellek yeni bir yere saklanacak.",us_done:"Bellek bulundu. Yarın yine kaybolacak.",us_total:"Bulunan bellek: {0}",us_shovel:"Altın kürek",us_shovel_d:"Şık kaz. Yalnızca görünüş.",ch_table:"masa",tb_h:"Tahmin masası",tb_d:"Poker gibi: altı oyuncu pota fiş koyar ve gizlice boğa ya da ayı seçer. Rakipleri düşürmek için artırabilir ya da çekilebilirsin. 15 saniye sonra fiyat kartları açar, bilenler potu paylaşır.",tb_note:"Fişler oyun fişidir: satın alınamaz, satılamaz, devredilemez, çekilemez. Para değildir.",tb_chips:"Fiş: {0}",tb_sit:"Otur: ante {0}",tb_need:"En az {0} fiş gerekli",tb_refill:"1000 fiş al (günde bir)",tb_refilled:"Fişler yenilendi",tb_ref_no:"Bugün zaten aldın. Yarın gel.",tb_pot:"Pot",tb_pick:"{0} için gizli seçimin",tb_check:"Kal",tb_raise:"Artır +{0}",tb_fold:"Çekil",tb_fly:"Seçimler yapıldı, fiyat bekleniyor",tb_win:"{0} senin",tb_lose:"Pot rakiplere gitti",tb_allfold:"Herkes çekildi. Pot senin: {0}",tb_split:"Kimse bilemedi, fişler iade edildi",tb_out:"Çekildin, yalnızca anteyi kaybettin",tb_folded:"çekildi",tb_next:"Sonraki el",tb_leave:"Masadan kalk",tb_top:"Fiş liderleri",tb_stat:"El: {0}, kazanılan: {1}",tb_felt:"Siyah-altın çuha",tb_felt_d:"Masa görünümü. Yalnızca görünüş.",tb_demo:"Demo: rakipler bot, bir el 15 saniye sürer.",ch_news:"haberler",nw_h:"Haber akışı",nw_d:"Haberleri kulüp üyeleri yazar. Editör denetiminden geçmez, al-sat tavsiyesi değildir. Bağlantı ve reklam yasaktır.",nw_new:"Haber yaz",nw_pt:"Başlık",nw_pb:"Haber metni",nw_send:"Yayınla",nw_need:"Başlık en az 5, metin en az 10 karakter",nw_done:"Haber yayınlandı",nw_pin:"Bir gün sabitle: {0} ⭐",nw_pinned:"sabitlendi",nw_del:"Sil",n0:"Kulüp rekoru: üst üste 23 doğru tahmin",n0b:"SatoshiJr seriyi neredeyse bir gün korudu. Kim geçecek?",n1:"Klan savaşları herkese açık",n1b:"Klanını topla, rakip bul ve kaleni tahminlerle savun.",n2:"Deneyimim: sakin piyasada trende karşı robot",n2b:"Günde 5 tahmin, 3 doğru. Bu bir oyun, tavsiye değil, ama ilginç.",ch_robot:"robot",rb_h:"Tahmin robotu",rb_d:"Robot sen yokken stratejine göre tahmin yapar. Her doğru tahmin sana ve klanına 1 puan verir, savaşta rakip kaleye vurur. Serine dokunmaz.",rb_note:"Robot yalnızca oyun tahmini yapar. İşlem yapmaz, borsalara bağlanmaz, para yönetmez.",rb_on:"Robotu aç",rb_off:"Robotu kapat",rb_strat:"Strateji",rs_trend:"Trendle",rs_contra:"Trende karşı",rs_crowd:"Kalabalıkla",rs_trend_d:"Fiyat yükseliyorsa boğa, düşüyorsa ayı.",rs_contra_d:"Robot dönüş bekler ve son harekete karşı gider.",rs_crowd_d:"Robot oyuncuların çoğunluğunu izler.",rb_coin:"Coin",rb_left:"Bugün: {1} tahminden {0}",rb_more:"Pro ve üzeri planlarda robot günde 5 yerine 24 tahmin yapar.",rb_stats:"Tahmin: {0}, doğru: {1}, puan: {2}",rb_log:"Robot günlüğü",rb_wait:"Sonucu bekliyor",rb_idle:"Robot kapalı",rb_lim:"Günlük sınır doldu",rb_ok:"doğru, +1",rb_no:"ıska",rb_skin:"Robot görünümleri",rb_skin_d:"Üç ek görünüm. Yalnızca görünüş.",rb_demo:"Demo: robot 20 saniyede bir tahmin yapar. Gerçek oyunda saatte bir.",pv_what:"Hangi veriler saklanır",pv_list:"Saklanan: kulüp adı, avatar, dil ve tema, tahminler ve puanlar, alımlar, sohbet mesajları. Toplanmayan: telefon numarası, konum, belgeler, kart bilgileri, rehber.",pv_copy:"Verilerimi kopyala",pv_copied:"Verilerin kopyalandı",ch_war:"savaş",war_h:"Klan savaşı",war_d:"Her klanın {0} dayanıklılıkta bir kalesi var. Tahminlerle saldır: doğru tahmin rakibin kalesine vurur, fiyat hareketi ne kadar büyükse hasar o kadar büyük. Doğru saatlik tahminler de hasar verir. Kalesi ayakta kalan klan kazanır.",war_demo:"Demo: savaş 3 dakika, saldırı 15 saniye sürer. Gerçek oyunda savaş bir gün, saldırı 15 dakika sürer. Rakipler bottur.",war_find:"⚔️ Rakip bul",war_left:"kalan {0}",war_atk:"Saldırıların: {0}",war_pick:"{0} 15 saniyede nereye gider?",war_fly:"Saldırı yolda…",war_hit:"{0} {1} hasar verir",war_miss:"{0} ıskalar",war_hour:"{0}: doğru saatlik tahmin, {1} hasar",war_my:"Senin hasarın: {0}",war_win:"Zafer!",war_lose:"Yenilgi",war_draw:"Berabere",war_tr:"Klan kupaları: {0}",war_chest:"Kazanan sandığı: 2 altın mesaj",war_hist:"Son savaşlar",war_out:"Saldırın kalmadı. Klanına saatlik tahminlerle yardım et.",war_live:"“{0}” ile savaşta",war_ban:"Klan savaş sancağı",war_ban_d:"Savaş ekranında ve sıralamada bir sancak. Yalnızca süs, hasarı etkilemez.",trophies:"kupa",mic_h:"10–100 ⭐ küçük ekstralar",gm:"Altın mesaj",gm_d:"Sohbetteki mesajın altınla öne çıkar. Mesaj başına {0} ⭐.",gm_on:"Sonraki mesajın altın olacak",gm_free:"ücretsiz: {0}",gift:"Hediye",gift_h:"{0} için hediye",gift_d:"Hediye sohbette ve alıcının profilinde görünür. Süstür, parasal değeri yoktur.",g0:"Gül",g1:"Şampanya",g2:"Süper araba",gift_msg:"{0} kişisine hediye: {1}",gifts_n:"gönderilen hediye",gift_how:"Sohbette bir üyenin mesajının yanındaki 🎁 düğmesine bas.",frame:"Altın avatar çerçevesi",frame_d:"Sohbetlerde ve üye listesinde görünür.",th_plat:"Platin",th_emer:"Zümrüt",th_prem:"Premium tema",th_prem_d:"Tüm kulüp için kendi renk şeman.",owned:"Alındı",apply:"Kullan",buy:"Satın al",pass_h:"Haftalık kulüp kartı",pass_d:"Haftalık görevler profil ödülleri açar. Yalnızca süs: puanı ve sıralamayı etkilemez.",pt0:"10 tahmin yap",pt1:"Sohbetlere 5 mesaj yaz",pt2:"3 fiyat hedefi koy",pr0:"3 altın mesaj",pr1:"🏅 rozeti",pr2:"Zümrüt tema",reward:"Ödül: {0}",claim:"Al",claimed:"Alındı",pass_buy:"Kartı al: {0} ⭐",pass_on:"Kart hafta sonuna kadar etkin",pass_need:"Ödüller kart sahipleri içindir",theme:"Tema",th_dark:"Koyu",th_light:"Açık",nav_chats:"Sohbetler",cat_game:"Oyun",cat_talk:"Topluluk",cat_media:"Medya",cat_club:"Kulüp",ch_game:"tahminler",ch_an:"analiz",ch_general:"genel",ch_room:"{0}-odası",ch_video:"videolar",ch_shop:"mağaza",ch_me:"profil",ch_rules:"kurallar",ch_clan:"klan-sohbeti",ch_crank:"sıralama",ch_join:"klana-katıl",online:"Çevrimiçi — {0}",offline:"Çevrimdışı — {0}",typing:"{0} yazıyor…",st_play:"{0} tahmin ediyor",members_h:"Üyeler",write:"Mesaj yaz:",gen_d:"Tüm kulübün sohbeti.",room_d:"{0} sohbeti. Bağlantı ve alım çağrısı yok.",game_d:"Boğa mı ayı mı: saatte bir tahmin",rules:"Kulüp kuralları",r2:"Bu bir oyundur: bahis ve para ödülü yoktur.",r3:"Yalnızca spot. Kaldıraç ve vadeli işlem yok.",r4:"Oyuncu tahminleri istatistiktir, alım tavsiyesi değildir.",r5:"Yönetim asla para istemez. İsteyen dolandırıcıdır: 🚩 düğmesine bas.",sc_h:'Tek coin',sc_d:'Planının dışındaki herhangi bir coini aç ve takip et: tahminler, grafik ve oyuncu eğilimi.',sc_buy:'{0} aç: ayda {1} ⭐',sc_usd:'oyuncu için yaklaşık $2.99',sc_on:'{0} açıldı, “Coinlerim” bölümünde',sc_off:'Kaldır',sc_none:'Henüz yok. Açmak için listede kilitli bir coine dokun.',mine:'Coinlerim',plans:'Planları gör',disc:"SHRhub bir oyun platformudur, borsa değildir. Burada kripto para alınıp satılamaz. Oyundaki hiçbir şey harekete geçme çağrısı değildir.",accp:"Beklenen {0}%, gerçekleşen {1}%.",
 rk0:"Çaylak",rk1:"Gözlemci",rk2:"Analist",rk3:"Stratejist",rk4:"Keskin nişancı",rk5:"Kulüp efsanesi",rk_next:"“{0}” rütbesine {1} puan kaldı",rk_max:"en yüksek rütbe",days:"Kulüpte üst üste gün: {0}",
 an_h:"Analiz",an_d:"Tamamlanan tahminlerinden hesaplanır.",an_none:"İlk tahminini yap, analiz burada görünecek.",an_bull:"boğalarla isabet",an_bear:"ayılarla isabet",an_err:"ortalama hedef hatası",an_ppf:"tahmin başına puan",an_last:"Son tahminler",an_coin:"Coinlere göre",
 pv_h:"Gizlilik",pv_anon:"Sıralamalarda ve sohbette adımı gizle",pv_stats:"İstatistiklerimi başkalarından gizle",pv_d:"Demoda tüm veriler yalnızca bu cihazda saklanır ve hiçbir yere gönderilmez.",pv_del:"Tüm verilerimi sil",pv_del_q:"Profil, ilerleme ve ayarlar silinsin mi? Bu geri alınamaz.",pv_del_ok:"Sil",pv_done:"Veriler silindi",anon:"Üye {0}",
@@ -853,7 +948,7 @@ function rng(i){return LIVE?Math.min(.15,.03*(1+i/30)):.01*(1+i/15)} // пред
 
 function mk(){return Math.random().toString(36).slice(2,8).toUpperCase()}
 function fresh(){const nl=(navigator.language||'ru').slice(0,2);return{lang:LOC.indexOf(nl)<0?2:LOC.indexOf(nl),ok18:false,nick:'',av:'🎩',avImg:'',myPrice:0,no:String(100000+Math.floor(Math.random()*900000)),since:Date.now(),
-  streak:0,best:0,pts:0,total:0,wins:0,bulls:0,bears:0,hits:0,cc:{},ob:{f:{},got:false},usb:{day:'',pos:0,digs:[],found:false,total:0,last:''},chips:1000,chipDay:'',tb:{h:0,w:0},news:[],nlike:{},rb:{on:false,strat:'trend',coin:'BTC',face:'🤖',pred:null,n:0,w:0,pts:0,log:[],day:'',used:0},gm:false,gmFree:0,owned:{},giftsN:0,wk:{f:0,m:0,tg:0},pass:false,pclaim:{},theme:'dark',srv:'hub',ch:'game',rooms:{},extra:[],hist:[],priv:{anon:false,stats:false},days:1,lastDay:'',follow:{},subs:{},myvids:[],tier:0,saves:0,badge:'',codes:[mk(),mk(),mk()].map(c=>({c,used:false})),friends:[],earn:0,lost:0,coin:'BTC',pred:null,clan:null,
+  streak:0,best:0,pts:0,total:0,wins:0,bulls:0,bears:0,hits:0,cc:{},ob:{f:{},got:false},usb:{day:'',pos:0,digs:[],found:false,total:0,last:''},chips:1000,chipDay:'',tb:{h:0,w:0},news:[],nlike:{},rb:{on:false,strat:'trend',coin:'BTC',face:'🤖',pred:null,n:0,w:0,pts:0,log:[],day:'',used:0},gm:false,gmFree:0,owned:{},giftsN:0,wk:{f:0,m:0,tg:0},pass:false,pclaim:{},theme:'dark',tf:5,srvOn:false,pf:[],fiat:'uah',srv:'hub',ch:'game',rooms:{},extra:[],hist:[],priv:{anon:false,stats:false},days:1,lastDay:'',follow:{},subs:{},myvids:[],tier:0,saves:0,badge:'',codes:[mk(),mk(),mk()].map(c=>({c,used:false})),friends:[],earn:0,lost:0,coin:'BTC',pred:null,clan:null,
   rivals:RIVALS.map(n=>({n,pts:40+Math.floor(Math.random()*120),tr:Math.floor(Math.random()*200)}))}}
 let S=fresh();
 try{const v=localStorage.getItem('tap_v4');if(v)S=Object.assign(fresh(),JSON.parse(v))}catch(e){}
@@ -874,30 +969,175 @@ function allowed(s){return idx(s)<limit()||S.extra.includes(s)}
 function buyOne(s){if(!S.extra.includes(s))S.extra.push(s);S.coin=s;side=0;closeModal();toast(t('sc_on',s)+' ('+t('nostars')+')');save();render();draw()}
 function dropOne(s){S.extra=S.extra.filter(x=>x!==s);save();render();draw()}
 function offerOne(s){modal(`<div class="em">🔓</div><h2 style="margin-top:4px">${esc(s)}</h2><div class="muted">${t('sc_d')}</div>
-  <button class="btn g" onclick="buyOne('${esc(s)}')">${t('sc_buy',esc(s),ONE)}</button><div class="muted" style="margin-top:4px">${t('sc_usd')}</div>
+  <button class="btn g" onclick="buyOne('${esc(s)}')">${t('sc_buy',esc(s),ONE)}</button>
   <button class="btn v" onclick="closeModal();go('shop')">${t('plans')}</button><button class="btn ghost" onclick="closeModal()">${t('back')}</button>`)}
 function pickCoin(s){if(S.pred){toast(t('wait_res'));return}S.coin=s;side=0;save();render();draw()}
 function meName(){return S.nick||t('you')}
 function focused(id){return document.activeElement&&document.activeElement.id===id}
+// ---------- общий сервер ----------
+// Включается только в Telegram: телеграм-сборка кладёт сюда SRV. Без него игра
+// работает как раньше, на ботах, и ничего не ломается.
+let SRV=null,ONLINE=0,SENTSRV={},TOPSRV=null,CLANSRV=null,CHATID={},SRVERR=0;
+function srv(path,data,ok){
+  if(!SRV)return;
+  SRV.post(path,data).then(j=>{if(!j||j.error){SRVERR++;return}SRVERR=0;if(ok)ok(j)}).catch(()=>{SRVERR++});
+}
+function live(){return !!SRV&&SRVERR<4}
+// Профиль: что куплено, решает сервер. Остальной прогресс отправляем как есть.
+function srvPull(){
+  srv('/me',{},j=>{
+    ONLINE=j.online||0;
+    if(j.paid){const p=j.paid;
+      S.tier=p.tier|0;S.extra=p.extra||[];S.owned=p.owned||{};
+      S.saves=p.saves|0;S.gmFree=p.gmFree|0;S.pass=!!p.pass;
+      if(p.codes>S.codes.length)while(S.codes.length<p.codes)S.codes.push({c:mk(),used:false})}
+    if(j.state&&!S.srvOn){ // первый вход на новом устройстве: подтягиваем прогресс
+      const keep=['pts','streak','best','total','wins','bulls','bears','hits','cc','days','hist','nick','av','badge','usb','chips','tb','rb','wk','pclaim','follow','subs','myvids','news'];
+      keep.forEach(k=>{if(j.state[k]!=null)S[k]=j.state[k]});
+    }
+    S.srvOn=true;save();render();draw();
+  });
+  srv('/pf',{},j=>{if(j.list){S.pf=j.list;save();render()}});
+}
+function srvPush(){
+  if(!live())return;
+  const st={};
+  ['nick','av','lang','theme','tf','coin','pts','streak','best','total','wins','bulls','bears','hits','cc','days','badge','usb','chips','tb','rb','wk','pclaim','follow','subs','myvids','hist','priv'].forEach(k=>{if(S[k]!==undefined)st[k]=S[k]});
+  srv('/me',{state:st},()=>{});
+}
+// Настроение толпы: реальные прогнозы игроков за текущий час
+function srvSent(syms){srv('/sent',{syms},j=>{Object.assign(SENTSRV,j);render()})}
+function srvVote(sym,dir,k){srv('/vote',{sym,dir,k},j=>{SENTSRV[sym]=j;render()})}
+// Чат
+function srvChat(room,text,gold){
+  if(!live())return;
+  srv('/chat',{room,text:text||'',gold:gold?1:0,after:0},j=>{
+    const arr=(j.msgs||[]).map(m=>({id:m.id,n:m.nick||'?',f:m.av||'🎩',t:m.text,ts:m.at,g:m.gold?1:0,me:m.uid===SRVID}));
+    S.rooms[room]=arr;CHATID[room]=arr.length?arr[arr.length-1].id:0;
+    if(S.ch===room){render();toBottom()}else if(arr.length&&CHATSEEN[room]!==CHATID[room]){UN[room]=(UN[room]||0)+1;CHATSEEN[room]=CHATID[room];renderShell()}
+  });
+}
+let SRVID=0,CHATSEEN={};
+// Кланы
+function srvClans(act,data,done){
+  srv('/clans',Object.assign({act:act||''},data||{}),j=>{
+    CLANSRV=j;
+    const mine=(j.clans||[]).find(c=>c.id===j.clan);
+    if(mine){
+      S.clan={id:mine.id,name:mine.name,emb:mine.emb||'🛡',cap:mine.cap||20,tr:mine.tr||0,
+        members:(j.members||[]).map(m=>m.id===SRVID?{me:true,pts:m.pts|0}:{n:m.nick||'?',f:m.av||'🎩',pts:m.pts|0,th:0}),
+        chat:(S.clan&&S.clan.chat)||[]};
+    } else S.clan=null;
+    S.rivals=(j.clans||[]).filter(c=>c.id!==j.clan).map(c=>({id:c.id,n:c.name,pts:c.pts|0,tr:c.tr|0,n2:c.n|0}));
+    save();render();if(done)done(j);
+  });
+}
+function srvTop(){srv('/top',{},j=>{TOPSRV=j.top||[];render()})}
+
 // Настроение игроков: в демо голоса сгенерированы (боты). В настоящей игре — счётчик реальных прогнозов за текущий час.
 let SENT={};
-function sent(s){if(!SENT[s]){const i=idx(s);SENT[s]={up:Math.round(20+Math.random()*60),n:Math.round((40+Math.random()*900)/(1+i/20)),tu:.15+Math.random()*.5,td:.15+Math.random()*.5}}return SENT[s]}
+function sent(s){
+  if(live())return SENTSRV[s]||{up:50,n:0,tu:.4,td:.4,real:true};
+  if(!SENT[s]){const i=idx(s);SENT[s]={up:Math.round(20+Math.random()*60),n:Math.round((40+Math.random()*900)/(1+i/20)),tu:.15+Math.random()*.5,td:.15+Math.random()*.5}}return SENT[s]}
 
 // ---------- курс: живой (если доступен) или демо ----------
 function applyLive(arr){
   const list=arr.filter(c=>c.current_price>0&&!/usd|dai/i.test(c.symbol)&&Math.abs(c.current_price-1)>.015).slice(0,500)
-    .map(c=>({s:c.symbol.toUpperCase(),n:c.name,p:c.current_price,h:(c.sparkline_in_7d&&c.sparkline_in_7d.price||[]).slice(-60).concat(c.current_price)}));
+    .map(c=>({s:c.symbol.toUpperCase(),n:c.name,p:c.current_price,d:c.price_change_percentage_24h,hi24:c.high_24h,lo24:c.low_24h,h:(c.sparkline_in_7d&&c.sparkline_in_7d.price||[]).slice(-60).concat(c.current_price)}));
   if(list.length<10)throw 0;
   if(LIVE){list.forEach(n=>{const o=COINS.find(c=>c.s===n.s);if(o){n.h=o.h;n.h.push(n.p);if(n.h.length>120)n.h.shift()}})}
-  COINS=list;if(!LIVE){LIVE=true;HOUR=3600;if(S.pred&&!S.pred.live)S.pred=null}
+  COINS=list;if(!LIVE){LIVE=true;HOUR=3600;if(S.pred&&!S.pred.live)S.pred=null;renderTF();pullCandles()}
   render();draw();
 }
 function pull(){Promise.all([1,2].map(p=>fetch(LIVE_URL+p).then(r=>{if(!r.ok)throw 0;return r.json()}))).then(a=>applyLive(a[0].concat(a[1]))).catch(()=>{})}
 if(S.pred&&!S.pred.live)S.pred=null; // демо-прогноз не переживает перезагрузку
 pull();setInterval(()=>{if(LIVE)pull()},60000);
 
+// ---------- быстрый тикер: цена выбранной монеты прямо с биржи ----------
+// Агрегаторы на бесплатном тарифе обновляют цены раз в минуту. Поэтому для той
+// монеты, на которую игрок сейчас смотрит, берём цену с публичного тикера биржи:
+// без ключа, каждые 3 секунды. Биржи пробуем по очереди; если ни одна не отвечает
+// или у монеты нет пары к USDT, остаётся обычный минутный курс.
+const TICK=[
+  {n:'binance',u:s=>'https://api.binance.com/api/v3/ticker/24hr?symbol='+s+'USDT',
+   g:j=>({p:+j.lastPrice,hi:+j.highPrice,lo:+j.lowPrice,d:+j.priceChangePercent})},
+  {n:'okx',u:s=>'https://www.okx.com/api/v5/market/ticker?instId='+s+'-USDT',
+   g:j=>{const x=((j.data||[])[0])||{},o=+x.open24h;return{p:+x.last,hi:+x.high24h,lo:+x.low24h,d:o>0?(+x.last-o)/o*100:null}}},
+  {n:'bybit',u:s=>'https://api.bybit.com/v5/market/tickers?category=spot&symbol='+s+'USDT',
+   g:j=>{const x=(((j.result||{}).list||[])[0])||{};return{p:+x.lastPrice,hi:+x.highPrice24h,lo:+x.lowPrice24h,d:x.price24hPcnt==null?null:+x.price24hPcnt*100}}}
+];
+let TKi=0,TKfail=0,TKno={},TKbusy=false,TKn=0;
+function tick(){
+  if(!LIVE||TKbusy||TKi>=TICK.length)return;
+  if(typeof document!=='undefined'&&document.hidden)return;
+  const c=coin(S.pred?S.pred.sym:S.coin),s=c.s;
+  ++TKn;if(CNDkey!==ckey()||TKn%10===1)pullCandles();
+  if(TKno[s])return;
+  const src=TICK[TKi];TKbusy=true;
+  fetch(src.u(s)).then(r=>{
+    if(r.status===400||r.status===404){TKno[s]=1;throw 'nopair'}
+    if(!r.ok)throw 0;
+    return r.json()
+  }).then(j=>{
+    const q=src.g(j)||{},p=q.p;
+    if(!(p>0)){TKno[s]=1;return}
+    TKfail=0;
+    if(!(c.p>0)||Math.abs(p-c.p)/c.p>.5)return; // отсекаем мусор и чужие пары
+    c.p=p;if(c.h.length)c.h[c.h.length-1]=p;
+    if(q.hi>0&&q.lo>0){c.hi24=q.hi;c.lo24=q.lo}
+    if(q.d!=null&&isFinite(q.d))c.d=q.d;
+    const K=candles(c.s);
+    if(K&&K.length){const k=K[K.length-1];k.c=p;if(p>k.h)k.h=p;if(p<k.l)k.l=p}
+    draw();
+  }).catch(e=>{
+    if(e!=='nopair'&&++TKfail>=3){TKfail=0;TKi++;TKno={}}
+  }).then(()=>{TKbusy=false},()=>{TKbusy=false});
+}
+
+// ---------- свечи ----------
+// Биржи отдают готовые свечи бесплатно и без ключа. Берём 90 штук на выбранном
+// таймфрейме; последнюю свечу дотягиваем живой ценой из тикера.
+// подпись, интервал Binance, бар OKX, интервал Bybit
+const TFS=[['1m','1m','1m','1'],['3m','3m','3m','3'],['5m','5m','5m','5'],['15m','15m','15m','15'],['30m','30m','30m','30'],
+  ['1H','1h','1H','60'],['2H','2h','2H','120'],['4H','4h','4H','240'],['6H','6h','6H','360'],['12H','12h','12H','720'],
+  ['1D','1d','1D','D'],['1W','1w','1W','W'],['1M','1M','1M','M']];
+let TF=S.tf==null||!TFS[S.tf]?5:S.tf,CND=null,CNDkey='',CNDsrc=0,CNDfail=0,CNDno={},CNDbusy=false;
+const CSRC=[
+  {u:(s,i)=>'https://api.binance.com/api/v3/klines?symbol='+s+'USDT&interval='+TFS[i][1]+'&limit=90',
+   g:j=>(j||[]).map(k=>({t:+k[0],o:+k[1],h:+k[2],l:+k[3],c:+k[4],v:+k[5]}))},
+  {u:(s,i)=>'https://www.okx.com/api/v5/market/candles?instId='+s+'-USDT&bar='+TFS[i][2]+'&limit=90',
+   g:j=>((j||{}).data||[]).map(k=>({t:+k[0],o:+k[1],h:+k[2],l:+k[3],c:+k[4],v:+k[5]})).reverse()},
+  {u:(s,i)=>'https://api.bybit.com/v5/market/kline?category=spot&symbol='+s+'USDT&interval='+TFS[i][3]+'&limit=90',
+   g:j=>((((j||{}).result||{}).list)||[]).map(k=>({t:+k[0],o:+k[1],h:+k[2],l:+k[3],c:+k[4],v:+k[5]})).reverse()}
+];
+function ckey(){return (S.pred?S.pred.sym:S.coin)+'|'+TF}
+function candles(sym){return CND&&CNDkey===ckey()&&CNDkey.indexOf(sym+'|')===0?CND:null}
+function pullCandles(){
+  if(!LIVE||CNDbusy||CNDsrc>=CSRC.length)return;
+  const key=ckey(),s=key.split('|')[0];
+  if(CNDno[key])return;
+  const src=CSRC[CNDsrc];CNDbusy=true;
+  fetch(src.u(s,TF)).then(r=>{
+    if(r.status===400||r.status===404){CNDno[key]=1;throw 'nopair'}
+    if(!r.ok)throw 0;
+    return r.json()
+  }).then(j=>{
+    const k=(src.g(j)||[]).filter(x=>x.o>0&&x.h>0&&x.l>0&&x.c>0);
+    if(k.length<3){CNDno[key]=1;return}
+    CNDfail=0;CND=k;CNDkey=key;draw();
+  }).catch(e=>{
+    if(e!=='nopair'&&++CNDfail>=3){CNDfail=0;CNDsrc++;CNDno={}}
+  }).then(()=>{CNDbusy=false},()=>{CNDbusy=false});
+}
+function renderTF(){
+  const e=$('tfs');if(!e)return;
+  e.innerHTML=LIVE?TFS.map((x,i)=>'<button class="'+(i===TF?'on':'')+'" onclick="setTF('+i+')">'+x[0]+'</button>').join(''):'';
+  try{const b=e.children[TF];if(b&&b.scrollIntoView)b.scrollIntoView({block:'nearest',inline:'center'})}catch(err){}
+}
+function setTF(i){if(i===TF||!TFS[i])return;TF=i;S.tf=i;save();CND=null;CNDkey='';renderTF();pullCandles();draw()}
+
 const cv=$('cv'),cx=cv.getContext('2d');
-function fit(){const r=cv.getBoundingClientRect(),d=devicePixelRatio||1;cv.width=r.width*d;cv.height=r.height*d;cx.setTransform(d,0,0,d,0,0)}
+function fit(){const r=cv.getBoundingClientRect(),d=devicePixelRatio||1;cv.width=r.width*d;cv.height=r.height*d;cx.setTransform(d,0,0,d,0,0);if(typeof COINS!=='undefined')draw()}
 addEventListener('resize',fit);
 let CV={up:'#4fd18b',down:'#e5566b',gold:'#d4af5f',muted:'#9b978e',text:'#f3f0e8'};
 function applyTheme(){['light','plat','emer'].forEach(c=>document.body.classList.toggle(c,S.theme===c));
@@ -905,17 +1145,64 @@ function applyTheme(){['light','plat','emer'].forEach(c=>document.body.classList
   const m=document.querySelector('meta[name=theme-color]');if(m)m.content=S.theme==='light'?'#f6f5f1':'#0a0a0a'}
 function setTheme(x){if((x==='plat'||x==='emer')&&!S.owned[x]){offerItem(x);return}S.theme=x;applyTheme();save();render();draw()}
 function draw(){
-  const pr=S.pred,c=coin(pr?pr.sym:S.coin),H=c.h,w=cv.clientWidth,h=cv.clientHeight;cx.clearRect(0,0,w,h);
-  if(H.length<2)return;
-  let mn=Math.min(...H),mx=Math.max(...H);if(pr){mn=Math.min(mn,pr.entry,pr.target||pr.entry);mx=Math.max(mx,pr.entry,pr.target||pr.entry)}
+  const pr=S.pred,c=coin(pr?pr.sym:S.coin),w=cv.clientWidth,h=cv.clientHeight;
+  cx.clearRect(0,0,w,h);
+  $('price').textContent=usd(c.p);
+  stat24(c);
+  const K=candles(c.s);
+  if(K&&K.length>3)drawCandles(c,pr,K,w,h);else drawLine(c,pr,w,h);
+  if(side&&!pr)updTi();
+}
+function pline(Y,w,v,cl,tx){const y=Y(v);cx.setLineDash([4,4]);cx.strokeStyle=cl;cx.lineWidth=1;cx.beginPath();cx.moveTo(0,y);cx.lineTo(w,y);cx.stroke();cx.setLineDash([]);cx.fillStyle=cl;cx.font='500 11px Jost,system-ui';cx.fillText(tx,4,y-3)}
+function drawLine(c,pr,w,h){
+  const H=c.h;if(!H||H.length<2)return;
+  let mn=Math.min(...H),mx=Math.max(...H);
+  if(pr){mn=Math.min(mn,pr.entry,pr.target||pr.entry);mx=Math.max(mx,pr.entry,pr.target||pr.entry)}
   const pad=(mx-mn)*.15||mx*.001;mn-=pad;mx+=pad;
   const X=i=>i/(H.length-1)*w,Y=v=>h-(v-mn)/(mx-mn)*h;
   const col=pr?((c.p-pr.entry)*pr.dir>=0?CV.up:CV.down):CV.gold;
   cx.beginPath();H.forEach((v,i)=>i?cx.lineTo(X(i),Y(v)):cx.moveTo(X(i),Y(v)));cx.strokeStyle=col;cx.lineWidth=2;cx.stroke();
-  function line(v,cl,tx){const y=Y(v);cx.setLineDash([4,4]);cx.strokeStyle=cl;cx.beginPath();cx.moveTo(0,y);cx.lineTo(w,y);cx.stroke();cx.setLineDash([]);cx.fillStyle=cl;cx.font='500 11px Jost,system-ui';cx.fillText(tx,4,y-3)}
-  if(pr){line(pr.entry,CV.muted,t('start'));if(pr.target)line(pr.target,CV.text,t('target'))}
-  $('price').textContent=usd(c.p);
-  if(side&&!pr)updTi();
+  if(pr){pline(Y,w,pr.entry,CV.muted,t('start'));if(pr.target)pline(Y,w,pr.target,CV.text,t('target'))}
+}
+function drawCandles(c,pr,K,w,h){
+  const vh=Math.round(h*.2),ch=h-vh-8;
+  let mn=Infinity,mx=-Infinity,vm=0;
+  for(const k of K){if(k.l<mn)mn=k.l;if(k.h>mx)mx=k.h;if(k.v>vm)vm=k.v}
+  if(pr){mn=Math.min(mn,pr.entry,pr.target||pr.entry);mx=Math.max(mx,pr.entry,pr.target||pr.entry)}
+  if(!(mx>mn)){const b=mn||1;mn=b*.999;mx=b*1.001}
+  const pad=(mx-mn)*.06;mn-=pad;mx+=pad;
+  const n=K.length,step=w/n,bw=Math.max(1,Math.min(9,step*.62)),Y=v=>ch-(v-mn)/(mx-mn)*ch;
+  cx.strokeStyle=CV.muted;cx.globalAlpha=.12;cx.lineWidth=1;
+  for(let i=1;i<4;i++){const y=Math.round(ch*i/4)+.5;cx.beginPath();cx.moveTo(0,y);cx.lineTo(w,y);cx.stroke()}
+  cx.globalAlpha=1;
+  if(vm>0){for(let i=0;i<n;i++){const k=K[i],x=i*step+step/2,bh=Math.max(1,k.v/vm*vh);
+    cx.fillStyle=k.c>=k.o?CV.up:CV.down;cx.globalAlpha=.28;cx.fillRect(x-bw/2,h-bh,bw,bh)}cx.globalAlpha=1}
+  for(let i=0;i<n;i++){const k=K[i],x=Math.round(i*step+step/2)+.5,col=k.c>=k.o?CV.up:CV.down;
+    cx.strokeStyle=col;cx.fillStyle=col;cx.lineWidth=1;
+    cx.beginPath();cx.moveTo(x,Y(k.h));cx.lineTo(x,Y(k.l));cx.stroke();
+    const y1=Y(Math.max(k.o,k.c)),y2=Y(Math.min(k.o,k.c));
+    cx.fillRect(x-bw/2,y1,bw,Math.max(1,y2-y1))}
+  drawMA(K,7,CV.gold,Y,step);drawMA(K,25,CV.muted,Y,step);
+  const ly=Y(c.p);
+  if(ly>=0&&ly<=ch){cx.setLineDash([3,3]);cx.strokeStyle=CV.text;cx.globalAlpha=.5;cx.lineWidth=1;
+    cx.beginPath();cx.moveTo(0,ly+.5);cx.lineTo(w,ly+.5);cx.stroke();cx.setLineDash([]);cx.globalAlpha=1}
+  if(pr){pline(Y,w,pr.entry,CV.muted,t('start'));if(pr.target)pline(Y,w,pr.target,CV.text,t('target'))}
+}
+function drawMA(K,p,col,Y,step){
+  if(K.length<p)return;
+  cx.beginPath();cx.strokeStyle=col;cx.lineWidth=1;cx.globalAlpha=.75;
+  let s=0,first=true;
+  for(let i=0;i<K.length;i++){s+=K[i].c;if(i>=p)s-=K[i-p].c;if(i<p-1)continue;
+    const x=i*step+step/2,y=Y(s/p);first?(cx.moveTo(x,y),first=false):cx.lineTo(x,y)}
+  cx.stroke();cx.globalAlpha=1;
+}
+function stat24(c){
+  const d=c.d,hi=c.hi24,lo=c.lo24,g=$('pchg'),e=$('st24');
+  if(g){const on=d!=null&&isFinite(d);
+    g.textContent=on?(d>=0?'+':'')+d.toFixed(2)+'%':'';
+    g.style.color=on?(d>=0?CV.up:CV.down):'';
+    const pe=$('price');if(pe)pe.style.color=on?(d>=0?CV.up:CV.down):''}
+  if(e)e.innerHTML=hi>0&&lo>0?'<span>24h</span><span>&#8593; '+usd(hi)+'</span><span>&#8595; '+usd(lo)+'</span>':'';
 }
 setInterval(()=>{
   if(!LIVE)COINS.forEach((c,i)=>{c.p*=1+(Math.random()-.5)*vol(i);c.h.push(c.p);if(c.h.length>61)c.h.shift()});
@@ -932,7 +1219,9 @@ function updTi(){const tp=tprice(),c=coin(S.coin);
 function pickSide(d){if(S.pred)return;side=d;$('sl').value=0;render();updTi()}
 $('bU').onclick=()=>pickSide(1);$('bD').onclick=()=>pickSide(-1);
 $('sl').oninput=updTi;$('back').onclick=()=>{side=0;render()};
-$('ok').onclick=()=>{const c=coin(S.coin);if(tprice())S.wk.tg++;S.pred={sym:c.s,dir:side,entry:c.p,target:tprice(),rng:rng(idx(c.s)),t:Date.now(),dur:HOUR,live:LIVE};side=0;save();render()};
+$('ok').onclick=()=>{const c=coin(S.coin),tp=tprice();if(tp)S.wk.tg++;S.pred={sym:c.s,dir:side,entry:c.p,target:tp,rng:rng(idx(c.s)),t:Date.now(),dur:HOUR,live:LIVE};
+  const r=rng(idx(c.s));srvVote(c.s,side,tp&&r?Math.max(0,Math.min(1,Math.abs(tp-c.p)/(c.p*r))):0);
+  side=0;save();render()};
 
 function resolve(){
   const pr=S.pred,c=coin(pr.sym),win=(c.p-pr.entry)*pr.dir>0;S.pred=null;SENT={};
@@ -987,26 +1276,126 @@ function coinList(){
   const q=($('srch').value||'').toLowerCase(),lim=limit();let h='',sep=-1;
   COINS.forEach((c,i)=>{if(q&&!(c.s.toLowerCase().includes(q)||c.n.toLowerCase().includes(q)))return;
     const band=TIERS.findIndex(p=>i<p.coins);if(band!==sep&&!q){sep=band;h+=`<div class="sep">${TIERS[band].n} · ${t('top',TIERS[band].coins)}</div>`}
-    const lk=!allowed(c.s);h+=`<div class="ci ${lk?'lock':''}" data-s="${esc(c.s)}" data-i="${i}"><div class="r">${i+1}</div><div class="s">${lk?'🔒 ':S.extra.includes(c.s)?'★ ':''}${esc(c.s)}</div><div class="nm">${esc(c.n)}</div><div>${usd(c.p)}</div>${(S.tier||S.extra.includes(c.s))&&!lk?(v=>`<div style="width:56px;text-align:right;font-weight:600;font-size:12px;color:var(--${v.up>=50?'up':'down'})">${v.up>=50?'🐂'+v.up:'🐻'+(100-v.up)}%</div>`)(sent(c.s)):''}</div>`});
+    const lk=!allowed(c.s),d=c.d;
+    const pct=d!=null&&isFinite(d)?`<div class="pct ${d<0?'dn':''}">${d>=0?'+':''}${d.toFixed(2)}%</div>`:'<div class="pct na">—</div>';
+    const se=(S.tier||S.extra.includes(c.s))&&!lk?(v=>` · <span style="color:var(--${v.up>=50?'up':'down'})">${v.up>=50?'🐂'+v.up:'🐻'+(100-v.up)}%</span>`)(sent(c.s)):'';
+    h+=`<div class="ci ${lk?'lock':''}" data-s="${esc(c.s)}" data-i="${i}"><div class="pr"><b>${lk?'🔒 ':S.extra.includes(c.s)?'★ ':''}${esc(c.s)}</b><span>/USDT</span><em>${esc(c.n)}${se}</em></div><div class="px">${usd(c.p)}</div>${pct}</div>`});
   $('cl').innerHTML=h||`<div class="muted" style="padding:12px">${t('nothing')}</div>`;
   $('cl').querySelectorAll('.ci').forEach(d=>d.onclick=()=>{if(!allowed(d.dataset.s)){offerOne(d.dataset.s);return}
     S.coin=d.dataset.s;side=0;closeModal();save();render();draw()})}
+
+// ---------- курс USDT к местным деньгам ----------
+// Нужен, чтобы человек видел свои вложения не только в долларах.
+const FIATS=[['uah','₴'],['eur','€'],['pln','zł'],['try','₺'],['kzt','₸'],['usd','$']];
+let FIAT={};
+function pullFiat(){
+  fetch('https://api.coingecko.com/api/v3/simple/price?ids=tether&vs_currencies='+FIATS.map(x=>x[0]).join(','))
+    .then(r=>{if(!r.ok)throw 0;return r.json()})
+    .then(j=>{if(j&&j.tether){FIAT=j.tether;render()}}).catch(()=>{});
+}
+function fiatSym(){const f=FIATS.find(x=>x[0]===S.fiat);return f?f[1]:'₴'}
+function fiatRate(){return +FIAT[S.fiat]||0}
+function fiatFmt(v){return v.toLocaleString(LOC[S.lang],{maximumFractionDigits:v>=100?0:2})+' '+fiatSym()}
+function inFiat(usdValue){const r=fiatRate();return r?fiatFmt(usdValue*r):''}
+function setFiat(c){S.fiat=c;save();render()}
+
+// ---------- калькулятор средней цены покупки ----------
+// Игрок записывает свои покупки на бирже, мы считаем среднюю цену входа и результат.
+// Ничего не покупаем и не продаём: это счётная машинка, а не биржа.
+function pfList(){return S.pf||(S.pf=[])}
+function pfBy(){const m={};pfList().forEach(x=>{(m[x.sym]=m[x.sym]||[]).push(x)});return m}
+function pfAvg(arr){let sum=0,qty=0;(arr||[]).forEach(x=>{sum+=+x.usd;qty+=x.usd/x.price});return{sum,qty,avg:qty?sum/qty:0}}
+function pfNum(id){const v=($(id)&&$(id).value||'').replace(',','.').replace(/[^\d.]/g,'');return parseFloat(v)}
+function pfAdd(){
+  const sym=($('pfs')&&$('pfs').value)||S.coin,sum=pfNum('pfu'),price=pfNum('pfp');
+  if(!(sum>0)||!(price>0)){toast(t('ca_bad'));return}
+  if(pfList().length>=300){toast(t('ca_lim'));return}
+  pfList().push({id:'l'+Date.now(),sym,usd:sum,price,at:Date.now()});
+  $('pfu').value='';save();
+  if(live())srv('/pf',{add:{sym,usd:sum,price}},j=>{S.pf=j.list;save();render()});
+  render();toast(t('ca_done',sym));
+}
+function pfDel(id){
+  S.pf=pfList().filter(x=>String(x.id)!==String(id));save();
+  if(live())srv('/pf',{del:id},j=>{S.pf=j.list;save();render()});
+  render();
+}
+function pfIf(sym){
+  const e=$('ifr'+sym);if(!e)return;
+  const sum=pfNum('ifu'+sym),price=pfNum('ifp'+sym)||coin(sym).p,a=pfAvg(pfBy()[sym]);
+  if(!(sum>0)||!(price>0)){e.textContent='';return}
+  const qty=a.qty+sum/price,all=a.sum+sum;
+  e.textContent=t('ca_ifr',usd(qty?all/qty:price));
+}
+function pfRow(x){
+  return `<div class="fr"><div class="n">${usd(x.usd)} ${t('ca_by')} ${usd(x.price)}</div>
+    <div class="muted">${new Date(x.at).toLocaleDateString(LOC[S.lang])}</div>
+    <button class="btn ghost sm" onclick="pfDel('${esc(String(x.id))}')" aria-label="${t('ca_del')}">✕</button></div>`;
+}
+function pfCard(sym,arr){
+  const a=pfAvg(arr),c=coin(sym),now=a.qty*c.p,diff=now-a.sum,pct=a.sum?diff/a.sum*100:0,up=diff>=0;
+  return `<div class="card">
+    <div class="pfh"><span>${esc(sym)}</span><span style="color:var(--gold)">${t('ca_avg')} ${usd(a.avg)}</span></div>
+    <div class="muted">${t('ca_inv')} ${usd(a.sum)} · ${t('ca_have')} ${a.qty.toFixed(a.qty<1?6:3)} ${esc(sym)}</div>
+    <div style="margin-top:4px">${t('ca_now')} <b>${usd(now)}</b> · <b style="color:var(--${up?'up':'down'})">${up?'+':'−'}${usd(Math.abs(diff))} (${up?'+':'−'}${Math.abs(pct).toFixed(2)}%)</b></div>
+    ${arr.map(pfRow).join('')}
+    <div class="muted" style="margin-top:8px">${t('ca_if')}</div>
+    <div class="row">
+      <input class="in" id="ifu${esc(sym)}" inputmode="decimal" placeholder="${t('ca_sum')}" oninput="pfIf('${esc(sym)}')">
+      <input class="in" id="ifp${esc(sym)}" inputmode="decimal" placeholder="${fp(c.p)}" oninput="pfIf('${esc(sym)}')">
+    </div>
+    <div style="margin-top:6px;font-weight:600" id="ifr${esc(sym)}"></div>
+  </div>`;
+}
+function calcHtml(){
+  const by=pfBy(),syms=Object.keys(by),all=pfAvg(pfList());
+  let now=0;syms.forEach(s=>{now+=pfAvg(by[s]).qty*coin(s).p});
+  const diff=now-all.sum,up=diff>=0;
+  const opts=COINS.filter(c=>allowed(c.s)).slice(0,500).map(c=>`<option value="${esc(c.s)}"${c.s===S.coin?' selected':''}>${esc(c.s)} · ${esc(c.n)}</option>`).join('');
+  return `<h2>🧮 SHR · ${t('ca_h')}</h2>
+  <div class="whatis">${t('ca_what')}</div>
+  <div class="card">
+    <div class="muted">${t('ca_d')}</div>
+    <select class="lsel" id="pfs" style="width:100%;margin-top:8px">${opts}</select>
+    <div class="row" style="margin-top:6px">
+      <input class="in" id="pfu" inputmode="decimal" placeholder="${t('ca_sum')}">
+      <input class="in" id="pfp" inputmode="decimal" placeholder="${t('ca_price')}" value="${fp(coin(S.coin).p)}">
+    </div>
+    <button class="btn g" onclick="pfAdd()">${t('ca_add')}</button>
+    ${fiatRate()?`<div class="rate"><span>${t('ca_rate')}</span><b>${fiatFmt(fiatRate())}</b>
+      <select class="lsel" onchange="setFiat(this.value)">${FIATS.filter(f=>FIAT[f[0]]).map(f=>`<option value="${f[0]}"${S.fiat===f[0]?' selected':''}>${f[1]}</option>`).join('')}</select></div>`:''}
+    <div class="muted" style="margin-top:6px">${t('ca_store')}</div>
+  </div>
+  <details class="tips"><summary>💡 ${t('ca_tips')}</summary>
+    <ol>${[1,2,3,4,5].map(i=>`<li>${t('ca_t'+i)}</li>`).join('')}</ol>
+    <div class="muted">${t('ca_tn')}</div></details>
+  ${syms.length?`<div class="card"><div class="pfh"><span>${t('ca_total')}</span><span style="color:var(--${up?'up':'down'})">${up?'+':'−'}${usd(Math.abs(diff))}</span></div>
+    <div class="muted">${t('ca_inv')} ${usd(all.sum)} · ${t('ca_now')} ${usd(now)}${fiatRate()?' · '+inFiat(now):''}</div></div>`:''}
+  ${syms.length?syms.map(s=>pfCard(s,by[s])).join(''):`<div class="muted" style="padding:12px">${t('ca_none')}</div>`}
+  <div class="muted" style="text-align:center;margin:10px 4px">${t('ca_note')}</div>`;
+}
 
 // ---------- клан ----------
 function say(m){if(!S.clan)return;m.ts=m.ts||Date.now();S.clan.chat.push(m);if(S.clan.chat.length>30)S.clan.chat.shift()}
 function msgText(m){return m.t!=null?m.t:m.c!=null?COINTALK[m.c][S.lang<3?S.lang:2].split('{0}').join(m.s):m.k!=null?TALK[m.k][S.lang<3?S.lang:2]:t('chat_'+m.w)}
 function newClan(name,members){S.clan={name,emb:'🛡',cap:20,members,chat:[],sniper:null}}
 function createClan(){const n=($('cname').value||'').trim().slice(0,20);if(n.length<3){toast(t('name3'));return}
-  $('cname').blur();newClan(n,[{me:true,pts:0},...S.friends.map(f=>({n:f.n,f:f.f,pts:0,th:0}))]);save();render();toast('🛡 '+t('clan_made'))}
-function joinClan(i){const r=S.rivals[i],k=6+Math.floor(Math.random()*6);
+  $('cname').blur();
+  if(live()){srvClans('create',{name:n},j=>{if(j.clan)toast('🛡 '+t('clan_made'))});return}
+  newClan(n,[{me:true,pts:0},...S.friends.map(f=>({n:f.n,f:f.f,pts:0,th:0}))]);save();render();toast('🛡 '+t('clan_made'))}
+function joinClan(i){const r=S.rivals[i];if(!r)return;
+  if(live()&&r.id){srvClans('join',{id:r.id},()=>toast('🛡 '+t('clan_in',r.n)));return}
+  const k=6+Math.floor(Math.random()*6);
   newClan(r.n,[{me:true,pts:0},...NAMES.slice(0,k).map((n,j)=>({n,f:FACES[j],pts:Math.floor(r.pts/k),th:0}))]);
   say({n:NAMES[0],f:FACES[0],w:'welcome'});S.rivals.splice(i,1);save();render();toast('🛡 '+t('clan_in',r.n))}
-function leaveClan(){S.clan=null;save();render()}
+function leaveClan(){if(live()){srvClans('leave',{});return}S.clan=null;save();render()}
 function clanPts(){return S.clan.members.reduce((a,m)=>a+m.pts,0)}
 function clap(i){const m=S.clan.members[i];if(m){m.th=(m.th||0)+1;toast('👏 '+t('thanks',m.n));save();render()}}
 function sendMsg(){const v=($('cmsg').value||'').trim().slice(0,140);if(!v)return;
   if(/https?:|t\.me|@\w{4,}/i.test(v)){toast(t('nolinks'));return}
-  $('cmsg').value='';const m={me:true,t:v,ts:Date.now()};if(S.gm){m.g=1;S.gm=false;if(S.gmFree>0)S.gmFree--;else toast('✨ '+t('gm')+' · '+GM+' ⭐ ('+t('nostars')+')')}if(S.ch==='clan'||S.ch.startsWith('room:'))S.wk.m++;if(S.ch==='clan'){if(!S.clan)return;say(m)}else if(S.ch.startsWith('room:'))pushRoom(S.ch,m);else return;save();render();toBottom()}
+  $('cmsg').value='';const m={me:true,t:v,ts:Date.now()};if(S.gm){m.g=1;S.gm=false;if(S.gmFree>0)S.gmFree--;else toast('✨ '+t('gm')+' · '+GM+' ⭐ ('+t('nostars')+')')}if(S.ch==='clan'||S.ch.startsWith('room:'))S.wk.m++;if(S.ch==='clan'){if(!S.clan)return;say(m)}
+  else if(S.ch.startsWith('room:')){if(live()){srvChat(S.ch,v,m.g);save();return}pushRoom(S.ch,m)}
+  else return;save();render();toBottom()}
 function report(){toast('🚩 '+t('reported'))}
 
 // ---------- магазин ----------
@@ -1049,10 +1438,10 @@ function boost(j){S.myvids[j].b=true;toast(t('boost_done')+' ('+t('nostars')+')'
 
 function render(){
   const tr=TIERS[S.tier];let c=coin(S.coin);if(c.s!==S.coin||!allowed(c.s)){S.coin=COINS[0].s;c=COINS[0]}
-  renderShell();$('brand').innerHTML=`<img class="bemb" src="${IMG.emb}" alt="">`+logoSvg(26);
+  renderShell();$('brand').innerHTML=`<img class="bemb" src="${IMG.emb}" alt="">`+logoSvg(32);
   $('st').textContent=S.streak;$('stl').textContent=t('streak');
   $('rec').innerHTML=`<span>${t('myrec')}: <b>${S.best}</b></span><span>${t('wrec')}: <b>23</b>, SatoshiJr</span><span>${t('days',S.days)}</span>`;
-  $('mode').className='demo'+(LIVE?' live':'');$('mode').textContent=LIVE?t('live',COINS.length):t('demo',COINS.length);
+  $('mode').className='demo'+(LIVE?' live':'');$('mode').textContent=(LIVE?t('live',COINS.length):t('demo',COINS.length))+(live()&&ONLINE?' · '+t('inclub',ONLINE):'');
   const ss=S.pred?S.pred.sym:S.coin,sc=coin(ss),sv=sent(ss),r=rng(idx(ss));
   $('pick').textContent=ss+' ▾';$('q').textContent=t('q',S.coin);
   $('bU').innerHTML=`🐂 ${t('bulls')}<small>${t('up')}</small>`;$('bD').innerHTML=`🐻 ${t('bears')}<small>${t('down')}</small>`;
@@ -1061,7 +1450,7 @@ function render(){
   $('tside').textContent=(side>0?'🐂 '+t('side_up'):'🐻 '+t('side_dn'));
   if(S.pred)$('winfo').textContent=`${S.pred.dir>0?'🐂 '+t('bulls'):'🐻 '+t('bears')} · ${S.pred.sym} ${t('from')} ${usd(S.pred.entry)}${S.pred.target?' · 🎯 '+usd(S.pred.target):''}`;
   $('sent').innerHTML=S.tier||S.extra.includes(ss)?`<div class="sb"><i style="width:${sv.up}%"></i></div><div class="sl"><span style="color:var(--up)">🐂 ${sv.up}%</span><span style="color:var(--down)">${100-sv.up}% 🐻</span></div>
-      <div class="muted" style="text-align:center;margin-top:4px">${t('sent_avg',usd(sc.p*(1+r*sv.tu)),usd(sc.p*(1-r*sv.td)))}<br>${t('sent_n',sv.n)}</div>`
+      <div class="muted" style="text-align:center;margin-top:4px">${t('sent_avg',usd(sc.p*(1+r*sv.tu)),usd(sc.p*(1-r*sv.td)))}<br>${sv.real?(sv.n?t('sent_real',sv.n):t('sent_none')):t('sent_n',sv.n)}</div>`
     :`<div class="muted" style="text-align:center;margin-top:10px" onclick="go('shop')">${t('sent_lock',esc(ss))}</div>`;
   $('mine').innerHTML=S.extra.length?`<div class="row" style="align-items:center"><span class="muted">${t('mine')}:</span>${S.extra.map(x=>`<button class="opt ${x===ss?'on':''}" style="padding:4px 9px;font-size:12px" onclick="pickCoin('${esc(x)}')">★ ${esc(x)}</button>`).join('')}</div>`:'';
   $('disc').textContent=t('disc');
@@ -1090,8 +1479,14 @@ function render(){
   $('an').innerHTML=analytics();
   if(S.clan)$('cwar').innerHTML=subtabs()+warHtml();else $('cwar').innerHTML='';
   $('chats').innerHTML=chatsHtml();
-  $('anl').innerHTML=`<button class="btn ghost" style="margin:0 0 10px" onclick="go('an')">📊 ${t('an_h')}</button><button class="btn ghost" style="margin:0 0 10px" onclick="go('robot')">${S.rb.face} ${t('rb_h')}${S.rb.on?' · ON':''}</button><button class="btn g" style="margin:0 0 10px" onclick="go('table')">♠ ${t('tb_h')} · ${S.chips}</button><button class="btn ghost" style="margin:0 0 10px" onclick="go('usb')">💾 ${t('us_h')}${usbLeft()&&!S.usb.found?' · '+usbLeft():''}</button>`;
-  $('robot').innerHTML=robotHtml();$('ob').innerHTML=obHtml();$('table').innerHTML=tableHtml();$('usb').innerHTML=usbHtml();$('news').innerHTML=newsHtml();
+  $('anl').innerHTML=`<div class="tiles">
+    <button class="tile wide hot" onclick="go('calc')"><i>🧮</i><b>SHR · ${t('ca_h')}</b><small>${t('ca_what')}</small></button>
+    <button class="tile" onclick="go('an')"><i>📊</i><b>${t('an_h')}</b><small>${t('an_d')}</small></button>
+    <button class="tile" onclick="go('table')"><i>♠</i><b>${t('tb_h')}</b><small>${t('tb_chips',S.chips)}</small></button>
+    <button class="tile" onclick="go('robot')"><i>${S.rb.face}</i><b>${t('rb_h')}</b><small>${S.rb.on?t('rb_stats',S.rb.n,S.rb.w,S.rb.pts):t('rb_idle')}</small></button>
+    <button class="tile" onclick="go('usb')"><i>💾</i><b>${t('us_h')}</b><small>${S.usb.found?t('us_done'):t('us_left',usbLeft())}</small></button>
+  </div>`;
+  $('calc').innerHTML=calcHtml();$('robot').innerHTML=robotHtml();$('ob').innerHTML=obHtml();$('table').innerHTML=tableHtml();$('usb').innerHTML=usbHtml();$('news').innerHTML=newsHtml();
   $('rules').innerHTML=`<h2>${t('rules')}</h2><div class="card"><div class="muted" style="font-size:14px;line-height:1.8">🔞 ${t('r1')}<br>🎮 ${t('r2')}<br>🛒 ${t('r3')}<br>📊 ${t('r4')}<br>🚫 ${t('r5')}</div></div><div class="card"><div class="muted">${t('disc')}</div></div><div class="card"><div class="muted">${t('chat_rule')}</div></div>`;
   // видео
   $('video').innerHTML=`<h2>${t('vid_h')}</h2><div class="demo">${t('vid_d')}</div><button class="btn g" style="margin:0 0 10px" onclick="uploadOpen()">${t('upload')}</button>
@@ -1103,15 +1498,16 @@ function render(){
   // магазин
   $('shop').innerHTML=microHtml()+`<h2>${t('sub_h')}</h2>`+TIERS.map((p,i)=>`<div class="card plan ${S.tier===i?'on':''}"><div class="h"><span>${p.n}</span><span>${p.stars?t('mo',p.stars):t('free')}</span></div>
     <ul><li style="color:var(--text)">${t('top',p.coins)}</li>${i?`<li>${t('f_sent')}</li>`:`<li>${t('f_free')}</li>`}${p.saves?`<li>${t('f_saves',p.saves)}</li>`:''}${i>=3?`<li>${t('f_badge')}</li>`:''}</ul>
-    ${p.usd?`<div class="muted" style="margin-top:6px">${t('approx',p.usd)}</div>`:''}
     ${S.tier===i?`<div class="muted" style="margin-top:8px">✅ ${t('yours')}</div>`:`<button class="btn ${i?'g':'ghost'}" onclick="setTier(${i})">${i?t('get'):t('tofree')}</button>`}</div>`).join('')
-    +`<h2>${t('sc_h')}</h2><div class="card"><div class="muted">${t('sc_d')}</div>${S.extra.length?S.extra.map(x=>`<div class="fr"><div class="n">★ ${esc(x)}</div><div class="muted">${ONE} ⭐</div><button class="btn ghost sm" onclick="dropOne('${esc(x)}')">${t('sc_off')}</button></div>`).join(''):`<div class="muted" style="padding-top:8px">${t('sc_none')}</div>`}<div class="muted" style="margin-top:6px">${t('sc_usd')}</div></div>
+    +`<h2>${t('sc_h')}</h2><div class="card"><div class="muted">${t('sc_d')}</div>${S.extra.length?S.extra.map(x=>`<div class="fr"><div class="n">★ ${esc(x)}</div><div class="muted">${ONE} ⭐</div><button class="btn ghost sm" onclick="dropOne('${esc(x)}')">${t('sc_off')}</button></div>`).join(''):`<div class="muted" style="padding-top:8px">${t('sc_none')}</div>`}</div>
     <h2>${t('one_h')}</h2><div class="card">${ITEMS.map(it=>`<div class="shop"><div class="i">${it.i}</div><div class="d">${t('i_'+it.id)}<div class="muted" style="font-weight:400">${t('i_'+it.id+'_d',S.saves)}</div></div><button class="btn g sm" onclick="buy('${it.id}')">${it.s} ⭐</button></div>`).join('')}</div><div class="muted" style="text-align:center">${t('shop_d')}</div>`;
   // кабинет
   if(!focused('nick')){
     const fav=Object.entries(S.cc).sort((a,b)=>b[1]-a[1])[0];
     const st=[[S.total,'s_total'],[S.total?Math.round(S.wins/S.total*100)+'%':'—','s_acc'],[S.best,'s_best'],[S.pts,'s_pts'],[S.bulls+' / '+S.bears,'s_bb'],[fav?fav[0]:'—','s_fav'],[S.hits,'s_hits'],[S.saves,'s_saves'],[S.giftsN,'gifts_n']];
     $('me').innerHTML=`<h2>${t('me_h')}</h2>
+      <div class="row" style="margin-bottom:10px"><button class="btn g" style="margin:0" onclick="go('shop')">⭐ ${t('ch_shop')}</button><button class="btn ghost" style="margin:0" onclick="go('video')">▶ ${t('ch_video')}</button></div>
+      <div id="homeadd"></div>
       <div class="mcard"><div class="av">${meAv(56)}</div><div style="min-width:0"><div class="nm">${esc(meName())}${S.badge?' '+S.badge:''}</div><div class="no">${t('member',S.no)}</div><div class="muted">${t('since',new Date(S.since).toLocaleDateString(LOC[S.lang]))} · ${tr.n} · ${t('rk'+rankIdx())}</div></div></div>
       <div class="card"><input type="text" id="nick" maxlength="16" placeholder="${t('nick_ph')}" value="${esc(S.nick)}" style="margin-top:0">
         <div class="row">${AVS.map(a=>`<button class="opt av ${!S.avImg&&S.av===a?'on':''}" onclick="setAv('${a}')">${a}</button>`).join('')}</div>
@@ -1333,8 +1729,8 @@ function go(ch){S.srv=['clan','crank','cwar'].includes(ch)?'clan':'hub';if((ch==
   const pg=ch.startsWith('room:')?'room':ch;document.querySelectorAll('.page').forEach(x=>x.classList.toggle('on',x.id==='p-'+pg));
   drawer(0);TYP=null;renderTyping();render();const e=$('scroll');if(e)e.scrollTop=isChat()?e.scrollHeight:0;if(pg==='game')setTimeout(()=>{fit();draw()},0);save()}
 function drawer(o){$('app').classList.toggle('open',!!o)}
-const TABS=[['game','🎯','nav_game'],['chats','💬','nav_chats'],['clan','🛡','nav_clan'],['video','▶️','nav_video'],['shop','⭐','nav_shop'],['me','👤','nav_me']];
-function tabOf(ch){return ch==='an'||ch==='robot'||ch==='table'||ch==='usb'?'game':ch.startsWith('room:')||ch==='rules'||ch==='news'||ch==='chats'?'chats':ch==='crank'||ch==='cwar'?'clan':ch}
+const TABS=[['game','🎯','nav_game'],['chats','💬','nav_chats'],['calc','🧮','nav_calc'],['clan','🛡','nav_clan'],['me','👤','nav_me']];
+function tabOf(ch){return ch==='an'||ch==='robot'||ch==='table'||ch==='usb'?'game':ch.startsWith('room:')||ch==='rules'||ch==='news'||ch==='chats'||ch==='video'?'chats':ch==='crank'||ch==='cwar'?'clan':ch==='shop'?'me':ch}
 function back(){go(S.ch==='an'||S.ch==='robot'||S.ch==='table'||S.ch==='usb'?'game':S.ch==='crank'||S.ch==='cwar'?'clan':'chats')}
 function subtabs(){return `<div class="subtabs"><button class="${S.ch==='clan'?'on':''}" onclick="go('clan')"># ${t('ch_clan')}</button><button class="${S.ch==='cwar'?'on':''}" onclick="go('cwar')">⚔️ ${t('ch_war')}${warOn()?' •':''}</button><button class="${S.ch==='crank'?'on':''}" onclick="go('crank')">🏆 ${t('ch_crank')}</button></div>`}
 function chatsHtml(){const g=hubChans(),items=[...g[2][1].filter(c=>c[0]==='news'),...g[1][1],...g[0][1].filter(c=>c[0]==='an'),...g[3][1].filter(c=>c[0]==='rules')];
@@ -1353,7 +1749,7 @@ function hm(ts){if(!ts)return '';const d=new Date(ts);return String(d.getHours()
 function msgHtml(m){const me=!!m.me;return `<div class="cm${m.g?' gold':''}"><div class="ava${me?frm():''}">${me?pubAv(34):m.f}</div><div class="body"><div class="nm"${me?' style="color:var(--gold)"':''}>${esc(me?pubName():m.n)}<time>${hm(m.ts)}</time></div><div class="tx">${m.gift!=null?`🎁 ${t('gift_msg',esc(m.to),GIFTS[m.gift].e+' '+t('g'+m.gift))}`:esc(msgText(m))}</div></div>${me?'':`<button class="rp" onclick="giftPick('${esc(m.n)}')" aria-label="${t('gift')}">🎁</button><button class="rp" onclick="report()" aria-label="Report">🚩</button>`}</div>`}
 function chatHtml(arr,icon,title,desc){return `<div class="welcome"><div class="big">${icon}</div><h2>${esc(title)}</h2><div class="muted">${esc(desc)}</div></div>${arr.length?arr.map(msgHtml).join(''):`<div class="muted" style="padding:8px 0">${t('quiet')}</div>`}`}
 function hubChans(){const free=[...new Set([...COINS.slice(0,3).map(c=>c.s),...S.extra])],paid=COINS.slice(3,6).map(c=>c.s).filter(x=>!free.includes(x));
-  return [['cat_game',[['game','🎯',t('ch_game')],['an','#',t('ch_an')],['table','♠',t('ch_table')],['usb','💾',t('ch_usb')],['robot','🤖',t('ch_robot')]]],
+  return [['cat_game',[['game','🎯',t('ch_game')],['calc','🧮',t('ch_calc')],['an','#',t('ch_an')],['table','♠',t('ch_table')],['usb','💾',t('ch_usb')],['robot','🤖',t('ch_robot')]]],
     ['cat_talk',[['room:general','#',t('ch_general')],...free.map(x=>['room:'+x,'#',t('ch_room',x.toLowerCase())]),...paid.map(x=>['room:'+x,'#',t('ch_room',x.toLowerCase()),!allowed(x)])]],
     ['cat_media',[['news','📰',t('ch_news')],['video','▶',t('ch_video')]]],
     ['cat_club',[['shop','⭐',t('ch_shop')],['me','👤',t('ch_me')],['rules','§',t('ch_rules')]]]]}
@@ -1376,7 +1772,8 @@ function renderShell(){const k=S.clan;
   $('mem').innerHTML=membersHtml();$('gmb').className='gmb'+(S.gm?' on':'');$('thb').textContent=S.theme==='light'?'🌙':'☀️';$('thb').title=t('theme');
   $('backb').className='ib menu'+(['an','robot','table','usb','news','rules','crank','cwar'].includes(S.ch)||S.ch.startsWith('room:')?' show':'');
   $('tabs').innerHTML=TABS.map(([id,ic,k])=>{const n=id==='chats'?Object.keys(UN).filter(x=>x.startsWith('room:')).reduce((a,x)=>a+(UN[x]||0),0):id==='clan'?(warOn()?'⚔':(UN.clan||0)):0;
-    return `<button class="${tabOf(S.ch)===id?'on':''}" onclick="go('${id}')"><span>${ic}${n?`<i>${n}</i>`:''}</span>${t(k)}</button>`}).join('');
+    const icon=id==='me'?`<img class="tabimg" src="${IMG.emb}" alt="">`:ic;
+    return `<button class="${tabOf(S.ch)===id?'on':''}" onclick="go('${id}')"><span>${icon}${n?`<i>${n}</i>`:''}</span>${t(k)}</button>`}).join('');
   $('composer').className='composer'+(isChat()?' on':'');$('cmsg').placeholder=t('write')+' #'+ci[2]}
 function membersHtml(){const ppl=S.srv==='clan'&&S.clan?S.clan.members.filter(m=>!m.me).map(m=>({n:m.n,f:m.f})):NAMES.map((n,i)=>({n,f:FACES[i]}));
   const on=ppl.filter(p=>ONL[p.n]!==false),off=ppl.filter(p=>ONL[p.n]===false);
@@ -1393,28 +1790,54 @@ document.documentElement.lang=LOC[S.lang];
 if(!S.ch)S.ch='game';
 applyTheme();
 // активность ботов в залах и клане (демо)
-setInterval(()=>{const ids=hubChans()[1][1].filter(x=>!x[3]).map(x=>x[0]);if(S.clan)ids.push('clan');const id=ids[Math.floor(Math.random()*ids.length)];
+setInterval(()=>{if(live())return;const ids=hubChans()[1][1].filter(x=>!x[3]).map(x=>x[0]);if(S.clan)ids.push('clan');const id=ids[Math.floor(Math.random()*ids.length)];
   let m=botMsg(id==='clan'?'general':id.slice(5));
   if(id==='clan'){const bots=S.clan.members.filter(x=>!x.me);if(!bots.length)return;const b=bots[Math.floor(Math.random()*bots.length)];m.n=b.n;m.f=b.f}
   const post=()=>{TYP=null;renderTyping();m.ts=Date.now();if(id==='clan'){if(!S.clan)return;say(m)}else pushRoom(id,m);
     if(S.ch!==id){UN[id]=(UN[id]||0)+1;renderShell()}else{render();toBottom()}save()};
   if(S.ch===id){TYP=m.n;renderTyping();setTimeout(post,2500)}else post()},9000);
 setInterval(warTick,1000);setInterval(tbTick,500);setInterval(robotTick,1000);
+setInterval(tick,3000); // быстрый биржевой тикер
+pullFiat();setInterval(pullFiat,600000); // курс USDT к местным деньгам
+// обмен с общим сервером: чат, настроение, кланы, рейтинг и сохранение прогресса
+let SRVT=0;
+setInterval(()=>{
+  if(!live())return;
+  if(typeof document!=='undefined'&&document.hidden)return;
+  SRVT++;
+  if(S.ch&&S.ch.indexOf('room:')===0)srvChat(S.ch);
+  if(SRVT%2===0)srvSent([...new Set([S.pred?S.pred.sym:S.coin,...COINS.slice(0,10).map(c=>c.s),...S.extra])].slice(0,20));
+  if(SRVT%4===0)srvPush();
+  if(SRVT%6===0){srvClans('');srvTop()}
+},5000);
 go(S.ch);draw();
 if(!S.ok18)rules();
 
-// ---------- Telegram: вход и оплата звёздами ----------
+// ---------- Telegram: вход, общий сервер и оплата звёздами ----------
 const TG=window.Telegram&&window.Telegram.WebApp&&window.Telegram.WebApp.initData?window.Telegram.WebApp:null;
 let API='';try{API=new URLSearchParams(location.search).get('api')||localStorage.getItem('shr_api')||'';if(API)localStorage.setItem('shr_api',API)}catch(e){}
 let PAIDF=false;const t0=t;t=function(k,...a){return k==='nostars'&&PAIDF?'⭐':t0(k,...a)};
-function pay(product,ok){
+
+// Общая база: каждый запрос подписан данными Telegram, подделать нельзя
+if(TG&&API){
+  SRV={post:(path,data)=>fetch(API+path,{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(Object.assign({initData:TG.initData},data||{}))}).then(r=>r.json())};
+  const u=TG.initDataUnsafe&&TG.initDataUnsafe.user;SRVID=u?u.id:0;
+  srvPull();srvClans('');srvTop();
+}
+
+function pay(product,ok,arg){
   if(!TG||!API){ok();return} // вне Telegram игра остаётся демо
-  fetch(API+'/invoice',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({initData:TG.initData,product})})
-    .then(r=>r.json()).then(j=>{if(!j.link)throw 0;TG.openInvoice(j.link,st=>{if(st==='paid'){PAIDF=true;try{ok()}finally{PAIDF=false}}})})
+  fetch(API+'/invoice',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({initData:TG.initData,product,arg:arg||''})})
+    .then(r=>r.json()).then(j=>{if(!j.link)throw 0;TG.openInvoice(j.link,st=>{if(st==='paid'){
+      PAIDF=true;try{ok()}finally{PAIDF=false}
+      // покупку выдаёт сервер после подтверждения Telegram, поэтому перечитываем профиль
+      setTimeout(srvPull,1500);setTimeout(srvPull,6000);
+    }})})
     .catch(()=>toast('⭐ '+['Оплата сейчас недоступна','Оплата зараз недоступна','Payment is unavailable right now'][S.lang<3?S.lang:2]))}
 {const w=(name,fn)=>{const o=window[name];window[name]=function(...a){return fn(o,...a)}};
   w('setTier',(o,i)=>i>0?pay('tier'+i,()=>o(i)):o(i));
-  w('buyOne',(o,x)=>pay('coin',()=>o(x)));
+  w('buyOne',(o,x)=>pay('coin',()=>o(x),x));
   w('buy',(o,id)=>{const it=ITEMS.find(x=>x.id===id),ok=it.ok?it.ok():true;if(ok!==true){toast(ok);return}id==='gift'?o(id):pay(id,()=>o(id))});
   w('buyItem',(o,x)=>pay(x,()=>o(x)));
   w('buyPass',o=>pay('pass',()=>o()));
@@ -1424,6 +1847,22 @@ function pay(product,ok){
   w('buyShovel',o=>pay('shovel',()=>o()));
   w('restore',(o,how)=>how==='pay'?pay('save',()=>o(how)):o(how));
   w('toggleGm',o=>!S.gm&&S.gmFree<=0&&TG&&API?pay('gm',()=>{S.gmFree++;o()}):o());}
+// Иконка мини-приложения на экране телефона: вход и покупки остаются телеграмовскими
+let HS='';
+function paintHome(){
+  const e=document.getElementById('homeadd');if(!e)return;
+  e.innerHTML=(HS==='missed'||HS==='unknown')
+    ?`<div class="card"><div class="muted">${t('home_d')}</div><button class="btn g" onclick="askHome()">${t('home_add')}</button></div>`:'';
+}
+function askHome(){try{TG.addToHomeScreen()}catch(e){}}
+if(TG&&typeof TG.checkHomeScreenStatus==='function'){
+  try{
+    TG.checkHomeScreenStatus(st=>{HS=st||'';paintHome()});
+    ['homeScreenAdded','home_screen_added'].forEach(n=>TG.onEvent(n,()=>{HS='added';paintHome();toast(t('home_ok'))}));
+    ['homeScreenChecked','home_screen_checked'].forEach(n=>TG.onEvent(n,e=>{if(e&&e.status){HS=e.status;paintHome()}}));
+  }catch(e){}
+  const r0=render;render=function(){r0.apply(this,arguments);paintHome()};
+}
 if(TG&&API)window.__support=txt=>{fetch(API+'/support',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({initData:TG.initData,text:txt})}).catch(()=>{})};
 if(TG){try{TG.ready();TG.expand();const u=TG.initDataUnsafe&&TG.initDataUnsafe.user;
   if(u){if(!S.nick&&u.first_name)S.nick=String(u.first_name).slice(0,16);
